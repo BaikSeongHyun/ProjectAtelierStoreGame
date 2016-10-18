@@ -103,15 +103,15 @@ public class UIManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.001f);
 
-        if (edit.transform.position.x < 550)
+        if (edit.transform.position.x <= 450)
         {
             edit.transform.Translate(Vector3.right * 50 * speed * Time.deltaTime);
         }
-        if(achievement.transform.position.x < 900)
+        if(achievement.transform.position.x <= 750)
         {
             achievement.transform.Translate(Vector3.right * 50 * speed * Time.deltaTime);
         }
-        if(set.transform.position.x < 1250)
+        if(set.transform.position.x <= 1050)
         {
             set.transform.Translate(Vector3.right * 50 * speed * Time.deltaTime);
             StartCoroutine("MenuMoving");
@@ -122,15 +122,15 @@ public class UIManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.001f);
 
-        if (edit.transform.position.x > 200)
+        if (edit.transform.position.x >= 0)
         {
             edit.transform.Translate(Vector3.left * 50 * speed * Time.deltaTime);
         }
-        if(achievement.transform.position.x > 200)
+        if(achievement.transform.position.x >=0)
         {
             achievement.transform.Translate(Vector3.left * 50 * speed * Time.deltaTime);
         }
-        if(set.transform.position.x >200)
+        if(set.transform.position.x >= 0)
         {
             set.transform.Translate(Vector3.left * 50 * speed * Time.deltaTime);
             StartCoroutine("MenuBack");
