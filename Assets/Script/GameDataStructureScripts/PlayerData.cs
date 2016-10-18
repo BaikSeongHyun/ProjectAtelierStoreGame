@@ -10,10 +10,14 @@ public class PlayerData
 	[SerializeField] int UID;
 	[SerializeField] string gameID;
 
-
 	// game data field
 	[SerializeField] string name;
-	[SerializeField] int money;
+	[SerializeField] int level;
+	[SerializeField] int fame;
+	[SerializeField] int charm;
+	[SerializeField] int gold;
+	[SerializeField] int presentExperience;
+	[SerializeField] int requireExperience;
 	[SerializeField] StoreData haveStoreData;
 	[SerializeField] ItemData[] haveItemSet;
 	[SerializeField] FurnitureData[] haveFurnitureSet;
@@ -21,7 +25,13 @@ public class PlayerData
 	// property
 	public string Name { get { return name; } }
 
-	public int Money { get { return money; } }
+	public int Level { get { return level; } }
+
+	public int Fame { get { return fame; } }
+
+	public int Charm { get { return charm; } }
+
+	public int Gold { get { return gold; } }
 
 	public StoreData StoreData { get { return haveStoreData; } set { haveStoreData = value; } }
 

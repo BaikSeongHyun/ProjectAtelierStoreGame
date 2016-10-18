@@ -3,8 +3,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-	// logic simple data field
-
+	// game logic simple data field
+	[SerializeField] GameMode presentGameMode;
 
 	// game instance data field
 	[SerializeField] PlayerData player;
@@ -20,9 +20,24 @@ public class GameManager : MonoBehaviour
 	[SerializeField] NetworkController networkContoller;
 	[SerializeField] StoreManager storeManager;
 	[SerializeField] UIManager mainUI;
+	[SerializeField] CameraControl cameraControl;
+
+	// enum state
+	public enum GameMode : int
+	{
+		Start = 1,
+		Loading = 2,
+		Store = 3,
+		StoreCustomizing = 4,
+		Village = 5,
+		Field = 6}
+
+	;
 
 	// property
 	public PlayerData GamePlayer { get { return player; } set { player = value; } }
+
+	public GameMode PresentMode { get { return presentGameMode; } }
 
 	// unity mono behaviour method
 	// awake
@@ -41,30 +56,27 @@ public class GameManager : MonoBehaviour
 	// update -> process game logic
 	void Update()
 	{
+		// main ui component update
+		mainUI.UIUpdate();
 
+		switch( presentGameMode )
+		{
+			case GameMode.StoreCustomizing:
+				storeManager.CustomzingFurnutureObject();
+				break;
+		}
 	}
 
 	// late update -> process camera logic
 	void LateUpdate()
 	{
-
+		cameraControl.SetCameraPosition();
 	}
 
 
 	// customize method (private & public)
 
 	// private method
-	// game manager data initialize
-	private void DataInitailize()
-	{
-		// game instance data field
-		player = new PlayerData();
-
-		// network data field;
-		receiveQueue = new PacketQueue();
-		sendQueue = new PacketQueue();
-	}
-
 	// Link distribute game logic manager
 	private void LinkLogicElement()
 	{
@@ -74,7 +86,24 @@ public class GameManager : MonoBehaviour
 		networkContoller = GetComponent<NetworkController>();
 		storeManager = GetComponent<StoreManager>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+		cameraControl = Camera.main.gameObject.GetComponent<CameraControl>();
 	}
+
+	// game manager data initialize
+	private void DataInitailize()
+	{
+		// game instance data field
+		// player = new PlayerData();
+
+		// network data field;
+		receiveQueue = new PacketQueue();
+		sendQueue = new PacketQueue();
+
+		// set mainUI
+		presentGameMode = GameMode.Start;
+		mainUI.UIModeChange();
+	}
+
 
 	// public method
 	// game start -> for client test
@@ -87,10 +116,21 @@ public class GameManager : MonoBehaviour
 	// if game data all loading (return true)
 	public bool CheckGameDataLoading()
 	{
-	
-		return true;
+		Debug.Log( "Game data loading process" );
+		return storeManager.CreateStoreObject();
 	}
 
+	// set ui -> use present game mode
+	public void SetUI()
+	{
+		mainUI.UIModeChange();
+	}
+
+	// start store customizing modwe
+	public void SetCutomizeingMode()
+	{
+		presentGameMode = GameMode.StoreCustomizing;
+	}
 	// coroutine section
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()
@@ -107,6 +147,8 @@ public class GameManager : MonoBehaviour
 			else
 			{
 				// set main ui state -> store state
+				presentGameMode = GameMode.Store;
+				mainUI.UIModeChange();
 				yield break;
 			}
 		}

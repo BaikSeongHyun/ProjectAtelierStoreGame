@@ -5,8 +5,9 @@ using UnityEngine;
 public class FurnitureData
 {
 	// field
-	[SerializeField] string id;
+	[SerializeField] int uid;
 	[SerializeField] Vector3 position;
+	[SerializeField] Quaternion rotation;
 	[SerializeField] int height;
 	[SerializeField] int widthX;
 	[SerializeField] int widthZ;
@@ -15,13 +16,19 @@ public class FurnitureData
 	[SerializeField] AllocateType allocateType;
 
 	// property
+	public int UID { get { return uid; } }
+
 	public Vector3 Position { get { return position; } set { position = value; } }
+
+	public Quaternion Rotation { get { return rotation; } set { rotation = value; } }
 
 	public int Height { get { return height; } }
 
 	public int WidthX { get { return widthX; } }
 
 	public int WidthZ { get { return widthZ; } }
+
+	public bool IsAllocated { get { return isAllocated; } }
 
 	public FunctionType Function { get { return functionType; } }
 
@@ -52,7 +59,7 @@ public class FurnitureData
 	// constructor - no parameter -> set default;
 	public FurnitureData()
 	{
-		id = null;
+		uid = 0;
 		position = Vector3.zero;
 		height = 0;
 		widthX = 0;
@@ -63,9 +70,9 @@ public class FurnitureData
 	}
 
 	// constructor - all parameter -> set up data
-	public FurnitureData( string _id, Vector3 _position, int _height, int _widthX, int _widthZ, bool _isAllocated, FunctionType _functionType, AllocateType _allocateType )
+	public FurnitureData( int _uid, Vector3 _position, int _height, int _widthX, int _widthZ, bool _isAllocated, FunctionType _functionType, AllocateType _allocateType )
 	{
-		id = _id;
+		uid = _uid;
 		position = _position;
 		height = _height;
 		widthX = _widthX;
@@ -78,7 +85,7 @@ public class FurnitureData
 	// constructor - data parameter -> make same data instance
 	public FurnitureData( FurnitureData data )
 	{
-		id = data.id;
+		uid = data.uid;
 		position = data.position;
 		height = data.height;
 		widthX = data.widthX;

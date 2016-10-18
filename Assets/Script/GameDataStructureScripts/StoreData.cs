@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StoreData : MonoBehaviour {
+[System.Serializable]
+public class StoreData
+{
+	// logic data field
+	[SerializeField] int uid;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	// game data field
+	[SerializeField] int storeStep;
+
+	// property
+	public int StoreStep { get { return storeStep; } }
+
 }
