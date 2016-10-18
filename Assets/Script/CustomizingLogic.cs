@@ -6,7 +6,6 @@ public class CustomizingLogic : MonoBehaviour
 	// field
 	[SerializeField] Ray ray;
 	[SerializeField] RaycastHit hitInfo;
-	[SerializeField] Player player;
 	[SerializeField] FurnitureObject presentAllocateObject;
 
 	// unity method
@@ -21,19 +20,9 @@ public class CustomizingLogic : MonoBehaviour
 	{
 		// reload ray
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
-
-		// player character move store field
-		if( presentAllocateObject == null && Input.GetButtonDown( "LeftClick" ) )
-		{
-			// make cast point
-			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
-			{
-				// & move player character
-				player.MovePosition( hitInfo.point );
-			}
-		}
+			
 		// clear furniture object -> when mouse button right click
-		else if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject != null ) )
+		if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject != null ) )
 		{
 			// allocate possible
 			if( presentAllocateObject.AllocatePossible )

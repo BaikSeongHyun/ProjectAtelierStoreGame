@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlaneDrawLine : MonoBehaviour {
+public class AIManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
