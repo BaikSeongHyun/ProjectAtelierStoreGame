@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour {
 
     private PlayerInformation playerInfo;
 
-    private float speed = 50f;
+    private float speed = 150f;
     private bool menuOpen = false;
 
     void Start () {
@@ -103,17 +103,17 @@ public class UIManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.001f);
 
-        if (edit.transform.position.x <= 450)
+        if (edit.transform.position.x <= 300)
         {
-            edit.transform.Translate(Vector3.right * 50 * speed * Time.deltaTime);
+            edit.transform.Translate(Vector3.right * speed);
         }
-        if(achievement.transform.position.x <= 750)
+        if(achievement.transform.position.x <= 600)
         {
-            achievement.transform.Translate(Vector3.right * 50 * speed * Time.deltaTime);
+            achievement.transform.Translate(Vector3.right * speed );
         }
-        if(set.transform.position.x <= 1050)
+        if(set.transform.position.x <= 900)
         {
-            set.transform.Translate(Vector3.right * 50 * speed * Time.deltaTime);
+            set.transform.Translate(Vector3.right * speed );
             StartCoroutine("MenuMoving");
         }
 
@@ -122,17 +122,17 @@ public class UIManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.001f);
 
-        if (edit.transform.position.x >= 0)
+        if (edit.transform.position.x >= 150)
         {
-            edit.transform.Translate(Vector3.left * 50 * speed * Time.deltaTime);
+            edit.transform.Translate(Vector3.left* speed );
         }
-        if(achievement.transform.position.x >=0)
+        if(achievement.transform.position.x >=150)
         {
-            achievement.transform.Translate(Vector3.left * 50 * speed * Time.deltaTime);
+            achievement.transform.Translate(Vector3.left * speed );
         }
-        if(set.transform.position.x >= 0)
+        if(set.transform.position.x >=150)
         {
-            set.transform.Translate(Vector3.left * 50 * speed * Time.deltaTime);
+            set.transform.Translate(Vector3.left * speed );
             StartCoroutine("MenuBack");
         }
     }
