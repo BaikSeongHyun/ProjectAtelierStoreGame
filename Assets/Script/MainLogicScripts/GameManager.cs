@@ -64,6 +64,9 @@ public class GameManager : MonoBehaviour
 			case GameMode.StoreCustomizing:
 				storeManager.CustomzingFurnutureObject();
 				break;
+			case GameMode:
+				fieldManager.FieldProcess();
+				break;
 		}
 	}
 
@@ -120,6 +123,13 @@ public class GameManager : MonoBehaviour
 		return storeManager.CreateStoreObject();
 	}
 
+	// go to field
+	public bool CheckFieldDataLoading()
+	{
+		Debug.Log( "Field data loading process" );
+		return fieldManager.CreateField();
+	}
+
 	// set ui -> use present game mode
 	public void SetUI()
 	{
@@ -131,6 +141,7 @@ public class GameManager : MonoBehaviour
 	{
 		presentGameMode = GameMode.StoreCustomizing;
 	}
+
 	// coroutine section
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()

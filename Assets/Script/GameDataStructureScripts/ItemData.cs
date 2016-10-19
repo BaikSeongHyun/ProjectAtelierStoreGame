@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemData : MonoBehaviour {
+public class ItemData
+{
+	// field
+	[SerializeField] int uid;
+	[SerializeField] string name;
+	[SerializeField] Type itemType;
+	[SerializeField] int count;
+	[SerializeField] string guide;
+	[SerializeField] int[] resource;
+	[SerializeField] int[] resourceCount;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	// enum data
+	public enum Type : int
+	{
+		potion = 1
+	};
+
 }

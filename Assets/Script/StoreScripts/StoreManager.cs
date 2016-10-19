@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System;
 using System.Collections;
 
@@ -40,6 +41,10 @@ public class StoreManager : MonoBehaviour
 			storeField = temp.GetComponent<TileMap>();
 			storeField.SetSize( manager.GamePlayer.StoreData.StoreStep );
 			storeField.BuildMesh();
+
+			GameObjectUtility.SetStaticEditorFlags( storeField.gameObject, StaticEditorFlags.NavigationStatic );
+	
+			NavMeshBuilder.BuildNavMesh();
 
 			// create funiture object
 			// set data array
