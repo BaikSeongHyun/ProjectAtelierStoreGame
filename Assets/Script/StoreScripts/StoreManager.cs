@@ -28,10 +28,11 @@ public class StoreManager : MonoBehaviour
 		manager = GetComponent<GameManager>();
 	}
 
-	//public method
-	//create store object -> if data load complete
+	// public method
+	// create store object -> if data load complete
 	public bool CreateStoreObject()
 	{
+		// create object
 		try
 		{
 			// create tilemap object
@@ -68,6 +69,27 @@ public class StoreManager : MonoBehaviour
 
 		createComplete = true;
 		return true;
+	}
+
+	// destroy all store object
+	public void ClearStoreObject()
+	{
+		// destroy object
+		Destroy( storeField.gameObject );
+		foreach( FurnitureObject element in furnitureObjectSet )
+		{
+			if( element != null )
+				Destroy( element.gameObject );
+		}
+
+		createComplete = false;
+	}
+
+	// recreate store object -> data clear & create
+	public void RecreateStoreObject()
+	{
+		ClearStoreObject();
+		CreateStoreObject();
 	}
 
 	// customzing store object
