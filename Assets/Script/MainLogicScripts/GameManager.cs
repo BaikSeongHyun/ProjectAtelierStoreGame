@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 				storeManager.CustomzingFurnutureObject();
 				break;
 			case GameMode.Field:
-				fieldManager.FieldProcess();
+				
 				break;
 		}
 	}
@@ -128,10 +128,10 @@ public class GameManager : MonoBehaviour
 	}
 
 	// go to field
-	public bool CheckFieldDataLoading()
+	public void CheckFieldDataLoading()
 	{
 		Debug.Log( "Field data loading process" );
-		return fieldManager.CreateField();
+
 	}
 
 	// set ui -> use present game mode
