@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// all game process control
 public class GameManager : MonoBehaviour
 {
 	// game logic simple data field
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
 
 	// game instance data field
 	[SerializeField] PlayerData player;
+	[SerializeField] GameObject playerCharacter;
 
 	// network data field
 	[SerializeField] PacketQueue receiveQueue;
@@ -39,6 +41,8 @@ public class GameManager : MonoBehaviour
 
 	public GameMode PresentMode { get { return presentGameMode; } }
 
+	public GameObject PlayerCharacter { get { return playerCharacter; } }
+
 	// unity mono behaviour method
 	// awake
 	void Awake()
@@ -64,7 +68,7 @@ public class GameManager : MonoBehaviour
 			case GameMode.StoreCustomizing:
 				storeManager.CustomzingFurnutureObject();
 				break;
-			case GameMode:
+			case GameMode.Field:
 				fieldManager.FieldProcess();
 				break;
 		}
@@ -157,6 +161,9 @@ public class GameManager : MonoBehaviour
 			// loading game data success -> start game
 			else
 			{
+				// set camera mode
+				cameraControl.SetCameraDefault( GameMode.Store );
+
 				// set main ui state -> store state
 				presentGameMode = GameMode.Store;
 				mainUI.UIModeChange();

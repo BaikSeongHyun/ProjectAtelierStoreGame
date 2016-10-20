@@ -6,7 +6,7 @@ public class FieldManager : MonoBehaviour
 	// 필드 만들기
 	public bool CreateField()
 	{
-
+		return true;
 	}
 
 	// 필드내 처리하기 -> game manager에서 업데이트 
