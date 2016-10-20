@@ -9,30 +9,39 @@ public class DownsideBar : MonoBehaviour
 
 	// logic data field
 	[SerializeField] float buttonMoveSpeed = 150f;
-	[SerializeField] bool menuOpened;
 
 	// component element
 	[SerializeField] Button storage;
 	[SerializeField] Button store;
-	[SerializeField] Button customizing;
-	[SerializeField] Button achievement;
-	[SerializeField] Button setting;
+    [SerializeField] GameObject customizing;
+    [SerializeField] GameObject achievement;
+    [SerializeField] GameObject setting;
 	[SerializeField] Button menu;
-
 	// public method
 	// link component
+
+
+    void Start()
+    {
+
+    }
+
 	public void LinkComponentElement()
 	{
 		manager = GameObject.Find( "GameLogic" ).GetComponent<GameManager>();
 
 		storage = transform.Find( "StorageButton" ).GetComponent<Button>();
 		store = transform.Find( "StoreButton" ).GetComponent<Button>();
-		customizing = transform.Find( "CustomizingButton" ).GetComponent<Button>();
-		achievement = transform.Find( "AchievementButton" ).GetComponent<Button>();
-		setting = transform.Find( "SettingButton" ).GetComponent<Button>();
+
+		customizing = transform.Find( "CustomizingButton" ).gameObject;
+		achievement = transform.Find( "AchievementButton" ).gameObject;
+		setting = transform.Find( "SettingButton" ).gameObject;
 		menu = transform.Find( "MenuButton" ).GetComponent<Button>();
-		menuOpened = false;
-	}
+
+        customizing.SetActive(false);
+        achievement.SetActive(false);
+        setting.SetActive(false);
+    }
 
 	// update component
 	public void UpdateComponentElement( PlayerData data )
@@ -44,17 +53,19 @@ public class DownsideBar : MonoBehaviour
 	// menu silde on / off
 	public void OnClickMenuButton()
 	{
-		if( !menuOpened )
-		{
-			StartCoroutine( "MenuOpen" );
-			menuOpened = true;
-		}
-		else
-		{
-			StartCoroutine( "MenuClose" );
-			menuOpened = false;
-		}
-	}
+        if(!customizing.activeSelf)
+        {
+            customizing.SetActive(true);
+            achievement.SetActive(true);
+            setting.SetActive(true);
+        }
+        else
+        {
+            customizing.SetActive(false);
+            achievement.SetActive(false);
+            setting.SetActive(false);
+        }
+    }
 
 	// store open
 	public void OnClickStoreButton()
@@ -89,42 +100,7 @@ public class DownsideBar : MonoBehaviour
 
 	// coroutine section
 	// menu item silde open motion
-	IEnumerator MenuOpen()
-	{
-		yield return new WaitForSeconds( 0.001f );
 
-		if( customizing.transform.position.x <= 300 )
-		{
-			customizing.transform.Translate( Vector3.right * buttonMoveSpeed );
-		}
-		if( achievement.transform.position.x <= 600 )
-		{
-			achievement.transform.Translate( Vector3.right * buttonMoveSpeed );
-		}
-		if( setting.transform.position.x <= 900 )
-		{
-			setting.transform.Translate( Vector3.right * buttonMoveSpeed );
-			StartCoroutine( "MenuOpen" );
-		}
-
-	}
 	// menu item silde closemotion
-	IEnumerator MenuClose()
-	{
-		yield return new WaitForSeconds( 0.001f );
 
-		if( customizing.transform.position.x >= 150 )
-		{
-			customizing.transform.Translate( Vector3.left * buttonMoveSpeed );
-		}
-		if( achievement.transform.position.x >= 150 )
-		{
-			achievement.transform.Translate( Vector3.left * buttonMoveSpeed );
-		}
-		if( setting.transform.position.x >= 150 )
-		{
-			setting.transform.Translate( Vector3.left * buttonMoveSpeed );
-			StartCoroutine( "MenuClose" );
-		}
-	}
 }

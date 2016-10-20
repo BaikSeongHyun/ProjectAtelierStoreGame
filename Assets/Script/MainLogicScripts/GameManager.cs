@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 			case GameMode.StoreCustomizing:
 				storeManager.CustomzingFurnutureObject();
 				break;
-			case GameMode:
+			case GameMode.Field:
 				fieldManager.FieldProcess();
 				break;
 		}
