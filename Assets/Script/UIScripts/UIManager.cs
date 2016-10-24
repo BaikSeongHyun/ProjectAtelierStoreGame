@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] UpsideBar upsideBarLogic;
 	[SerializeField] GameObject downsideBar;
 	[SerializeField] DownsideBar downsideBarLogic;
+	[SerializeField] GameObject storeCustomizingSet;
+	[SerializeField] StoreCustomizingSet storeCustomizingSetLogic;
 	[SerializeField] GameObject loadingScene;
 
 	public GameObject questPopup;
@@ -45,6 +47,10 @@ public class UIManager : MonoBehaviour
 		downsideBarLogic = downsideBar.GetComponent<DownsideBar>();
 		downsideBarLogic.LinkComponentElement();
 
+		storeCustomizingSet = transform.Find( "StoreCustomizingSet" ).gameObject;
+		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<StoreCustomizingSet>();
+		storeCustomizingSetLogic.LinkComponentElement();
+
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
 	}
 
@@ -60,22 +66,30 @@ public class UIManager : MonoBehaviour
 				upsideBar.SetActive( false );
 				downsideBar.SetActive( false );
 				loadingScene.SetActive( false );
+				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.Loading:
 				loginForm.SetActive( false );
 				upsideBar.SetActive( false );
 				downsideBar.SetActive( false );
 				loadingScene.SetActive( true );
+				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.Store:
 				loginForm.SetActive( false );
 				upsideBar.SetActive( true );
 				downsideBar.SetActive( true );
 				loadingScene.SetActive( false );
-                questPopup.SetActive(false);
-
-                break;
+				questPopup.SetActive( false );
+				storeCustomizingSet.SetActive( false );
+				break;
 			case GameManager.GameMode.StoreCustomizing:
+				loginForm.SetActive( false );
+				upsideBar.SetActive( false );
+				downsideBar.SetActive( false );
+				loadingScene.SetActive( false );
+				questPopup.SetActive( false );
+				storeCustomizingSet.SetActive( true );
 				break;
 			case GameManager.GameMode.Village:
 				break;

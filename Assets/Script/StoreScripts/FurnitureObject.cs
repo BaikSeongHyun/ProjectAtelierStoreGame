@@ -33,28 +33,53 @@ public class FurnitureObject : MonoBehaviour
 	{
 		float pointX, pointZ;
 
-		// set x point
-		if( Mathf.Abs( point.x - ( ( int ) point.x ) ) < 0.25f )
-			pointX = ( int ) point.x;
-		else if( Mathf.Abs( point.x - ( ( int ) point.x ) ) < 0.75 )
-			pointX = ( int ) point.x + 0.5f;
+		// z axis parallel rotation
+		if( Mathf.Abs( gameObject.transform.rotation.y ) == 0.7071068f )
+		{
+			// set x point
+			if( Mathf.Abs( point.x - ( ( int ) point.x ) ) < 0.25f )
+				pointX = ( int ) point.x;
+			else if( Mathf.Abs( point.x - ( ( int ) point.x ) ) < 0.75 )
+				pointX = ( int ) point.x + 0.5f;
+			else
+				pointX = ( int ) point.x + 1f;
+			
+			// set y point
+			if( Mathf.Abs( point.z - ( ( int ) point.z ) ) < 0.25f )
+				pointZ = ( int ) point.z;
+			else if( Mathf.Abs( point.z - ( ( int ) point.z ) ) < 0.75 )
+				pointZ = ( int ) point.z + 0.5f;
+			else
+				pointZ = ( int ) point.z + 1f;
+
+			Debug.Log( "z axis parallel rotation" );
+
+			// set limit and return position
+			return new Vector3( Mathf.Clamp( pointX, ( data.WidthZ / 2f ), storeFieldScale - ( data.WidthZ / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.WidthX / 2f ), storeFieldScale - ( data.WidthX / 2f ) ) );
+
+		}
+		// normal rotation
 		else
-			pointX = ( int ) point.x + 1f;
+		{
+			// set x point
+			if( Mathf.Abs( point.x - ( ( int ) point.x ) ) < 0.25f )
+				pointX = ( int ) point.x;
+			else if( Mathf.Abs( point.x - ( ( int ) point.x ) ) < 0.75 )
+				pointX = ( int ) point.x + 0.5f;
+			else
+				pointX = ( int ) point.x + 1f;
 
-		Debug.Log( "Point X : " + pointX );
+			// set y point
+			if( Mathf.Abs( point.z - ( ( int ) point.z ) ) < 0.25f )
+				pointZ = ( int ) point.z;
+			else if( Mathf.Abs( point.z - ( ( int ) point.z ) ) < 0.75 )
+				pointZ = ( int ) point.z + 0.5f;
+			else
+				pointZ = ( int ) point.z + 1f;
 
-		// set y point
-		if( Mathf.Abs( point.z - ( ( int ) point.z ) ) < 0.25f )
-			pointZ = ( int ) point.z;
-		else if( Mathf.Abs( point.z - ( ( int ) point.z ) ) < 0.75 )
-			pointZ = ( int ) point.z + 0.5f;
-		else
-			pointZ = ( int ) point.z + 1f;
-
-		Debug.Log( "Point Z : " + pointZ );
-
-		return new Vector3( Mathf.Clamp( pointX, ( data.WidthX / 2f ), storeFieldScale - ( data.WidthX / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.WidthZ / 2f ), storeFieldScale - ( data.WidthZ / 2f ) ) );
-
+			// set limit and return position
+			return new Vector3( Mathf.Clamp( pointX, ( data.WidthX / 2f ), storeFieldScale - ( data.WidthX / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.WidthZ / 2f ), storeFieldScale - ( data.WidthZ / 2f ) ) );
+		}
 		
 	}
 
@@ -115,7 +140,7 @@ public class FurnitureObject : MonoBehaviour
 	// check allocate possible
 	public bool CheckAllocatePossible()
 	{
-		tempSet = Physics.OverlapBox( transform.position, new Vector3( data.WidthX, data.Height, data.WidthZ ), transform.rotation, 1 << LayerMask.NameToLayer( "Furniture" ) );
+		tempSet = Physics.OverlapBox( transform.position, new Vector3( data.WidthX / 2f, data.Height / 2f, data.WidthZ / 2f ), transform.rotation, 1 << LayerMask.NameToLayer( "Furniture" ) );
 
 		if( tempSet.Length == 1 )
 		{

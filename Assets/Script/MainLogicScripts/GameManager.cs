@@ -140,10 +140,18 @@ public class GameManager : MonoBehaviour
 		mainUI.UIModeChange();
 	}
 
-	// start store customizing modwe
+	// set store mode
+	public void SetStoreMode()
+	{
+		presentGameMode = GameMode.Store;
+		SetUI();
+	}
+
+	// set store customizing mode
 	public void SetCutomizeingMode()
 	{
 		presentGameMode = GameMode.StoreCustomizing;
+		SetUI();
 	}
 
 	// coroutine section

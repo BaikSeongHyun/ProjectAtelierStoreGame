@@ -17,15 +17,9 @@ public class DownsideBar : MonoBehaviour
     [SerializeField] GameObject achievement;
     [SerializeField] GameObject setting;
 	[SerializeField] Button menu;
+	   
 	// public method
 	// link component
-
-
-    void Start()
-    {
-
-    }
-
 	public void LinkComponentElement()
 	{
 		manager = GameObject.Find( "GameLogic" ).GetComponent<GameManager>();
