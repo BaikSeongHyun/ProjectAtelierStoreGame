@@ -9,7 +9,11 @@ public class ObjectRegeneration : MonoBehaviour {
 
     private Vector3 pos;
     private float[] randPos;
-     
+
+    public static int curObjects;
+    private int maxObject = 17;
+    private bool objectLoad = false;
+
     void Awake()
     {
         _camera = Camera.main;
@@ -20,26 +24,31 @@ public class ObjectRegeneration : MonoBehaviour {
     }
     void Start()
     {
-        CloneObject();
+        
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if (curObjects < maxObject)
+        {
+            if (!objectLoad)
+            {
+                objectLoad = true;
+                StartCoroutine("ObjectUpdating");
+            }
+        }
+    } 
+
+    public void SetObjRegeneration()
+    {
+        curObjects = Random.Range(8, 18);
+        Debug.Log(curObjects+ "개 소환합니다");
+
+        for (int i = 0; i < curObjects; i++)
         {
             CloneObject();
         }
-
-        Ray ray = _camera.ScreenPointToRay(pos);
-
-        RaycastHit Hit;
-
-        if (Physics.Raycast(ray, out Hit, 10f))
-        {
-            Debug.Log("ㅇㅅㅇ");
-            Debug.DrawRay(ray.origin, ray.direction * 10f, Color.green);
-        }
-    } 
+    }
 
     public void CloneObject()
     {
@@ -47,7 +56,16 @@ public class ObjectRegeneration : MonoBehaviour {
         float z = randPos[Random.Range(0, 7)];
         pos = new Vector3(x, 3.5f, z);
 
-
         Instantiate(objects[Random.Range(0, 3)], pos, Quaternion.identity);
+    }
+
+    IEnumerator ObjectUpdating()
+    {
+        Debug.Log("오브젝트 소환중  ");
+        yield return new WaitForSeconds(5.5f);
+        CloneObject();
+        curObjects++;
+        Debug.Log("필드 내 오브젝트 수  :  " + curObjects + " / " + maxObject);
+        objectLoad = false;
     }
 }

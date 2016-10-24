@@ -72,7 +72,9 @@ public class UIManager : MonoBehaviour
 				upsideBar.SetActive( true );
 				downsideBar.SetActive( true );
 				loadingScene.SetActive( false );
-				break;
+                questPopup.SetActive(false);
+
+                break;
 			case GameManager.GameMode.StoreCustomizing:
 				break;
 			case GameManager.GameMode.Village:
