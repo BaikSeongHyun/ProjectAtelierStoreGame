@@ -7,8 +7,11 @@ public class PlayerOnField : MonoBehaviour {
     private NavMeshAgent nav;
     private GameObject showPoint; //Sprite
 
+    public bool frontOfObject = false;
+
     void Awake()
     {
+
         _camera = Camera.main;
         nav = GetComponent<NavMeshAgent>();
         showPoint = GameObject.Find("showPoint");
@@ -46,14 +49,13 @@ public class PlayerOnField : MonoBehaviour {
 
         float dis = Vector3.Distance(nav.destination, transform.position);
 
-        if (dis < 0.1)
+        frontOfObject = false;
+        if (dis <= 1.01f && dis != 1)
         {
             transform.position = nav.destination;
-
+            Debug.Log("true");
+            frontOfObject = true;
             //멈추면 채집,채광 시작 애니메이션 및 오브젝트의 HP(?)가 감소
         }
-
-
-
     }
 }

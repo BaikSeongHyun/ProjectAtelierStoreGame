@@ -6,6 +6,7 @@ public class QuestButton : MonoBehaviour {
 
     private UIManager uiManager;
     private Quest quest;
+    private QuestManager questMgr;
 
     public static int questNumber=0;
 
@@ -15,8 +16,9 @@ public class QuestButton : MonoBehaviour {
 
     void Start () {
         
-        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        uiManager = GameObject.Find("MainUI").GetComponent<UIManager>();
         quest = GameObject.Find("퀘스트영역").GetComponent<Quest>();
+        questMgr = GameObject.Find("퀘스트영역").GetComponent<QuestManager>();
 
         myNumber = questNumber;
 
@@ -36,6 +38,7 @@ public class QuestButton : MonoBehaviour {
         else
         {
             quest.PopupContent(myNumber);
+            questMgr.ClearQuestNumber(myNumber);
             uiManager.questPopup.SetActive(true);
         }
     }

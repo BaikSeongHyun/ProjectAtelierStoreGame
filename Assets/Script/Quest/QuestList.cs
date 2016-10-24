@@ -8,10 +8,10 @@ public class QuestList : MonoBehaviour {
 
     void Start() {
         addQue = new List<AddQuest>();
-        addQue.Add(new AddQuest("제목", "이름", "첫번째 퀘스트", new string[1] { "물병" }, 
-            new int[1] { 1 },  5, 400, "보상1", 10));
-        addQue.Add(new AddQuest("제목2", "이름2", "두번째 퀘스트", new string[2] { "가루", "물" }, 
-            new int[2] { 10, 20 },  10, 1000, "보상2", 30));
+        addQue.Add(new AddQuest("제목", "이름", "첫번째 퀘스트", new string[1] { "red" }, 
+            new int[1] { 3 },  5, 400, "red", 10));
+        addQue.Add(new AddQuest("제목2", "이름2", "두번째 퀘스트", new string[2] { "blue", "green" }, 
+            new int[2] { 5, 5 },  10, 1000, "보상2", 30));
         addQue.Add(new AddQuest("제목3", "이름3", "세번째 퀘스트", new string[3] { "재료", "종이", "가루" },
             new int[3] { 50, 25,5 },  8, 1050, "보상3", 5));
         addQue.Add(new AddQuest("4444", "이름3", "4 퀘스트", new string[3] { "재료", "종이", "가루" },
@@ -30,6 +30,7 @@ public class QuestList : MonoBehaviour {
 
     public class AddQuest
     {
+        public int level;
         public string title;
         public string character;
         public string ment;

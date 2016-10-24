@@ -8,17 +8,21 @@ public class FieldManager : MonoBehaviour
     [SerializeField] PlayerOnField playerLogic;
     [SerializeField] ObjectRegeneration objRegenLogic;
 
-
     void Awake()
     {
         FieldSettingStart();
     }
 
+    void Start()
+    {
+        objRegenLogic.SetObjRegeneration();
+    }
+
     public void FieldSettingStart()
     {
-        player = transform.Find("Player").gameObject;
+        player = GameObject.Find("Player");
         playerLogic = player.GetComponent<PlayerOnField>();
-        objRegen = transform.Find("ObjectManager").gameObject;
+        objRegen = GameObject.Find("ObjectManager");
         objRegenLogic = objRegen.GetComponent<ObjectRegeneration>();
     }
 

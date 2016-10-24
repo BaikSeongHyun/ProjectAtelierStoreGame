@@ -24,7 +24,7 @@ public class Quest : MonoBehaviour
 	private Text 보상재료명;
 
 	public GameObject QuestIcon;
-	private GameObject clone;
+	//private GameObject clone;
 	private List<GameObject> clones;
 	private Vector3 IconPosition;
 	private int iconNum = 1;
@@ -33,8 +33,16 @@ public class Quest : MonoBehaviour
 	private int num;
 	private int temp;
 
+    private RectTransform questBtnSize;
+    private float width;
+    private float height;
+    private float interval;
 
-	void Awake()
+
+    private TempInvenData inven;
+
+
+    void Awake()
 	{
 		UISetting();
 	}
@@ -44,19 +52,34 @@ public class Quest : MonoBehaviour
 		uiManager = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 
 		clones = new List<GameObject>();
-		IconPosition = new Vector3( 150f, 1400f, 0f );
+		IconPosition = new Vector3( 0f,0f, 0f );
 
-        
-	}
+
+        //필드 씬에서 시작해야하게 해놨습니다. (수정중)
+        //tempInven - 체크꺼놨는데 켜면 됩니당
+        inven = GameObject.Find("tempInven").GetComponent<TempInvenData>();
+
+    }
 
 	void Update()
 	{
 
-		//연습용
+		//밑에 계속 수정중 ㅠㅠ...
 		if( Input.GetKeyDown( KeyCode.A ) )
 		{
-			clones.Add( Instantiate( QuestIcon, IconPosition + ( Vector3.down * 260f * iconNum++ ), Quaternion.identity ) as GameObject );
-			clones[ cloneNum++ ].transform.SetParent( this.transform );
+			clones.Add( Instantiate( QuestIcon, Vector3.zero, Quaternion.identity ) as GameObject );
+//            clones[cloneNum].transform.localPosition = IconPosition;
+//			clones[ cloneNum++ ].transform.SetParent( this.transform );
+            clones[cloneNum].transform.parent= gameObject.transform;
+
+            clones[cloneNum].GetComponent<RectTransform>().transform.localScale = new Vector3(1, 1, 1);
+            clones[cloneNum].GetComponent<RectTransform>().transform.localPosition = new Vector3( width/2 , (height/-4.5f * iconNum++) ,1f) ;
+//            clones[cloneNum].transform.GetChild(this.transform);
+            Debug.Log(clones[cloneNum].transform.position);
+            Debug.Log(clones[cloneNum].transform.localPosition);
+            Debug.Log(clones[cloneNum].GetComponent<RectTransform>().rect.x);
+            DontDestroyOnLoad(clones[cloneNum]);
+            cloneNum++;
 		}
 	}
 
@@ -69,9 +92,13 @@ public class Quest : MonoBehaviour
 
 		for( int i = 0; i < queList.addQue[ num ].demandItem.Length; i++ )
 		{
+            //quest에서 요구하는 아이템의 재료명
 			재료명[ i ].text = queList.addQue[ num ].demandItem[ i ];
-			//소유 inventory에서 끌어오기
-			소유[ i ].text = "0";
+
+            //inventory에서 해당 재료명의 갯수를 반환.ToString();
+            소유[i].text = inven.numberOfItem(queList.addQue[num].demandItem[i]).ToString();
+
+            //player가 모아와야 할 갯수.
 			조건[ i ].text = "/ " + queList.addQue[ num ].amount[ i ].ToString();
 		}
 		if( queList.addQue[ num ].demandItem.Length != 3 )
@@ -109,35 +136,54 @@ public class Quest : MonoBehaviour
 		보상경험치 = GameObject.Find( "exp_text" ).GetComponent<Text>();
 		보상골드 = GameObject.Find( "gold_text" ).GetComponent<Text>();
 		보상재료명 = GameObject.Find( "mat_text" ).GetComponent<Text>();
-	}
+
+        questBtnSize = GameObject.Find("QuestScrollView").GetComponent<RectTransform>();
+        Debug.Log("가로 : "+questBtnSize.rect.width+" / 세로 : "+ questBtnSize.rect.height);
+        width = questBtnSize.rect.width;
+        height = questBtnSize.rect.height;
+        interval = height / 8;
+    }
 
 	public void QuestSuccessBtn()
 	{
-		uiManager.questPopup.SetActive( false );
-
-		for( int i = 0; i < clones.Count; i++ )
-		{
-			if( GameObject.Find( num.ToString() ).name == i.ToString() )
-			{
-				temp = i;
-				break;
-			}
-		}
-		Destroy( clones[ temp ] );
-		clones.Remove( clones[ temp ] );
-		cloneNum = clones.Count;
-
-		IconArrangement();
+        if(queList.addQue[num].amount[0] <= inven.inventory[0])
+        {
+            uiManager.questPopup.SetActive(false);
+            DeleteQuestIcon();
+            IconArrangement();
+        }
+		else
+        {
+            Debug.Log("재료 부족합니다.");
+        }
 	}
+
+    void DeleteQuestIcon()
+    {
+        //클리어한 아이콘 지웁니다
+        for (int i = 0; i < clones.Count; i++)
+        {
+            if (GameObject.Find(num.ToString()).name == i.ToString())
+            {
+                temp = i;
+                break;
+            }
+        }
+        Destroy(clones[temp]);
+        clones.Remove(clones[temp]);
+        cloneNum = clones.Count;
+    }
+
 
 	void IconArrangement()
 	{
+        //아이콘 정렬
 		iconNum = 1;
 		Debug.Log( "Icon Arrangement" );
 		foreach( GameObject clone in clones )
 		{
-			clone.transform.position = IconPosition + ( Vector3.down * 260f * iconNum++ );
-		}
+			clone.GetComponent<RectTransform>().transform.localPosition = new Vector3(width / 2, height / -4.5f * iconNum++, 1f);
+        }
 	}
     
 }
