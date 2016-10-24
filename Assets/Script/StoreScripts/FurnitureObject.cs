@@ -28,9 +28,34 @@ public class FurnitureObject : MonoBehaviour
 	}
 
 	// private method
-	private Vector3 SetPoint( Vector3 point )
+	// set cast point -> 0.5f set
+	private Vector3 SetPoint( Vector3 point, float storeFieldScale )
 	{
-		return new Vector3( ( int ) point.x, ( int ) point.y, ( int ) point.z );
+		float pointX, pointZ;
+
+		// set x point
+		if( Mathf.Abs( point.x - ( ( int ) point.x ) ) < 0.25f )
+			pointX = ( int ) point.x;
+		else if( Mathf.Abs( point.x - ( ( int ) point.x ) ) < 0.75 )
+			pointX = ( int ) point.x + 0.5f;
+		else
+			pointX = ( int ) point.x + 1f;
+
+		Debug.Log( "Point X : " + pointX );
+
+		// set y point
+		if( Mathf.Abs( point.z - ( ( int ) point.z ) ) < 0.25f )
+			pointZ = ( int ) point.z;
+		else if( Mathf.Abs( point.z - ( ( int ) point.z ) ) < 0.75 )
+			pointZ = ( int ) point.z + 0.5f;
+		else
+			pointZ = ( int ) point.z + 1f;
+
+		Debug.Log( "Point Z : " + pointZ );
+
+		return new Vector3( Mathf.Clamp( pointX, ( data.WidthX / 2f ), storeFieldScale - ( data.WidthX / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.WidthZ / 2f ), storeFieldScale - ( data.WidthZ / 2f ) ) );
+
+		
 	}
 
 	// public method
@@ -49,13 +74,13 @@ public class FurnitureObject : MonoBehaviour
 	}
 
 	// change object position
-	public void ChangeObjectPosition( Vector3 point )
+	public void ChangeObjectPosition( Vector3 point, float storeFieldScale )
 	{
 		// check overlap furniture
 		CheckAllocatePossible();
 
 		// set position
-		this.gameObject.transform.position = SetPoint( point );
+		this.gameObject.transform.position = SetPoint( point, storeFieldScale );
 		data.Position = this.gameObject.transform.position;
 
 		// set rotation

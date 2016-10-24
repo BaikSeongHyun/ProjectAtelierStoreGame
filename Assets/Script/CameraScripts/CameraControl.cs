@@ -50,7 +50,6 @@ public class CameraControl : MonoBehaviour
 				mainCamera.transform.rotation = rootStoreOrthographicRotation;
 				break;
 		}
-		Debug.Log( mainCamera.transform.rotation );
 	}
 
 	// camera position use update

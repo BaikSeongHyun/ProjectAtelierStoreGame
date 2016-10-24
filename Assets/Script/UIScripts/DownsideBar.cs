@@ -31,7 +31,7 @@ public class DownsideBar : MonoBehaviour
 		manager = GameObject.Find( "GameLogic" ).GetComponent<GameManager>();
 
 		storage = transform.Find( "StorageButton" ).GetComponent<Button>();
-		store = transform.Find( "StoreButton" ).GetComponent<Button>();
+		//store = transform.Find( "StoreButton" ).GetComponent<Button>();
 
 		customizing = transform.Find( "CustomizingButton" ).gameObject;
 		achievement = transform.Find( "AchievementButton" ).gameObject;

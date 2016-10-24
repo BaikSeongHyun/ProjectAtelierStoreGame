@@ -37,7 +37,7 @@ public class StoreManager : MonoBehaviour
 		try
 		{
 			// create tilemap object
-			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/TileMap" ), Vector3.zero, new Quaternion( 0f, 0f, 0f, 0f ) );
+			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/TileMap" ), new Vector3( 0.5f, 0f, 0.5f ), new Quaternion( 0f, 0f, 0f, 0f ) );
 			storeField = temp.GetComponent<TileMap>();
 			storeField.SetSize( manager.GamePlayer.StoreData.StoreStep );
 			storeField.BuildMesh();
@@ -103,6 +103,22 @@ public class StoreManager : MonoBehaviour
 		// reload ray
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
+		// set plane scale
+		float planeScale = 0.0f;
+
+		switch( manager.GamePlayer.StoreData.StoreStep )
+		{
+			case 1:
+				planeScale = 10f;
+				break;
+			case 2:
+				planeScale = 15f;
+				break;
+			case 3:
+				planeScale = 20f;
+				break;
+		}
+
 		// clear furniture object -> when mouse button right click
 		if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject != null ) )
 		{
@@ -132,7 +148,7 @@ public class StoreManager : MonoBehaviour
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
 			{
 				// position change
-				presentAllocateObject.ChangeObjectPosition( hitInfo.point );
+				presentAllocateObject.ChangeObjectPosition( hitInfo.point, planeScale );
 
 				// rotation change
 				if( Input.GetKeyDown( KeyCode.E ) )
@@ -154,7 +170,7 @@ public class StoreManager : MonoBehaviour
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, layer ) )
 			{
 				// position change
-				presentAllocateObject.ChangeObjectPosition( hitInfo.point );
+				presentAllocateObject.ChangeObjectPosition( hitInfo.point, planeScale );
 
 				// set rotation by direction
 				if( hitInfo.collider.gameObject.layer == LayerMask.NameToLayer( "StoreWallLeft" ) )
