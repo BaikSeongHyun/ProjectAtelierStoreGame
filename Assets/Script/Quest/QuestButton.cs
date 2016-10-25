@@ -38,7 +38,7 @@ public class QuestButton : MonoBehaviour {
         else
         {
             quest.PopupContent(myNumber);
-            questMgr.ClearQuestNumber(myNumber);
+          //  questMgr.ClearQuestNumber(myNumber);
             uiManager.questPopup.SetActive(true);
         }
     }
