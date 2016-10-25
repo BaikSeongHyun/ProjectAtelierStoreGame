@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] StoreCustomizingUI storeCustomizingSetLogic;
 	[SerializeField] GameObject loadingScene;
 
+	[SerializeField] public GameObject questPopup;
+
 	// unity method
 	// awake
 	void Awake()
