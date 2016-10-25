@@ -10,15 +10,9 @@ public class UIManager : MonoBehaviour
 	// component element
 	[SerializeField] GameObject loginForm;
 	[SerializeField] LoginForm loginFormLogic;
-	[SerializeField] GameObject upsideBar;
-	[SerializeField] UpsideBar upsideBarLogic;
-	[SerializeField] GameObject downsideBar;
-	[SerializeField] DownsideBar downsideBarLogic;
 	[SerializeField] GameObject storeCustomizingSet;
-	[SerializeField] StoreCustomizingSet storeCustomizingSetLogic;
+	[SerializeField] StoreCustomizingUI storeCustomizingSetLogic;
 	[SerializeField] GameObject loadingScene;
-
-	public GameObject questPopup;
 
 	// unity method
 	// awake
@@ -39,16 +33,8 @@ public class UIManager : MonoBehaviour
 		loginFormLogic = loginForm.GetComponent<LoginForm>();
 		loginFormLogic.LinkComponentElement();
 
-		upsideBar = transform.Find( "UpsideBar" ).gameObject;
-		upsideBarLogic = upsideBar.GetComponent<UpsideBar>();
-		upsideBarLogic.LinkComponentElement();
-
-		downsideBar = transform.Find( "DownsideBar" ).gameObject;
-		downsideBarLogic = downsideBar.GetComponent<DownsideBar>();
-		downsideBarLogic.LinkComponentElement();
-
-		storeCustomizingSet = transform.Find( "StoreCustomizingSet" ).gameObject;
-		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<StoreCustomizingSet>();
+		storeCustomizingSet = transform.Find( "StoreCustomizingUI" ).gameObject;
+		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<StoreCustomizingUI>();
 		storeCustomizingSetLogic.LinkComponentElement();
 
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
@@ -63,32 +49,18 @@ public class UIManager : MonoBehaviour
 		{
 			case GameManager.GameMode.Start:
 				loginForm.SetActive( true );
-				upsideBar.SetActive( false );
-				downsideBar.SetActive( false );
-				loadingScene.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.Loading:
 				loginForm.SetActive( false );
-				upsideBar.SetActive( false );
-				downsideBar.SetActive( false );
-				loadingScene.SetActive( true );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.Store:
 				loginForm.SetActive( false );
-				upsideBar.SetActive( true );
-				downsideBar.SetActive( true );
-				loadingScene.SetActive( false );
-				questPopup.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
 				loginForm.SetActive( false );
-				upsideBar.SetActive( false );
-				downsideBar.SetActive( false );
-				loadingScene.SetActive( false );
-				questPopup.SetActive( false );
 				storeCustomizingSet.SetActive( true );
 				break;
 			case GameManager.GameMode.Village:
@@ -100,8 +72,6 @@ public class UIManager : MonoBehaviour
 
 	public void UIUpdate()
 	{
-		if( upsideBar.activeSelf )
-			upsideBarLogic.UpdateComponentElement( manager.GamePlayer );
 		//float temp = playerInfo.expRenew;
 
 		//expbar.transform.localScale = new Vector3( temp, expbar.transform.localScale.y, expbar.transform.localScale.z );

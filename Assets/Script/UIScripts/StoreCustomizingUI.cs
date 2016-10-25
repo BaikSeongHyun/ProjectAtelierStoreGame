@@ -2,13 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class StoreCustomizingSet : MonoBehaviour
+public class StoreCustomizingUI : MonoBehaviour
 {
 	// high structure
 	[SerializeField] GameManager manager;
 
 	// component element
-	[SerializeField] FurnitureDataPopUp popUp;
 	[SerializeField] Button xAxisUpButton;
 	[SerializeField] Button xAxisDownButton;
 	[SerializeField] Button zAxisUpButton;
@@ -21,9 +20,6 @@ public class StoreCustomizingSet : MonoBehaviour
 	{
 		// link structure
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
-
-		// link component element
-		popUp = GetComponent<FurnitureDataPopUp>();
 	}
 
 	public void UpdateComponentElement()

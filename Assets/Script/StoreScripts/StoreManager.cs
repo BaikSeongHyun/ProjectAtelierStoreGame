@@ -13,6 +13,7 @@ public class StoreManager : MonoBehaviour
 
 	// game instance data field
 	[SerializeField] TileMap storeField;
+	[SerializeField] GameObject storeWall;
 	[SerializeField] FurnitureObject[] furnitureObjectSet;
 
 	// customzing data field
@@ -37,10 +38,24 @@ public class StoreManager : MonoBehaviour
 		try
 		{
 			// create tilemap object
-			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/TileMap" ), new Vector3( 0.5f, 0f, 0.5f ), new Quaternion( 0f, 0f, 0f, 0f ) );
+			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/TileMap" ), new Vector3( 0.5f, 0f, 0.5f ), Quaternion.identity );
 			storeField = temp.GetComponent<TileMap>();
 			storeField.SetSize( manager.GamePlayer.StoreData.StoreStep );
 			storeField.BuildMesh();
+
+			// create wall
+			switch( manager.GamePlayer.StoreData.StoreStep )
+			{
+				case 1:
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/wall" ), new Vector3( 5.5f, 0f, 5.5f ), Quaternion.identity );
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+					break;
+			}
 
 			GameObjectUtility.SetStaticEditorFlags( storeField.gameObject, StaticEditorFlags.NavigationStatic );
 	
@@ -80,13 +95,20 @@ public class StoreManager : MonoBehaviour
 	public void ClearStoreObject()
 	{
 		// destroy object
+		// field
 		Destroy( storeField.gameObject );
+
+		// wall
+		Destroy( storeWall );
+
+		// furniture object
 		foreach( FurnitureObject element in furnitureObjectSet )
 		{
 			if( element != null )
 				Destroy( element.gameObject );
 		}
 
+		// create set false
 		createComplete = false;
 	}
 

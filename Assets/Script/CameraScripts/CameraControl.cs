@@ -8,9 +8,9 @@ public class CameraControl : MonoBehaviour
 
 	// control field
 	Quaternion rootStoreOrthographicRotation = Quaternion.Euler( new Vector3( 30f, 225f, 0f ) );
-	Vector3 rootStoreOrthographicPosition = new Vector3( 16, 10, 16 );
-	Vector3 fieldOrthographicDistance = new Vector3( 16f, 13.5f, 16f );
-	const float rootOrthographicViewSize = 6f;
+	Vector3 rootStoreOrthographicPosition = new Vector3( 16, 12, 16 );
+	Vector3 fieldOrthographicDistance = new Vector3( 16f, 16f, 16f );
+	const float rootOrthographicViewSize = 8f;
 	[SerializeField] float orthographicViewSize = 6f;
 	[SerializeField] float viewSensitive = 10f;
 	[SerializeField] float moveSensitive = 10f;

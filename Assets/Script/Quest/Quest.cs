@@ -148,7 +148,7 @@ public class Quest : MonoBehaviour
 	{
         if(queList.addQue[num].amount[0] <= inven.inventory[0])
         {
-            uiManager.questPopup.SetActive(false);
+            //uiManager.questPopup.SetActive(false);
             DeleteQuestIcon();
             IconArrangement();
         }
