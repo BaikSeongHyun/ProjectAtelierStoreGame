@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 [ExecuteInEditMode]
@@ -9,10 +10,14 @@ using System.Collections;
 public class TileMap : MonoBehaviour
 {
 	// field
+	[SerializeField] bool isCustomizing;
 	[SerializeField] int size = 10;
 	[SerializeField] float tileSize = 1.0f;
+	[SerializeField] Image reticleLine;
 
 	// property
+	public bool IsCustomizing { get { return isCustomizing; } set { isCustomizing = reticleLine.enabled = value; } }
+
 	public float TileSize { get { return tileSize; } }
 
 	public int Size { get { return size; } }
@@ -78,10 +83,16 @@ public class TileMap : MonoBehaviour
 		MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
 		MeshCollider meshCollider = GetComponent<MeshCollider>(); 
 
+		// set mesh data
 		meshCollider.sharedMesh = mesh;
 		meshFilter.mesh = mesh;
 
+		// set layer
 		gameObject.layer = LayerMask.NameToLayer( "StoreField" ); 
+
+		// set reticle line image object
+		reticleLine = GetComponentInChildren<Image>();
+		reticleLine.enabled = false;
 	}
 
 	public void SetSize( int storeStep )

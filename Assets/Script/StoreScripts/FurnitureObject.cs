@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,16 +7,16 @@ public class FurnitureObject : MonoBehaviour
 {
 	// field
 	[SerializeField] FurnitureData data;
+	[SerializeField] bool isAllocated;
 	[SerializeField] bool allocateMode;
 	[SerializeField] bool allocatePossible;
-	[SerializeField] MeshRenderer objectRenderer;
-	[SerializeField] Collider objectCollider;
+	[SerializeField] Image allocateTexture;
 	[SerializeField] Collider[] tempSet;
 
 	// property
 	public FurnitureData Furniture { get { return data; } set { data = value; } }
 
-	public bool AllocateMode { get { return allocateMode; } set { allocateMode = value; } }
+	public bool AllocateMode { get { return allocateMode; } set { allocateMode = allocateTexture.enabled = value; } }
 
 	public bool AllocatePossible { get { return allocatePossible; } set { allocatePossible = value; } }
 
@@ -51,9 +51,7 @@ public class FurnitureObject : MonoBehaviour
 				pointZ = ( int ) point.z + 0.5f;
 			else
 				pointZ = ( int ) point.z + 1f;
-
-			Debug.Log( "z axis parallel rotation" );
-
+			
 			// set limit and return position
 			return new Vector3( Mathf.Clamp( pointX, ( data.WidthZ / 2f ), storeFieldScale - ( data.WidthZ / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.WidthX / 2f ), storeFieldScale - ( data.WidthX / 2f ) ) );
 
@@ -86,16 +84,16 @@ public class FurnitureObject : MonoBehaviour
 	// public method
 	// Link element & initialize data
 	public void LinkComponentElement()
-	{
-		allocateMode = false;
-		objectRenderer = GetComponent<MeshRenderer>();
-		objectCollider = GetComponent<Collider>();
-	}
+	{		
+		// set allocate texture
+		GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/FurnitureAllocateTexture" ), 
+		                                              transform.position + new Vector3( 0f, 0.01f, 0f ), 
+		                                              Quaternion.Euler( new Vector3( 90f, transform.rotation.eulerAngles.y, 0f ) ) );
+		temp.transform.SetParent( this.transform );
+		temp.GetComponent<RectTransform>().sizeDelta = new Vector2( data.WidthX, data.WidthZ );
+		allocateTexture = temp.GetComponent<Image>();
 
-	// change object renderer state
-	public void ChangeObjectState( bool state )
-	{
-		objectRenderer.enabled = state;
+		AllocateMode = false;
 	}
 
 	// change object position
@@ -145,11 +143,13 @@ public class FurnitureObject : MonoBehaviour
 		if( tempSet.Length == 1 )
 		{
 			allocatePossible = true;
+			allocateTexture.sprite = Resources.Load<Sprite>( "Image/FurnitureTexture/FurnitureTextureGreen" );
 			return true;
 		}
 		else
 		{
 			allocatePossible = false;
+			allocateTexture.sprite = Resources.Load<Sprite>( "Image/FurnitureTexture/FurnitureTextureRed" );
 			return false;
 		}
 	}

@@ -14,6 +14,7 @@ public class StoreManager : MonoBehaviour
 	// game instance data field
 	[SerializeField] TileMap storeField;
 	[SerializeField] GameObject storeWall;
+	[SerializeField] GameObject storeBackground;
 	[SerializeField] FurnitureObject[] furnitureObjectSet;
 
 	// customzing data field
@@ -23,6 +24,10 @@ public class StoreManager : MonoBehaviour
 
 	// property
 	public bool CreateComplete { get { return createComplete; } }
+
+	public TileMap StoreField { get { return storeField; } }
+
+	public FurnitureObject PresentAllocateObject { get { return presentAllocateObject; } }
 
 	// unity method
 	void Awake()
@@ -38,16 +43,17 @@ public class StoreManager : MonoBehaviour
 		try
 		{
 			// create tilemap object
-			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/TileMap" ), new Vector3( 0.5f, 0f, 0.5f ), Quaternion.identity );
+			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreField" ), Vector3.zero, Quaternion.identity );
 			storeField = temp.GetComponent<TileMap>();
 			storeField.SetSize( manager.GamePlayer.StoreData.StoreStep );
 			storeField.BuildMesh();
 
-			// create wall
+			// create wall & backgroubd
 			switch( manager.GamePlayer.StoreData.StoreStep )
 			{
 				case 1:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/wall" ), new Vector3( 5.5f, 0f, 5.5f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( 5f, 0f, 5f ), Quaternion.identity );
+					storeBackground = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreBackground" ), new Vector3( 0f, -0.01f, 0f ), Quaternion.identity );
 					break;
 				case 2:
 					
@@ -98,8 +104,9 @@ public class StoreManager : MonoBehaviour
 		// field
 		Destroy( storeField.gameObject );
 
-		// wall
+		// wall & back ground
 		Destroy( storeWall );
+		Destroy( storeBackground );
 
 		// furniture object
 		foreach( FurnitureObject element in furnitureObjectSet )
@@ -144,12 +151,7 @@ public class StoreManager : MonoBehaviour
 		// clear furniture object -> when mouse button right click
 		if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject != null ) )
 		{
-			// allocate possible
-			if( presentAllocateObject.AllocatePossible )
-			{
-				// clear present object 
-				presentAllocateObject = null;
-			}
+			ConfirmAllocateFurnitureObject();
 		}
 		// set up furniture object => when mouse button right click
 		else if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject == null ) )
@@ -200,6 +202,20 @@ public class StoreManager : MonoBehaviour
 				else if( hitInfo.collider.gameObject.layer == LayerMask.NameToLayer( "StoreWallRight" ) )
 					presentAllocateObject.ChangeObjectRotation( "WallRight" );
 			}
+		}
+	}
+
+	// confirm allocate object
+	public void ConfirmAllocateFurnitureObject()
+	{
+		// allocate possible
+		if( presentAllocateObject.AllocatePossible )
+		{
+			// set allocate mode false
+			presentAllocateObject.AllocateMode = false;
+
+			// clear present object 
+			presentAllocateObject = null;
 		}
 	}
 }

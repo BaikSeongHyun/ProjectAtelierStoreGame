@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
 	public void SetStoreMode()
 	{
 		presentGameMode = GameMode.Store;
+		storeManager.StoreField.IsCustomizing = false;
 		SetUI();
 	}
 
@@ -151,6 +152,7 @@ public class GameManager : MonoBehaviour
 	public void SetCutomizeingMode()
 	{
 		presentGameMode = GameMode.StoreCustomizing;
+		storeManager.StoreField.IsCustomizing = true;
 		SetUI();
 	}
 

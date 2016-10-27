@@ -6,6 +6,7 @@ public class FurnitureData
 {
 	// field
 	[SerializeField] int uid;
+	[SerializeField] string name;
 	[SerializeField] Vector3 position;
 	[SerializeField] Quaternion rotation;
 	[SerializeField] int height;

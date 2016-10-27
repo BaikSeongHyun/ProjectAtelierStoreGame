@@ -56,9 +56,9 @@ public class CameraControl : MonoBehaviour
 	public void SetCameraPosition()
 	{
 		// set view size
-		if( Input.GetAxis( "Mouse ScrollWheel" ) > 0 )
+		if( Input.GetAxis( "Mouse ScrollWheel" ) < 0 )
 			ViewSize += Time.deltaTime * viewSensitive;
-		else if( Input.GetAxis( "Mouse ScrollWheel" ) < 0 )
+		else if( Input.GetAxis( "Mouse ScrollWheel" ) > 0 )
 			ViewSize -= Time.deltaTime * viewSensitive;
 		
 		mainCamera.orthographicSize = ViewSize;

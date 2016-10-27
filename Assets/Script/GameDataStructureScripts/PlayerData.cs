@@ -16,6 +16,7 @@ public class PlayerData
 	[SerializeField] int fame;
 	[SerializeField] int charm;
 	[SerializeField] int gold;
+	[SerializeField] int gem;
 	[SerializeField] int presentExperience;
 	[SerializeField] int requireExperience;
 	[SerializeField] StoreData haveStoreData;
@@ -32,6 +33,8 @@ public class PlayerData
 	public int Charm { get { return charm; } }
 
 	public int Gold { get { return gold; } }
+
+	public int Gem { get { return gem; } }
 
 	public StoreData StoreData { get { return haveStoreData; } set { haveStoreData = value; } }
 

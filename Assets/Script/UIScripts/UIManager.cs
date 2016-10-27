@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 	// component element
 	[SerializeField] GameObject loginForm;
 	[SerializeField] LoginForm loginFormLogic;
+	[SerializeField] GameObject storeUI;
+	[SerializeField] StoreUI storeUILogic;
 	[SerializeField] GameObject storeCustomizingSet;
 	[SerializeField] StoreCustomizingUI storeCustomizingSetLogic;
 	[SerializeField] GameObject loadingScene;
@@ -35,6 +37,10 @@ public class UIManager : MonoBehaviour
 		loginFormLogic = loginForm.GetComponent<LoginForm>();
 		loginFormLogic.LinkComponentElement();
 
+		storeUI = transform.Find( "StoreUI" ).gameObject;
+		storeUILogic = storeUI.GetComponent<StoreUI>();
+		storeUILogic.LinkComponentElement();
+
 		storeCustomizingSet = transform.Find( "StoreCustomizingUI" ).gameObject;
 		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<StoreCustomizingUI>();
 		storeCustomizingSetLogic.LinkComponentElement();
@@ -51,18 +57,22 @@ public class UIManager : MonoBehaviour
 		{
 			case GameManager.GameMode.Start:
 				loginForm.SetActive( true );
+				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.Loading:
 				loginForm.SetActive( false );
+				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.Store:
 				loginForm.SetActive( false );
+				storeUI.SetActive( true );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
 				loginForm.SetActive( false );
+				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( true );
 				break;
 			case GameManager.GameMode.Village:
@@ -74,9 +84,11 @@ public class UIManager : MonoBehaviour
 
 	public void UIUpdate()
 	{
-		//float temp = playerInfo.expRenew;
+		if( storeUI.activeSelf )
+			storeUILogic.UpdateComponentElement();
 
-		//expbar.transform.localScale = new Vector3( temp, expbar.transform.localScale.y, expbar.transform.localScale.z );
+		if( storeCustomizingSet.activeSelf )
+			storeCustomizingSetLogic.UpdateComponentElement();
 	}
 
 
