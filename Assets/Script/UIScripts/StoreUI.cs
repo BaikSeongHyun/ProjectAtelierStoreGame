@@ -101,9 +101,16 @@ public class StoreUI : MonoBehaviour
 		// manager.GamePlayer.ItemSet[ index ];
 	}
 
-	// on click  furniture inventory element
+	// on click furniture inventory element
 	public void OnClickFurnitureInventoryElement( int index )
 	{
 		// manager.GamePlayer.FurnitureSet[ index ];
+	}
+
+	// on click furniture shop items
+	public void OnClickFurnitureShopElement( int index )
+	{
+		Debug.Log( index.ToString() + " 번째 가구 아이템을 구매합니다." );
+		//manager.GamePlayer.AddFurnitureData();
 	}
 }

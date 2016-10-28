@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 	// late update -> process camera logic
 	void LateUpdate()
 	{
-		cameraControl.SetCameraPosition();
+		//	cameraControl.SetCameraPosition();
 	}
 
 

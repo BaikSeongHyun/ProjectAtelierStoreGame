@@ -48,4 +48,20 @@ public class PlayerData
 	{
 
 	}
+
+	// public method
+	// add furniture data
+	public bool AddFurnitureData(FurnitureData data)
+	{
+		for( int i = 0; i < haveFurnitureSet.Length; i++ )
+		{
+			if( haveFurnitureSet[ i ] == null )
+			{
+				haveFurnitureSet[ i ] = new FurnitureData( data );
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
