@@ -1,0 +1,124 @@
+﻿using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Xml;
+
+
+public class DataManager : MonoBehaviour
+{
+	// field
+	[SerializeField] static Dictionary<int, FurnitureData> furnitureSet;
+	[SerializeField] static Dictionary<int, ItemData> itemSet;
+		
+	// property
+	
+	// unity method
+	// awake
+	void Awake()
+	{
+		LoadFurnitureData();
+		LoadItemData();
+	}
+	
+	// public method
+	// furniture data load
+	public static void LoadFurnitureData()
+	{
+		furnitureSet = new Dictionary<int, FurnitureData>();
+
+		TextAsset loadData = Resources.Load<TextAsset>( "Data/FurnitureData" );
+		XmlDocument document = new XmlDocument();
+		document.LoadXml( loadData.text );
+
+		XmlNodeList table = document.GetElementsByTagName( "id" );
+		XmlNodeList nodes = document.SelectNodes( "furnuture/object" );
+
+		if (nodes == null)
+		{
+			Debug.Log( "Data is null" );	
+		}
+		else
+		{
+			foreach (XmlNode node in nodes)
+			{
+				// data create
+				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
+				string name = node.SelectSingleNode( "name" ).InnerText;
+				string guide = node.SelectSingleNode( "guide" ).InnerText;
+				int price = int.Parse( node.SelectSingleNode( "price" ).InnerText );
+				int height = int.Parse( node.SelectSingleNode( "height" ).InnerText );
+				int widthX = int.Parse( node.SelectSingleNode( "widthX" ).InnerText );
+				int widthZ = int.Parse( node.SelectSingleNode( "widthZ" ).InnerText );
+				int level = int.Parse( node.SelectSingleNode( "level" ).InnerText );
+				string note = node.SelectSingleNode( "note" ).InnerText;				
+				
+				// insert data
+				furnitureSet.Add( id, new FurnitureData() );
+			}
+		}
+	}
+	
+	// item data load
+	public static void LoadItemData()
+	{
+		itemSet = new Dictionary<int, ItemData>();
+
+		TextAsset loadData = Resources.Load<TextAsset>( "Data/ItemData" );
+		XmlDocument document = new XmlDocument();
+		document.LoadXml( loadData.text );
+
+		XmlNodeList table = document.GetElementsByTagName( "id" );
+		XmlNodeList nodes = document.SelectNodes( "item/object" );
+
+		if (nodes == null)
+		{
+			Debug.Log( "Data is null" );	
+		}
+		else
+		{
+			foreach (XmlNode node in nodes)
+			{
+			
+
+				
+			}
+		}
+	}
+	
+	// find furnirue
+	public static FurnitureData FindFurnitureDataByUID( int uID )
+	{
+		try
+		{
+			return DataManager.furnitureSet[uID];
+		}
+		catch (NullReferenceException e)
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			DataManager.LoadFurnitureData();
+		}		
+		
+		return DataManager.furnitureSet[uID];
+		
+	}
+	
+	// find item
+	public static ItemData FindItemDataByUID( int uID )
+	{
+		try
+		{
+			return DataManager.itemSet[uID];
+		}
+		catch (NullReferenceException e)
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			DataManager.LoadItemData();
+		}		
+		
+		return DataManager.itemSet[uID];
+	}
+	
+}
