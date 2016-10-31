@@ -6,11 +6,12 @@ public class ItemData
 	// field
 	[SerializeField] int uid;
 	[SerializeField] string name;
-	[SerializeField] Type itemType;
-	[SerializeField] string guide;
-	[SerializeField] int countLimit;
-	[SerializeField] int[] resource;
-	[SerializeField] int[] resourceCount;
+    [SerializeField] int price;
+    [SerializeField] int countLimit;
+    [SerializeField] string guide;
+    [SerializeField] GradeType gradeType;
+    [SerializeField] int step;
+    [SerializeField] ItemType itemType;
 
 	// property
 	public int UID { get { return UID; } }
@@ -18,39 +19,79 @@ public class ItemData
 	public int CountLimit { get { return countLimit; } }
 
 	// enum data
-	public enum Type : int
+
+    public enum GradeType : int
+    {
+        Default  =0,
+        common,
+        rare,
+        unique,
+        legendary
+    };
+
+    public enum ItemType : int
+    {
+        Default =0,
+        a,
+        b,
+        c
+            //천천히 수정.....
+    };
+
+
+
+    // constructor - default
+    public ItemData()
 	{
-		potion = 1}
-
-	;
-
-	// constructor - default
-	public ItemData()
-	{
-
-	}
+        uid = 0;
+        name = null;
+        price = 0;
+        countLimit = 0;
+        guide = null;
+        step = 0;
+        gradeType = GradeType.Default;
+    }
 
 	// constructor - all parameter
 	// use xml data format
-	public ItemData( int _uid, string _name, int _itemType, string _guide, int _countLimit )
+	public ItemData( int _uid, string _name, int _price, int _countLimit, string _guide, GradeType _gradeType, int _step )
 	{
 		uid = _uid;
 		name = _name;
-		guide = _guide;
+        price = _price;
 		countLimit = _countLimit;
+        guide = _guide;
+        step = _step;
+        gradeType = _gradeType;
 
-		// set type -> use id
-	}
+        switch (_uid / 10000)
+        {
+            case 1:
+                itemType = ItemType.a;
+                break;
+            case 2:
+                itemType = ItemType.b;
+                break;
+            case 3:
+                itemType = ItemType.c;
+                break;
+            default:
+                Debug.Log("error");
+                break;
+        }
+
+    }
 
 	// constructor - self parameter
 	public ItemData( ItemData data )
 	{
-		uid = data.uid;
-		name = data.name;
-		itemType = data.itemType;
-		guide = data.guide;
-		countLimit = data.countLimit;
-		resource = data.resource;
-		resourceCount = data.resourceCount;
-	}
+        uid = data.uid;
+        name = data.name;
+        price = data.price;
+        countLimit = data.countLimit;
+        guide = data.guide;
+        gradeType = data.gradeType;
+        step = data.step;
+        itemType = data.itemType;
+    }
 }
