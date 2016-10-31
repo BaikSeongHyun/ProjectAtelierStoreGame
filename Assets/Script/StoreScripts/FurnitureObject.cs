@@ -153,4 +153,15 @@ public class FurnitureObject : MonoBehaviour
 			return false;
 		}
 	}
+
+	// player data
+	// allocate data set -> have data set
+	public void ObjectAllocateOff( PlayerData data )
+	{
+		if( data.AddFurnitureData( this.data ) )
+		{
+			data.DeleteAllocateFurniture( this.data.SlotNumber );
+			Destroy( this.gameObject );
+		}
+	}
 }

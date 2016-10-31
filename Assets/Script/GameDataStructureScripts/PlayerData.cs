@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,6 +23,7 @@ public class PlayerData
 	[SerializeField] StoreData haveStoreData;
 	[SerializeField] ItemInstance[] haveItemSet;
 	[SerializeField] FurnitureInstance[] haveFurnitureSet;
+	[SerializeField] List<FurnitureInstance> allocateFurnitureSet;
 
 	// property
 	public string Name { get { return name; } }
@@ -40,8 +42,9 @@ public class PlayerData
 
 	public ItemInstance[] ItemSet { get { return haveItemSet; } set { haveItemSet = value; } }
 
-	public FurnitureInstance[] FurnitureSet { get { return haveFurnitureSet; } set { haveFurnitureSet = value; } }
+	public FurnitureInstance[] HaveFurnitureSet { get { return haveFurnitureSet; } set { haveFurnitureSet = value; } }
 
+	public List<FurnitureInstance> AllocateFurnitureSet { get { return allocateFurnitureSet; } }
 
 	// consturctor - no parameter
 	public PlayerData()
@@ -50,20 +53,71 @@ public class PlayerData
 	}
 
 	// public method
-	// add furniture data
+	// add furniture data -> use only data
 	public bool AddFurnitureData( FurnitureData data )
 	{
 		for( int i = 0; i < haveFurnitureSet.Length; i++ )
 		{
 			if( haveFurnitureSet[ i ] == null )
 			{
-				haveFurnitureSet[ i ] = new FurnitureInstance( data );
+				haveFurnitureSet[ i ] = new FurnitureInstance( data, i );
 				return true;
 			}
 		}
 
 		Debug.Log( "Furniture inventory is full" );
 		return false;
+	}
+
+	// add furniture data -> move instance data
+	public bool AddFurnitureData( FurnitureInstance data )
+	{
+		for( int i = 0; i < haveFurnitureSet.Length; i++ )
+		{
+			if( haveFurnitureSet[ i ] == null )
+			{
+				haveFurnitureSet[ i ] = new FurnitureInstance( data, i );
+				haveFurnitureSet[ i ].IsAllocated = false;
+				return true;
+			}
+		}
+
+		Debug.Log( "Furniture inventory is full" );
+		return false;
+	}
+
+	// allocate furniture instance
+	public bool AllocateFurnitureInstance( int index )
+	{	
+		try
+		{	
+			allocateFurnitureSet.Add( new FurnitureInstance( haveFurnitureSet[ index ] ) );
+			allocateFurnitureSet[ allocateFurnitureSet.Count ].AllocateInstance( allocateFurnitureSet.Count );
+			haveFurnitureSet[ index ] = null;
+			return true;
+		}
+		catch( Exception e )
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			return false;
+		}
+	}
+
+	// delete allocate furniture instance
+	public bool DeleteAllocateFurniture( int index )
+	{
+		try
+		{
+			allocateFurnitureSet.RemoveAt( index );
+			return true;
+		}
+		catch( Exception e )
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			return false;
+		}
 	}
 
 	// add item data

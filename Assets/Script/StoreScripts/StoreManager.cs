@@ -2,6 +2,7 @@
 using UnityEditor;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class StoreManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class StoreManager : MonoBehaviour
 	[SerializeField] TileMap storeField;
 	[SerializeField] GameObject storeWall;
 	[SerializeField] GameObject storeBackground;
-	[SerializeField] FurnitureObject[] furnitureObjectSet;
+	[SerializeField] List<FurnitureObject> furnitureObjectSet;
 
 	// customzing data field
 	[SerializeField] Ray ray;
@@ -69,18 +70,18 @@ public class StoreManager : MonoBehaviour
 
 			// create funiture object
 			// set data array
-			furnitureObjectSet = new FurnitureObject[manager.GamePlayer.FurnitureSet.Length];
+			furnitureObjectSet = new List<FurnitureObject>();
 
 			// make object
-			for( int i = 0; i < manager.GamePlayer.FurnitureSet.Length; i++ )
+			for( int i = 0; i < manager.GamePlayer.AllocateFurnitureSet.Count; i++ )
 			{
-				if( manager.GamePlayer.FurnitureSet[ i ].IsAllocated )
+				if( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
 				{
-					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.FurnitureSet[ i ].Furniture.UID.ToString() ), 
-					                                   manager.GamePlayer.FurnitureSet[ i ].Position, 
-					                                   manager.GamePlayer.FurnitureSet[ i ].Rotation );
-					furnitureObjectSet[ i ] = temp.GetComponent<FurnitureObject>();
-					furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.FurnitureSet[ i ];
+					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.UID.ToString() ), 
+					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
+					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
+					furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
+					furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.AllocateFurnitureSet[ i ];
 				}
 			}
 		}
@@ -217,5 +218,16 @@ public class StoreManager : MonoBehaviour
 			// clear present object 
 			presentAllocateObject = null;
 		}
+	}
+
+	// create allocate object
+	public void CreateAllocateFurnitureObject( int index )
+	{		
+		manager.GamePlayer.AllocateFurnitureInstance( index );
+
+		GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count ].Furniture.UID.ToString() ), 
+		                                              new Vector3( 5f, 0f, 5f ), 
+		                                              Quaternion.identity );
+		
 	}
 }
