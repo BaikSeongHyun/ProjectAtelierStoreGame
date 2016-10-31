@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class FurnitureObject : MonoBehaviour
 {
 	// field
-	[SerializeField] FurnitureData data;
+	[SerializeField] FurnitureInstance data;
 	[SerializeField] bool isAllocated;
 	[SerializeField] bool allocateMode;
 	[SerializeField] bool allocatePossible;
@@ -14,7 +14,7 @@ public class FurnitureObject : MonoBehaviour
 	[SerializeField] Collider[] tempSet;
 
 	// property
-	public FurnitureData Furniture { get { return data; } set { data = value; } }
+	public FurnitureInstance InstanceData { get { return data; } set { data = value; } }
 
 	public bool AllocateMode { get { return allocateMode; } set { allocateMode = allocateTexture.enabled = value; } }
 
@@ -53,7 +53,7 @@ public class FurnitureObject : MonoBehaviour
 				pointZ = ( int ) point.z + 1f;
 			
 			// set limit and return position
-			return new Vector3( Mathf.Clamp( pointX, ( data.WidthZ / 2f ), storeFieldScale - ( data.WidthZ / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.WidthX / 2f ), storeFieldScale - ( data.WidthX / 2f ) ) );
+			return new Vector3( Mathf.Clamp( pointX, ( data.Furniture.WidthZ / 2f ), storeFieldScale - ( data.Furniture.WidthZ / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.Furniture.WidthX / 2f ), storeFieldScale - ( data.Furniture.WidthX / 2f ) ) );
 
 		}
 		// normal rotation
@@ -76,7 +76,7 @@ public class FurnitureObject : MonoBehaviour
 				pointZ = ( int ) point.z + 1f;
 
 			// set limit and return position
-			return new Vector3( Mathf.Clamp( pointX, ( data.WidthX / 2f ), storeFieldScale - ( data.WidthX / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.WidthZ / 2f ), storeFieldScale - ( data.WidthZ / 2f ) ) );
+			return new Vector3( Mathf.Clamp( pointX, ( data.Furniture.WidthX / 2f ), storeFieldScale - ( data.Furniture.WidthX / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.Furniture.WidthZ / 2f ), storeFieldScale - ( data.Furniture.WidthZ / 2f ) ) );
 		}
 		
 	}
@@ -90,7 +90,7 @@ public class FurnitureObject : MonoBehaviour
 		                                              transform.position + new Vector3( 0f, 0.01f, 0f ), 
 		                                              Quaternion.Euler( new Vector3( 90f, transform.rotation.eulerAngles.y, 0f ) ) );
 		temp.transform.SetParent( this.transform );
-		temp.GetComponent<RectTransform>().sizeDelta = new Vector2( data.WidthX, data.WidthZ );
+		temp.GetComponent<RectTransform>().sizeDelta = new Vector2( data.Furniture.WidthX, data.Furniture.WidthZ );
 		allocateTexture = temp.GetComponent<Image>();
 
 		AllocateMode = false;
@@ -138,7 +138,7 @@ public class FurnitureObject : MonoBehaviour
 	// check allocate possible
 	public bool CheckAllocatePossible()
 	{
-		tempSet = Physics.OverlapBox( transform.position, new Vector3( data.WidthX / 2f, data.Height / 2f, data.WidthZ / 2f ), transform.rotation, 1 << LayerMask.NameToLayer( "Furniture" ) );
+		tempSet = Physics.OverlapBox( transform.position, new Vector3( data.Furniture.WidthX / 2f, data.Furniture.Height / 2f, data.Furniture.WidthZ / 2f ), transform.rotation, 1 << LayerMask.NameToLayer( "Furniture" ) );
 
 		if( tempSet.Length == 1 )
 		{

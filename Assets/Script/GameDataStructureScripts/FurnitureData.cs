@@ -7,21 +7,18 @@ public class FurnitureData
 	// field
 	[SerializeField] int uid;
 	[SerializeField] string name;
-	[SerializeField] Vector3 position;
-	[SerializeField] Quaternion rotation;
 	[SerializeField] int height;
 	[SerializeField] int widthX;
 	[SerializeField] int widthZ;
-	[SerializeField] bool isAllocated;
+	[SerializeField] int level;
+	[SerializeField] string objectName;
 	[SerializeField] FunctionType functionType;
 	[SerializeField] AllocateType allocateType;
 
 	// property
 	public int UID { get { return uid; } }
 
-	public Vector3 Position { get { return position; } set { position = value; } }
-
-	public Quaternion Rotation { get { return rotation; } set { rotation = value; } }
+	public string Name { get { return name; } }
 
 	public int Height { get { return height; } }
 
@@ -29,7 +26,9 @@ public class FurnitureData
 
 	public int WidthZ { get { return widthZ; } }
 
-	public bool IsAllocated { get { return isAllocated; } }
+	public int Level { get { return level; } }
+
+	public string ObjectName { get { return objectName; } }
 
 	public FunctionType Function { get { return functionType; } }
 
@@ -61,25 +60,42 @@ public class FurnitureData
 	public FurnitureData()
 	{
 		uid = 0;
-		position = Vector3.zero;
 		height = 0;
 		widthX = 0;
 		widthZ = 0;
-		isAllocated = false;
+		objectName = null;
 		functionType = FunctionType.Default;
 		allocateType = AllocateType.Default;
 	}
 
 	// constructor - all parameter -> set up data
-	public FurnitureData( int _uid, Vector3 _position, int _height, int _widthX, int _widthZ, bool _isAllocated, FunctionType _functionType, AllocateType _allocateType )
+	public FurnitureData( int _uid, string _name, int _height, int _widthX, int _widthZ, int _level, string _objectName, string _guide, AllocateType _allocateType )
 	{
 		uid = _uid;
-		position = _position;
+		name = _name;
 		height = _height;
 		widthX = _widthX;
 		widthZ = _widthZ;
-		isAllocated = _isAllocated;
-		functionType = _functionType;
+		level = _level;
+		objectName = _objectName;
+
+		// allocate function type
+		switch( _uid / 10000 )
+		{
+			case 1:
+				functionType = FunctionType.CreateObject;
+				break;
+			case 2:
+				functionType = FunctionType.SellObject;
+				break;
+			case 3:
+				functionType = FunctionType.DecorateObject;
+				break;
+			case 4:
+				functionType = FunctionType.StorageObject;
+				break;
+		}
+
 		allocateType = _allocateType;
 	}
 
@@ -87,11 +103,10 @@ public class FurnitureData
 	public FurnitureData( FurnitureData data )
 	{
 		uid = data.uid;
-		position = data.position;
 		height = data.height;
 		widthX = data.widthX;
 		widthZ = data.widthZ;
-		isAllocated = data.isAllocated;
+		objectName = data.objectName;
 		functionType = data.functionType;
 		allocateType = data.allocateType;
 	}

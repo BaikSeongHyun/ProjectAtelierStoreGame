@@ -20,8 +20,8 @@ public class PlayerData
 	[SerializeField] int presentExperience;
 	[SerializeField] int requireExperience;
 	[SerializeField] StoreData haveStoreData;
-	[SerializeField] ItemData[] haveItemSet;
-	[SerializeField] FurnitureData[] haveFurnitureSet;
+	[SerializeField] ItemInstance[] haveItemSet;
+	[SerializeField] FurnitureInstance[] haveFurnitureSet;
 
 	// property
 	public string Name { get { return name; } }
@@ -38,9 +38,9 @@ public class PlayerData
 
 	public StoreData StoreData { get { return haveStoreData; } set { haveStoreData = value; } }
 
-	public ItemData[] ItemSet { get { return haveItemSet; } set { haveItemSet = value; } }
+	public ItemInstance[] ItemSet { get { return haveItemSet; } set { haveItemSet = value; } }
 
-	public FurnitureData[] FurnitureSet { get { return haveFurnitureSet; } set { haveFurnitureSet = value; } }
+	public FurnitureInstance[] FurnitureSet { get { return haveFurnitureSet; } set { haveFurnitureSet = value; } }
 
 
 	// consturctor - no parameter
@@ -51,17 +51,46 @@ public class PlayerData
 
 	// public method
 	// add furniture data
-	public bool AddFurnitureData(FurnitureData data)
+	public bool AddFurnitureData( FurnitureData data )
 	{
 		for( int i = 0; i < haveFurnitureSet.Length; i++ )
 		{
 			if( haveFurnitureSet[ i ] == null )
 			{
-				haveFurnitureSet[ i ] = new FurnitureData( data );
+				haveFurnitureSet[ i ] = new FurnitureInstance( data );
 				return true;
 			}
 		}
 
+		Debug.Log( "Furniture inventory is full" );
+		return false;
+	}
+
+	// add item data
+	public bool AddItemData( ItemData data, int itemCount )
+	{
+		for( int i = 0; i < haveItemSet.Length; i++ )
+		{
+			// find item
+			if( haveItemSet[ i ].Item.UID == data.UID )
+			{
+				// if find item add -> count up
+				if( haveItemSet[ i ].Count + itemCount <= haveItemSet[ i ].Item.CountLimit )
+				{
+					haveItemSet[ i ].Count += itemCount;
+					return true;
+				}
+			}
+
+			// no item
+			if( haveItemSet[ i ] != null )
+			{
+				// make item and input count
+				haveItemSet[ i ] = new ItemInstance( data, i, itemCount );
+			}
+		}
+
+		Debug.Log( "Item inventory is full" );
 		return false;
 	}
 }

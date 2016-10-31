@@ -76,11 +76,11 @@ public class StoreManager : MonoBehaviour
 			{
 				if( manager.GamePlayer.FurnitureSet[ i ].IsAllocated )
 				{
-					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.FurnitureSet[ i ].UID.ToString() ), 
+					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.FurnitureSet[ i ].Furniture.UID.ToString() ), 
 					                                   manager.GamePlayer.FurnitureSet[ i ].Position, 
 					                                   manager.GamePlayer.FurnitureSet[ i ].Rotation );
 					furnitureObjectSet[ i ] = temp.GetComponent<FurnitureObject>();
-					furnitureObjectSet[ i ].Furniture = manager.GamePlayer.FurnitureSet[ i ];
+					furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.FurnitureSet[ i ];
 				}
 			}
 		}
@@ -166,7 +166,7 @@ public class StoreManager : MonoBehaviour
 			}
 		}
 		// present object is fleid move object -> cast store field 
-		else if( presentAllocateObject != null && presentAllocateObject.Furniture.Allocate == FurnitureData.AllocateType.Field )
+		else if( presentAllocateObject != null && presentAllocateObject.InstanceData.Furniture.Allocate == FurnitureData.AllocateType.Field )
 		{
 			// make cast point ( field furniture & store Field )
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
@@ -184,7 +184,7 @@ public class StoreManager : MonoBehaviour
 			}
 		}
 		// present object is wall move object -> cast store wall 
-		else if( presentAllocateObject != null && presentAllocateObject.Furniture.Allocate == FurnitureData.AllocateType.Wall )
+		else if( presentAllocateObject != null && presentAllocateObject.InstanceData.Furniture.Allocate == FurnitureData.AllocateType.Wall )
 		{
 			// set layer -> StoreWallLeft & StoreWallRight
 			int layer = 1 << LayerMask.NameToLayer( "StoreWallLeft" );

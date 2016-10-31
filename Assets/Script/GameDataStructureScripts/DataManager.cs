@@ -4,21 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 
-
 public class DataManager : MonoBehaviour
 {
 	// field
 	[SerializeField] static Dictionary<int, FurnitureData> furnitureSet;
 	[SerializeField] static Dictionary<int, ItemData> itemSet;
-		
-	// property
-	
+			
 	// unity method
 	// awake
 	void Awake()
 	{
 		LoadFurnitureData();
-		LoadItemData();
+		//LoadItemData();
 	}
 	
 	// public method
@@ -27,20 +24,20 @@ public class DataManager : MonoBehaviour
 	{
 		furnitureSet = new Dictionary<int, FurnitureData>();
 
-		TextAsset loadData = Resources.Load<TextAsset>( "Data/FurnitureData" );
+		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/furnitureData" );
 		XmlDocument document = new XmlDocument();
 		document.LoadXml( loadData.text );
 
 		XmlNodeList table = document.GetElementsByTagName( "id" );
-		XmlNodeList nodes = document.SelectNodes( "furnuture/object" );
+		XmlNodeList nodes = document.SelectNodes( "furniture/object" );
 
-		if (nodes == null)
+		if( nodes == null )
 		{
 			Debug.Log( "Data is null" );	
 		}
 		else
 		{
-			foreach (XmlNode node in nodes)
+			foreach( XmlNode node in nodes )
 			{
 				// data create
 				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
@@ -54,9 +51,22 @@ public class DataManager : MonoBehaviour
 				string note = node.SelectSingleNode( "note" ).InnerText;				
 				
 				// insert data
-				furnitureSet.Add( id, new FurnitureData() );
+				try
+				{					
+					furnitureSet.Add( id, new FurnitureData( id, name, height, widthX, widthZ, level, note, note, FurnitureData.AllocateType.Field ) );
+				}
+				catch( Exception e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
+				}
+
+				Debug.Log( "Input data " + id );
 			}
 		}
+
+		Debug.Log( "End load furniture data" );
+
 	}
 	
 	// item data load
@@ -71,13 +81,13 @@ public class DataManager : MonoBehaviour
 		XmlNodeList table = document.GetElementsByTagName( "id" );
 		XmlNodeList nodes = document.SelectNodes( "item/object" );
 
-		if (nodes == null)
+		if( nodes == null )
 		{
 			Debug.Log( "Data is null" );	
 		}
 		else
 		{
-			foreach (XmlNode node in nodes)
+			foreach( XmlNode node in nodes )
 			{
 			
 
@@ -91,16 +101,16 @@ public class DataManager : MonoBehaviour
 	{
 		try
 		{
-			return DataManager.furnitureSet[uID];
+			return DataManager.furnitureSet[ uID ];
 		}
-		catch (NullReferenceException e)
+		catch( NullReferenceException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
 			DataManager.LoadFurnitureData();
 		}		
 		
-		return DataManager.furnitureSet[uID];
+		return DataManager.furnitureSet[ uID ];
 		
 	}
 	
@@ -109,16 +119,16 @@ public class DataManager : MonoBehaviour
 	{
 		try
 		{
-			return DataManager.itemSet[uID];
+			return DataManager.itemSet[ uID ];
 		}
-		catch (NullReferenceException e)
+		catch( NullReferenceException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
 			DataManager.LoadItemData();
 		}		
 		
-		return DataManager.itemSet[uID];
+		return DataManager.itemSet[ uID ];
 	}
 	
 }
