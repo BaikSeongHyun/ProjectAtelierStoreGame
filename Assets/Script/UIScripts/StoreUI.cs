@@ -18,7 +18,9 @@ public class StoreUI : MonoBehaviour
 
 	// - object set
 	[SerializeField] GameObject itemInventory;
+	[SerializeField] InventoryUI itemInventoryLogic;
 	[SerializeField] GameObject furnitureInventory;
+	[SerializeField] InventoryUI furnitureInventoryLogic;
 	[SerializeField] GameObject playerStatus;
 
 	// public method
@@ -37,9 +39,13 @@ public class StoreUI : MonoBehaviour
 		// object element
 		itemInventory = transform.Find( "ItemInventory" ).gameObject;
 		itemInventory.SetActive( false );
+		itemInventoryLogic = itemInventory.GetComponent<InventoryUI>();
+
 
 		furnitureInventory = transform.Find( "FurnitureInventory" ).gameObject;
 		furnitureInventory.SetActive( false );
+		furnitureInventoryLogic = furnitureInventory.GetComponent<InventoryUI>();
+
 
 		playerStatus = transform.Find( "PlayerStatus" ).gameObject;
 		playerStatus.SetActive( false );
@@ -95,11 +101,6 @@ public class StoreUI : MonoBehaviour
 		manager.SetCutomizeingMode();
 	}
 
-	// on click item inventory element
-	public void OnClickItemInventoryElement( int index )
-	{
-		// manager.GamePlayer.ItemSet[ index ];
-	}
 
 	// on click furniture inventory element
 	public void OnClickFurnitureInventoryElement( int index )
