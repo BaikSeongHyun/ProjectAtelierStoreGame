@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class InventoryUI : MonoBehaviour
@@ -16,6 +17,8 @@ public class InventoryUI : MonoBehaviour
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 
 		slots = GetComponentsInChildren<InventoryElement>();
+		foreach( InventoryElement element in slots )
+			element.LinkComponentElement();
 	}
 
 	// update component element
@@ -23,7 +26,17 @@ public class InventoryUI : MonoBehaviour
 	{
 		for( int i = 0; i < slots.Length; i++ )
 		{
-			slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i ] );
+			try
+			{				
+				slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i ] );
+			}
+			catch( IndexOutOfRangeException e )
+			{
+				Debug.Log( e.StackTrace );
+				Debug.Log( e.Message );
+				slots[ i ].UpdateComponentElement();
+			}
+
 		}
 	}
 

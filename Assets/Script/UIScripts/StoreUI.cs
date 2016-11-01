@@ -40,11 +40,13 @@ public class StoreUI : MonoBehaviour
 		itemInventory = transform.Find( "ItemInventory" ).gameObject;
 		itemInventory.SetActive( false );
 		itemInventoryLogic = itemInventory.GetComponent<InventoryUI>();
+		itemInventoryLogic.LinkComponentElement();
 
 
 		furnitureInventory = transform.Find( "FurnitureInventory" ).gameObject;
 		furnitureInventory.SetActive( false );
 		furnitureInventoryLogic = furnitureInventory.GetComponent<InventoryUI>();
+		furnitureInventoryLogic.LinkComponentElement();
 
 
 		playerStatus = transform.Find( "PlayerStatus" ).gameObject;
@@ -70,8 +72,12 @@ public class StoreUI : MonoBehaviour
 		gem.text = manager.GamePlayer.Gem.ToString();
 
 		// if item inventory open -> update item inventory
-
+		if( itemInventory.activeSelf )
+			itemInventoryLogic.UpdateComponentElement();
+		
 		// if furniture inventory open -> update furniture inventory
+		if( furnitureInventory.activeSelf )
+			furnitureInventoryLogic.UpdateComponentElement();
 	}
 
 	// on click method

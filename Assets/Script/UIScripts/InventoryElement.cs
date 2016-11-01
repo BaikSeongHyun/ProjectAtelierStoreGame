@@ -16,12 +16,23 @@ public class InventoryElement : MonoBehaviour
 		count = GetComponentInChildren<Text>();
 	}
 
+	public void UpdateComponentElement()
+	{
+		// set image default
+		Debug.Log( "Update instance element : default" );
+
+		// count off
+		count.enabled = false;
+	}
+
+	// update component element -> use item instance
 	public void UpdateComponentElement( ItemInstance data )
 	{
 		// set default
-		if( data == null )
+		if( data.Item.UID == 0 )
 		{
 			// set image default
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/ItemDefault" );
 
 			// count off
 			count.enabled = false;
@@ -29,6 +40,7 @@ public class InventoryElement : MonoBehaviour
 		else
 		{
 			// set image use icon
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/Item" + data.Item.UID );
 
 			// count on -> renew count
 			count.enabled = true;
@@ -44,6 +56,7 @@ public class InventoryElement : MonoBehaviour
 		}
 	}
 
+	// update component element -> ise furniture instance
 	public void UpdateComponentElement( FurnitureInstance data )
 	{
 		// furniture type don't use count text
@@ -51,9 +64,13 @@ public class InventoryElement : MonoBehaviour
 
 		// set default
 		if( data == null )
-			;
+		{
+			
+		}
 		// set image icon
 		else
-			;
+		{
+
+		}
 	}
 }

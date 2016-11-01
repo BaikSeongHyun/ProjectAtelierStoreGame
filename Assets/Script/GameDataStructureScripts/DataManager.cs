@@ -15,7 +15,7 @@ public class DataManager : MonoBehaviour
 	void Awake()
 	{
 		LoadFurnitureData();
-		//LoadItemData();
+		LoadItemData();
 	}
 	
 	// public method
@@ -72,7 +72,7 @@ public class DataManager : MonoBehaviour
 	{
 		itemSet = new Dictionary<int, ItemData>();
 
-		TextAsset loadData = Resources.Load<TextAsset>( "Data/itemData" );
+		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/itemData" );
 		XmlDocument document = new XmlDocument();
 		document.LoadXml( loadData.text );
 
@@ -86,29 +86,29 @@ public class DataManager : MonoBehaviour
 		{
 			foreach( XmlNode node in nodes )
 			{
-                int uid = int.Parse(node.SelectSingleNode("UID").InnerText);
-                string name = node.SelectSingleNode("Name").InnerText;
-                int price = int.Parse(node.SelectSingleNode("Price").InnerText);
-                int countLimit = int.Parse(node.SelectSingleNode("UID").InnerText);
-                string guide = node.SelectSingleNode("Guide").InnerText;
+				int uid = int.Parse( node.SelectSingleNode( "uid" ).InnerText );
+				string name = node.SelectSingleNode( "name" ).InnerText;
+				int price = int.Parse( node.SelectSingleNode( "price" ).InnerText );
+				int countLimit = int.Parse( node.SelectSingleNode( "countLimit" ).InnerText );
+				string guide = node.SelectSingleNode( "guide" ).InnerText;
+				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
 
+				try
+				{
+					itemSet.Add( uid, new ItemData( uid, name, price, countLimit, guide, step ) );
+				}
+				catch( Exception e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
+				}
 
-                try
-                {
-
-                }
-                catch (Exception e)
-                {
-                    Debug.Log(e.StackTrace);
-                    Debug.Log(e.Message);
-                }
-
-                Debug.Log("Input data " + uid);
-            }
+				Debug.Log( "Input data " + uid );
+			}
 		}
 
-        Debug.Log("End load item data");
-    }
+		Debug.Log( "End load item data" );
+	}
 	
 	// find furnirue
 	public static FurnitureData FindFurnitureDataByUID( int uID )
