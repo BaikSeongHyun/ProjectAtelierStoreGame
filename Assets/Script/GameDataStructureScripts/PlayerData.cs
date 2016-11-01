@@ -49,7 +49,10 @@ public class PlayerData
 	// consturctor - no parameter
 	public PlayerData()
 	{
-
+		haveStoreData = new StoreData();
+		haveItemSet = new ItemInstance[16];
+		haveFurnitureSet = new FurnitureInstance[16];
+		allocateFurnitureSet = new List<FurnitureInstance>();
 	}
 
 	// public method
@@ -92,7 +95,7 @@ public class PlayerData
 		try
 		{	
 			allocateFurnitureSet.Add( new FurnitureInstance( haveFurnitureSet[ index ] ) );
-			allocateFurnitureSet[ allocateFurnitureSet.Count ].AllocateInstance( allocateFurnitureSet.Count );
+			allocateFurnitureSet[ allocateFurnitureSet.Count - 1 ].AllocateInstance( allocateFurnitureSet.Count );
 			haveFurnitureSet[ index ] = null;
 			return true;
 		}

@@ -259,7 +259,7 @@
 		<guide>물건을 조금 보관할 수 있다.</guide>
 		<price>1000</price>
 		<height>2</height>
-		<widthX>1</widthX>
+		<widthX>2</widthX>
 		<widthZ>1</widthZ>
 		<level>1</level>
 		<note>storage1</note>

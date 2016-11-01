@@ -77,7 +77,7 @@ public class StoreManager : MonoBehaviour
 			{
 				if( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
 				{
-					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.UID.ToString() ), 
+					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.ObjectName ), 
 					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
 					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
 					furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );

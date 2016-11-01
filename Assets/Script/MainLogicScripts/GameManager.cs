@@ -100,7 +100,8 @@ public class GameManager : MonoBehaviour
 	private void DataInitailize()
 	{
 		// game instance data field
-		// player = new PlayerData();
+		player = new PlayerData();
+
 
 		// network data field;
 		receiveQueue = new PacketQueue();
@@ -109,6 +110,13 @@ public class GameManager : MonoBehaviour
 		// set mainUI
 		presentGameMode = GameMode.Start;
 		mainUI.UIModeChange();
+
+		// player prefs loading
+		player.AddFurnitureData( DataManager.FindFurnitureDataByUID( 40001 ) );
+
+		// data connection
+		player.StoreData.StoreStep = 1;
+		player.AllocateFurnitureInstance( 0 );
 	}
 
 

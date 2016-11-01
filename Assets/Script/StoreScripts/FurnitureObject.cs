@@ -16,7 +16,15 @@ public class FurnitureObject : MonoBehaviour
 	// property
 	public FurnitureInstance InstanceData { get { return data; } set { data = value; } }
 
-	public bool AllocateMode { get { return allocateMode; } set { allocateMode = allocateTexture.enabled = value; } }
+	public bool AllocateMode
+	{
+		get { return allocateMode; }
+		set
+		{
+			allocateMode = value;
+			SetAllocateTexture( value );
+		}
+	}
 
 	public bool AllocatePossible { get { return allocatePossible; } set { allocatePossible = value; } }
 
@@ -163,5 +171,12 @@ public class FurnitureObject : MonoBehaviour
 			data.DeleteAllocateFurniture( this.data.SlotNumber );
 			Destroy( this.gameObject );
 		}
+	}
+
+	public void SetAllocateTexture( bool state )
+	{
+		allocateTexture.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2( data.Furniture.WidthX, data.Furniture.WidthZ );
+
+		allocateTexture.enabled = state;
 	}
 }

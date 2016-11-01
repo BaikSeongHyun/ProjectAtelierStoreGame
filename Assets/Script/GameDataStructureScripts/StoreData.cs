@@ -11,6 +11,6 @@ public class StoreData
 	[SerializeField] int storeStep;
 
 	// property
-	public int StoreStep { get { return storeStep; } }
+	public int StoreStep { get { return storeStep; } set { storeStep = value; } }
 
 }
