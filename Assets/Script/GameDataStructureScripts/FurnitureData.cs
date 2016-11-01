@@ -13,7 +13,7 @@ public class FurnitureData
 	[SerializeField] int level;
 	[SerializeField] string objectName;
 	[SerializeField] FunctionType functionType;
-	[SerializeField] AllocateType allocateType;
+    [SerializeField] AllocateType allocateType;
 
 	// property
 	public int UID { get { return uid; } }
@@ -94,7 +94,10 @@ public class FurnitureData
 			case 4:
 				functionType = FunctionType.StorageObject;
 				break;
-		}
+            default:
+                Debug.Log("error");
+                break;
+        }
 
 		allocateType = _allocateType;
 	}

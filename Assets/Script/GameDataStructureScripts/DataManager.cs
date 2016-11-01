@@ -28,7 +28,6 @@ public class DataManager : MonoBehaviour
 		XmlDocument document = new XmlDocument();
 		document.LoadXml( loadData.text );
 
-		XmlNodeList table = document.GetElementsByTagName( "id" );
 		XmlNodeList nodes = document.SelectNodes( "furniture/object" );
 
 		if( nodes == null )
@@ -66,7 +65,6 @@ public class DataManager : MonoBehaviour
 		}
 
 		Debug.Log( "End load furniture data" );
-
 	}
 	
 	// item data load
@@ -74,12 +72,11 @@ public class DataManager : MonoBehaviour
 	{
 		itemSet = new Dictionary<int, ItemData>();
 
-		TextAsset loadData = Resources.Load<TextAsset>( "Data/ItemData" );
+		TextAsset loadData = Resources.Load<TextAsset>( "Data/itemData" );
 		XmlDocument document = new XmlDocument();
 		document.LoadXml( loadData.text );
 
-		XmlNodeList table = document.GetElementsByTagName( "id" );
-		XmlNodeList nodes = document.SelectNodes( "item/object" );
+		XmlNodeList nodes = document.SelectNodes( "ItemList/item" );
 
 		if( nodes == null )
 		{
@@ -89,12 +86,29 @@ public class DataManager : MonoBehaviour
 		{
 			foreach( XmlNode node in nodes )
 			{
-			
+                int uid = int.Parse(node.SelectSingleNode("UID").InnerText);
+                string name = node.SelectSingleNode("Name").InnerText;
+                int price = int.Parse(node.SelectSingleNode("Price").InnerText);
+                int countLimit = int.Parse(node.SelectSingleNode("UID").InnerText);
+                string guide = node.SelectSingleNode("Guide").InnerText;
 
-				
-			}
+
+                try
+                {
+
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.StackTrace);
+                    Debug.Log(e.Message);
+                }
+
+                Debug.Log("Input data " + uid);
+            }
 		}
-	}
+
+        Debug.Log("End load item data");
+    }
 	
 	// find furnirue
 	public static FurnitureData FindFurnitureDataByUID( int uID )
