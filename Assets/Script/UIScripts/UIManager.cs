@@ -42,12 +42,25 @@ public class UIManager : MonoBehaviour
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
 	}
 
+	// update ui component
+	public void UIUpdate()
+	{
+		if ( storeUI != null )
+		{
+			if ( storeUI.activeSelf )
+				storeUILogic.UpdateComponentElement();
+
+			if ( storeCustomizingSet.activeSelf )
+				storeCustomizingSetLogic.UpdateComponentElement();
+		}
+	}
+	
 	// mode change
 	public void UIModeChange()
 	{
-		if( manager == null )
+		if ( manager == null )
 			LinkComponentElement();
-		switch( manager.PresentMode )
+		switch ( manager.PresentMode )
 		{
 			case GameManager.GameMode.Start:
 				storeUI.SetActive( false );
@@ -68,25 +81,18 @@ public class UIManager : MonoBehaviour
 			case GameManager.GameMode.Village:
 				break;
 			case GameManager.GameMode.Field:
-                
-                break;
+
+				break;
 		}
 	}
-
-	public void UILoadingState(bool state)
+	
+	// set loading scene
+	public void LoadingSceneState( bool state )
 	{
 		loadingScene.SetActive( state );
 	}
-
-	public void UIUpdate()
-	{
-        if (storeUI != null)
-        {
-            if (storeUI.activeSelf)
-                storeUILogic.UpdateComponentElement();
-
-            if (storeCustomizingSet.activeSelf)
-                storeCustomizingSetLogic.UpdateComponentElement();
-        }
-	}
+	
+	// set create ui
+	
+	// set storage ui
 }

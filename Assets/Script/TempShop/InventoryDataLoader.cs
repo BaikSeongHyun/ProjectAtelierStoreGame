@@ -44,15 +44,15 @@ public class InventoryDataLoader : MonoBehaviour
 
 		XmlNodeList nodes = doc.SelectNodes( "furniture/object" );
 
-		if( nodes == null )
+		if (nodes == null)
 		{
 			Debug.Log( "null : " + nodes.Count );
 		}
 		else
 		{
 
-			Debug.Log( "id : " + nodes[ 0 ].SelectSingleNode( "note" ).InnerText );
-			foreach( XmlNode node in nodes )
+			Debug.Log( "id : " + nodes[0].SelectSingleNode( "note" ).InnerText );
+			foreach (XmlNode node in nodes)
 			{
 				Debug.Log( "---------" );
 				Debug.Log( "count : " + nodes.Count );
@@ -79,16 +79,16 @@ public class InventoryDataLoader : MonoBehaviour
 				note = node.SelectSingleNode( "note" ).InnerText;
 
 				furnitures.Add( new Furniture(
-						id,
-						name,
-						guide,
-						price,
-						height,
-						widthX,
-						widthZ,
-						level,
-						note
-					) );
+					id,
+					name,
+					guide,
+					price,
+					height,
+					widthX,
+					widthZ,
+					level,
+					note
+				) );
 
 				//furnitures.Add(new Furniture());
 			}
@@ -111,10 +111,14 @@ public class Furniture
 	public string note;
 
 	// property
-	public int ID { get { return id; } set { id = value; } }
+	public int ID
+	{
+		get { return id; }
+		set { id = value; }
+	}
 
 	// constructor
-	public Furniture()
+	public Furniture ()
 	{
 		id = -1;
 		f_name = null;
@@ -127,16 +131,7 @@ public class Furniture
 		note = null;      
 	}
 
-	public Furniture(
-		int _id,
-		string _name,
-		string _guide,
-		int _price,
-		float _height,
-		float _widthX,
-		float _widthZ,
-		int _level,
-		string _note )
+	public Furniture (int _id, string _name, string _guide, int _price, float _height, float _widthX, float _widthZ, int _level, string _note)
 	{
 		id = _id;
 		f_name = _name;
@@ -149,15 +144,7 @@ public class Furniture
 		note = _note;
 	}
 
-	public Furniture(
-		int _id,
-		string _name,
-		string _guide,
-		int _price,
-		float _height,
-		float _widthX,
-		float _widthZ,
-		int _level )
+	public Furniture (int _id, string _name, string _guide, int _price, float _height, float _widthX, float _widthZ, int _level)
 	{
 		id = _id;
 		f_name = _name;
@@ -169,18 +156,26 @@ public class Furniture
 		level = _level - 1;
 	}
 
-	public Furniture FurnitureGet { get { return new Furniture(
-			id,
-			f_name,
-			guide,
-			price,
-			height,
-			widthX,
-			widthZ,
-			level,
-			note ); } }
+	public Furniture FurnitureGet
+	{
+		get {
+			return new Furniture(
+				id,
+				f_name,
+				guide,
+				price,
+				height,
+				widthX,
+				widthZ,
+				level,
+				note); }
+	}
 
 
 
-	public string Names { get { return f_name; } set { f_name = value; } }
+	public string Names
+	{
+		get { return f_name; }
+		set { f_name = value; }
+	}
 }

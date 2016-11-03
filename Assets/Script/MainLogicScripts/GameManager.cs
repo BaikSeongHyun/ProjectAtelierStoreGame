@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 		// main ui component update
 		mainUI.UIUpdate();
 
-		switch( presentGameMode )
+		switch ( presentGameMode )
 		{
 			case GameMode.Store:
 				storeManager.StorePolicy();
@@ -173,12 +173,12 @@ public class GameManager : MonoBehaviour
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()
 	{
-		mainUI.UILoadingState( true );
+		mainUI.LoadingSceneState( true );
 
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if( !CheckGameDataLoading() )
+			if ( !CheckGameDataLoading() )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
 					// set camera mode
 					cameraControl.SetCameraDefault( GameMode.Store );
 				}
-				catch( UnassignedReferenceException e )
+				catch ( UnassignedReferenceException e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
 				// set main ui state -> store state
 				presentGameMode = GameMode.Store;
 				mainUI.UIModeChange();
-				mainUI.UILoadingState( false );
+				mainUI.LoadingSceneState( false );
 				yield break;
 			}
 		}
@@ -209,12 +209,12 @@ public class GameManager : MonoBehaviour
 	// loading store mode process
 	IEnumerator StoreLoadingProcess()
 	{
-		mainUI.UILoadingState( true );
+		mainUI.LoadingSceneState( true );
 
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if( !CheckGameDataLoading() )
+			if ( !CheckGameDataLoading() )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -231,12 +231,12 @@ public class GameManager : MonoBehaviour
 	// loading field mode process
 	IEnumerator FieldLoadingProcess()
 	{
-		mainUI.UILoadingState( true );
+		mainUI.LoadingSceneState( true );
 
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if( !CheckGameDataLoading() )
+			if ( !CheckGameDataLoading() )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
