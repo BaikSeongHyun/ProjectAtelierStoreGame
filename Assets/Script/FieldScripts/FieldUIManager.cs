@@ -44,7 +44,6 @@ public class FieldUIManager : MonoBehaviour {
         float ratio = 1.0f - (leftTime / cooltime);
         if (img)
             img.fillAmount = ratio;
-
 	}
 
     public void ResetCooltime()

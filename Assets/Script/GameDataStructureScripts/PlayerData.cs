@@ -126,30 +126,52 @@ public class PlayerData
 	}
 
 	// add item data
-	public bool AddItemData( ItemData data, int itemCount )
+	public bool AddItemData( ItemData data, int itemCount)
 	{
-		for( int i = 0; i < haveItemSet.Length; i++ )
-		{
-			// find item
-			if( haveItemSet[ i ].Item.UID == data.UID )
-			{
-				// if find item add -> count up
-				if( haveItemSet[ i ].Count + itemCount <= haveItemSet[ i ].Item.CountLimit )
-				{
-					haveItemSet[ i ].Count += itemCount;
-					return true;
-				}
-			}
+        for (int i = 0; i < haveItemSet.Length; i++)
+        {
+            Debug.Log(haveItemSet.Length);
+            if((haveItemSet[i] != null) && (haveItemSet[i].Count == 0))
+            {
+                Debug.Log("빈 공간에 새로 생성");
+                haveItemSet[i] = new ItemInstance(data, i, itemCount);
+                break;
+            }
+            else if (haveItemSet[i].Item.UID == data.UID)
+            {
+                if (haveItemSet[i].Count + itemCount <= haveItemSet[i].Item.CountLimit)
+                {
+                    Debug.Log("이미 있는 공간에 추가");
+                    haveItemSet[i].Count += itemCount;
+                    break;
+                }
+                else
+                {
+                    haveItemSet[i].Count = haveItemSet[i].Item.CountLimit;
+                    if (i + 1 == haveItemSet.Length)
+                    {
+                        Debug.Log("full! 남은거 버려진다.");
+                        itemCount = 0;
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Log("최대수량초과" + i);
+                        itemCount = haveItemSet[i].Count + itemCount - haveItemSet[i].Item.CountLimit;
+                        continue;
+                    }
+                }
+            }
+        }
 
-			// no item
-			if( haveItemSet[ i ] != null )
-			{
-				// make item and input count
-				haveItemSet[ i ] = new ItemInstance( data, i, itemCount );
-			}
-		}
-
-		Debug.Log( "Item inventory is full" );
-		return false;
+        return false;
 	}
+
+    // material -> add item 
+    public void AddItemMaterial(int uid, int itemCount)
+    {
+        ItemData itemData = new ItemData(DataManager.FindItemDataByUID(uid));
+
+        AddItemData(itemData, itemCount);
+    }
 }

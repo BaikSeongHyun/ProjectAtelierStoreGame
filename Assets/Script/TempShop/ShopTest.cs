@@ -12,6 +12,7 @@ public class ShopTest : MonoBehaviour
 
     void Awake()
     {
+        idl = GameObject.Find("test").GetComponent<InventoryDataLoader>();
         shopSetting();
     }
 
@@ -19,9 +20,6 @@ public class ShopTest : MonoBehaviour
     {
         shop = GameObject.Find("ShopTest");
         shop.SetActive(false);
-
-        idl = GameObject.Find("TestSC").GetComponent<InventoryDataLoader>();
-
     }
 
     void Update()

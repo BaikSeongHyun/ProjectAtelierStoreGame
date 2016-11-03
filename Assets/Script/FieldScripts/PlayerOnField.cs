@@ -3,9 +3,9 @@ using System.Collections;
 
 public class PlayerOnField : MonoBehaviour {
 
-    private Camera _camera;
-    private NavMeshAgent nav;
-    private GameObject showPoint; //Sprite
+    [SerializeField] Camera _camera;
+    [SerializeField] NavMeshAgent nav;
+    [SerializeField] GameObject showPoint; //Sprite
 
     public bool frontOfObject = false;
 

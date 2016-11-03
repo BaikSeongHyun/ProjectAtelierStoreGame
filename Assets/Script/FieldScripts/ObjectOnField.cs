@@ -2,10 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
+[System.Serializable]
 public class ObjectOnField : MonoBehaviour {
 
-    public PlayerOnField player;
-    public TempInvenData tempdata;
+    [SerializeField] PlayerOnField player;
+    [SerializeField] SendData sendData;
     public ObjectDataBuffer databf;
 
     public Renderer rend;
@@ -13,29 +14,30 @@ public class ObjectOnField : MonoBehaviour {
     public bool getObject = false;
     public Color myColor;
 
-    //Item List 에서 갖고있는 아이템이름'ㅅ'
-    public string haveItem;
-    public int itemCount;
-    public float cooltime;
+    //Item List 에서 갖고있는 아이템이름
 
+    public int uid;
+
+    public int count;
+    public int min, max;
+
+    public float cooltime;
 
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<PlayerOnField>();
-        tempdata = GameObject.Find("tempInven").GetComponent<TempInvenData>();
         databf = GameObject.Find("ObjectManager").GetComponent<ObjectDataBuffer>();
+        sendData = GameObject.Find("Data").GetComponent<SendData>();
 
         rend = GetComponent<Renderer>();
         myColor = rend.material.color;
-        itemCount = Random.Range(1, 4);
 
-
+        count = Random.Range(min, max);
     }
 
     void Update()
     {
         GetMaterials();
-
     }
 
     void OnMouseEnter()
@@ -48,8 +50,6 @@ public class ObjectOnField : MonoBehaviour {
         rend.material.color = myColor;
         objectOnMouse = false;
     }
-
-
     void GetMaterials()
     {
         if (objectOnMouse)
@@ -70,10 +70,8 @@ public class ObjectOnField : MonoBehaviour {
                 getObject = false;
                 player.frontOfObject = false;
             }
-
         }
     }
-
 
     public IEnumerator StartAction()
     {
@@ -83,28 +81,11 @@ public class ObjectOnField : MonoBehaviour {
 
         yield return new WaitForSeconds(cooltime);
         Debug.Log("재료수집성공");
-        tempdata.inventory[returnItems(haveItem)] += itemCount;
+
+        sendData.data.Add(new ItemData(DataManager.FindItemDataByUID(uid)));
+        sendData.count.Add(count);
+
         ObjectRegeneration.curObjects--;
         Destroy(this.gameObject);
     }
-
-    int returnItems(string _name)
-    {
-        switch (_name) 
-        {
-            case "red":
-                return 0;
-            case "blue":
-                return 1;
-            case "green":
-                return 2;
-            default:
-                Debug.Log("오류");
-                return 0;
-        }
-
-    }
-
-
-
 }

@@ -28,7 +28,6 @@ public class InventoryDataLoader : MonoBehaviour
 	{
 
 		DataLoader();
-       
 
 	}
 
@@ -42,9 +41,6 @@ public class InventoryDataLoader : MonoBehaviour
 		TextAsset xml_load = Resources.Load<TextAsset>( "DataDocument/furnitureData" );
 		XmlDocument doc = new XmlDocument();
 		doc.LoadXml( xml_load.text );
-
-		XmlNodeList table = doc.GetElementsByTagName( "id" );
-		Debug.Log( "첫번째" + table[ 1 ].InnerText );
 
 		XmlNodeList nodes = doc.SelectNodes( "furniture/object" );
 

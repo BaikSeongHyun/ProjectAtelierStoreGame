@@ -34,30 +34,28 @@ public class FurnitureData
 
 	public AllocateType Allocate { get { return allocateType; } }
 
-	// enum type
-	// function type
-	public enum FunctionType : int
-	{
-		Default = 0,
-		CreateObject = 1,
-		SellObject = 2,
-		DecorateObject = 3,
-		StorageObject = 4}
+    // enum type
+    // function type
+    public enum FunctionType : int
+    {
+        Default = 0,
+        CreateObject = 1,
+        SellObject = 2,
+        DecorateObject = 3,
+        StorageObject = 4
+    };
 
-	;
+    // allocate type
+    public enum AllocateType : int
+    {
+        Default = 0,
+        Field = 1,
+        Wall = 2,
+        Wherever = 3
+    };
 
-	// allocate type
-	public enum AllocateType : int
-	{
-		Default = 0,
-		Field = 1,
-		Wall = 2,
-		Wherever = 3}
-
-	;
-
-	// constructor - no parameter -> set default;
-	public FurnitureData()
+    // constructor - no parameter -> set default;
+    public FurnitureData()
 	{
 		uid = 0;
 		height = 0;
