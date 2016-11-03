@@ -13,4 +13,10 @@ public class StoreData
 	// property
 	public int StoreStep { get { return storeStep; } set { storeStep = value; } }
 
+	// constructor - default
+	public StoreData()
+	{
+		storeStep = 1;
+	}
+
 }

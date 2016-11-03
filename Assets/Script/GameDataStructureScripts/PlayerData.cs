@@ -49,6 +49,8 @@ public class PlayerData
 	// consturctor - no parameter
 	public PlayerData()
 	{
+		level = 1;
+		name = "포풍저그콩콩";
 		haveStoreData = new StoreData();
 		haveItemSet = new ItemInstance[16];
 		haveFurnitureSet = new FurnitureInstance[16];

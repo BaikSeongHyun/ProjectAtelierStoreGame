@@ -29,7 +29,7 @@ public class InventoryElement : MonoBehaviour
 	public void UpdateComponentElement( ItemInstance data )
 	{
 		// set default
-		if( data.Item.UID == 0 )
+		if( ( data == null ) || ( data.Item.UID == 0 ) )
 		{
 			// set image default
 			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/ItemDefault" );
@@ -56,11 +56,11 @@ public class InventoryElement : MonoBehaviour
 		}
 	}
 
-	// update component element -> ise furniture instance
+	// update component element -> use furniture instance
 	public void UpdateComponentElement( FurnitureInstance data )
 	{
-		// furniture type don't use count text
-		count.enabled = false;
+		if( count.enabled )
+			count.enabled = false;
 
 		// set default
 		if( data == null )

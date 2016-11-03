@@ -127,6 +127,18 @@ public class StoreManager : MonoBehaviour
 		CreateStoreObject();
 	}
 
+	// store policy
+	// create item
+	public void StorePolicy()
+	{
+		// ray cast set furniture target
+
+		// target function type -> create : use create ui(object type)
+
+		// target function type -> storage : use storage ui(object type)
+
+	}
+
 	// customzing store object
 	public void CustomzingFurnutureObject()
 	{

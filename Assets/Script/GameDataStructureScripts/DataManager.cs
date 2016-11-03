@@ -59,11 +59,8 @@ public class DataManager : MonoBehaviour
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
 				}
-
-				Debug.Log( "Input data " + id );
 			}
 		}
-
 		Debug.Log( "End load furniture data" );
 	}
 	
@@ -102,8 +99,6 @@ public class DataManager : MonoBehaviour
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
 				}
-
-				Debug.Log( "Input data " + uid );
 			}
 		}
 
@@ -124,8 +119,7 @@ public class DataManager : MonoBehaviour
 			DataManager.LoadFurnitureData();
 		}		
 		
-		return DataManager.furnitureSet[ uID ];
-		
+		return DataManager.furnitureSet[ uID ];		
 	}
 	
 	// find item

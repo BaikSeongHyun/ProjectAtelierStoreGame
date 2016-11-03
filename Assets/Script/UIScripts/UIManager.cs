@@ -8,8 +8,6 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameManager manager;
 
 	// component element
-	[SerializeField] GameObject loginForm;
-	[SerializeField] LoginForm loginFormLogic;
 	[SerializeField] GameObject storeUI;
 	[SerializeField] StoreUI storeUILogic;
 	[SerializeField] GameObject storeCustomizingSet;
@@ -33,10 +31,6 @@ public class UIManager : MonoBehaviour
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 
 		// link element component
-		loginForm = transform.Find( "LoginForm" ).gameObject;
-		loginFormLogic = loginForm.GetComponent<LoginForm>();
-		loginFormLogic.LinkComponentElement();
-
 		storeUI = transform.Find( "StoreUI" ).gameObject;
 		storeUILogic = storeUI.GetComponent<StoreUI>();
 		storeUILogic.LinkComponentElement();
@@ -56,22 +50,18 @@ public class UIManager : MonoBehaviour
 		switch( manager.PresentMode )
 		{
 			case GameManager.GameMode.Start:
-				loginForm.SetActive( true );
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.Loading:
-				loginForm.SetActive( false );
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.Store:
-				loginForm.SetActive( false );
 				storeUI.SetActive( true );
 				storeCustomizingSet.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
-				loginForm.SetActive( false );
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( true );
 				break;
@@ -80,6 +70,11 @@ public class UIManager : MonoBehaviour
 			case GameManager.GameMode.Field:
 				break;
 		}
+	}
+
+	public void UILoadingState(bool state)
+	{
+		loadingScene.SetActive( state );
 	}
 
 	public void UIUpdate()

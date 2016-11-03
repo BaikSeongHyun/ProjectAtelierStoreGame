@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 // all game process control
@@ -48,7 +49,8 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		LinkLogicElement();
-		DataInitailize();	
+		DataInitailize();
+		GameStart();
 	}
 
 	// fixed update -> process network logic
@@ -65,6 +67,9 @@ public class GameManager : MonoBehaviour
 
 		switch( presentGameMode )
 		{
+			case GameMode.Store:
+				storeManager.StorePolicy();
+				break;
 			case GameMode.StoreCustomizing:
 				storeManager.CustomzingFurnutureObject();
 				break;
@@ -77,7 +82,7 @@ public class GameManager : MonoBehaviour
 	// late update -> process camera logic
 	void LateUpdate()
 	{
-		//	cameraControl.SetCameraPosition();
+		cameraControl.SetCameraPosition();
 	}
 
 
@@ -168,6 +173,8 @@ public class GameManager : MonoBehaviour
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()
 	{
+		mainUI.UILoadingState( true );
+
 		while( true )
 		{		
 			// loading game data false -> wait	
@@ -179,12 +186,21 @@ public class GameManager : MonoBehaviour
 			// loading game data success -> start game
 			else
 			{
-				// set camera mode
-				cameraControl.SetCameraDefault( GameMode.Store );
+				try
+				{
+					// set camera mode
+					cameraControl.SetCameraDefault( GameMode.Store );
+				}
+				catch( UnassignedReferenceException e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
+				}
 
 				// set main ui state -> store state
 				presentGameMode = GameMode.Store;
 				mainUI.UIModeChange();
+				mainUI.UILoadingState( false );
 				yield break;
 			}
 		}
@@ -193,6 +209,8 @@ public class GameManager : MonoBehaviour
 	// loading store mode process
 	IEnumerator StoreLoadingProcess()
 	{
+		mainUI.UILoadingState( true );
+
 		while( true )
 		{		
 			// loading game data false -> wait	
@@ -213,6 +231,8 @@ public class GameManager : MonoBehaviour
 	// loading field mode process
 	IEnumerator FieldLoadingProcess()
 	{
+		mainUI.UILoadingState( true );
+
 		while( true )
 		{		
 			// loading game data false -> wait	
