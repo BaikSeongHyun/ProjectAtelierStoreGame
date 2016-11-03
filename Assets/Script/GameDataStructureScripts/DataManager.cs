@@ -86,18 +86,19 @@ public class DataManager : MonoBehaviour
 		{
 			foreach( XmlNode node in nodes )
 			{
-				int uid = int.Parse( node.SelectSingleNode( "uid" ).InnerText );
-				string name = node.SelectSingleNode( "name" ).InnerText;
-				int price = int.Parse( node.SelectSingleNode( "price" ).InnerText );
-				int countLimit = int.Parse( node.SelectSingleNode( "countLimit" ).InnerText );
-				string guide = node.SelectSingleNode( "guide" ).InnerText;
-				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
+                int uid = int.Parse(node.SelectSingleNode("uid").InnerText);
+                string name = node.SelectSingleNode("name").InnerText;
+                int price = int.Parse(node.SelectSingleNode("price").InnerText);
+                int countLimit = int.Parse(node.SelectSingleNode("countLimit").InnerText);
+                string guide = node.SelectSingleNode("guide").InnerText;
+                ItemData.GradeType grade = ReturnGradeType(int.Parse(node.SelectSingleNode("grade").InnerText));
+                int step = int.Parse(node.SelectSingleNode("step").InnerText);
 
-				try
+                try
 				{
-					itemSet.Add( uid, new ItemData( uid, name, price, countLimit, guide, step ) );
-				}
-				catch( Exception e )
+                    itemSet.Add(uid, new ItemData(uid, name, price, countLimit, guide, grade, step));
+                }
+                catch ( Exception e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -109,9 +110,36 @@ public class DataManager : MonoBehaviour
 
 		Debug.Log( "End load item data" );
 	}
-	
-	// find furnirue
-	public static FurnitureData FindFurnitureDataByUID( int uID )
+
+
+    public static ItemData.GradeType ReturnGradeType(int _type)
+    {
+        ItemData.GradeType _grade;
+
+        switch (_type)
+        {
+            case 1:
+                _grade = ItemData.GradeType.common;
+                break;
+            case 2:
+                _grade = ItemData.GradeType.rare;
+                break;
+            case 3:
+                _grade = ItemData.GradeType.unique;
+                break;
+            case 4:
+                _grade = ItemData.GradeType.legendary;
+                break;
+            default:
+                _grade = _grade = ItemData.GradeType.Default;
+                break;
+        }
+        return _grade;
+    }
+
+
+    // find furnirue
+    public static FurnitureData FindFurnitureDataByUID( int uID )
 	{
 		try
 		{

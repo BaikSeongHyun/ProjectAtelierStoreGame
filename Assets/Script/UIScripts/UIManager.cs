@@ -78,18 +78,20 @@ public class UIManager : MonoBehaviour
 			case GameManager.GameMode.Village:
 				break;
 			case GameManager.GameMode.Field:
-				break;
+                
+                break;
 		}
 	}
 
 	public void UIUpdate()
 	{
-		if( storeUI.activeSelf )
-			storeUILogic.UpdateComponentElement();
+        if (storeUI != null)
+        {
+            if (storeUI.activeSelf)
+                storeUILogic.UpdateComponentElement();
 
-		if( storeCustomizingSet.activeSelf )
-			storeCustomizingSetLogic.UpdateComponentElement();
+            if (storeCustomizingSet.activeSelf)
+                storeCustomizingSetLogic.UpdateComponentElement();
+        }
 	}
-
-
 }

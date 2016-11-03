@@ -3,6 +3,8 @@ using System.Collections;
 
 public class FieldManager : MonoBehaviour
 {
+    [SerializeField] GameManager manager;
+
 	[SerializeField] GameObject player;
 	[SerializeField] GameObject objRegen;
 	[SerializeField] PlayerOnField playerLogic;
@@ -15,8 +17,9 @@ public class FieldManager : MonoBehaviour
 
 	void Start()
 	{
-		objRegenLogic.SetObjRegeneration();
-	}
+        objRegenLogic.SetObjRegeneration();
+
+    }
 
 	public void FieldSettingStart()
 	{

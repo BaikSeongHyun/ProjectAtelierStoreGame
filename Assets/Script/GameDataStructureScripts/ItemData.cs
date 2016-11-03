@@ -41,8 +41,6 @@ public class ItemData
 
 	;
 
-
-
 	// constructor - default
 	public ItemData()
 	{
@@ -57,7 +55,14 @@ public class ItemData
 
 	// constructor - all parameter
 	// use xml data format
-	public ItemData( int _uid, string _name, int _price, int _countLimit, string _guide, int _step )
+	public ItemData( 
+        int _uid, 
+        string _name, 
+        int _price, 
+        int _countLimit, 
+        string _guide,
+        GradeType _gradeType, 
+        int _step )
 	{
 		uid = _uid;
 		name = _name;
@@ -65,9 +70,9 @@ public class ItemData
 		countLimit = _countLimit;
 		guide = _guide;
 		step = _step;
-		// gradeType = _gradeType;
+        gradeType = _gradeType;
 
-		switch( _uid / 10000 )
+        switch ( _uid / 10000 )
 		{
 			case 1:
 				itemType = ItemType.a;

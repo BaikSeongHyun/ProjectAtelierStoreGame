@@ -11,7 +11,7 @@ public class ObjectDataBuffer : MonoBehaviour {
 
     void Start()
     {
-        fieldMgr = GameObject.Find("Canvas").GetComponent<FieldUIManager>();
+        fieldMgr = GameObject.Find("FieldUI").GetComponent<FieldUIManager>();
         fieldMgr.cooltimeImage.SetActive(false);
 
     }

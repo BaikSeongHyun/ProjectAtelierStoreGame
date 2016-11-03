@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameMode presentGameMode;
 
 	// game instance data field
-	[SerializeField] PlayerData player;
+	public PlayerData player;
 	[SerializeField] GameObject playerCharacter;
 
 	// network data field
@@ -32,9 +32,8 @@ public class GameManager : MonoBehaviour
 		Store = 3,
 		StoreCustomizing = 4,
 		Village = 5,
-		Field = 6}
-
-	;
+		Field = 6
+    };
 
 	// property
 	public PlayerData GamePlayer { get { return player; } set { player = value; } }
@@ -108,15 +107,15 @@ public class GameManager : MonoBehaviour
 
 		// set mainUI
 		presentGameMode = GameMode.Start;
-		mainUI.UIModeChange();
-	}
+        mainUI.UIModeChange();
+    }
 
 
 	// public method
 	// game start -> for client test
 	public void GameStart()
 	{
-		StartCoroutine( GameStartLoadingProcess() );
+        StartCoroutine( GameStartLoadingProcess() );
 	}
 
 	// check game data loading
@@ -160,7 +159,7 @@ public class GameManager : MonoBehaviour
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()
 	{
-		while( true )
+        while ( true )
 		{		
 			// loading game data false -> wait	
 			if( !CheckGameDataLoading() )

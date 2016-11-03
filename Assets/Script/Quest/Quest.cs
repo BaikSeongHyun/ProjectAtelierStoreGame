@@ -39,9 +39,6 @@ public class Quest : MonoBehaviour
     private float interval;
 
 
-    private TempInvenData inven;
-
-
     void Awake()
 	{
 		UISetting();
@@ -57,7 +54,6 @@ public class Quest : MonoBehaviour
 
         //필드 씬에서 시작해야하게 해놨습니다. (수정중)
         //tempInven - 체크꺼놨는데 켜면 됩니당
-        inven = GameObject.Find("tempInven").GetComponent<TempInvenData>();
 
     }
 
@@ -96,7 +92,7 @@ public class Quest : MonoBehaviour
 			재료명[ i ].text = queList.addQue[ num ].demandItem[ i ];
 
             //inventory에서 해당 재료명의 갯수를 반환.ToString();
-            소유[i].text = inven.numberOfItem(queList.addQue[num].demandItem[i]).ToString();
+            //소유[i].text = inven.numberOfItem(queList.addQue[num].demandItem[i]).ToString();
 
             //player가 모아와야 할 갯수.
 			조건[ i ].text = "/ " + queList.addQue[ num ].amount[ i ].ToString();
@@ -146,7 +142,7 @@ public class Quest : MonoBehaviour
 
 	public void QuestSuccessBtn()
 	{
-        if(queList.addQue[num].amount[0] <= inven.inventory[0])
+        if(queList.addQue[num].amount[0] <= 999) //"999"에 유저가 진짜 갖고있는 갯수 입력
         {
             //uiManager.questPopup.SetActive(false);
             DeleteQuestIcon();
