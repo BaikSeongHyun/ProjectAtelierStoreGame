@@ -132,7 +132,7 @@ public class PlayerData
                 haveItemSet[i] = new ItemInstance(data, i, itemCount);
                 break;
             }
-            else if (haveItemSet[i].Item.UID == data.UID)
+            else if (haveItemSet[i].Item.ID == data.ID)
             {
                 if (haveItemSet[i].Count + itemCount <= haveItemSet[i].Item.CountLimit)
                 {

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ItemList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<MaterialList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<item>
-		<uid>10001</uid>
+		<type>1</type>
+		<id>1</id>
+		<file>bough</file>
 		<name>나뭇가지</name>
 		<price>30</price>
 		<countLimit>10</countLimit>
@@ -10,7 +12,9 @@
 		<step>1</step>
 	</item>
 	<item>
-		<uid>10002</uid>
+		<type>1</type>
+		<id>2</id>
+		<file>soil</file>
 		<name>흙</name>
 		<price>5</price>
 		<countLimit>50</countLimit>
@@ -19,7 +23,9 @@
 		<step>1</step>
 	</item>
 	<item>
-		<uid>10003</uid>
+		<type>1</type>
+		<id>3</id>
+		<file>stone</file>
 		<name>돌멩이</name>
 		<price>10</price>
 		<countLimit>30</countLimit>
@@ -28,7 +34,9 @@
 		<step>1</step>
 	</item>
 	<item>
-		<uid>10004</uid>
+		<type>1</type>
+		<id>4</id>
+		<file>gravel</file>
 		<name>자갈</name>
 		<price>30</price>
 		<countLimit>25</countLimit>
@@ -37,7 +45,9 @@
 		<step>1</step>
 	</item>
 	<item>
-		<uid>10005</uid>
+		<type>1</type>
+		<id>5</id>
+		<file>seed</file>
 		<name>씨앗</name>
 		<price>5</price>
 		<countLimit>100</countLimit>
@@ -46,7 +56,9 @@
 		<step>1</step>
 	</item>
 	<item>
-		<uid>10006</uid>
+		<type>1</type>
+		<id>6</id>
+		<file>mineralWater</file>
 		<name>광천수</name>
 		<price>50</price>
 		<countLimit>5</countLimit>
@@ -55,129 +67,171 @@
 		<step>1</step>
 	</item>
 	<item>
-		<uid>10007</uid>
+		<type>2</type>
+		<id>7</id>
+		<file>a</file>
 		<name>ㄱ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㄱ</guide>
+		<guide>자음ㄱ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>나뭇가지,흙,돌멩이</materials>
 	</item>
 	<item>
-		<uid>10008</uid>
+		<type>2</type>
+		<id>8</id>
+		<file>b</file>
 		<name>ㄴ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㄴ</guide>
+		<guide>자음ㄴ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>나뭇가지,흙,돌멩이</materials>
 	</item>
 	<item>
-		<uid>10009</uid>
+		<type>2</type>
+		<id>9</id>
+		<file>c</file>
 		<name>ㄷ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㄷ</guide>
+		<guide>자음ㄷ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>나뭇가지,흙,돌멩이</materials>
 	</item>
 	<item>
-		<uid>10010</uid>
+		<type>2</type>
+		<id>10</id>
+		<file>d</file>
 		<name>ㄹ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㄹ</guide>
+		<guide>자음ㄹ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>나뭇가지,흙,돌멩이</materials>
 	</item>
 	<item>
-		<uid>10011</uid>
+		<type>2</type>
+		<id>11</id>
+		<file>e</file>
 		<name>ㅁ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅁ</guide>
+		<guide>자음ㅁ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>나뭇가지,흙,돌멩이</materials>
 	</item>
 	<item>
-		<uid>10012</uid>
+		<type>2</type>
+		<id>12</id>
+		<file>f</file>
 		<name>ㅂ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅂ</guide>
+		<guide>자음ㅂ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>나뭇가지,흙,돌멩이</materials>
 	</item>
 	<item>
-		<uid>10013</uid>
+		<type>2</type>
+		<id>13</id>
+		<file>g</file>
 		<name>ㅅ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅅ</guide>
+		<guide>자음ㅅ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>나뭇가지,흙,돌멩이</materials>
 	</item>
 	<item>
-		<uid>10014</uid>
+		<type>2</type>
+		<id>14</id>
+		<file>h</file>
 		<name>ㅇ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅇ</guide>
+		<guide>자음ㅇ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>자갈,씨앗,광천수</materials>
 	</item>
 	<item>
-		<uid>10015</uid>
+		<type>2</type>
+		<id>15</id>
+		<file>i</file>
 		<name>ㅈ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅈ</guide>
+		<guide>자음ㅈ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>자갈,씨앗,광천수</materials>
 	</item>
 	<item>
-		<uid>10016</uid>
+		<type>2</type>
+		<id>16</id>
+		<file>j</file>
 		<name>ㅊ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅊ</guide>
+		<guide>자음ㅊ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>자갈,씨앗,광천수</materials>
 	</item>
 	<item>
-		<uid>10017</uid>
+		<type>2</type>
+		<id>17</id>
+		<file>k</file>
 		<name>ㅋ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅋ</guide>
+		<guide>자음ㅋ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>자갈,씨앗,광천수</materials>
 	</item>
 	<item>
-		<uid>10018</uid>
+		<type>2</type>
+		<id>18</id>
+		<file>l</file>
 		<name>ㅌ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅌ</guide>
+		<guide>자음ㅌ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>자갈,씨앗,광천수</materials>
 	</item>
 	<item>
-		<uid>10019</uid>
+		<type>2</type>
+		<id>19</id>
+		<file>m</file>
 		<name>ㅍ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅍ</guide>
+		<guide>자음ㅍ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>자갈,씨앗,광천수</materials>
 	</item>
 	<item>
-		<uid>10020</uid>
+		<type>2</type>
+		<id>20</id>
+		<file>n</file>
 		<name>ㅎ</name>
 		<price>1</price>
 		<countLimit>5</countLimit>
-		<guide>ㅎ</guide>
+		<guide>자음ㅎ</guide>
 		<grade>1</grade>
 		<step>1</step>
+		<materials>자갈,씨앗,광천수</materials>
 	</item>
-</ItemList>
+</MaterialList>

@@ -29,7 +29,7 @@ public class InventoryElement : MonoBehaviour
 	public void UpdateComponentElement( ItemInstance data )
 	{
 		// set default
-		if( data.Item.UID == 0 )
+		if( data.Item.ID == 0 )
 		{
 			// set image default
 			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/ItemDefault" );
@@ -40,7 +40,7 @@ public class InventoryElement : MonoBehaviour
 		else
 		{
 			// set image use icon
-			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/Item" + data.Item.UID );
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/Item" + data.Item.ID );
 
 			// count on -> renew count
 			count.enabled = true;
