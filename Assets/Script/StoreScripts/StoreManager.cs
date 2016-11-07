@@ -81,7 +81,11 @@ public class StoreManager : MonoBehaviour
 			{
 				if ( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
 				{
+<<<<<<< HEAD
 					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.ObjectName ), 
+=======
+					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.ID.ToString() ), 
+>>>>>>> 5ca8c52fc7310d8ee4d4003d971885cde85f5fc7
 					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
 					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
 					furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
@@ -259,7 +263,7 @@ public class StoreManager : MonoBehaviour
 	{		
 		manager.GamePlayer.AllocateFurnitureInstance( index );
 
-		GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count ].Furniture.UID.ToString() ), 
+		GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count ].Furniture.ID.ToString() ), 
 		                                              new Vector3( 5f, 0f, 5f ), 
 		                                              Quaternion.identity );
 		
