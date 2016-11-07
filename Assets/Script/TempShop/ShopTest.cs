@@ -6,13 +6,11 @@ public class ShopTest : MonoBehaviour
 {
 
     public GameObject shop;
-    public InventoryDataLoader idl;
 
     public Image[] shopList;
 
     void Awake()
     {
-        idl = GameObject.Find("test").GetComponent<InventoryDataLoader>();
         shopSetting();
     }
 
@@ -58,12 +56,18 @@ public class ShopTest : MonoBehaviour
         //    shopList[i].sprite = Resources.Load<Sprite>("Image/Shop/" + idl.furnitures[i].note) as Sprite;
         //}
 
-        shopList[0].sprite = Resources.Load<Sprite>("Image/Shop/" + idl.furnitures[0].note) as Sprite;
-        shopList[1].sprite = Resources.Load<Sprite>("Image/Shop/" + idl.furnitures[3].note) as Sprite;
-        shopList[2].sprite = Resources.Load<Sprite>("Image/Shop/" + idl.furnitures[6].note) as Sprite;
-        shopList[3].sprite = Resources.Load<Sprite>("Image/Shop/" + idl.furnitures[9].note) as Sprite;
-        shopList[4].sprite = Resources.Load<Sprite>("Image/Shop/" + idl.furnitures[16].note) as Sprite;
-        shopList[5].sprite = Resources.Load<Sprite>("Image/Shop/" + idl.furnitures[19].note) as Sprite;
-        shopList[6].sprite = Resources.Load<Sprite>("Image/Shop/" + idl.furnitures[23].note) as Sprite;
+        shopList[0].sprite = Resources.Load<Sprite>("Image/Shop/" + FromCodeToFilename(1)) as Sprite;
+        shopList[1].sprite = Resources.Load<Sprite>("Image/Shop/" + FromCodeToFilename(3)) as Sprite;
+        shopList[2].sprite = Resources.Load<Sprite>("Image/Shop/" + FromCodeToFilename(6)) as Sprite;
+        shopList[3].sprite = Resources.Load<Sprite>("Image/Shop/" + FromCodeToFilename(9)) as Sprite;
+        shopList[4].sprite = Resources.Load<Sprite>("Image/Shop/" + FromCodeToFilename(16)) as Sprite;
+        shopList[5].sprite = Resources.Load<Sprite>("Image/Shop/" + FromCodeToFilename(19)) as Sprite;
+        shopList[6].sprite = Resources.Load<Sprite>("Image/Shop/" + FromCodeToFilename(23)) as Sprite;
+    }
+
+    string FromCodeToFilename(int _id)
+    {
+        FurnitureData fd = DataManager.FindFurnitureDataByUID(_id);
+        return fd.File;
     }
 }
