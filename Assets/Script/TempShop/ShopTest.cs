@@ -68,6 +68,6 @@ public class ShopTest : MonoBehaviour
     string FromCodeToFilename(int _id)
     {
         FurnitureData fd = DataManager.FindFurnitureDataByUID(_id);
-        return fd.File;
+		return fd.FileName;
     }
 }

@@ -10,6 +10,7 @@ public class FurnitureInstance
 	[SerializeField] Quaternion rotation;
 	[SerializeField] bool isAllocated;
 	[SerializeField] int slotNumber;
+	[SerializeField] string fileName;
 
 	// property
 	public FurnitureData Furniture { get { return furniture; } }

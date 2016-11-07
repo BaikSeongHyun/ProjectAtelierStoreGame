@@ -81,16 +81,8 @@ public class StoreManager : MonoBehaviour
 			{
 				if ( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
 				{
-<<<<<<< HEAD
-<<<<<<< HEAD
-					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.ObjectName ), 
-=======
-					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.ID.ToString() ), 
->>>>>>> 5ca8c52fc7310d8ee4d4003d971885cde85f5fc7
-=======
-					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.ID.ToString() ), 
->>>>>>> 5ca8c52fc7310d8ee4d4003d971885cde85f5fc7
-					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
+					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.FileName ), 
+											                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
 					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
 					furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
 					furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.AllocateFurnitureSet[ i ];

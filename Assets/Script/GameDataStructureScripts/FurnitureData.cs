@@ -12,7 +12,7 @@ public class FurnitureData
 	[SerializeField] int widthX;
 	[SerializeField] int widthZ;
 	[SerializeField] int level;
-	[SerializeField] string file;
+	[SerializeField] string fileName;
     [SerializeField] string[] material;
 	[SerializeField] FunctionType functionType;
     [SerializeField] AllocateType allocateType;
@@ -30,7 +30,7 @@ public class FurnitureData
 
 	public int Level { get { return level; } }
 
-	public string File { get { return file; } }
+	public string FileName { get { return fileName; } }
 
 	public FunctionType Function { get { return functionType; } }
 
@@ -63,13 +63,13 @@ public class FurnitureData
 		height = 0;
 		widthX = 0;
 		widthZ = 0;
-		file = null;
+		fileName = null;
 		functionType = FunctionType.Default;
 		allocateType = AllocateType.Default;
 	}
 
     // constructor - all parameter -> set up data
-    public FurnitureData(int _type, int _id, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, string _file, AllocateType _allocateType)
+	public FurnitureData(int _type, int _id, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, string _fileName, AllocateType _allocateType)
     {
         id = _id;
         name = _name;
@@ -78,7 +78,7 @@ public class FurnitureData
         widthX = _widthX;
         widthZ = _widthZ;
         level = _level;
-        file = _file;
+		fileName = _fileName;
         
         // allocate function type
         switch (_type)
@@ -103,7 +103,7 @@ public class FurnitureData
         allocateType = _allocateType;
     }
 
-    public FurnitureData( int _type, int _id, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, string _file, string _mat, AllocateType _allocateType )
+	public FurnitureData( int _type, int _id, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, string _fileName, string _mat, AllocateType _allocateType )
 	{
 		id = _id;
 		name = _name;
@@ -112,7 +112,7 @@ public class FurnitureData
 		widthX = _widthX;
 		widthZ = _widthZ;
 		level = _level;
-		file = _file;
+		fileName = _fileName;
         MaterialList(_mat);
 
         // allocate function type
@@ -145,7 +145,7 @@ public class FurnitureData
 		height = data.height;
 		widthX = data.widthX;
 		widthZ = data.widthZ;
-		file = data.file;
+		fileName = data.fileName;
 		functionType = data.functionType;
 		allocateType = data.allocateType;
 	}
