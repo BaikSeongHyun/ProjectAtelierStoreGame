@@ -42,8 +42,11 @@ public class ObjectOnField : MonoBehaviour {
 
     void OnMouseEnter()
     {
-        rend.material.color = Color.gray;
-        objectOnMouse = true;
+        if (rend.material.color != null)
+        {
+            rend.material.color = Color.gray;
+            objectOnMouse = true;
+        }
     }
     void OnMouseExit()
     {

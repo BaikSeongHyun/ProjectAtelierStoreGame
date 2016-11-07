@@ -5,18 +5,20 @@ using UnityEngine;
 public class FurnitureData
 {
 	// field
-	[SerializeField] int uid;
+	[SerializeField] int id;
 	[SerializeField] string name;
+    [SerializeField] string guide;
 	[SerializeField] int height;
 	[SerializeField] int widthX;
 	[SerializeField] int widthZ;
 	[SerializeField] int level;
-	[SerializeField] string objectName;
+	[SerializeField] string file;
+    [SerializeField] string[] material;
 	[SerializeField] FunctionType functionType;
     [SerializeField] AllocateType allocateType;
 
 	// property
-	public int UID { get { return uid; } }
+	public int ID { get { return id; } }
 
 	public string Name { get { return name; } }
 
@@ -28,7 +30,7 @@ public class FurnitureData
 
 	public int Level { get { return level; } }
 
-	public string ObjectName { get { return objectName; } }
+	public string File { get { return file; } }
 
 	public FunctionType Function { get { return functionType; } }
 
@@ -57,28 +59,64 @@ public class FurnitureData
     // constructor - no parameter -> set default;
     public FurnitureData()
 	{
-		uid = 0;
+		id = 0;
 		height = 0;
 		widthX = 0;
 		widthZ = 0;
-		objectName = null;
+		file = null;
 		functionType = FunctionType.Default;
 		allocateType = AllocateType.Default;
 	}
 
-	// constructor - all parameter -> set up data
-	public FurnitureData( int _uid, string _name, int _height, int _widthX, int _widthZ, int _level, string _objectName, string _guide, AllocateType _allocateType )
+    // constructor - all parameter -> set up data
+    public FurnitureData(int _type, int _id, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, string _file, AllocateType _allocateType)
+    {
+        id = _id;
+        name = _name;
+        guide = _guide;
+        height = _height;
+        widthX = _widthX;
+        widthZ = _widthZ;
+        level = _level;
+        file = _file;
+        
+        // allocate function type
+        switch (_type)
+        {
+            case 1:
+                functionType = FunctionType.CreateObject;
+                break;
+            case 2:
+                functionType = FunctionType.SellObject;
+                break;
+            case 3:
+                functionType = FunctionType.DecorateObject;
+                break;
+            case 4:
+                functionType = FunctionType.StorageObject;
+                break;
+            default:
+                Debug.Log("error");
+                break;
+        }
+
+        allocateType = _allocateType;
+    }
+
+    public FurnitureData( int _type, int _id, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, string _file, string _mat, AllocateType _allocateType )
 	{
-		uid = _uid;
+		id = _id;
 		name = _name;
+        guide = _guide;
 		height = _height;
 		widthX = _widthX;
 		widthZ = _widthZ;
 		level = _level;
-		objectName = _objectName;
+		file = _file;
+        MaterialList(_mat);
 
-		// allocate function type
-		switch( _uid / 10000 )
+        // allocate function type
+        switch ( _type )
 		{
 			case 1:
 				functionType = FunctionType.CreateObject;
@@ -103,12 +141,17 @@ public class FurnitureData
 	// constructor - data parameter -> make same data instance
 	public FurnitureData( FurnitureData data )
 	{
-		uid = data.uid;
+		id = data.id;
 		height = data.height;
 		widthX = data.widthX;
 		widthZ = data.widthZ;
-		objectName = data.objectName;
+		file = data.file;
 		functionType = data.functionType;
 		allocateType = data.allocateType;
 	}
+
+    public void MaterialList(string _mat)
+    {
+        material = _mat.Split(new char[] { ',' });
+    }
 }

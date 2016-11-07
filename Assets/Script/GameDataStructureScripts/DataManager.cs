@@ -38,7 +38,8 @@ public class DataManager : MonoBehaviour
 		{
 			foreach( XmlNode node in nodes )
 			{
-				// data create
+                // data create
+                int type = int.Parse(node.SelectSingleNode("type").InnerText);
 				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
 				string name = node.SelectSingleNode( "name" ).InnerText;
 				string guide = node.SelectSingleNode( "guide" ).InnerText;
@@ -47,18 +48,32 @@ public class DataManager : MonoBehaviour
 				int widthX = int.Parse( node.SelectSingleNode( "widthX" ).InnerText );
 				int widthZ = int.Parse( node.SelectSingleNode( "widthZ" ).InnerText );
 				int level = int.Parse( node.SelectSingleNode( "level" ).InnerText );
-				string note = node.SelectSingleNode( "note" ).InnerText;				
-				
-				// insert data
-				try
-				{					
-					furnitureSet.Add( id, new FurnitureData( id, name, height, widthX, widthZ, level, note, note, FurnitureData.AllocateType.Field ) );
-				}
-				catch( Exception e )
-				{
-					Debug.Log( e.StackTrace );
-					Debug.Log( e.Message );
-				}
+				string file = node.SelectSingleNode( "file" ).InnerText;
+                string material = null;
+
+                if (type == 1)
+                {
+                    material = node.SelectSingleNode("materials").InnerText;
+                }
+
+                // insert data
+                try
+                {
+                    if (type == 1)
+                    {
+                        furnitureSet.Add(id, new FurnitureData(type, id, name, guide, height, widthX, widthZ, level, file, material, FurnitureData.AllocateType.Field));
+                    }
+                    else
+                    {
+                        furnitureSet.Add(id, new FurnitureData(type, id, name, guide, height, widthX, widthZ, level, file, FurnitureData.AllocateType.Field));
+                    }
+                }
+
+                catch (Exception e)
+                {
+                    Debug.Log(e.StackTrace);
+                    Debug.Log(e.Message);
+                }
 
 				Debug.Log( "Input data " + id );
 			}
