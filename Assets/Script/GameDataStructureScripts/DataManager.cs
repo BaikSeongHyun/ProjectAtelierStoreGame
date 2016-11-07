@@ -49,6 +49,7 @@ public class DataManager : MonoBehaviour
 				int widthZ = int.Parse( node.SelectSingleNode( "widthZ" ).InnerText );
 				int level = int.Parse( node.SelectSingleNode( "level" ).InnerText );
 <<<<<<< HEAD
+<<<<<<< HEAD
 				string note = node.SelectSingleNode( "note" ).InnerText;				
 				
 				// insert data
@@ -62,6 +63,8 @@ public class DataManager : MonoBehaviour
 					Debug.Log( e.Message );
 				}
 =======
+=======
+>>>>>>> 5ca8c52fc7310d8ee4d4003d971885cde85f5fc7
 				string file = node.SelectSingleNode( "file" ).InnerText;
                 string material = null;
 
