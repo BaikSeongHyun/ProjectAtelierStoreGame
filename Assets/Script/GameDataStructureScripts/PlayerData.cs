@@ -121,7 +121,6 @@ public class PlayerData
 	// add item data
 	public bool AddItemData( ItemData data, int itemCount )
 	{
-<<<<<<< HEAD
 		for( int i = 0; i < haveItemSet.Length; i++ )
 		{
 			//Debug.Log(haveItemSet.Length);
@@ -129,7 +128,7 @@ public class PlayerData
 			{
 				//Debug.Log("빈 공간에 새로 생성");
 				haveItemSet[ i ] = new ItemInstance( data, i, itemCount );
-				return true;
+				break;
 			}
 			else if( haveItemSet[ i ].Item.ID == data.ID )
 			{
@@ -159,45 +158,6 @@ public class PlayerData
 		}
 
 		return false;
-=======
-        for (int i = 0; i < haveItemSet.Length; i++)
-        {
-            //Debug.Log(haveItemSet.Length);
-            if((haveItemSet[i] != null) && (haveItemSet[i].Count == 0))
-            {
-                //Debug.Log("빈 공간에 새로 생성");
-                haveItemSet[i] = new ItemInstance(data, i, itemCount);
-                break;
-            }
-            else if (haveItemSet[i].Item.ID == data.ID)
-            {
-                if (haveItemSet[i].Count + itemCount <= haveItemSet[i].Item.CountLimit)
-                {
-                    //Debug.Log("이미 있는 공간에 추가");
-                    haveItemSet[i].Count += itemCount;
-                    break;
-                }
-                else
-                {
-                    haveItemSet[i].Count = haveItemSet[i].Item.CountLimit;
-                    if (i + 1 == haveItemSet.Length)
-                    {
-                        //Debug.Log("full! 남은거 버려진다.");
-                        itemCount = 0;
-                        break;
-                    }
-                    else
-                    {
-                        //Debug.Log("최대수량초과" + i);
-                        itemCount = haveItemSet[i].Count + itemCount - haveItemSet[i].Item.CountLimit;
-                        continue;
-                    }
-                }
-            }
-        }
-
-        return false;
->>>>>>> 9d761361a6e019db4acc3e2f0304a5415c24cfcd
 	}
 
 	// material -> add item

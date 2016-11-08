@@ -66,34 +66,6 @@ public class DataManager : MonoBehaviour
 				int widthZ = int.Parse( node.SelectSingleNode( "widthZ" ).InnerText );
 				int level = int.Parse( node.SelectSingleNode( "level" ).InnerText );
 				string file = node.SelectSingleNode( "file" ).InnerText;
-<<<<<<< HEAD
-				string material = null;
-
-				if( type == 1 )
-				{
-					material = node.SelectSingleNode( "materials" ).InnerText;
-				}
-
-				// insert data
-				try
-				{
-					if( type == 1 )
-					{
-						furnitureSet.Add( id, new FurnitureData( type, id, name, guide, height, widthX, widthZ, level, file, material, FurnitureData.AllocateType.Field ) );
-					}
-					else
-					{
-						furnitureSet.Add( id, new FurnitureData( type, id, name, guide, height, widthX, widthZ, level, file, FurnitureData.AllocateType.Field ) );
-					}
-				}
-				catch( Exception e )
-				{
-					Debug.Log( e.StackTrace );
-					Debug.Log( e.Message );
-				}
-			}
-		}
-=======
                 string material = null;
 
                 if (type == 1)
@@ -119,12 +91,9 @@ public class DataManager : MonoBehaviour
                     Debug.Log(e.StackTrace);
                     Debug.Log(e.Message);
                 }
-
-				//Debug.Log( "Input data " + id );
 			}
             Debug.Log("End load furniture data");
         }
->>>>>>> 9d761361a6e019db4acc3e2f0304a5415c24cfcd
 	}
 
 	// item data load
@@ -146,21 +115,6 @@ public class DataManager : MonoBehaviour
 		{
 			foreach( XmlNode node in nodes )
 			{
-<<<<<<< HEAD
-				int id = int.Parse( node.SelectSingleNode( "uid" ).InnerText );
-				string name = node.SelectSingleNode( "name" ).InnerText;
-				int price = int.Parse( node.SelectSingleNode( "price" ).InnerText );
-				int countLimit = int.Parse( node.SelectSingleNode( "countLimit" ).InnerText );
-				string guide = node.SelectSingleNode( "guide" ).InnerText;
-				ItemData.GradeType grade = ReturnGradeType( int.Parse( node.SelectSingleNode( "grade" ).InnerText ) );
-				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
-
-				try
-				{
-					itemSet.Add( id, new ItemData( id, name, price, countLimit, guide, grade, step ) );
-				}
-				catch( Exception e )
-=======
                 int type = int.Parse(node.SelectSingleNode("type").InnerText);
                 int id = int.Parse(node.SelectSingleNode("id").InnerText);
                 string file = node.SelectSingleNode("file").InnerText;
@@ -176,7 +130,6 @@ public class DataManager : MonoBehaviour
                     itemSet.Add(id, new ItemData(type, id, name, file, price, countLimit, guide, grade, step));
                 }
                 catch ( Exception e )
->>>>>>> 9d761361a6e019db4acc3e2f0304a5415c24cfcd
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -192,8 +145,6 @@ public class DataManager : MonoBehaviour
 	{
 		// set default data
 		playerData = new PlayerData( );
-
-<<<<<<< HEAD
 		try
 		{			
 			// data load - player direct data
@@ -375,16 +326,6 @@ public class DataManager : MonoBehaviour
 
 	// find furnirue
 	public static FurnitureData FindFurnitureDataByID( int id )
-=======
-				//Debug.Log( "Input data " + id );
-			}
-            Debug.Log("End load item data");
-        }
-	}
-
-    // find furnirue
-    public static FurnitureData FindFurnitureDataByUID( int uID )
->>>>>>> 9d761361a6e019db4acc3e2f0304a5415c24cfcd
 	{
 		try
 		{

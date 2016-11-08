@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 //using UnityEditor;
 using System;
 using System.Collections;
@@ -106,7 +107,7 @@ public class StoreManager : MonoBehaviour
 				{
 					if( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
 					{
-						temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.FileName ), 
+						temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.File ), 
 						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
 						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
 						furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
