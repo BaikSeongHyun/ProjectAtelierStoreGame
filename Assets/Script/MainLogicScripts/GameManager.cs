@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 		// main ui component update
 		mainUI.UIUpdate();
 
-		switch ( presentGameMode )
+		switch( presentGameMode )
 		{
 			case GameMode.Store:
 				storeManager.StorePolicy();
@@ -104,24 +104,9 @@ public class GameManager : MonoBehaviour
 	// game manager data initialize
 	private void DataInitailize()
 	{
-		// game instance data field
-		player = new PlayerData();
-
-
-		// network data field;
-		receiveQueue = new PacketQueue();
-		sendQueue = new PacketQueue();
-
 		// set mainUI
 		presentGameMode = GameMode.Start;
-		mainUI.UIModeChange();
-
-		// player prefs loading
-		player.AddFurnitureData( DataManager.FindFurnitureDataByUID( 40001 ) );
-
-		// data connection
-		player.StoreData.StoreStep = 1;
-		player.AllocateFurnitureInstance( 0 );
+		mainUI.UIModeChange();	
 	}
 
 
@@ -173,12 +158,12 @@ public class GameManager : MonoBehaviour
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()
 	{
-		mainUI.LoadingSceneState( true );
+		//mainUI.LoadingSceneState( true );
 
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if ( !CheckGameDataLoading() )
+			if( !CheckGameDataLoading() )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -191,7 +176,7 @@ public class GameManager : MonoBehaviour
 					// set camera mode
 					cameraControl.SetCameraDefault( GameMode.Store );
 				}
-				catch ( UnassignedReferenceException e )
+				catch( UnassignedReferenceException e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -214,7 +199,7 @@ public class GameManager : MonoBehaviour
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if ( !CheckGameDataLoading() )
+			if( !CheckGameDataLoading() )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -235,17 +220,20 @@ public class GameManager : MonoBehaviour
 
 		while( true )
 		{		
-			// loading game data false -> wait	
-			if ( !CheckGameDataLoading() )
-			{
-				// set main ui state -> loading state
-				yield return 1.0f;
-			}
+			if( DataManager.CheckPlayerDataLoading() )
+			{				
+				// loading game data false -> wait	
+				if( !CheckGameDataLoading() )
+				{
+					// set main ui state -> loading state
+					yield return 1.0f;
+				}
 			// loading game data success -> start game
 			else
-			{
-				// set main ui state -> store state
-				yield break;
+				{
+					// set main ui state -> store state
+					yield break;
+				}
 			}
 		}
 	}

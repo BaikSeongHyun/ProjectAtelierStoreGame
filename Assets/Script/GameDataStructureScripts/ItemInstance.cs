@@ -18,6 +18,12 @@ public class ItemInstance
 	public int SlotNumber { get { return slotNumber; } set { slotNumber = value; } }
 
 	// constructor
+	public ItemInstance()
+	{
+		itemData = null;
+		slotNumber = 0;
+		count = 0;
+	}
 
 	public ItemInstance( ItemData data, int _slotNumber, int _count )
 	{
@@ -26,16 +32,15 @@ public class ItemInstance
 		count = _count;
 	}
 
-    public ItemInstance(int uid, int _count)
-    {
-
-        itemData = new ItemData(DataManager.FindItemDataByUID(uid));
-        count = _count;
-    }
-
-    public ItemInstance( int uid, int _slotNumber, int _count )
+	public ItemInstance( int uid, int _count )
 	{
-		itemData = new ItemData( DataManager.FindItemDataByUID( uid ) );
+		itemData = new ItemData( DataManager.FindItemDataByID( uid ) );
+		count = _count;
+	}
+
+	public ItemInstance( int uid, int _slotNumber, int _count )
+	{
+		itemData = new ItemData( DataManager.FindItemDataByID( uid ) );
 		slotNumber = _slotNumber;
 		count = _count;
 	}

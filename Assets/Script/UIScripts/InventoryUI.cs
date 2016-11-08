@@ -23,8 +23,6 @@ public class InventoryUI : MonoBehaviour
 		slots = GetComponentsInChildren<InventoryElement>();
 		foreach( InventoryElement element in slots )
 			element.LinkComponentElement();
-
-		Debug.Log( this.gameObject.name );
 	}
 
 	// update component element
@@ -37,7 +35,7 @@ public class InventoryUI : MonoBehaviour
 				if( this.gameObject.name == "ItemInventory" )
 					slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i ] );
 				else if( this.gameObject.name == "FurnitureInventory" )
-					slots[ i ].UpdateComponentElement( manager.GamePlayer.HaveFurnitureSet[ i ] );
+					slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i ] );
 			}
 			catch( IndexOutOfRangeException e )
 			{
@@ -63,7 +61,7 @@ public class InventoryUI : MonoBehaviour
 		else if( this.gameObject.name == "FurnitureInventory" )
 		{
 			content = transform.Find( "FurnitureScrollRect/Viewport/Content" ).gameObject.GetComponent<RectTransform>();
-			count = manager.GamePlayer.HaveFurnitureSet.Length;
+			count = manager.GamePlayer.FurnitureSet.Length;
 		}
 
 		content.sizeDelta = new Vector2( -10f, ( ( count / 4 ) * 160f ) );

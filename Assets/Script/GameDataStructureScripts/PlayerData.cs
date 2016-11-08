@@ -7,10 +7,6 @@ using System.Collections.Generic;
 [System.Serializable]
 public class PlayerData
 {
-	// logic data field
-	[SerializeField] int UID;
-	[SerializeField] string gameID;
-
 	// game data field
 	[SerializeField] string name;
 	[SerializeField] int level;
@@ -26,23 +22,23 @@ public class PlayerData
 	[SerializeField] List<FurnitureInstance> allocateFurnitureSet;
 
 	// property
-	public string Name { get { return name; } }
+	public string Name { get { return name; } set { name = value; } }
 
-	public int Level { get { return level; } }
+	public int Level { get { return level; } set { level = value; } }
 
-	public int Fame { get { return fame; } }
+	public int Fame { get { return fame; } set { fame = value; } }
 
-	public int Charm { get { return charm; } }
+	public int Charm { get { return charm; } set { charm = value; } }
 
-	public int Gold { get { return gold; } }
+	public int Gold { get { return gold; } set { gold = value; } }
 
-	public int Gem { get { return gem; } }
+	public int Gem { get { return gem; } set { gem = value; } }
 
 	public StoreData StoreData { get { return haveStoreData; } set { haveStoreData = value; } }
 
 	public ItemInstance[] ItemSet { get { return haveItemSet; } set { haveItemSet = value; } }
 
-	public FurnitureInstance[] HaveFurnitureSet { get { return haveFurnitureSet; } set { haveFurnitureSet = value; } }
+	public FurnitureInstance[] FurnitureSet { get { return haveFurnitureSet; } set { haveFurnitureSet = value; } }
 
 	public List<FurnitureInstance> AllocateFurnitureSet { get { return allocateFurnitureSet; } }
 
@@ -50,11 +46,8 @@ public class PlayerData
 	public PlayerData()
 	{
 		level = 1;
-		name = "포풍저그콩콩";
-		haveStoreData = new StoreData();
-		haveItemSet = new ItemInstance[16];
-		haveFurnitureSet = new FurnitureInstance[16];
-		allocateFurnitureSet = new List<FurnitureInstance>();
+		name = "";
+		allocateFurnitureSet = new List<FurnitureInstance>( );
 	}
 
 	// public method
@@ -126,52 +119,61 @@ public class PlayerData
 	}
 
 	// add item data
-	public bool AddItemData( ItemData data, int itemCount)
+	public bool AddItemData( ItemData data, int itemCount )
 	{
-        for (int i = 0; i < haveItemSet.Length; i++)
-        {
-            //Debug.Log(haveItemSet.Length);
-            if((haveItemSet[i] != null) && (haveItemSet[i].Count == 0))
-            {
-                //Debug.Log("빈 공간에 새로 생성");
-                haveItemSet[i] = new ItemInstance(data, i, itemCount);
-                break;
-            }
-            else if (haveItemSet[i].Item.UID == data.UID)
-            {
-                if (haveItemSet[i].Count + itemCount <= haveItemSet[i].Item.CountLimit)
-                {
-                    //Debug.Log("이미 있는 공간에 추가");
-                    haveItemSet[i].Count += itemCount;
-                    break;
-                }
-                else
-                {
-                    haveItemSet[i].Count = haveItemSet[i].Item.CountLimit;
-                    if (i + 1 == haveItemSet.Length)
-                    {
-                        //Debug.Log("full! 남은거 버려진다.");
-                        itemCount = 0;
-                        break;
-                    }
-                    else
-                    {
-                        //Debug.Log("최대수량초과" + i);
-                        itemCount = haveItemSet[i].Count + itemCount - haveItemSet[i].Item.CountLimit;
-                        continue;
-                    }
-                }
-            }
-        }
+		for( int i = 0; i < haveItemSet.Length; i++ )
+		{
+			//Debug.Log(haveItemSet.Length);
+			if( ( haveItemSet[ i ] != null ) && ( haveItemSet[ i ].Count == 0 ) )
+			{
+				//Debug.Log("빈 공간에 새로 생성");
+				haveItemSet[ i ] = new ItemInstance( data, i, itemCount );
+				return true;
+			}
+			else if( haveItemSet[ i ].Item.ID == data.ID )
+			{
+				if( haveItemSet[ i ].Count + itemCount <= haveItemSet[ i ].Item.CountLimit )
+				{
+					//Debug.Log("이미 있는 공간에 추가");
+					haveItemSet[ i ].Count += itemCount;
+					break;
+				}
+				else
+				{
+					haveItemSet[ i ].Count = haveItemSet[ i ].Item.CountLimit;
+					if( i + 1 == haveItemSet.Length )
+					{
+						//Debug.Log("full! 남은거 버려진다.");
+						itemCount = 0;
+						break;
+					}
+					else
+					{
+						//Debug.Log("최대수량초과" + i);
+						itemCount = haveItemSet[ i ].Count + itemCount - haveItemSet[ i ].Item.CountLimit;
+						continue;
+					}
+				}
+			}
+		}
 
-        return false;
+		return false;
 	}
 
-    // material -> add item 
-    public void AddItemMaterial(int uid, int itemCount)
-    {
-        ItemData itemData = new ItemData(DataManager.FindItemDataByUID(uid));
+	// material -> add item
+	public void AddItemMaterial( int uid, int itemCount )
+	{
+		ItemData itemData = new ItemData( DataManager.FindItemDataByID( uid ) );
 
-        AddItemData(itemData, itemCount);
-    }
+		AddItemData( itemData, itemCount );
+	}
+
+	// set default status
+	public void SetDefaultStatus()
+	{
+		haveStoreData = new StoreData( );
+		haveItemSet = new ItemInstance[16];
+		haveFurnitureSet = new FurnitureInstance[16];
+		allocateFurnitureSet = new List<FurnitureInstance>( );
+	}
 }

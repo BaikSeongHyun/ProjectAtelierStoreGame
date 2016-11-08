@@ -19,4 +19,10 @@ public class StoreData
 		storeStep = 1;
 	}
 
+	// constructor - step number
+	public StoreData( int _step )
+	{
+		storeStep = _step;
+	}
+
 }

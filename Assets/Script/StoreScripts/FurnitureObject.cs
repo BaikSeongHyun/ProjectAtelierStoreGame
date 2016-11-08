@@ -12,6 +12,7 @@ public class FurnitureObject : MonoBehaviour
 	[SerializeField] bool allocatePossible;
 	[SerializeField] Image allocateTexture;
 	[SerializeField] Collider[] tempSet;
+	[SerializeField] float storePlaneScale;
 
 	// property
 	public FurnitureInstance InstanceData { get { return data; } set { data = value; } }
@@ -33,11 +34,12 @@ public class FurnitureObject : MonoBehaviour
 	void Awake()
 	{
 		LinkComponentElement();
+		storePlaneScale = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>().PlaneScale;
 	}
 
 	// private method
 	// set cast point -> 0.5f set
-	private Vector3 SetPoint( Vector3 point, float storeFieldScale )
+	private Vector3 SetPoint( Vector3 point )
 	{
 		float pointX, pointZ;
 
@@ -61,7 +63,7 @@ public class FurnitureObject : MonoBehaviour
 				pointZ = ( int ) point.z + 1f;
 			
 			// set limit and return position
-			return new Vector3( Mathf.Clamp( pointX, ( data.Furniture.WidthZ / 2f ), storeFieldScale - ( data.Furniture.WidthZ / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.Furniture.WidthX / 2f ), storeFieldScale - ( data.Furniture.WidthX / 2f ) ) );
+			return new Vector3( Mathf.Clamp( pointX, ( data.Furniture.WidthZ / 2f ), storePlaneScale - ( data.Furniture.WidthZ / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.Furniture.WidthX / 2f ), storePlaneScale - ( data.Furniture.WidthX / 2f ) ) );
 
 		}
 		// normal rotation
@@ -84,7 +86,7 @@ public class FurnitureObject : MonoBehaviour
 				pointZ = ( int ) point.z + 1f;
 
 			// set limit and return position
-			return new Vector3( Mathf.Clamp( pointX, ( data.Furniture.WidthX / 2f ), storeFieldScale - ( data.Furniture.WidthX / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.Furniture.WidthZ / 2f ), storeFieldScale - ( data.Furniture.WidthZ / 2f ) ) );
+			return new Vector3( Mathf.Clamp( pointX, ( data.Furniture.WidthX / 2f ), storePlaneScale - ( data.Furniture.WidthX / 2f ) ), 0f, Mathf.Clamp( pointZ, ( data.Furniture.WidthZ / 2f ), storePlaneScale - ( data.Furniture.WidthZ / 2f ) ) );
 		}
 		
 	}
@@ -105,13 +107,13 @@ public class FurnitureObject : MonoBehaviour
 	}
 
 	// change object position
-	public void ChangeObjectPosition( Vector3 point, float storeFieldScale )
+	public void ChangeObjectPosition( Vector3 point )
 	{
 		// check overlap furniture
 		CheckAllocatePossible();
 
 		// set position
-		this.gameObject.transform.position = SetPoint( point, storeFieldScale );
+		this.gameObject.transform.position = SetPoint( point );
 		data.Position = this.gameObject.transform.position;
 
 		// set rotation
@@ -139,8 +141,7 @@ public class FurnitureObject : MonoBehaviour
 				transform.rotation = new Quaternion( 0f, 0f, 0f, 0f );
 				break;
 		}
-
-
+		ChangeObjectPosition( transform.position );
 	}
 
 	// check allocate possible

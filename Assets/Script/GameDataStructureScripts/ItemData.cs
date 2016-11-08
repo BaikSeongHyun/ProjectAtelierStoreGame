@@ -5,7 +5,7 @@ using System.Collections;
 public class ItemData
 {
 	// field
-	[SerializeField] int uid;
+	[SerializeField] int id;
 	[SerializeField] string name;
 	[SerializeField] int price;
 	[SerializeField] int countLimit;
@@ -15,7 +15,7 @@ public class ItemData
 	[SerializeField] ItemType itemType;
 
 	// property
-	public int UID { get { return uid; } }
+	public int ID { get { return id; } }
 
 	public int CountLimit { get { return countLimit; } }
 
@@ -44,7 +44,7 @@ public class ItemData
 	// constructor - default
 	public ItemData()
 	{
-		uid = 0;
+		id = 0;
 		name = null;
 		price = 0;
 		countLimit = 0;
@@ -56,23 +56,23 @@ public class ItemData
 	// constructor - all parameter
 	// use xml data format
 	public ItemData( 
-        int _uid, 
-        string _name, 
-        int _price, 
-        int _countLimit, 
-        string _guide,
-        GradeType _gradeType, 
-        int _step )
+		int _id, 
+		string _name, 
+		int _price, 
+		int _countLimit, 
+		string _guide,
+		GradeType _gradeType, 
+		int _step )
 	{
-		uid = _uid;
+		id = _id;
 		name = _name;
 		price = _price;
 		countLimit = _countLimit;
 		guide = _guide;
 		step = _step;
-        gradeType = _gradeType;
+		gradeType = _gradeType;
 
-        switch ( _uid / 10000 )
+		switch( _id / 10000 )
 		{
 			case 1:
 				itemType = ItemType.a;
@@ -93,7 +93,7 @@ public class ItemData
 	// constructor - self parameter
 	public ItemData( ItemData data )
 	{
-		uid = data.uid;
+		id = data.id;
 		name = data.name;
 		price = data.price;
 		countLimit = data.countLimit;

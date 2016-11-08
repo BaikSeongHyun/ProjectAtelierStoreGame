@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ public class StoreManager : MonoBehaviour
 	[SerializeField] bool createComplete;
 
 	// game instance data field
+	[SerializeField] float planeScale;
 	[SerializeField] TileMap storeField;
 	[SerializeField] GameObject storeWall;
 	[SerializeField] GameObject storeBackground;
@@ -26,6 +27,8 @@ public class StoreManager : MonoBehaviour
 
 	// property
 	public bool CreateComplete { get { return createComplete; } }
+
+	public float PlaneScale { get { return planeScale; } }
 
 	public TileMap StoreField { get { return storeField; } }
 
@@ -40,8 +43,29 @@ public class StoreManager : MonoBehaviour
 
 	// public method
 	// create store object -> if data load complete
+	public void SetPlaneScale()
+	{
+		// set plane scale
+		planeScale = 0.0f;
+
+		switch( manager.GamePlayer.StoreData.StoreStep )
+		{
+			case 1:
+				planeScale = 10f;
+				break;
+			case 2:
+				planeScale = 15f;
+				break;
+			case 3:
+				planeScale = 20f;
+				break;
+		}
+	}
+
 	public bool CreateStoreObject()
 	{
+		SetPlaneScale();
+
 		// create object
 		try
 		{
@@ -52,44 +76,46 @@ public class StoreManager : MonoBehaviour
 			storeField.BuildMesh();
 
 			// create wall & backgroubd
-			switch ( manager.GamePlayer.StoreData.StoreStep )
+			switch( manager.GamePlayer.StoreData.StoreStep )
 			{
 				case 1:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( 5f, 0f, 5f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreBackground" ), new Vector3( 0f, -0.01f, 0f ), Quaternion.identity );
 					break;
 				case 2:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall2ndWall" ), new Vector3( 7.5f, 0f, 7.5f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall2ndWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreBackground" ), new Vector3( 0f, -0.01f, 0f ), Quaternion.identity );
 					break;
 				case 3:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall3rdWall" ), new Vector3( 10f, 0f, 10f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall3rdWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreBackground" ), new Vector3( 0f, -0.01f, 0f ), Quaternion.identity );
 					break;
 			}
 
-			GameObjectUtility.SetStaticEditorFlags( storeField.gameObject, StaticEditorFlags.NavigationStatic );
-	
-			NavMeshBuilder.BuildNavMesh();
+//			GameObjectUtility.SetStaticEditorFlags( storeField.gameObject, StaticEditorFlags.NavigationStatic );	
+//			NavMeshBuilder.BuildNavMesh();
 
 			// create funiture object
 			// set data array
-			furnitureObjectSet = new List<FurnitureObject>();
+			furnitureObjectSet = new List<FurnitureObject>( );
 
-			// make object
-			for ( int i = 0; i < manager.GamePlayer.AllocateFurnitureSet.Count; i++ )
+			// make object - allocated furniture
+			if( manager.GamePlayer.AllocateFurnitureSet.Count != 0 )
 			{
-				if ( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
+				for( int i = 0; i < manager.GamePlayer.AllocateFurnitureSet.Count; i++ )
 				{
-					temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.FileName ), 
-											                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
-					                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
-					furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
-					furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.AllocateFurnitureSet[ i ];
+					if( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
+					{
+						temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.FileName ), 
+						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
+						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
+						furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
+						furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.AllocateFurnitureSet[ i ];
+					}
 				}
 			}
 		}
-		catch ( NullReferenceException e )
+		catch( NullReferenceException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
@@ -114,9 +140,9 @@ public class StoreManager : MonoBehaviour
 		Destroy( storeBackground );
 
 		// furniture object
-		foreach ( FurnitureObject element in furnitureObjectSet )
+		foreach( FurnitureObject element in furnitureObjectSet )
 		{
-			if ( element != null )
+			if( element != null )
 				Destroy( element.gameObject );
 		}
 
@@ -140,18 +166,18 @@ public class StoreManager : MonoBehaviour
 			
 		// target function type -> create : use create ui(object type)
 		// target function type -> storage : use storage ui(object type)
-		if ( Input.GetButtonDown( "RightClick" ) )
+		if( Input.GetButtonDown( "RightClick" ) )
 		{
-			if ( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
+			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
 				GameObject tempSearch = hitInfo.collider.gameObject;
 				presentAllocateObject = tempSearch.GetComponent<FurnitureObject>();
 				
-				if ( presentAllocateObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
+				if( presentAllocateObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
 				{
 					Debug.Log( "Open create ui" );
 				}
-				else if ( presentAllocateObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.StorageObject )
+				else if( presentAllocateObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.StorageObject )
 				{
 					Debug.Log( "Open Storage ui" );
 				}
@@ -167,84 +193,61 @@ public class StoreManager : MonoBehaviour
 		// reload ray
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
-		// set plane scale
-		float planeScale = 0.0f;
-
-		switch ( manager.GamePlayer.StoreData.StoreStep )
-		{
-			case 1:
-				planeScale = 10f;
-				break;
-			case 2:
-				planeScale = 15f;
-				break;
-			case 3:
-				planeScale = 20f;
-				break;
-		}
-
 		// clear furniture object -> when mouse button right click
-		if ( Input.GetButtonDown( "RightClick" ) && (presentAllocateObject != null) )
+		if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject != null ) )
 		{
 			ConfirmAllocateFurnitureObject();
 		}
 		// set up furniture object => when mouse button right click
-		else if ( Input.GetButtonDown( "RightClick" ) && (presentAllocateObject == null) )
+		else if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject == null ) )
 		{
 			// cast & check furniture object -> if exist -> set present object
-			if ( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
+			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
 				// object allocate mode -> move mode
 				GameObject tempSearch = hitInfo.collider.gameObject;
 				presentAllocateObject = tempSearch.GetComponent<FurnitureObject>();
 				presentAllocateObject.AllocateMode = true;
 			}
-		}
+		}/*
 		// present object is fleid move object -> cast store field 
-		else if ( presentAllocateObject != null && presentAllocateObject.InstanceData.Furniture.Allocate == FurnitureData.AllocateType.Field )
+		else if( presentAllocateObject != null && presentAllocateObject.InstanceData.Furniture.Allocate == FurnitureData.AllocateType.Field )
 		{
 			// make cast point ( field furniture & store Field )
-			if ( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
+			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
 			{
 				// position change
-				presentAllocateObject.ChangeObjectPosition( hitInfo.point, planeScale );
-
-				// rotation change
-				if ( Input.GetKeyDown( KeyCode.E ) )
-					presentAllocateObject.ChangeObjectRotation( "Left" );
-				else if ( Input.GetKeyDown( KeyCode.T ) )
-					presentAllocateObject.ChangeObjectRotation( "Right" );
-				else if ( Input.GetKeyDown( KeyCode.R ) )
-					presentAllocateObject.ChangeObjectRotation( "Reset" );
+				presentAllocateObject.ChangeObjectPosition( hitInfo.point, planeScale );			
 			}
 		}
 		// present object is wall move object -> cast store wall 
-		else if ( presentAllocateObject != null && presentAllocateObject.InstanceData.Furniture.Allocate == FurnitureData.AllocateType.Wall )
+		else if( presentAllocateObject != null && presentAllocateObject.InstanceData.Furniture.Allocate == FurnitureData.AllocateType.Wall )
 		{
 			// set layer -> StoreWallLeft & StoreWallRight
 			int layer = 1 << LayerMask.NameToLayer( "StoreWallLeft" );
 			layer |= 1 << LayerMask.NameToLayer( "StoreWallRight" );
 
 			// make cast point ( wall furniture & store wall)
-			if ( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, layer ) )
+			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, layer ) )
 			{
 				// position change
 				presentAllocateObject.ChangeObjectPosition( hitInfo.point, planeScale );
 
 				// set rotation by direction
-				if ( hitInfo.collider.gameObject.layer == LayerMask.NameToLayer( "StoreWallLeft" ) )
+				if( hitInfo.collider.gameObject.layer == LayerMask.NameToLayer( "StoreWallLeft" ) )
 					presentAllocateObject.ChangeObjectRotation( "WallLeft" );
-				else if ( hitInfo.collider.gameObject.layer == LayerMask.NameToLayer( "StoreWallRight" ) )
+				else if( hitInfo.collider.gameObject.layer == LayerMask.NameToLayer( "StoreWallRight" ) )
 					presentAllocateObject.ChangeObjectRotation( "WallRight" );
 			}
 		}
+		*/
 	}
 
 	// confirm allocate object
 	public void ConfirmAllocateFurnitureObject()
 	{
 		// allocate possible
-		if ( presentAllocateObject.AllocatePossible )
+		if( presentAllocateObject.AllocatePossible )
 		{
 			// set allocate mode false
 			presentAllocateObject.AllocateMode = false;
@@ -260,8 +263,48 @@ public class StoreManager : MonoBehaviour
 		manager.GamePlayer.AllocateFurnitureInstance( index );
 
 		GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count ].Furniture.ID.ToString() ), 
-		                                              new Vector3( 5f, 0f, 5f ), 
+		                                              new Vector3( planeScale / 2f, 0f, planeScale / 2f ), 
 		                                              Quaternion.identity );
-		
 	}
+
+	// allocate furniture object position set
+	public void AllocateFurnintureObjectPositionSet( int direction )
+	{
+		Vector3 moveDirection = Vector3.zero;
+		switch( direction )
+		{
+			case 1:
+				moveDirection = new Vector3( 0f, 0f, -0.5f );
+				break;
+			case 2:
+				moveDirection = new Vector3( 0f, 0f, 0.5f );
+				break;
+			case 3:
+				moveDirection = new Vector3( 0.5f, 0f, 0f );
+				break;
+			case 4:
+				moveDirection = new Vector3( -0.5f, 0f, 0f );
+				break;
+		}
+		presentAllocateObject.ChangeObjectPosition( presentAllocateObject.transform.position + moveDirection );
+	}
+
+	// allocate furniture object rotation set
+	public void AllocateFurnitureObjectRotationSet( int direction )
+	{
+		// rotation change
+		switch( direction )
+		{
+			case 1:
+				presentAllocateObject.ChangeObjectRotation( "Left" );
+				break;
+			case 2:
+				presentAllocateObject.ChangeObjectRotation( "Right" );
+				break;
+			case 3:
+				presentAllocateObject.ChangeObjectRotation( "Reset" );
+				break;
+		}
+	}
+
 }

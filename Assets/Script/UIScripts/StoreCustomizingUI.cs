@@ -36,41 +36,13 @@ public class StoreCustomizingUI : MonoBehaviour
 	// move furniture object
 	public void OnClickMoveFurnitureObject( int direction )
 	{
-		Vector3 moveDirection = Vector3.zero;
-		switch( direction )
-		{
-			case 1:
-				moveDirection = new Vector3( 0f, 0f, -0.5f );
-				break;
-			case 2:
-				moveDirection = new Vector3( 0f, 0f, 0.5f );
-				break;
-			case 3:
-				moveDirection = new Vector3( 0.5f, 0f, 0f );
-				break;
-			case 4:
-				moveDirection = new Vector3( -0.5f, 0f, 0f );
-				break;
+		storeManager.AllocateFurnintureObjectPositionSet( direction );
+	}
 
-		}
-
-		// set plane scale
-		float planeScale = 0.0f;
-
-		switch( manager.GamePlayer.StoreData.StoreStep )
-		{
-			case 1:
-				planeScale = 10f;
-				break;
-			case 2:
-				planeScale = 15f;
-				break;
-			case 3:
-				planeScale = 20f;
-				break;
-		}
-
-		storeManager.PresentAllocateObject.ChangeObjectPosition( storeManager.PresentAllocateObject.transform.position + moveDirection, planeScale );
+	// rotation furniture object
+	public void OnClickRotateFurnitureObject(int direction)
+	{
+		storeManager.AllocateFurnitureObjectRotationSet(direction);
 	}
 
 	// confirm locate furniture object
