@@ -29,7 +29,11 @@ public class InventoryElement : MonoBehaviour
 	public void UpdateComponentElement( ItemInstance data )
 	{
 		// set default
+<<<<<<< HEAD
 		if( ( data.Item == null ) || ( data.Item.ID == 0 ) )
+=======
+		if( data.Item.ID == 0 )
+>>>>>>> 9d761361a6e019db4acc3e2f0304a5415c24cfcd
 		{
 			// set image default
 			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/ItemDefault" );
