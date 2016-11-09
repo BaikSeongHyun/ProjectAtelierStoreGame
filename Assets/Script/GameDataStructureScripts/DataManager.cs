@@ -66,34 +66,33 @@ public class DataManager : MonoBehaviour
 				int widthZ = int.Parse( node.SelectSingleNode( "widthZ" ).InnerText );
 				int level = int.Parse( node.SelectSingleNode( "level" ).InnerText );
 				string file = node.SelectSingleNode( "file" ).InnerText;
-                string material = null;
+				string material = null;
 
-                if (type == 1)
-                {
-                    material = node.SelectSingleNode("materials").InnerText;
-                }
+				if( type == 1 )
+				{
+					material = node.SelectSingleNode( "materials" ).InnerText;
+				}
 
-                // insert data
-                try
-                {
-                    if (type == 1)
-                    {
-                        furnitureSet.Add(id, new FurnitureData(type, id, file, name, guide, height, widthX, widthZ, level, material, FurnitureData.AllocateType.Field));
-                    }
-                    else
-                    {
-                        furnitureSet.Add(id, new FurnitureData(type, id, file, name, guide, height, widthX, widthZ, level, FurnitureData.AllocateType.Field));
-                    }
-                }
-
-                catch (Exception e)
-                {
-                    Debug.Log(e.StackTrace);
-                    Debug.Log(e.Message);
-                }
+				// insert data
+				try
+				{
+					if( type == 1 )
+					{
+						furnitureSet.Add( id, new FurnitureData( type, id, file, name, guide, height, widthX, widthZ, level, material, FurnitureData.AllocateType.Field ) );
+					}
+					else
+					{
+						furnitureSet.Add( id, new FurnitureData( type, id, file, name, guide, height, widthX, widthZ, level, FurnitureData.AllocateType.Field ) );
+					}
+				}
+				catch( Exception e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
+				}
 			}
-            Debug.Log("End load furniture data");
-        }
+			Debug.Log( "End load furniture data" );
+		}
 	}
 
 	// item data load
@@ -115,21 +114,21 @@ public class DataManager : MonoBehaviour
 		{
 			foreach( XmlNode node in nodes )
 			{
-                int type = int.Parse(node.SelectSingleNode("type").InnerText);
-                int id = int.Parse(node.SelectSingleNode("id").InnerText);
-                string file = node.SelectSingleNode("file").InnerText;
-                string name = node.SelectSingleNode("name").InnerText;
-                int price = int.Parse(node.SelectSingleNode("price").InnerText);
-                int countLimit = int.Parse(node.SelectSingleNode("countLimit").InnerText);
-                string guide = node.SelectSingleNode("guide").InnerText;
-                int grade = int.Parse(node.SelectSingleNode("grade").InnerText);
-                int step = int.Parse(node.SelectSingleNode("step").InnerText);
+				int type = int.Parse( node.SelectSingleNode( "type" ).InnerText );
+				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
+				string file = node.SelectSingleNode( "file" ).InnerText;
+				string name = node.SelectSingleNode( "name" ).InnerText;
+				int price = int.Parse( node.SelectSingleNode( "price" ).InnerText );
+				int countLimit = int.Parse( node.SelectSingleNode( "countLimit" ).InnerText );
+				string guide = node.SelectSingleNode( "guide" ).InnerText;
+				int grade = int.Parse( node.SelectSingleNode( "grade" ).InnerText );
+				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
 
-                try
+				try
 				{
-                    itemSet.Add(id, new ItemData(type, id, name, file, price, countLimit, guide, grade, step));
-                }
-                catch ( Exception e )
+					itemSet.Add( id, new ItemData( type, id, name, file, price, countLimit, guide, grade, step ) );
+				}
+				catch( Exception e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -149,6 +148,7 @@ public class DataManager : MonoBehaviour
 		{			
 			// data load - player direct data
 			playerData.Name = PlayerPrefs.GetString( "PlayerName" );
+			playerData.CharacterType = PlayerPrefs.GetString( "PlayerCharacter" );
 			playerData.Level = PlayerPrefs.GetInt( "PlayerLevel" );
 			playerData.Fame = PlayerPrefs.GetInt( "PlayerFame" );
 			playerData.Charm = PlayerPrefs.GetInt( "PlayerCharm" );
@@ -234,6 +234,7 @@ public class DataManager : MonoBehaviour
 	{
 		// save data setting - player direct data
 		PlayerPrefs.SetString( "PlayerName", playerData.Name );
+		PlayerPrefs.SetString( "PlayerCharacter", playerData.CharacterType );
 		PlayerPrefs.SetInt( "PlayerLevel", playerData.Level );
 		PlayerPrefs.SetInt( "PlayerFame", playerData.Fame );
 		PlayerPrefs.SetInt( "PlayerCharm", playerData.Charm );

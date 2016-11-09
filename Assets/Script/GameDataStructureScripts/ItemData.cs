@@ -34,11 +34,13 @@ public class ItemData
 
 	public enum ItemType : int
 	{
-		//천천히 수정.....
 		Default = 0,
-		a,
-		b,
-		c}
+		Potion = 1,
+		MagicHerb = 2,
+		MagicPowder = 3,
+		Scroll = 4,
+		Staff = 5,
+		MagicBook = 6}
 
 	;
 
@@ -111,24 +113,29 @@ public class ItemData
 		return _grade;
 	}
 
-	ItemType ReturnType( int _temp )
+	public static ItemType ReturnType( int _temp )
 	{
-		ItemType _item;
+		ItemType _item = ItemType.Default;
 
 		switch( _temp )
 		{
 			case 1:
-				_item = ItemType.a;
+				_item = ItemData.ItemType.Potion;
 				break;
-
 			case 2:
-				_item = ItemType.b;
+				_item = ItemData.ItemType.MagicHerb;
 				break;
 			case 3:
-				_item = ItemType.c;
+				_item = ItemData.ItemType.MagicPowder;
 				break;
-			default:
-				_item = ItemType.Default;
+			case 4:
+				_item = ItemData.ItemType.Scroll;
+				break;
+			case 5:
+				_item = ItemData.ItemType.Staff;
+				break;
+			case 6:
+				_item = ItemData.ItemType.MagicBook;
 				break;
 		}
 		return _item;

@@ -9,10 +9,12 @@ public class FurnitureObject : MonoBehaviour
 	[SerializeField] FurnitureInstance data;
 	[SerializeField] bool isAllocated;
 	[SerializeField] bool allocateMode;
+	[SerializeField] bool isActivated;
 	[SerializeField] bool allocatePossible;
 	[SerializeField] Image allocateTexture;
 	[SerializeField] Collider[] tempSet;
 	[SerializeField] float storePlaneScale;
+	[SerializeField] ItemInstance[] sellItemSet;
 
 	// property
 	public FurnitureInstance InstanceData { get { return data; } set { data = value; } }
@@ -28,6 +30,8 @@ public class FurnitureObject : MonoBehaviour
 	}
 
 	public bool AllocatePossible { get { return allocatePossible; } set { allocatePossible = value; } }
+
+	public bool Activated { get { return isActivated; } set { isActivated = value; } }
 
 	// unity standard method
 	// awake -> set element

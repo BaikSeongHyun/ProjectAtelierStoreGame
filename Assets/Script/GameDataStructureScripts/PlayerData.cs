@@ -9,6 +9,7 @@ public class PlayerData
 {
 	// game data field
 	[SerializeField] string name;
+	[SerializeField] string charType;
 	[SerializeField] int level;
 	[SerializeField] int fame;
 	[SerializeField] int charm;
@@ -20,9 +21,12 @@ public class PlayerData
 	[SerializeField] ItemInstance[] haveItemSet;
 	[SerializeField] FurnitureInstance[] haveFurnitureSet;
 	[SerializeField] List<FurnitureInstance> allocateFurnitureSet;
+	[SerializeField] List<FurnitureObject> allocateFurnitureObjectSet;
 
 	// property
 	public string Name { get { return name; } set { name = value; } }
+
+	public string CharacterType { get { return charType; } set { charType = value; } }
 
 	public int Level { get { return level; } set { level = value; } }
 
@@ -41,6 +45,8 @@ public class PlayerData
 	public FurnitureInstance[] FurnitureSet { get { return haveFurnitureSet; } set { haveFurnitureSet = value; } }
 
 	public List<FurnitureInstance> AllocateFurnitureSet { get { return allocateFurnitureSet; } }
+
+	public List<FurnitureObject> AllocateFurnitureObjectSet { get { return allocateFurnitureObjectSet; } set { allocateFurnitureObjectSet = value; } }
 
 	// consturctor - no parameter
 	public PlayerData()
@@ -156,7 +162,6 @@ public class PlayerData
 				}
 			}
 		}
-
 		return false;
 	}
 
@@ -175,5 +180,16 @@ public class PlayerData
 		haveItemSet = new ItemInstance[16];
 		haveFurnitureSet = new FurnitureInstance[16];
 		allocateFurnitureSet = new List<FurnitureInstance>( );
+	}
+
+	// check selling item
+	public FurnitureObject CheckSellItem()
+	{		
+		foreach( FurnitureObject element in allocateFurnitureObjectSet )
+		{
+			if( ( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject ) && ( element.Activated ) )
+				return element;
+		}
+		return null;
 	}
 }

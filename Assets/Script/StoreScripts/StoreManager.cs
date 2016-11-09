@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-
-//using UnityEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +17,7 @@ public class StoreManager : MonoBehaviour
 	[SerializeField] TileMap storeField;
 	[SerializeField] GameObject storeWall;
 	[SerializeField] GameObject storeBackground;
+	[SerializeField] GameObject storeNavField;
 	[SerializeField] List<FurnitureObject> furnitureObjectSet;
 
 	// customzing data field
@@ -70,35 +69,34 @@ public class StoreManager : MonoBehaviour
 		// create object
 		try
 		{
-			// create tilemap object
-			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreField" ), Vector3.zero, Quaternion.identity );
-			storeField = temp.GetComponent<TileMap>();
+			// create tilemap object - size check & texture setting
 			storeField.SetSize( manager.GamePlayer.StoreData.StoreStep );
 			storeField.BuildMesh();
 
-			// create wall & backgroubd
+			// create store wall & background move & nav field
 			switch( manager.GamePlayer.StoreData.StoreStep )
 			{
 				case 1:
 					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeBackground = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreBackground" ), new Vector3( 0f, -0.01f, 0f ), Quaternion.identity );
+					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step1NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeBackground.transform.position = new Vector3( 0f, -0.01f, 0f );
 					break;
 				case 2:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall2ndWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeBackground = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreBackground" ), new Vector3( 0f, -0.01f, 0f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step2NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeBackground.transform.position = new Vector3( 5f, -0.01f, 5f );
 					break;
 				case 3:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall3rdWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeBackground = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreBackground" ), new Vector3( 0f, -0.01f, 0f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step3NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeBackground.transform.position = new Vector3( 10f, -0.01f, 10f );
 					break;
 			}
-
-//			GameObjectUtility.SetStaticEditorFlags( storeField.gameObject, StaticEditorFlags.NavigationStatic );	
-//			NavMeshBuilder.BuildNavMesh();
 
 			// create funiture object
 			// set data array
 			furnitureObjectSet = new List<FurnitureObject>( );
+			GameObject temp;
 
 			// make object - allocated furniture
 			if( manager.GamePlayer.AllocateFurnitureSet.Count != 0 )
@@ -114,6 +112,8 @@ public class StoreManager : MonoBehaviour
 						furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.AllocateFurnitureSet[ i ];
 					}
 				}
+
+				manager.GamePlayer.AllocateFurnitureObjectSet = furnitureObjectSet;
 			}
 		}
 		catch( NullReferenceException e )
@@ -133,12 +133,11 @@ public class StoreManager : MonoBehaviour
 	public void ClearStoreObject()
 	{
 		// destroy object
-		// field
-		Destroy( storeField.gameObject );
 
-		// wall & back ground
+		// wall & nav field
 		Destroy( storeWall );
-		Destroy( storeBackground );
+		Destroy( storeNavField );
+
 
 		// furniture object
 		foreach( FurnitureObject element in furnitureObjectSet )

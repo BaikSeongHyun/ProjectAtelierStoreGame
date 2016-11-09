@@ -8,6 +8,8 @@ TagManager:
   - MainUI
   - GameLogic
   - object
+  - CustomerCreatePoint
+  - CustomerDestroyPoint
   layers:
   - Default
   - TransparentFX
