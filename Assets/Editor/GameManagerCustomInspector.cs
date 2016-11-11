@@ -2,17 +2,38 @@
 using UnityEngine;
 using System.Collections;
 
-[CustomEditor( typeof( GameManager ) )]
+[CustomEditor( typeof ( GameManager ) )]
 public class GameManagerCustomInspector :Editor
 {
 	public override void OnInspectorGUI()
 	{
 		DrawDefaultInspector();
+		GameManager manager = ( GameManager ) target;
 
 		if( GUILayout.Button( "ResetUI" ) )
-		{
-			GameManager manager = ( GameManager ) target;
+		{			
 			manager.SetUI();
 		}
+
+		if( GUILayout.Button( "OpenStore" ) )
+		{			
+			manager.SetStoreOpenMode();
+		}
+
+		if( GUILayout.Button( "SetItemAll" ) )
+		{
+			manager.SetItemsInSellObject();
+		}	
+
+		if( GUILayout.Button( "DeleteItemAll" ) )
+		{
+			manager.DeleteItemsInSellObject();
+		}
+
+		if( GUILayout.Button( "SetItemIndex" ) )
+		{
+			manager.SetItemsInSellObjectUseIndex();
+		}
+
 	}
 }

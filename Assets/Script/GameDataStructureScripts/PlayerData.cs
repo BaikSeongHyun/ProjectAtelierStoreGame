@@ -166,9 +166,9 @@ public class PlayerData
 	}
 
 	// material -> add item
-	public void AddItemMaterial( int uid, int itemCount )
+	public void AddItemMaterial( int id, int itemCount )
 	{
-		ItemData itemData = new ItemData( DataManager.FindItemDataByID( uid ) );
+		ItemData itemData = DataManager.FindItemDataByID( id );
 
 		AddItemData( itemData, itemCount );
 	}
@@ -176,6 +176,13 @@ public class PlayerData
 	// set default status
 	public void SetDefaultStatus()
 	{
+		name = "Default";
+		charType = "Default";
+		level = 1;
+		fame = 0;
+		charm = 0;
+		gold = 1000;
+		gem = 1000;
 		haveStoreData = new StoreData( );
 		haveItemSet = new ItemInstance[16];
 		haveFurnitureSet = new FurnitureInstance[16];
@@ -184,12 +191,45 @@ public class PlayerData
 
 	// check selling item
 	public FurnitureObject CheckSellItem()
-	{		
+	{
 		foreach( FurnitureObject element in allocateFurnitureObjectSet )
 		{
-			if( ( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject ) && ( element.Activated ) )
+			if( ( element.SellItem != null ) && ( element.SellItem.Item.ID != 0 ) )
+			{
 				return element;
+			}
 		}
 		return null;
+	}
+
+	// for test
+	public void InsertSellItem()
+	{
+		foreach( FurnitureObject element in allocateFurnitureObjectSet )
+		{
+			if( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
+			{
+				element.SellItem = new ItemInstance( 7, 5, 100 );
+			}
+
+		}
+	}
+
+	// for test
+	public void DeleteSellItem()
+	{
+		foreach( FurnitureObject element in allocateFurnitureObjectSet )
+		{
+			if( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
+			{
+				element.SellItem = null;
+			}
+
+		}
+	}
+
+	public void InsertSellItemUseIndex( int index )
+	{
+		allocateFurnitureObjectSet[ index ].SellItem = new ItemInstance( 7, 5, 100 ); 
 	}
 }

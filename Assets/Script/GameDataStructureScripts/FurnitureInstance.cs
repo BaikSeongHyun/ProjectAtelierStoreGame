@@ -35,7 +35,7 @@ public class FurnitureInstance
 	// constructor -> make furniture uid
 	public FurnitureInstance( int id, int _slotNumber )
 	{
-		furniture = new FurnitureData( DataManager.FindFurnitureDataByID( id ) );
+		furniture = DataManager.FindFurnitureDataByID( id );
 		position = Vector3.zero;
 		rotation = Quaternion.identity;
 		isAllocated = false;
@@ -45,7 +45,7 @@ public class FurnitureInstance
 	// constructor -> make data (use data)
 	public FurnitureInstance( FurnitureData data, int _slotNumber )
 	{
-		furniture = new FurnitureData( data );
+		furniture = data;
 		position = Vector3.zero;
 		rotation = Quaternion.identity;
 		isAllocated = false;
@@ -55,7 +55,7 @@ public class FurnitureInstance
 	// constructor -> make data ( allocated data )
 	public FurnitureInstance( int _id, int _slotNumber, bool _allocated, Vector3 _position, Quaternion _rotation )
 	{
-		furniture = new FurnitureData( DataManager.FindFurnitureDataByID( _id ) );
+		furniture = DataManager.FindFurnitureDataByID( _id );
 		slotNumber = _slotNumber;
 		isAllocated = _allocated;
 		position = _position;
@@ -65,7 +65,7 @@ public class FurnitureInstance
 	// constructor -> copy instance
 	public FurnitureInstance( FurnitureInstance data, int _slotNumber )
 	{
-		furniture = new FurnitureData( data.Furniture );
+		furniture = data.Furniture;
 		position = data.position;
 		rotation = data.rotation;
 		isAllocated = data.isAllocated;
@@ -75,7 +75,7 @@ public class FurnitureInstance
 	// constructor -> copy instance
 	public FurnitureInstance( FurnitureInstance data )
 	{
-		furniture = new FurnitureData( data.Furniture );
+		furniture = data.Furniture;
 		position = data.position;
 		rotation = data.rotation;
 		isAllocated = data.isAllocated;

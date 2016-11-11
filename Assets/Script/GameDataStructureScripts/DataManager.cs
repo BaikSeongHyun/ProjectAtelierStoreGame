@@ -41,7 +41,7 @@ public class DataManager : MonoBehaviour
 	{
 		furnitureSet = new Dictionary<int, FurnitureData>( );
 
-		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/furnitureData" );
+		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/FurnitureDataTable" );
 		XmlDocument document = new XmlDocument( );
 		document.LoadXml( loadData.text );
 
@@ -66,24 +66,61 @@ public class DataManager : MonoBehaviour
 				int widthZ = int.Parse( node.SelectSingleNode( "widthZ" ).InnerText );
 				int level = int.Parse( node.SelectSingleNode( "level" ).InnerText );
 				string file = node.SelectSingleNode( "file" ).InnerText;
-				string material = null;
-
-				if( type == 1 )
+				string material = node.SelectSingleNode( "materials" ).InnerText;
+				int[] firstDataTable = null;
+				int[] secondDataTable = null;
+				switch( type )
 				{
-					material = node.SelectSingleNode( "materials" ).InnerText;
+					case 1:
+						//type = FunctionType.CreateObject;
+						if( material.Length == 1 )
+						{
+							firstDataTable = new int[1];
+							firstDataTable[ 0 ] = Int32.Parse( material );
+							secondDataTable = null;
+						}
+						else if( material.Length > 1 )
+						{
+							string[] temp = material.Split( '.' );
+							firstDataTable = new int[temp.Length];
+							for( int i = 0; i < temp.Length; i++ )
+							{
+								firstDataTable[ i ] = Int32.Parse( temp[ i ] ); 
+							}
+							secondDataTable = null;
+						}
+						break;
+					case 2:
+						//type = FunctionType.SellObject;
+						if( material.Length == 1 )
+						{
+							firstDataTable = null;
+							secondDataTable = null;
+						}
+						else if( material.Length > 1 )
+						{
+							string[] temp = material.Split( '.' );
+							firstDataTable = new int[temp.Length / 2];
+							secondDataTable = new int[temp.Length / 2];
+							for( int i = 0; i < temp.Length; i += 2 )
+							{						
+								firstDataTable[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i ] );
+								secondDataTable[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i + 1 ] );
+							}
+						}
+						break;				
+					case 4:
+						//type = FunctionType.StorageObject;
+						firstDataTable = new int[1];
+						firstDataTable[ 0 ] = Int32.Parse( material );
+						secondDataTable = null;
+						break;					
 				}
 
 				// insert data
 				try
-				{
-					if( type == 1 )
-					{
-						furnitureSet.Add( id, new FurnitureData( type, id, file, name, guide, height, widthX, widthZ, level, material, FurnitureData.AllocateType.Field ) );
-					}
-					else
-					{
-						furnitureSet.Add( id, new FurnitureData( type, id, file, name, guide, height, widthX, widthZ, level, FurnitureData.AllocateType.Field ) );
-					}
+				{					
+					furnitureSet.Add( id, new FurnitureData( type, id, file, name, guide, height, widthX, widthZ, level, firstDataTable, secondDataTable, FurnitureData.AllocateType.Field ) );
 				}
 				catch( Exception e )
 				{
@@ -91,7 +128,6 @@ public class DataManager : MonoBehaviour
 					Debug.Log( e.Message );
 				}
 			}
-			Debug.Log( "End load furniture data" );
 		}
 	}
 
@@ -123,6 +159,28 @@ public class DataManager : MonoBehaviour
 				string guide = node.SelectSingleNode( "guide" ).InnerText;
 				int grade = int.Parse( node.SelectSingleNode( "grade" ).InnerText );
 				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
+
+				/*
+				string material = node.SelectSingleNode( "materials" ).InnerText;
+				int[] resourceIDSet = null;
+				int[] resourceCountSet = null;
+
+				if( material.Length == 1 )
+				{
+					resourceIDSet = null;
+					resourceCountSet = null;
+				}
+				else if( material.Length > 1 )
+				{
+					string[] temp = material.Split( '.' );
+					resourceIDSet = new int[temp.Length / 2];
+					resourceCountSet = new int[temp.Length / 2];
+					for( int i = 0; i < temp.Length; i += 2 )
+					{						
+						resourceIDSet[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i ] );
+						resourceCountSet[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i + 1 ] );
+					}
+				}*/
 
 				try
 				{

@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
 	// game logic simple data field
 	[SerializeField] GameMode presentGameMode;
+	[SerializeField] bool gameStart = false;
+	[SerializeField] int index;
 
 	// game instance data field
 	[SerializeField] PlayerData player;
@@ -32,8 +34,9 @@ public class GameManager : MonoBehaviour
 		Loading = 2,
 		Store = 3,
 		StoreCustomizing = 4,
-		Village = 5,
-		Field = 6}
+		StoreOpen = 5,
+		Village = 6,
+		Field = 7}
 
 	;
 
@@ -77,6 +80,12 @@ public class GameManager : MonoBehaviour
 
 				break;
 		}
+
+		if( Application.platform == RuntimePlatform.Android )
+		{
+			if( Input.GetKey( KeyCode.Escape ) )
+				Application.Quit();
+		}
 	}
 
 	// late update -> process camera logic
@@ -106,7 +115,7 @@ public class GameManager : MonoBehaviour
 	{
 		// set mainUI
 		presentGameMode = GameMode.Start;
-		mainUI.UIModeChange();	
+		mainUI.UIModeChange();
 	}
 
 
@@ -115,16 +124,10 @@ public class GameManager : MonoBehaviour
 	public void GameStart()
 	{
 		StartCoroutine( GameStartLoadingProcess() );
+		gameStart = true;
 	}
 
 	// check game data loading
-	// if game data all loading (return true)
-	public bool CheckGameDataLoading()
-	{
-		Debug.Log( "Game data loading process" );
-		return storeManager.CreateStoreObject();
-	}
-
 	// go to field
 	public void CheckFieldDataLoading()
 	{
@@ -154,16 +157,42 @@ public class GameManager : MonoBehaviour
 		SetUI();
 	}
 
+	// set store open mode
+	public void SetStoreOpenMode()
+	{
+		presentGameMode = GameMode.StoreOpen;
+		aiManager.StoreOpen();
+		SetUI();
+	}
+
+	// set item all allocate sell object
+	public void SetItemsInSellObject()
+	{
+		player.InsertSellItem();
+	}
+
+	// set item all allocate sell object
+	public void DeleteItemsInSellObject()
+	{
+		player.DeleteSellItem();
+	}
+
+	public void SetItemsInSellObjectUseIndex()
+	{
+		player.InsertSellItemUseIndex( index );
+	}
+
 	// coroutine section
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()
 	{
 		//mainUI.LoadingSceneState( true );
+		StartCoroutine( storeManager.CreateStoreObject() );
 
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if( !CheckGameDataLoading() )
+			if( !storeManager.CreateComplete )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -175,6 +204,11 @@ public class GameManager : MonoBehaviour
 				{
 					// set camera mode
 					cameraControl.SetCameraDefault( GameMode.Store );
+				}
+				catch( NullReferenceException e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
 				}
 				catch( UnassignedReferenceException e )
 				{
@@ -199,7 +233,7 @@ public class GameManager : MonoBehaviour
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if( !CheckGameDataLoading() )
+			if( !storeManager.CreateComplete )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -223,7 +257,7 @@ public class GameManager : MonoBehaviour
 			if( DataManager.CheckPlayerDataLoading() )
 			{				
 				// loading game data false -> wait	
-				if( !CheckGameDataLoading() )
+				if( !storeManager.CreateComplete )
 				{
 					// set main ui state -> loading state
 					yield return 1.0f;

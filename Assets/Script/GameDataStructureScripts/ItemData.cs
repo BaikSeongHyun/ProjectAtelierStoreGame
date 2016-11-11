@@ -14,9 +14,15 @@ public class ItemData
 	[SerializeField] string guide;
 	[SerializeField] GradeType gradeType;
 	[SerializeField] int step;
+	[SerializeField] int[] resourceIDSet;
+	[SerializeField] int[] resourceCountSet;
 
 	// property
 	public int ID { get { return id; } }
+
+	public ItemType Type { get { return itemType; } }
+
+	public int Price { get { return price; } }
 
 	public int CountLimit { get { return countLimit; } }
 
@@ -25,22 +31,23 @@ public class ItemData
 	public enum GradeType : int
 	{
 		Default = 0,
-		common,
-		rare,
-		unique,
-		legendary}
+		common = 1,
+		rare = 2,
+		unique = 3,
+		legendary = 4}
 
 	;
 
 	public enum ItemType : int
 	{
 		Default = 0,
-		Potion = 1,
-		MagicHerb = 2,
-		MagicPowder = 3,
-		Scroll = 4,
-		Staff = 5,
-		MagicBook = 6}
+		FoundationMaterial = 1,
+		Potion = 2,
+		MagicHerb = 3,
+		MagicPowder = 4,
+		Scroll = 5,
+		Staff = 6,
+		MagicBook = 7}
 
 	;
 
@@ -73,71 +80,59 @@ public class ItemData
 		step = _step;
 	}
 
-	// constructor - self parameter
-	public ItemData( ItemData data )
+	GradeType ReturnGradeType( int _gradeType )
 	{
-		itemType = data.itemType;
-		id = data.id;
-		file = data.file;
+		GradeType grade;
 
-		name = data.name;
-		price = data.price;
-		countLimit = data.countLimit;
-		guide = data.guide;
-		gradeType = data.gradeType;
-		step = data.step;
-	}
-
-	GradeType ReturnGradeType( int _temp )
-	{
-		GradeType _grade;
-
-		switch( _temp )
+		switch( _gradeType )
 		{
 			case 1:
-				_grade = GradeType.common;
+				grade = GradeType.common;
 				break;
 			case 2:
-				_grade = GradeType.rare;
+				grade = GradeType.rare;
 				break;
 			case 3:
-				_grade = GradeType.unique;
+				grade = GradeType.unique;
 				break;
 			case 4:
-				_grade = GradeType.legendary;
+				grade = GradeType.legendary;
 				break;
 			default:
-				_grade = GradeType.Default;
+				grade = GradeType.Default;
 				break;
 		}
-		return _grade;
+		return grade;
 	}
 
-	public static ItemType ReturnType( int _temp )
+	public static ItemType ReturnType( int _itemType )
 	{
-		ItemType _item = ItemType.Default;
+		ItemType item = ItemType.Default;
 
-		switch( _temp )
+		switch( _itemType )
 		{
 			case 1:
-				_item = ItemData.ItemType.Potion;
+				item = ItemData.ItemType.FoundationMaterial;
 				break;
 			case 2:
-				_item = ItemData.ItemType.MagicHerb;
+				item = ItemData.ItemType.Potion;
 				break;
 			case 3:
-				_item = ItemData.ItemType.MagicPowder;
+				item = ItemData.ItemType.MagicHerb;
 				break;
 			case 4:
-				_item = ItemData.ItemType.Scroll;
+				item = ItemData.ItemType.MagicPowder;
 				break;
 			case 5:
-				_item = ItemData.ItemType.Staff;
+				item = ItemData.ItemType.Scroll;
 				break;
 			case 6:
-				_item = ItemData.ItemType.MagicBook;
+				item = ItemData.ItemType.Staff;
+				break;
+			case 7:
+				item = ItemData.ItemType.MagicBook;
 				break;
 		}
-		return _item;
+		return item;
 	}
 }

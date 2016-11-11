@@ -7,6 +7,10 @@ public class AIManager : MonoBehaviour
 	// high structure
 	[SerializeField] GameManager manager;
 
+	// field - store open data
+	[SerializeField] float customerCycle;
+	[SerializeField] int customerIndex;
+
 	// field - information data
 	[SerializeField] int probabilityOfBuyScale;
 	[SerializeField] int probabilityOfFavoriteGroup;
@@ -22,7 +26,7 @@ public class AIManager : MonoBehaviour
 	void Awake()
 	{
 		manager = GetComponent<GameManager>();
-		customerAgentSet = new List<CustomerAgent>( );
+		//customerAgentSet = new List<CustomerAgent>( );
 	}
 
 	// public method
@@ -75,6 +79,34 @@ public class AIManager : MonoBehaviour
 		customerAgentSet.Add( temp.GetComponent<CustomerAgent>() );
 	}
 
-	// update 
+	public void StoreOpen()
+	{
+		StartCoroutine( CustomerGoStore() );
+	}
+
+	public void StoreClose()
+	{
+
+	}
+	//
+	public void RushAllCustomer()
+	{
+		foreach( CustomerAgent element in customerAgentSet )
+		{
+			element.GoToStore();
+		}
+	}
+
+	IEnumerator CustomerGoStore()
+	{
+		while( manager.PresentMode == GameManager.GameMode.StoreOpen )
+		{
+			customerAgentSet[ customerIndex ].MoveStart();
+			customerIndex++;
+			if( customerIndex >= customerAgentSet.Count )
+				customerIndex = 0;
+			yield return new WaitForSeconds( customerCycle ); 
+		}
+	}
 
 }

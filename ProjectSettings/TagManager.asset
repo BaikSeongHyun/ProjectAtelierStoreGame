@@ -8,8 +8,11 @@ TagManager:
   - MainUI
   - GameLogic
   - object
-  - CustomerCreatePoint
+  - CustomerStartPoint
+  - CustomerEndPoint
+  - CustomerStoreEnterPoint
   - CustomerDestroyPoint
+  - CustomerCreatePoint
   layers:
   - Default
   - TransparentFX
@@ -20,12 +23,12 @@ TagManager:
   - 
   - 
   - StoreField
-  - StoreWallRight
-  - StoreWallLeft
+  - StoreWall
+  - 
   - Furniture
   - StoreBackground
-  - Character
-  - 
+  - PlayerCharacter
+  - CustomerCharacter
   - 
   - 
   - 

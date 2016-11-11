@@ -13,7 +13,8 @@ public class FurnitureData
 	[SerializeField] int widthX;
 	[SerializeField] int widthZ;
 	[SerializeField] int level;
-	[SerializeField] string[] material;
+	[SerializeField] int[] firstDataTable;
+	[SerializeField] int[] secondDataTable;
 	[SerializeField] FunctionType functionType;
 	[SerializeField] AllocateType allocateType;
 
@@ -33,6 +34,10 @@ public class FurnitureData
 	public int WidthZ { get { return widthZ; } }
 
 	public int Level { get { return level; } }
+
+	public int[] SellItemGroupSet { get { return firstDataTable; } }
+
+	public int[] SellItemCountSet { get { return secondDataTable; } }
 
 	public FunctionType Function { get { return functionType; } }
 
@@ -73,12 +78,12 @@ public class FurnitureData
 		widthZ = 0;
 		functionType = FunctionType.Default;
 		level = 0;
-		material = new string[0];
+
 		allocateType = AllocateType.Default;
 	}
 
 	// constructor - all parameter -> set up data
-	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, AllocateType _allocateType )
+	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, int[]_firstDataTable, int[] _secondDataTable, AllocateType _allocateType )
 	{
 		functionType = ReturnType( _type );
 		id = _id;
@@ -89,7 +94,9 @@ public class FurnitureData
 		widthX = _widthX;
 		widthZ = _widthZ;
 		level = _level;
-        
+		firstDataTable = _firstDataTable;
+		secondDataTable = _secondDataTable;
+
 		// allocate function type
 		switch( _type )
 		{
@@ -124,30 +131,7 @@ public class FurnitureData
 		widthX = _widthX;
 		widthZ = _widthZ;
 		level = _level;
-		MaterialList( _mat );
 		allocateType = _allocateType;
-	}
-
-	// constructor - data parameter -> make same data instance
-	public FurnitureData( FurnitureData data )
-	{
-		functionType = data.functionType;
-		id = data.id;
-		file = data.file;
-		name = data.name;
-		guide = data.guide;
-		height = data.height;
-		widthX = data.widthX;
-		widthZ = data.widthZ;
-		functionType = data.functionType;
-		level = data.level;
-		Array.Copy( data.material, material, data.material.Length );
-		allocateType = data.allocateType;
-	}
-
-	public void MaterialList( string _mat )
-	{
-		material = _mat.Split( new char[] { ',' } );
 	}
 
 	FunctionType ReturnType( int _temp )

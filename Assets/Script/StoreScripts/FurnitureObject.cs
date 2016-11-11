@@ -14,7 +14,7 @@ public class FurnitureObject : MonoBehaviour
 	[SerializeField] Image allocateTexture;
 	[SerializeField] Collider[] tempSet;
 	[SerializeField] float storePlaneScale;
-	[SerializeField] ItemInstance[] sellItemSet;
+	[SerializeField] ItemInstance sellItemSet;
 
 	// property
 	public FurnitureInstance InstanceData { get { return data; } set { data = value; } }
@@ -32,6 +32,8 @@ public class FurnitureObject : MonoBehaviour
 	public bool AllocatePossible { get { return allocatePossible; } set { allocatePossible = value; } }
 
 	public bool Activated { get { return isActivated; } set { isActivated = value; } }
+
+	public ItemInstance SellItem { get { return sellItemSet; } set { sellItemSet = value; } }
 
 	// unity standard method
 	// awake -> set element
@@ -178,10 +180,41 @@ public class FurnitureObject : MonoBehaviour
 		}
 	}
 
+	// set texture -> use customizing check
 	public void SetAllocateTexture( bool state )
 	{
 		allocateTexture.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2( data.Furniture.WidthX, data.Furniture.WidthZ );
 
 		allocateTexture.enabled = state;
+	}
+
+	// set sell Item
+	public void SetSellItem( ItemInstance instanceData )
+	{
+		for( int i = 0; i < data.Furniture.SellItemGroupSet.Length; i++ )
+		{
+			if( data.Furniture.SellItemGroupSet[ i ] == ( int ) instanceData.Item.Type )
+			{
+				sellItemSet = new ItemInstance( instanceData, data.Furniture.SellItemCountSet[ i ] );
+
+				return;
+			}
+		}
+	}
+
+	// for sell item
+	public void OnTriggerEnter( Collider col )
+	{
+		CustomerAgent temp = col.gameObject.GetComponent<CustomerAgent>();
+
+		if( ( temp != null ) && sellItemSet != null )
+		{
+			temp.BuyItemInstance( sellItemSet );
+			if( sellItemSet.Count == 0 )
+				sellItemSet = null;
+			temp.WarpOutStore();
+		}
+
+
 	}
 }

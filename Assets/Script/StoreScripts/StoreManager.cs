@@ -62,72 +62,6 @@ public class StoreManager : MonoBehaviour
 		}
 	}
 
-	public bool CreateStoreObject()
-	{
-		SetPlaneScale();
-
-		// create object
-		try
-		{
-			// create tilemap object - size check & texture setting
-			storeField.SetSize( manager.GamePlayer.StoreData.StoreStep );
-			storeField.BuildMesh();
-
-			// create store wall & background move & nav field
-			switch( manager.GamePlayer.StoreData.StoreStep )
-			{
-				case 1:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step1NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeBackground.transform.position = new Vector3( 0f, -0.01f, 0f );
-					break;
-				case 2:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step2NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeBackground.transform.position = new Vector3( 5f, -0.01f, 5f );
-					break;
-				case 3:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stWall" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step3NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
-					storeBackground.transform.position = new Vector3( 10f, -0.01f, 10f );
-					break;
-			}
-
-			// create funiture object
-			// set data array
-			furnitureObjectSet = new List<FurnitureObject>( );
-			GameObject temp;
-
-			// make object - allocated furniture
-			if( manager.GamePlayer.AllocateFurnitureSet.Count != 0 )
-			{
-				for( int i = 0; i < manager.GamePlayer.AllocateFurnitureSet.Count; i++ )
-				{
-					if( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
-					{
-						temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.File ), 
-						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
-						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
-						furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
-						furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.AllocateFurnitureSet[ i ];
-					}
-				}
-
-				manager.GamePlayer.AllocateFurnitureObjectSet = furnitureObjectSet;
-			}
-		}
-		catch( NullReferenceException e )
-		{
-			Debug.Log( e.StackTrace );
-			Debug.Log( e.Message );
-			Debug.Log( "Store Create Fail -> data load fail" );
-			createComplete = false;
-			return false;
-		}
-
-		createComplete = true;
-		return true;
-	}
 
 	// destroy all store object
 	public void ClearStoreObject()
@@ -305,6 +239,75 @@ public class StoreManager : MonoBehaviour
 				presentAllocateObject.ChangeObjectRotation( "Reset" );
 				break;
 		}
+	}
+
+	// coroutine
+	public IEnumerator CreateStoreObject()
+	{
+		SetPlaneScale();
+
+		// create object
+		try
+		{
+			// create tilemap object - size check & texture setting
+			storeField.SetSize( manager.GamePlayer.StoreData.StoreStep );
+			storeField.BuildMesh();
+
+			// create store wall & background move & nav field
+			switch( manager.GamePlayer.StoreData.StoreStep )
+			{
+				case 1:
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step1NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeBackground.transform.position = new Vector3( 0f, -0.01f, 0f );
+					break;
+				case 2:
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step2NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeBackground.transform.position = new Vector3( 5f, -0.01f, 5f );
+					break;
+				case 3:
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step3NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeBackground.transform.position = new Vector3( 10f, -0.01f, 10f );
+					break;
+			}
+
+			// create funiture object
+			// set data array
+			furnitureObjectSet = new List<FurnitureObject>( );
+			GameObject temp;
+
+			// make object - allocated furniture
+			if( manager.GamePlayer.AllocateFurnitureSet.Count != 0 )
+			{
+				for( int i = 0; i < manager.GamePlayer.AllocateFurnitureSet.Count; i++ )
+				{
+					if( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
+					{
+						temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.File ), 
+						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
+						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
+						furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
+						furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.AllocateFurnitureSet[ i ];
+					}
+				}
+
+				manager.GamePlayer.AllocateFurnitureObjectSet = furnitureObjectSet;
+			}
+		}
+		catch( NullReferenceException e )
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			Debug.Log( "Store Create Fail -> data load fail" );
+			createComplete = false;
+			yield break;
+		}
+
+		createComplete = true;
+
+		yield break;
 	}
 
 }

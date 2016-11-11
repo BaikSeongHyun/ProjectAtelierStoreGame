@@ -88,7 +88,7 @@ public class ObjectOnField : MonoBehaviour
 		yield return new WaitForSeconds( cooltime );
 		Debug.Log( "재료수집성공" );
 
-		sendData.data.Add( new ItemData( DataManager.FindItemDataByID( id ) ) );
+		sendData.data.Add( DataManager.FindItemDataByID( id ) );
 		sendData.count.Add( count );
 
 		ObjectRegeneration.curObjects--;
