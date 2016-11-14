@@ -165,6 +165,11 @@ public class GameManager : MonoBehaviour
 		SetUI();
 	}
 
+	public void SetDefaultStatus()
+	{
+		player.SetDefaultStatus();
+	}
+
 	// set item all allocate sell object
 	public void SetItemsInSellObject()
 	{

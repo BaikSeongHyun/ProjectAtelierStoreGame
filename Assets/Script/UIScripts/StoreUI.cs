@@ -6,22 +6,24 @@ using System.Collections;
 public class StoreUI : MonoBehaviour
 {
 	// high structure
-	GameManager manager;
+	[SerializeField] GameManager manager;
 
 	// component element
 	// - text set
-	[SerializeField] Text storeStep;
-	[SerializeField] Text playerLevel;
-	[SerializeField] Text playerName;
-	[SerializeField] Text gold;
-	[SerializeField] Text gem;
+	[SerializeField] Text goldText;
+	[SerializeField] Text levelText;
+	[SerializeField] Text storeStepText;
 
-	// - object set
-	[SerializeField] GameObject itemInventory;
-	[SerializeField] InventoryUI itemInventoryLogic;
-	[SerializeField] GameObject furnitureInventory;
-	[SerializeField] InventoryUI furnitureInventoryLogic;
-	[SerializeField] GameObject playerStatus;
+
+	// - object set -> child ui object
+	[SerializeField] GameObject achievementUI;
+	[SerializeField] GameObject storageUI;
+	[SerializeField] StorageUI storageUILogic;
+	[SerializeField] GameObject questUI;
+
+	// - button set -> make on click method
+	// achivement, storage, field, customize
+		 
 
 	// public method
 	// link component
@@ -30,94 +32,74 @@ public class StoreUI : MonoBehaviour
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 
 		// text element
-		storeStep = transform.Find( "StoreStep" ).GetComponentInChildren<Text>();
-		playerLevel = transform.Find( "PlayerLevel" ).GetComponentInChildren<Text>();
-		playerName = transform.Find( "PlayerName" ).GetComponentInChildren<Text>();
-		gold = transform.Find( "Gold" ).GetComponentInChildren<Text>();
-		gem = transform.Find( "Gem" ).GetComponentInChildren<Text>();
+		goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
+		levelText = transform.Find( "PlayerStatus" ).Find( "LevelText" ).GetComponent<Text>();
+		storeStepText = transform.Find( "PlayerStatus" ).Find( "StoreStepText" ).GetComponent<Text>();
 
 		// object element
-		itemInventory = transform.Find( "ItemInventory" ).gameObject;
-		itemInventory.SetActive( false );
-		itemInventoryLogic = itemInventory.GetComponent<InventoryUI>();
-		itemInventoryLogic.LinkComponentElement();
+		achievementUI = transform.Find( "AchievementUI" ).gameObject;
+		storageUI = transform.Find( "StorageUI" ).gameObject;
+		storageUILogic = storageUI.GetComponent<StorageUI>();
+		questUI = transform.Find( "QuestUI" ).gameObject;
 
-
-		furnitureInventory = transform.Find( "FurnitureInventory" ).gameObject;
-		furnitureInventory.SetActive( false );
-		furnitureInventoryLogic = furnitureInventory.GetComponent<InventoryUI>();
-		furnitureInventoryLogic.LinkComponentElement();
-
-
-		playerStatus = transform.Find( "PlayerStatus" ).gameObject;
-		playerStatus.SetActive( false );
+		// object element off
+		ClearChildUI();
 	}
 
 	// update element
 	public void UpdateComponentElement()
 	{
-		// store step
-		storeStep.text = "Step " + manager.GamePlayer.StoreData.StoreStep;
+		goldText.text = manager.GamePlayer.Gold.ToString();
+		levelText.text = "Lv." + manager.GamePlayer.Level.ToString();
+		storeStepText.text = manager.GamePlayer.StoreData.StoreStep.ToString();
 
-		// level
-		playerLevel.text = "Lv. " + manager.GamePlayer.Level;
+		if( storageUI.activeSelf )
+		{
+			storageUILogic.UpdateComponentElement();
+		}
+	}
 
-		// player name
-		playerName.text = manager.GamePlayer.Name;
-
-		// gold
-		gold.text = manager.GamePlayer.Gold.ToString();
-
-		// gem
-		gem.text = manager.GamePlayer.Gem.ToString();
-
-		// if item inventory open -> update item inventory
-		if( itemInventory.activeSelf )
-			itemInventoryLogic.UpdateComponentElement();
-		
-		// if furniture inventory open -> update furniture inventory
-		if( furnitureInventory.activeSelf )
-			furnitureInventoryLogic.UpdateComponentElement();
+	// clear child ui
+	public void ClearChildUI()
+	{
+		achievementUI.SetActive( false );
+		storageUI.SetActive( false );
+		questUI.SetActive( false );
 	}
 
 	// on click method
-	// on click item inventory button
-	public void OnClickItemInventoryButton()
+	// on click achievement button
+	public void OnClickAchievementButton()
 	{
-		itemInventory.SetActive( !itemInventory.activeSelf );
-		furnitureInventory.SetActive( false );
+		ClearChildUI();
+		achievementUI.SetActive( true );
+	}
+
+	// on click storage button
+	public void OnClickStorageButton()
+	{
+		ClearChildUI();
+		storageUI.SetActive( true );
 	}
 
 	// on click furniture inventory button
-	public void OnClickFurnitureInventoryButton()
+	public void OnClickFieldButton()
 	{
-		itemInventory.SetActive( false );
-		furnitureInventory.SetActive( !furnitureInventory.activeSelf );
-	}
-
-	// on click player status button
-	public void OnClickPlayerStatusButton()
-	{
-		playerStatus.SetActive( !playerStatus.activeSelf );
+		ClearChildUI();
 	}
 
 	// on click mode customizing button
 	public void OnClickCustomizingButton()
 	{
+		ClearChildUI();
 		manager.SetCutomizeingMode();
 	}
 
-
-	// on click furniture inventory element
-	public void OnClickFurnitureInventoryElement( int index )
+	// on click quest button
+	public void OnClickQuestButton()
 	{
-		// manager.GamePlayer.FurnitureSet[ index ];
+		ClearChildUI();
+		questUI.SetActive( true );
 	}
 
-	// on click furniture shop items
-	public void OnClickFurnitureShopElement( int index )
-	{
-		Debug.Log( index.ToString() + " 번째 가구 아이템을 구매합니다." );
-		//manager.GamePlayer.AddFurnitureData();
-	}
 }

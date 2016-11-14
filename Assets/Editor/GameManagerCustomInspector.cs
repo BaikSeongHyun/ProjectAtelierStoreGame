@@ -10,9 +10,9 @@ public class GameManagerCustomInspector :Editor
 		DrawDefaultInspector();
 		GameManager manager = ( GameManager ) target;
 
-		if( GUILayout.Button( "ResetUI" ) )
+		if( GUILayout.Button( "ResetPlayerData" ) )
 		{			
-			manager.SetUI();
+			manager.SetDefaultStatus();
 		}
 
 		if( GUILayout.Button( "OpenStore" ) )

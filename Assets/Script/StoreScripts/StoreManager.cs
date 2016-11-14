@@ -100,7 +100,7 @@ public class StoreManager : MonoBehaviour
 			
 		// target function type -> create : use create ui(object type)
 		// target function type -> storage : use storage ui(object type)
-		if( Input.GetButtonDown( "RightClick" ) )
+		if( Input.GetButtonDown( "LeftClick" ) )
 		{
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
@@ -128,12 +128,12 @@ public class StoreManager : MonoBehaviour
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
 		// clear furniture object -> when mouse button right click
-		if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject != null ) )
+		if( Input.GetButtonDown( "LeftClick" ) && ( presentAllocateObject != null ) )
 		{
 			ConfirmAllocateFurnitureObject();
 		}
 		// set up furniture object => when mouse button right click
-		else if( Input.GetButtonDown( "RightClick" ) && ( presentAllocateObject == null ) )
+		else if( Input.GetButtonDown( "LeftClick" ) && ( presentAllocateObject == null ) )
 		{
 			// cast & check furniture object -> if exist -> set present object
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )

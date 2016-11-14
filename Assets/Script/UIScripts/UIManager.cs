@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject storeUI;
 	[SerializeField] StoreUI storeUILogic;
 	[SerializeField] GameObject storeCustomizingSet;
-	[SerializeField] StoreCustomizingUI storeCustomizingSetLogic;
+	[SerializeField] CustomizeUI storeCustomizingSetLogic;
 	[SerializeField] GameObject loadingScene;
 
 	[SerializeField] public GameObject questPopup;
@@ -35,8 +35,8 @@ public class UIManager : MonoBehaviour
 		storeUILogic = storeUI.GetComponent<StoreUI>();
 		storeUILogic.LinkComponentElement();
 
-		storeCustomizingSet = transform.Find( "StoreCustomizingUI" ).gameObject;
-		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<StoreCustomizingUI>();
+		storeCustomizingSet = transform.Find( "CustomizeUI" ).gameObject;
+		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<CustomizeUI>();
 		storeCustomizingSetLogic.LinkComponentElement();
 
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
