@@ -130,7 +130,11 @@ public class StoreManager : MonoBehaviour
 		// clear furniture object -> when mouse button right click
 		if( Input.GetButtonDown( "LeftClick" ) && ( presentAllocateObject != null ) )
 		{
-			ConfirmAllocateFurnitureObject();
+			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
+			{				
+				if( hitInfo.collider.gameObject.GetComponent<FurnitureObject>() == presentAllocateObject )
+					ConfirmAllocateFurnitureObject();
+			}
 		}
 		// set up furniture object => when mouse button right click
 		else if( Input.GetButtonDown( "LeftClick" ) && ( presentAllocateObject == null ) )

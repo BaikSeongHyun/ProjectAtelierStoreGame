@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject storeCustomizingSet;
 	[SerializeField] CustomizeUI storeCustomizingSetLogic;
 	[SerializeField] GameObject loadingScene;
+	[SerializeField] Text testField;
 
 	[SerializeField] public GameObject questPopup;
 
@@ -45,22 +46,23 @@ public class UIManager : MonoBehaviour
 	// update ui component
 	public void UIUpdate()
 	{
-		if ( storeUI != null )
+		if( storeUI != null )
 		{
-			if ( storeUI.activeSelf )
+			if( storeUI.activeSelf )
 				storeUILogic.UpdateComponentElement();
 
-			if ( storeCustomizingSet.activeSelf )
+			if( storeCustomizingSet.activeSelf )
 				storeCustomizingSetLogic.UpdateComponentElement();
 		}
+		testField.text = "x:" + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y + ", z: " + Camera.main.transform.position.z;
 	}
 	
 	// mode change
 	public void UIModeChange()
 	{
-		if ( manager == null )
+		if( manager == null )
 			LinkComponentElement();
-		switch ( manager.PresentMode )
+		switch( manager.PresentMode )
 		{
 			case GameManager.GameMode.Start:
 				storeUI.SetActive( false );

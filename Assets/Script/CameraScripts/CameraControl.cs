@@ -3,90 +3,77 @@ using System.Collections;
 
 public class CameraControl : MonoBehaviour
 {
-	// high structure
-	[SerializeField] GameManager manager;
+	// main camera
+	[SerializeField] Camera viewCamera;
 
-	// control field
-	Quaternion rootStoreOrthographicRotation = Quaternion.Euler( new Vector3( 30f, 225f, 0f ) );
-	Vector3 rootStoreOrthographicPosition = new Vector3( 16, 12, 16 );
-	Vector3 fieldOrthographicDistance = new Vector3( 16f, 16f, 16f );
-	const float rootOrthographicViewSize = 8f;
-	[SerializeField] float orthographicViewSize = 6f;
-	[SerializeField] float viewSensitive = 10f;
-	[SerializeField] float moveSensitive = 10f;
+	// touch sensitive
+	[SerializeField] float touchSensitive;
 
-	// control camera
-	[SerializeField] Camera mainCamera;
+	// field position
+	[SerializeField] float xPosition = 10f;
+	[SerializeField] float yPosition = 10f;
+	[SerializeField] float zPosition = 10f;
+
+	// field - rotation
+	[SerializeField] float xRotation;
+	[SerializeField] float yRotation;
+
+
 
 	// property
-	private float ViewSize { get { return orthographicViewSize; } set { orthographicViewSize = Mathf.Clamp( value, 4f, 12f ); } }
+
+	public float XPosition { get { return xPosition; } set { xPosition = Mathf.Clamp( value, -30f, 30f ); } }
+
+	public float YPosition { get { return yPosition; } set { yPosition = Mathf.Clamp( value, 0f, 100f ); } }
+
+	public float ZPosition { get { return zPosition; } set { zPosition = Mathf.Clamp( value, -30f, 30f ); } }
+
+	public float XRotation { get { return xRotation; } set { xRotation = Mathf.Clamp( value, 30f, 90f ); } }
+
+	public float YRotation { get { return yRotation; } set { yRotation = Mathf.Clamp( value, 180f, 270f ); } }
 
 	// unity method
 	// awake
 	void Awake()
 	{
-		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
-		mainCamera = GetComponent<Camera>(); 
-		mainCamera.orthographic = true;
-		mainCamera.orthographicSize = rootOrthographicViewSize;
+		viewCamera = GetComponent<Camera>();
+		xPosition = yPosition = zPosition = 10f;
+		touchSensitive = 60000f;
 	}
 
 	// public method
 	// camera set method
 	public void SetCameraDefault( GameManager.GameMode state )
 	{
-		switch( state )
-		{
-			case GameManager.GameMode.Store:
-				mainCamera.orthographic = true;
-				mainCamera.orthographicSize = rootOrthographicViewSize;
-				mainCamera.transform.position = rootStoreOrthographicPosition;
-				mainCamera.transform.rotation = rootStoreOrthographicRotation;
-				break;
-			case GameManager.GameMode.Field:
-				mainCamera.orthographic = true;
-				mainCamera.orthographicSize = rootOrthographicViewSize;
-				mainCamera.transform.position = fieldOrthographicDistance;
-				mainCamera.transform.rotation = rootStoreOrthographicRotation;
-				break;
-		}
+		
 	}
 
 	// camera position use update
 	public void SetCameraPosition()
-	{
-		// set view size
-		if( Input.GetAxis( "Mouse ScrollWheel" ) < 0 )
-			ViewSize += Time.deltaTime * viewSensitive;
-		else if( Input.GetAxis( "Mouse ScrollWheel" ) > 0 )
-			ViewSize -= Time.deltaTime * viewSensitive;
-		
-		mainCamera.orthographicSize = ViewSize;
+	{	
 
-		// set camera view position
-		if( manager.PresentMode != GameManager.GameMode.Field )
+		int count = Input.touchCount;
+		// one touch
+		if( count == 1 )
 		{
-			if( Input.GetKey( KeyCode.UpArrow ) )
-			{
-				mainCamera.transform.position += new Vector3( 0, Time.deltaTime * moveSensitive, 0 );
-			}
-			else if( Input.GetKey( KeyCode.DownArrow ) )
-			{
-				mainCamera.transform.position += new Vector3( 0, -Time.deltaTime * moveSensitive, 0 );
-			}
-			else if( Input.GetKey( KeyCode.RightArrow ) )
-			{
-				mainCamera.transform.position += new Vector3( -Time.deltaTime * moveSensitive, 0, Time.deltaTime * moveSensitive );
-			}
-			else if( Input.GetKey( KeyCode.LeftArrow ) )
-			{
-				mainCamera.transform.position += new Vector3( Time.deltaTime * moveSensitive, 0, -Time.deltaTime * moveSensitive );
-			}
-		}
-		else if( manager.PresentMode == GameManager.GameMode.Field )
-		{
-			mainCamera.transform.position = manager.PlayerCharacter.transform.position + fieldOrthographicDistance;
-		}
+			if( Input.GetTouch( 0 ).phase == TouchPhase.Moved )
+			{			
+				XPosition += Input.GetTouch( 0 ).deltaPosition.x * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
+				ZPosition -= Input.GetTouch( 0 ).deltaPosition.x * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
 
+				XPosition += Input.GetTouch( 0 ).deltaPosition.y * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
+				ZPosition += Input.GetTouch( 0 ).deltaPosition.y * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
+			}
+		}	
+		// two touch
+		else if( count == 2 )
+		{
+			// check y position
+			if( Input.GetAxis( "Mouse ScrollWheel" ) < 0 )
+				YPosition = transform.position.y + Time.deltaTime * 10f;
+			else if( Input.GetAxis( "Mouse ScrollWheel" ) > 0 )
+				YPosition = transform.position.y - Time.deltaTime * 10f;
+		}
+		viewCamera.transform.position = new Vector3( xPosition, yPosition, zPosition );
 	}
 }
