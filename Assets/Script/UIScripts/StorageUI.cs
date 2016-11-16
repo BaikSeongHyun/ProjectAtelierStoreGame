@@ -7,6 +7,7 @@ public class StorageUI : MonoBehaviour
 {
 	// high structrue
 	[SerializeField] GameManager manager;
+	[SerializeField] StoreManager storeManager;
 
 	// component element
 	[SerializeField] Image tap1;
@@ -36,6 +37,8 @@ public class StorageUI : MonoBehaviour
 	public void LinkComponentElement()
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();	
+		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();	 
+
 		tap1 = transform.Find( "TapStep1Button" ).GetComponent<Image>();
 		tap2 = transform.Find( "TapStep2Button" ).GetComponent<Image>();
 		tap3 = transform.Find( "TapStep3Button" ).GetComponent<Image>();
@@ -43,7 +46,7 @@ public class StorageUI : MonoBehaviour
 		foreach( DataElement element in slots )
 			element.LinkComponentElement();
 
-		presentStepIndex = 1;
+		presentStepIndex = 0;
 	}
 
 	// update component element
@@ -113,7 +116,8 @@ public class StorageUI : MonoBehaviour
 	// on click item inventory element
 	public void OnClickItemStorageElement( int index )
 	{
-		// manager.GamePlayer.ItemSet[ index ];
+		if( this.gameObject.name == "FurnitureSetUI" )
+			storeManager.AllocateStartFurnitureInstance( index, presentStepIndex );
 	}
 
 	public void OnCilckExitStorageUI()

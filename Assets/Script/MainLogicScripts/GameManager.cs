@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 				storeManager.StorePolicy();
 				break;
 			case GameMode.StoreCustomizing:
-				storeManager.CustomzingFurnutureObject();
+				storeManager.CustomzingFurnitureObject();
 				break;
 			case GameMode.Field:
 
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 	// late update -> process camera logic
 	void LateUpdate()
 	{
-		cameraControl.SetCameraPosition();
+		//cameraControl.SetCameraPosition();
 	}
 
 

@@ -122,7 +122,7 @@ public class StoreManager : MonoBehaviour
 	}
 
 	// customzing store object
-	public void CustomzingFurnutureObject()
+	public void CustomzingFurnitureObject()
 	{
 		// reload ray
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
@@ -133,7 +133,7 @@ public class StoreManager : MonoBehaviour
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{				
 				if( hitInfo.collider.gameObject.GetComponent<FurnitureObject>() == presentAllocateObject )
-					ConfirmAllocateFurnitureObject();
+					ConfirmMoveFurnitureObject();
 			}
 		}
 		// set up furniture object => when mouse button right click
@@ -181,8 +181,29 @@ public class StoreManager : MonoBehaviour
 		*/
 	}
 
+	// allocate start
+	public void AllocateStartFurnitureInstance( int index, int presentStepIndex )
+	{
+		if( presentAllocateObject != null )
+			return;
+
+		if( manager.GamePlayer.AllocateFurnitureInstance( index, presentStepIndex ) )
+		{
+			// create object
+			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count - 1 ].Furniture.File ), 
+			                                              new Vector3( planeScale / 2f, 0f, planeScale / 2f ), 
+			                                              Quaternion.identity );
+			presentAllocateObject = temp.GetComponent<FurnitureObject>();
+			presentAllocateObject.InstanceData = manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count - 1 ];
+			presentAllocateObject.AllocateMode = true;
+
+			// link player data & object
+			manager.GamePlayer.AllocateFurnitureObjectSet.Add( presentAllocateObject );
+		}
+	}
+
 	// confirm allocate object
-	public void ConfirmAllocateFurnitureObject()
+	public void ConfirmMoveFurnitureObject()
 	{
 		// allocate possible
 		if( presentAllocateObject.AllocatePossible )
@@ -198,17 +219,10 @@ public class StoreManager : MonoBehaviour
 	// cancel allocate object
 	public void CancelAllocateFurnitureObject()
 	{
-
-	}
-
-	// create allocate object
-	public void CreateAllocateFurnitureObject( int index )
-	{		
-		manager.GamePlayer.AllocateFurnitureInstance( index );
-
-		GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count ].Furniture.ID.ToString() ), 
-		                                              new Vector3( planeScale / 2f, 0f, planeScale / 2f ), 
-		                                              Quaternion.identity );
+		if( manager.GamePlayer.AddFurnitureData( presentAllocateObject.InstanceData.Furniture.ID ) )
+		{
+			manager.GamePlayer.DeleteAllocateFurniture( presentAllocateObject.InstanceData.SlotNumber );
+		}
 	}
 
 	// allocate furniture object position set

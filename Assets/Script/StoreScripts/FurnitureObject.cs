@@ -172,12 +172,8 @@ public class FurnitureObject : MonoBehaviour
 	// player data
 	// allocate data set -> have data set
 	public void ObjectAllocateOff( PlayerData data )
-	{
-		if( data.AddFurnitureData( this.data ) )
-		{
-			data.DeleteAllocateFurniture( this.data.SlotNumber );
-			Destroy( this.gameObject );
-		}
+	{		
+		Destroy( this.gameObject );
 	}
 
 	// set texture -> use customizing check

@@ -12,7 +12,7 @@ public class FurnitureInstance
 	[SerializeField] int slotNumber;
 
 	// property
-	public FurnitureData Furniture { get { return furniture; } }
+	public FurnitureData Furniture { get { return furniture; } set { furniture = value; } }
 
 	public Vector3 Position { get { return position; } set { position = value; } }
 
@@ -85,7 +85,7 @@ public class FurnitureInstance
 	// public method
 	public void AllocateInstance( int _slotNumber )
 	{
-		position = new Vector3( 5f, 0f, 5f );
+		position = Vector3.zero;
 		rotation = Quaternion.identity;
 		isAllocated = true;
 		slotNumber = _slotNumber;

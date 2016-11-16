@@ -7,7 +7,7 @@ TagManager:
   - icon
   - MainUI
   - GameLogic
-  - object
+  - GameData
   - CustomerStartPoint
   - CustomerEndPoint
   - CustomerStoreEnterPoint

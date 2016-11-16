@@ -33,7 +33,7 @@ public class DataElement : MonoBehaviour
 		if( ( data.Item == null ) || ( data.Item.ID == 0 ) )
 		{
 			// set image default
-			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/EmptySpace" );
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 
 			// count off
 			count.enabled = false;
@@ -42,6 +42,7 @@ public class DataElement : MonoBehaviour
 		{
 			// set image use icon
 			//elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/Item" + data.Item.ID );
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/Item10001" );
 
 			// count on -> renew count
 			count.enabled = true;
@@ -64,14 +65,14 @@ public class DataElement : MonoBehaviour
 			count.enabled = false;
 
 		// set default
-		if( data.Furniture == null )
+		if( ( data == null ) || ( data.Furniture == null ) || ( data.Furniture.ID == 0 ) )
 		{
-			elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/EmptySpace" );
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 		}
 		// set image icon
 		else
 		{
-
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/Item10001" );
 		}
 	}
 }

@@ -54,6 +54,7 @@ public class PlayerData
 		level = 1;
 		name = "";
 		allocateFurnitureSet = new List<FurnitureInstance>( );
+		allocateFurnitureObjectSet = new List<FurnitureObject>( );
 	}
 
 	// public method
@@ -62,7 +63,7 @@ public class PlayerData
 	{
 		for( int i = 0; i < haveFurnitureSet.Length; i++ )
 		{
-			if( haveFurnitureSet[ i ] == null )
+			if( haveFurnitureSet[ i ] == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
 			{
 				haveFurnitureSet[ i ] = new FurnitureInstance( data, i );
 				return true;
@@ -74,13 +75,14 @@ public class PlayerData
 	}
 
 	// add furniture data -> move instance data
-	public bool AddFurnitureData( FurnitureInstance data )
+	public bool AddFurnitureData( int id )
 	{
-		for( int i = 0; i < haveFurnitureSet.Length; i++ )
+		int i = DataManager.FindFurnitureDataByID( id ).Step * 10;
+		for( i = 0; i < ( int ) haveFurnitureSet.Length / 3; i++ )
 		{
-			if( haveFurnitureSet[ i ] == null )
+			if( haveFurnitureSet[ i ] == null || haveFurnitureSet[ i ].Furniture == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
 			{
-				haveFurnitureSet[ i ] = new FurnitureInstance( data, i );
+				haveFurnitureSet[ i ] = new FurnitureInstance( DataManager.FindFurnitureDataByID( id ), i );
 				haveFurnitureSet[ i ].IsAllocated = false;
 				return true;
 			}
@@ -91,14 +93,21 @@ public class PlayerData
 	}
 
 	// allocate furniture instance
-	public bool AllocateFurnitureInstance( int index )
+	public bool AllocateFurnitureInstance( int index, int presentStepIndex )
 	{	
+
+		int processIndex = index + ( presentStepIndex * 10 );
 		try
-		{	
-			allocateFurnitureSet.Add( new FurnitureInstance( haveFurnitureSet[ index ] ) );
-			allocateFurnitureSet[ allocateFurnitureSet.Count - 1 ].AllocateInstance( allocateFurnitureSet.Count );
-			haveFurnitureSet[ index ] = null;
-			return true;
+		{
+			if( haveFurnitureSet[ processIndex ] == null || haveFurnitureSet[ processIndex ].Furniture == null || haveFurnitureSet[ processIndex ].Furniture.ID == 0 )
+				return false;
+			else
+			{
+				allocateFurnitureSet.Add( new FurnitureInstance( haveFurnitureSet[ processIndex ] ) );
+				allocateFurnitureSet[ allocateFurnitureSet.Count - 1 ].AllocateInstance( allocateFurnitureSet.Count - 1 );
+				haveFurnitureSet[ processIndex ] = new FurnitureInstance( );
+				return true;
+			}
 		}
 		catch( Exception e )
 		{
@@ -110,18 +119,17 @@ public class PlayerData
 
 	// delete allocate furniture instance
 	public bool DeleteAllocateFurniture( int index )
-	{
-		try
+	{	
+		// remove item
+		allocateFurnitureObjectSet[ index ].ObjectAllocateOff( this );
+		allocateFurnitureObjectSet.RemoveAt( index );
+		allocateFurnitureSet.RemoveAt( index );
+
+		for( int i = 0; i < allocateFurnitureSet.Count; i++ )
 		{
-			allocateFurnitureSet.RemoveAt( index );
-			return true;
+			allocateFurnitureSet[ i ].SlotNumber = i;
 		}
-		catch( Exception e )
-		{
-			Debug.Log( e.StackTrace );
-			Debug.Log( e.Message );
-			return false;
-		}
+		return true;		
 	}
 
 	// add item data
@@ -213,7 +221,6 @@ public class PlayerData
 			{
 				element.SellItem = new ItemInstance( 7, 5, 100 );
 			}
-
 		}
 	}
 
@@ -226,7 +233,6 @@ public class PlayerData
 			{
 				element.SellItem = null;
 			}
-
 		}
 	}
 

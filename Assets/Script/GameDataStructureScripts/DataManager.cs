@@ -338,7 +338,7 @@ public class DataManager : MonoBehaviour
 		for( int i = 0; i < playerData.AllocateFurnitureSet.Count; i++ )
 		{
 			PlayerPrefs.SetInt( "AllocateFurnitureID" + i, playerData.AllocateFurnitureSet[ i ].Furniture.ID );
-			PlayerPrefs.SetInt( "AllocateFurnitureSlot" + i, playerData.AllocateFurnitureSet[ i ].SlotNumber );
+			PlayerPrefs.SetInt( "AllocateFurnitureSlot" + i, i );
 			PlayerPrefs.SetFloat( "AllocateFurniturePositionX" + i, playerData.AllocateFurnitureSet[ i ].Position.x );
 			PlayerPrefs.SetFloat( "AllocateFurniturePositionY" + i, playerData.AllocateFurnitureSet[ i ].Position.y );
 			PlayerPrefs.SetFloat( "AllocateFurniturePositionZ" + i, playerData.AllocateFurnitureSet[ i ].Position.z );

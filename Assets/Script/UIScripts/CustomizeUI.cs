@@ -57,7 +57,13 @@ public class CustomizeUI : MonoBehaviour
 	// confirm locate furniture object
 	public void OnClickAllocateConfirmFurnitureObject()
 	{
-		storeManager.ConfirmAllocateFurnitureObject();
+		storeManager.ConfirmMoveFurnitureObject();
+	}
+
+	// allocate cancel -> and recollect in furniture inventory
+	public void OnClickAllocateCancelFurnitureObject()
+	{
+		storeManager.CancelAllocateFurnitureObject();
 	}
 
 	// exit customizing -> mode : store mode
@@ -67,9 +73,4 @@ public class CustomizeUI : MonoBehaviour
 			manager.SetStoreMode();
 	}
 
-	// allocate cancel -> and recollect in furniture inventory
-	public void OnClickAllocateCancelFurnitureObject()
-	{
-
-	}
 }
