@@ -66,4 +66,10 @@ public class CustomizeUI : MonoBehaviour
 		if( storeManager.PresentAllocateObject == null )
 			manager.SetStoreMode();
 	}
+
+	// allocate cancel -> and recollect in furniture inventory
+	public void OnClickAllocateCancelFurnitureObject()
+	{
+
+	}
 }

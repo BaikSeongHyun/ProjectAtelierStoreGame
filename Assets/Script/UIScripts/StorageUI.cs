@@ -8,19 +8,26 @@ public class StorageUI : MonoBehaviour
 	// high structrue
 	[SerializeField] GameManager manager;
 
-	// create element
-	[SerializeField] GameObject content;
-	[SerializeField] Transform contentRoot;
-	[SerializeField] Transform horizontalMargin;
-	[SerializeField] Transform verticalMargin;
-
 	// component element
+	[SerializeField] Image tap1;
+	[SerializeField] Image tap2;
+	[SerializeField] Image tap3;
 	[SerializeField] DataElement[] slots;
+
+	// field - image data
+	[SerializeField] Sprite tap1On;
+	[SerializeField] Sprite tap1Off;
+	[SerializeField] Sprite tap2On;
+	[SerializeField] Sprite tap2Off;
+	[SerializeField] Sprite tap3On;
+	[SerializeField] Sprite tap3Off;
+
+	// field - logic data
+	[SerializeField] int presentStepIndex;
 
 	void Awake()
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();	
-		CreateInventoryElement();
 		LinkComponentElement();
 	}
 
@@ -29,93 +36,87 @@ public class StorageUI : MonoBehaviour
 	public void LinkComponentElement()
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();	
-
+		tap1 = transform.Find( "TapStep1Button" ).GetComponent<Image>();
+		tap2 = transform.Find( "TapStep2Button" ).GetComponent<Image>();
+		tap3 = transform.Find( "TapStep3Button" ).GetComponent<Image>();
 		slots = GetComponentsInChildren<DataElement>();
 		foreach( DataElement element in slots )
 			element.LinkComponentElement();
+
+		presentStepIndex = 1;
 	}
 
 	// update component element
 	public void UpdateComponentElement()
 	{
-		for( int i = 0; i < slots.Length; i++ )
-		{
-			try
-			{
-				if( this.gameObject.name == "StorageUI" )
-					slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i ] );
-				else if( this.gameObject.name == "FurnitureSetUI" )
-					slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i ] );
-			}
-			catch( IndexOutOfRangeException e )
-			{
-				Debug.Log( e.StackTrace );
-				Debug.Log( e.Message );
-				slots[ i ].UpdateComponentElement();
-			}
-
-		}
-	}
-
-	// create inventory element slot
-	public void CreateInventoryElement()
-	{
+//		for( int i = 0; i < slots.Length; i++ )
+//		{
+//			try
+//			{
+//				if( this.gameObject.name == "StorageUI" )
+//					slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i ] );
+//				else if( this.gameObject.name == "FurnitureSetUI" )
+//					slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i ] );
+//			}
+//			catch( IndexOutOfRangeException e )
+//			{
+//				Debug.Log( e.StackTrace );
+//				Debug.Log( e.Message );
+//				slots[ i ].UpdateComponentElement();
+//			}
+//		}
 		if( this.gameObject.name == "StorageUI" )
 		{
-			int count = 0;
-
-			count = manager.GamePlayer.ItemSet.Length;
-
-			// link create element
-			content = transform.Find( "ScrollView/Viewport/Content" ).gameObject;
-			contentRoot = transform.Find( "ScrollView/Viewport/Content/Root" ).gameObject.transform;
-			horizontalMargin = transform.Find( "ScrollView/Viewport/Content/HorizontalMargin" ).gameObject.transform;
-			verticalMargin = transform.Find( "ScrollView/Viewport/Content/VerticalMargin" ).gameObject.transform;
-
-			// create margin
-			Vector3 horizontal = contentRoot.transform.position - horizontalMargin.transform.position;
-			Vector3 vertical = contentRoot.transform.position - verticalMargin.transform.position;
-
-			// create slot
-			for( int i = 0; i < count; i++ )
+			for( int i = 0; i < slots.Length; i++ )
 			{
-				GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "UIComponent/StorageSlot" ), transform.position, Quaternion.identity );
-				temp.transform.SetParent( content.transform, false );
-				temp.transform.position = contentRoot.transform.position - ( horizontal * ( i % 5 ) ) - ( vertical * ( i / 5 ) );
-
+				slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i + ( presentStepIndex * 15 ) ] );
 			}
 		}
 		else if( this.gameObject.name == "FurnitureSetUI" )
-		{			
-			int count = 0;
-			count = manager.GamePlayer.FurnitureSet.Length;
-
-			// link create element
-			content = transform.Find( "ScrollView/Viewport/Content" ).gameObject;
-			contentRoot = transform.Find( "ScrollView/Viewport/Content/Root" ).gameObject.transform;
-			horizontalMargin = transform.Find( "ScrollView/Viewport/Content/HorizontalMargin" ).gameObject.transform;
-
-			// create margin
-			Vector3 horizontal = contentRoot.transform.position - horizontalMargin.transform.position;
-		
-			// create slot
-			for( int i = 0; i < count; i++ )
+		{
+			for( int i = 0; i < slots.Length; i++ )
 			{
-				GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "UIComponent/StorageSlot" ), transform.position, Quaternion.identity );
-				temp.transform.SetParent( content.transform, false );
-				temp.transform.position = contentRoot.transform.position - ( horizontal * i );
+				slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i + ( presentStepIndex * 10 ) ] );
 			}
-		}		
+		}
 	}
 
 	// on click method
+	// on click tab process
+	public void OnClickStepTapProcess( int index )
+	{
+		// set button color & present see step change
+
+		switch( index )
+		{
+			case 1:	
+				tap1.sprite = tap1On;
+				tap2.sprite = tap2Off;
+				tap3.sprite = tap3Off;
+				presentStepIndex = 0;
+				break;
+			case 2:
+				tap1.sprite = tap1Off;
+				tap2.sprite = tap2On;
+				tap3.sprite = tap3Off;
+				presentStepIndex = 1;
+				break;
+			case 3:
+				tap1.sprite = tap1Off;
+				tap2.sprite = tap2Off;
+				tap3.sprite = tap3On;
+				presentStepIndex = 2;
+				break;
+		}
+	}
+
 	// on click item inventory element
-	public void OnClickItemInventoryElement( int index )
+	public void OnClickItemStorageElement( int index )
 	{
 		// manager.GamePlayer.ItemSet[ index ];
 	}
 
-	public void OnCilckExitInventoryUI()
+	public void OnCilckExitStorageUI()
 	{
 		this.gameObject.SetActive( false );
 	}

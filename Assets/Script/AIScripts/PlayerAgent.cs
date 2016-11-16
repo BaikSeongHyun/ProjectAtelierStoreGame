@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class PlayerAgent : AIAgent
@@ -22,25 +23,29 @@ public class PlayerAgent : AIAgent
 	}
 
 	void Update()
-	{					
-		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
-		RaycastHit hitInfo;
-
-		if( Input.GetButtonDown( "LeftClick" ) )
+	{		
+		// do not cast overlay ui event point
+		if( !EventSystem.current.IsPointerOverGameObject() )
 		{
-			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
+			Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+			RaycastHit hitInfo;
+
+			if( Input.GetButtonDown( "LeftClick" ) )
 			{
-				destination = hitInfo.point;
-				moveAgent.SetDestination( destination );
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.walk );
+				if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
+				{
+					destination = hitInfo.point;
+					moveAgent.SetDestination( destination );
+					agentAnimator.SetInteger( "State", ( int ) PlayerState.walk );
+				}
 			}
-		}
 
-		if( Vector3.Distance( transform.position, destination ) <= 0.1f )
-		{
-			moveAgent.ResetPath();
-			agentAnimator.SetInteger( "State", ( int ) PlayerState.idle );
+			if( Vector3.Distance( transform.position, destination ) <= 0.1f )
+			{
+				moveAgent.ResetPath();
+				agentAnimator.SetInteger( "State", ( int ) PlayerState.idle );
 
+			}
 		}
 	}
 

@@ -195,6 +195,12 @@ public class StoreManager : MonoBehaviour
 		}
 	}
 
+	// cancel allocate object
+	public void CancelAllocateFurnitureObject()
+	{
+
+	}
+
 	// create allocate object
 	public void CreateAllocateFurnitureObject( int index )
 	{		

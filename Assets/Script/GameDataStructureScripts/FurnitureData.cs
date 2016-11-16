@@ -12,7 +12,7 @@ public class FurnitureData
 	[SerializeField] int height;
 	[SerializeField] int widthX;
 	[SerializeField] int widthZ;
-	[SerializeField] int level;
+	[SerializeField] int step;
 	[SerializeField] int[] firstDataTable;
 	[SerializeField] int[] secondDataTable;
 	[SerializeField] FunctionType functionType;
@@ -33,7 +33,7 @@ public class FurnitureData
 
 	public int WidthZ { get { return widthZ; } }
 
-	public int Level { get { return level; } }
+	public int Step { get { return step; } }
 
 	public int[] SellItemGroupSet { get { return firstDataTable; } }
 
@@ -77,13 +77,13 @@ public class FurnitureData
 		widthX = 0;
 		widthZ = 0;
 		functionType = FunctionType.Default;
-		level = 0;
+		step = 0;
 
 		allocateType = AllocateType.Default;
 	}
 
 	// constructor - all parameter -> set up data
-	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, int[]_firstDataTable, int[] _secondDataTable, AllocateType _allocateType )
+	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _step, int[]_firstDataTable, int[] _secondDataTable, AllocateType _allocateType )
 	{
 		functionType = ReturnType( _type );
 		id = _id;
@@ -93,7 +93,7 @@ public class FurnitureData
 		height = _height;
 		widthX = _widthX;
 		widthZ = _widthZ;
-		level = _level;
+		step = _step;
 		firstDataTable = _firstDataTable;
 		secondDataTable = _secondDataTable;
 
@@ -120,7 +120,7 @@ public class FurnitureData
 		allocateType = _allocateType;
 	}
 
-	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _level, string _mat, AllocateType _allocateType )
+	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _step, string _mat, AllocateType _allocateType )
 	{
 		functionType = ReturnType( _type );
 		id = _id;
@@ -130,7 +130,7 @@ public class FurnitureData
 		height = _height;
 		widthX = _widthX;
 		widthZ = _widthZ;
-		level = _level;
+		step = _step;
 		allocateType = _allocateType;
 	}
 

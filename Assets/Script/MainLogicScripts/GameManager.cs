@@ -191,7 +191,9 @@ public class GameManager : MonoBehaviour
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()
 	{
-		//mainUI.LoadingSceneState( true );
+		player = DataManager.GetPlayerData();
+
+		// start store create
 		StartCoroutine( storeManager.CreateStoreObject() );
 
 		while( true )

@@ -10,7 +10,6 @@ public class DataManager : MonoBehaviour
 	[SerializeField] static bool playerDataLoading;
 
 	// field - for data
-	[SerializeField] static GameManager gameManagerAddress;
 	[SerializeField] static PlayerData playerData;
 	[SerializeField] static Dictionary<int, FurnitureData> furnitureSet;
 	[SerializeField] static Dictionary<int, ItemData> itemSet;
@@ -23,7 +22,6 @@ public class DataManager : MonoBehaviour
 	void Awake()
 	{
 		playerDataLoading = false;
-		gameManagerAddress = GetComponent<GameManager>();
 		LoadFurnitureData();
 		LoadItemData();
 		LoadPlayerData();
@@ -282,9 +280,6 @@ public class DataManager : MonoBehaviour
 			Debug.Log( e.Message );
 			playerData.SetDefaultStatus();
 		}
-
-		// link data
-		gameManagerAddress.GamePlayer = playerData;
 	}
 
 	// player data save -> use player pref
@@ -421,5 +416,10 @@ public class DataManager : MonoBehaviour
 	public static bool CheckPlayerDataLoading()
 	{
 		return DataManager.playerDataLoading;
+	}
+
+	public static PlayerData GetPlayerData()
+	{
+		return playerData;
 	}
 }
