@@ -24,7 +24,7 @@ GameObject:
   - 65: {fileID: 65000013787580684}
   - 208: {fileID: 208000013139937890}
   - 114: {fileID: 114000010630467296}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: stand2Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}

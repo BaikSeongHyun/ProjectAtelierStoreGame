@@ -24,7 +24,7 @@ GameObject:
   - 208: {fileID: 208000011633029804}
   - 65: {fileID: 65000012198406916}
   - 114: {fileID: 114000011959449796}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: objectMaker1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

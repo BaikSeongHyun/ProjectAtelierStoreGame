@@ -89,7 +89,7 @@
 		<widthX>2</widthX>
 		<widthZ>2</widthZ>
 		<level>1</level>
-		<materials>2.10</materials>
+		<materials>1.20.2.10.3.20.2</materials>
 	</object>
 	<object>
 		<type>2</type>
@@ -99,10 +99,10 @@
 		<guide>먼지를 닦으니 화려해진 판매대.</guide>
 		<price>800</price>
 		<height>4</height>
-		<widthX>2</widthX>
+		<widthX>3</widthX>
 		<widthZ>2</widthZ>
 		<level>2</level>
-		<materials>2.20</materials>
+		<materials>1.30.2.20.3.30.3</materials>
 	</object>
 	<object>
 		<type>2</type>
@@ -115,7 +115,7 @@
 		<widthX>2</widthX>
 		<widthZ>2</widthZ>
 		<level>3</level>
-		<materials>2.30</materials>
+		<materials>1.40.2.30.3.40.4</materials>
 	</object>
 	<object>
 		<type>2</type>
@@ -138,7 +138,7 @@
 		<guide>먼지를 털어내니 반짝이는 판매대.</guide>
 		<price>800</price>
 		<height>3</height>
-		<widthX>2</widthX>
+		<widthX>3</widthX>
 		<widthZ>2</widthZ>
 		<level>2</level>
 		<materials>-</materials>

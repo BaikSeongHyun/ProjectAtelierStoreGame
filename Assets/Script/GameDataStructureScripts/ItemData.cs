@@ -28,6 +28,8 @@ public class ItemData
 
 	public int CountLimit { get { return countLimit; } }
 
+	public int[] ResourceIDSet { get { return resourceIDSet; } }
+
 	// enum data
 
 	public enum GradeType : int
@@ -69,7 +71,7 @@ public class ItemData
 
 	// constructor - all parameter
 	// use xml data format
-	public ItemData( int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step )
+	public ItemData( int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step, int[] _resourceIDSet, int[] _resourceCountSet )
 	{
 		itemType = ReturnType( _itemType );
 		id = _id;
@@ -80,6 +82,8 @@ public class ItemData
 		guide = _guide;
 		gradeType = ReturnGradeType( _gradeType );
 		step = _step;
+		resourceIDSet = _resourceIDSet;
+		resourceCountSet = _resourceCountSet;
 	}
 
 	GradeType ReturnGradeType( int _gradeType )

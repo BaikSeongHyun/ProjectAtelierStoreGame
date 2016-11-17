@@ -24,7 +24,7 @@ GameObject:
   - 114: {fileID: 114000010946786820}
   - 208: {fileID: 208000011137452236}
   - 65: {fileID: 65000011448354114}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bookshelf1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

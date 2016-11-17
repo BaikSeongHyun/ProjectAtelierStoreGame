@@ -69,6 +69,7 @@ public class DataManager : MonoBehaviour
 				string material = node.SelectSingleNode( "materials" ).InnerText;
 				int[] firstDataTable = null;
 				int[] secondDataTable = null;
+				int slotLength = 0;
 				switch( type )
 				{
 					case 1:
@@ -102,10 +103,11 @@ public class DataManager : MonoBehaviour
 							string[] temp = material.Split( '.' );
 							firstDataTable = new int[temp.Length / 2];
 							secondDataTable = new int[temp.Length / 2];
-							for( int i = 0; i < temp.Length; i += 2 )
+							for( int i = 0; i < ( temp.Length - 1 ); i += 2 )
 							{						
 								firstDataTable[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i ] );
 								secondDataTable[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i + 1 ] );
+								slotLength = Int32.Parse( temp[ temp.Length - 1 ] );
 							}
 						}
 						break;				
@@ -120,7 +122,7 @@ public class DataManager : MonoBehaviour
 				// insert data
 				try
 				{					
-					furnitureSet.Add( id, new FurnitureData( type, id, file, name, guide, height, widthX, widthZ, level, firstDataTable, secondDataTable, FurnitureData.AllocateType.Field ) );
+					furnitureSet.Add( id, new FurnitureData( type, id, file, name, guide, height, widthX, widthZ, level, firstDataTable, secondDataTable, slotLength, FurnitureData.AllocateType.Field ) );
 				}
 				catch( Exception e )
 				{
@@ -160,8 +162,7 @@ public class DataManager : MonoBehaviour
 				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
 				int type = int.Parse( node.SelectSingleNode( "type" ).InnerText );
 
-				/*
-				string material = node.SelectSingleNode( "materials" ).InnerText;
+				string material = node.SelectSingleNode( "material" ).InnerText;
 				int[] resourceIDSet = null;
 				int[] resourceCountSet = null;
 
@@ -180,11 +181,11 @@ public class DataManager : MonoBehaviour
 						resourceIDSet[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i ] );
 						resourceCountSet[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i + 1 ] );
 					}
-				}*/
+				}
 
 				try
 				{
-					itemSet.Add( id, new ItemData( type, id, file, name, price, countLimit, guide, grade, step ) );
+					itemSet.Add( id, new ItemData( type, id, file, name, price, countLimit, guide, grade, step, resourceIDSet, resourceCountSet ) );
 				}
 				catch( Exception e )
 				{

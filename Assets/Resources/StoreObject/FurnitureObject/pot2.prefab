@@ -24,7 +24,7 @@ GameObject:
   - 114: {fileID: 114000010805494546}
   - 65: {fileID: 65000013321505174}
   - 208: {fileID: 208000010400121034}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: pot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

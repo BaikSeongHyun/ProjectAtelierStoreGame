@@ -15,6 +15,7 @@ public class FurnitureData
 	[SerializeField] int step;
 	[SerializeField] int[] firstDataTable;
 	[SerializeField] int[] secondDataTable;
+	[SerializeField] int slotLength;
 	[SerializeField] FunctionType functionType;
 	[SerializeField] AllocateType allocateType;
 
@@ -38,6 +39,8 @@ public class FurnitureData
 	public int[] SellItemGroupSet { get { return firstDataTable; } }
 
 	public int[] SellItemCountSet { get { return secondDataTable; } }
+
+	public int SlotLength { get { return slotLength; } }
 
 	public FunctionType Function { get { return functionType; } }
 
@@ -83,7 +86,7 @@ public class FurnitureData
 	}
 
 	// constructor - all parameter -> set up data
-	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _step, int[]_firstDataTable, int[] _secondDataTable, AllocateType _allocateType )
+	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _step, int[]_firstDataTable, int[] _secondDataTable, int _slotLength, AllocateType _allocateType )
 	{
 		functionType = ReturnType( _type );
 		id = _id;
@@ -96,6 +99,7 @@ public class FurnitureData
 		step = _step;
 		firstDataTable = _firstDataTable;
 		secondDataTable = _secondDataTable;
+		slotLength = _slotLength;
 
 		// allocate function type
 		switch( _type )
@@ -117,20 +121,6 @@ public class FurnitureData
 				break;
 		}
 
-		allocateType = _allocateType;
-	}
-
-	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _step, string _mat, AllocateType _allocateType )
-	{
-		functionType = ReturnType( _type );
-		id = _id;
-		file = _file;
-		name = _name;
-		guide = _guide;
-		height = _height;
-		widthX = _widthX;
-		widthZ = _widthZ;
-		step = _step;
 		allocateType = _allocateType;
 	}
 

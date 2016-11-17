@@ -14,7 +14,10 @@ public class FieldData
 
 	// property
 	public int CheckNumber { get { return checkNumber; } }
+
 	public float WaitingTime { get { return waitingTime; } }
+
+	public int ResetCost { get { return resetCost; } }
 
 	// constructor - no parameter
 	public FieldData()

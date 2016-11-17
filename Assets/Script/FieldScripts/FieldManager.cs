@@ -18,6 +18,8 @@ public class FieldManager : MonoBehaviour
 	// property
 	public int TouchCount { get { return touchCount; } }
 
+	public bool EventStart { get { return eventStart; } }
+
 	public bool[] IsOpened { get { return isOpened; } }
 
 	public System.TimeSpan TimeDifference { get { return timeDiffer; } }
@@ -63,6 +65,26 @@ public class FieldManager : MonoBehaviour
 
 		return result;
 	}
+
+	// forced reset use gold
+	public bool ForceResetData()
+	{
+		if( manager.GamePlayer.Gold >= DataManager.FindFieldDataByID( manager.GamePlayer.StoreData.StoreStep ).ResetCost )
+		{
+			manager.GamePlayer.Gold -= DataManager.FindFieldDataByID( manager.GamePlayer.StoreData.StoreStep ).ResetCost;
+
+			for( int i = 0; i < isOpened.Length; i++ )
+				isOpened[ i ] = false;
+
+			touchCount = DataManager.FindFieldDataByID( manager.GamePlayer.StoreData.StoreStep ).CheckNumber;
+			touchCount = 3;
+			eventStart = false;
+			return true;
+		}
+
+		return false;
+	}
+
 
 	// reset data
 	public void ResetData()

@@ -24,7 +24,7 @@ GameObject:
   - 65: {fileID: 65000012059588980}
   - 208: {fileID: 208000013889664736}
   - 114: {fileID: 114000010401712112}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: stand2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,7 @@ MonoBehaviour:
       step: 0
       firstDataTable: 
       secondDataTable: 
+      slotLength: 0
       functionType: 0
       allocateType: 0
     position: {x: 0, y: 0, z: 0}

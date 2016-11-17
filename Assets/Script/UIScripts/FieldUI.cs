@@ -34,7 +34,7 @@ public class FieldUI : MonoBehaviour
 		if( fieldManager.CheckActivateUseTime() )
 			ResetCard();
 		
-		if( ( fieldManager.CalculateWaitingTime() >= 0f ) && ( fieldManager.TouchCount >= 0 ) )
+		if( ( fieldManager.EventStart ) && ( fieldManager.TouchCount >= 0 ) )
 		{			
 			timeText.text = fieldManager.WaitingTimeForm();
 		}
@@ -76,8 +76,26 @@ public class FieldUI : MonoBehaviour
 		}
 	}
 
+	// on click method
+	// reset field
+	public void OnClickForecResetCard()
+	{
+		if( fieldManager.ForceResetData() )
+		{
+			foreach( Image element in cardSet )
+			{
+				element.sprite = cardRear;
+			}
+		}
+		else
+		{
+			Debug.Log( "more gold require" );
+		}
+	}
+
+	// exit field
 	public void OnClickExitField()
 	{
-
+		manager.SetStoreMode();
 	}
 }
