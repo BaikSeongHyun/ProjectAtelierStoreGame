@@ -34,7 +34,7 @@ public class GameLoad : MonoBehaviour
                 {
                     Debug.Log(data.item[i]);
                     Debug.Log(data.count[i]);
-					manager.GamePlayer.AddItemData(data.item[i], data.count[i]);
+					//manager.GamePlayer.AddItemData(data.item[i], data.count[i]);
                 }
             }
         }

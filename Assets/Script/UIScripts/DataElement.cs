@@ -42,7 +42,7 @@ public class DataElement : MonoBehaviour
 		{
 			// set image use icon
 			//elementIcon.sprite = Resources.Load<Sprite>( "Image/ItemIcon/Item" + data.Item.ID );
-			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/Item10001" );
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/" + data.Item.File );
 
 			// count on -> renew count
 			count.enabled = true;
@@ -54,7 +54,7 @@ public class DataElement : MonoBehaviour
 				count.color = Color.red;
 			}
 			else
-				count.color = Color.black;
+				count.color = Color.white;
 		}
 	}
 
@@ -72,7 +72,7 @@ public class DataElement : MonoBehaviour
 		// set image icon
 		else
 		{
-			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/Item10001" );
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 		}
 	}
 }

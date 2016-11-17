@@ -9,47 +9,47 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000010229632222}
+  m_RootGameObject: {fileID: 1000011274157016}
   m_IsPrefabParent: 1
---- !u!1 &1000010229632222
+--- !u!1 &1000011274157016
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000010836762290}
-  - 33: {fileID: 33000011706565342}
-  - 23: {fileID: 23000010593504306}
-  - 65: {fileID: 65000012621864930}
-  - 208: {fileID: 208000010243258752}
-  - 114: {fileID: 114000013125902842}
-  m_Layer: 11
+  - 4: {fileID: 4000011646948164}
+  - 33: {fileID: 33000013110772454}
+  - 23: {fileID: 23000011191279242}
+  - 114: {fileID: 114000010946786820}
+  - 208: {fileID: 208000011137452236}
+  - 65: {fileID: 65000011448354114}
+  m_Layer: 0
   m_Name: bookshelf1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000010836762290
+--- !u!4 &4000011646948164
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010229632222}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_GameObject: {fileID: 1000011274157016}
+  m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.288543, y: 0, z: 5.589006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &23000010593504306
+--- !u!23 &23000011191279242
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010229632222}
+  m_GameObject: {fileID: 1000011274157016}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d1ad7b81e65d6a54f8e0756328910d12, type: 2}
+  - {fileID: 2100000, guid: 83dba66f9a2c74e41ae154c7196621a2, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -73,31 +73,31 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33000011706565342
+--- !u!33 &33000013110772454
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010229632222}
-  m_Mesh: {fileID: 4300000, guid: c087d7a1e5be3c945b8747d0563f641a, type: 3}
---- !u!65 &65000012621864930
+  m_GameObject: {fileID: 1000011274157016}
+  m_Mesh: {fileID: 4300000, guid: 7e8f8866bc7648f458fef8f4188d2eab, type: 3}
+--- !u!65 &65000011448354114
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010229632222}
+  m_GameObject: {fileID: 1000011274157016}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5608435, y: 3.7875016, z: 0.87871456}
-  m_Center: {x: 0.000000059604645, y: 1.8937494, z: -0.000000059604645}
---- !u!114 &114000013125902842
+  m_Size: {x: 3, y: 4, z: 2}
+  m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &114000010946786820
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010229632222}
+  m_GameObject: {fileID: 1000011274157016}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4aea2d79a9116f649bf2df3dda64b08b, type: 3}
@@ -106,38 +106,57 @@ MonoBehaviour:
   data:
     furniture:
       id: 0
+      file: 
       name: 
       guide: 
       height: 0
       widthX: 0
       widthZ: 0
-      level: 0
-      fileName: 
-      material: []
+      step: 0
+      firstDataTable: 
+      secondDataTable: 
       functionType: 0
       allocateType: 0
     position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
     isAllocated: 0
     slotNumber: 0
   isAllocated: 0
   allocateMode: 0
+  isActivated: 0
   allocatePossible: 0
   allocateTexture: {fileID: 0}
   tempSet: []
   storePlaneScale: 0
---- !u!208 &208000010243258752
+  sellItemSet:
+    uid: 0
+    itemData:
+      itemType: 0
+      id: 0
+      file: 
+      name: 
+      price: 0
+      countLimit: 0
+      guide: 
+      gradeType: 0
+      step: 0
+      resourceIDSet: 
+      resourceCountSet: 
+    sellPrice: 0
+    slotNumber: 0
+    count: 0
+--- !u!208 &208000011137452236
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010229632222}
+  m_GameObject: {fileID: 1000011274157016}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.2800001, y: 1.894, z: 0.439}
+  m_Extents: {x: 1, y: 2, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.894, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
   m_TimeToStationary: 0.5

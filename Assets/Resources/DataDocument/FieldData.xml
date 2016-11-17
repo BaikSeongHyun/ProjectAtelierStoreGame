@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Data>
+		<id>1</id>
+		<waitingTime>300</waitingTime>
+		<horizontalLength>3</horizontalLength>
+		<verticalLength>5</verticalLength>
+		<resetCost>500</resetCost>
+		<checkNumber>3</checkNumber>
+	</Data>
+	<Data>
+		<id>2</id>
+		<waitingTime>1800</waitingTime>
+		<horizontalLength>5</horizontalLength>
+		<verticalLength>7</verticalLength>
+		<resetCost>1500</resetCost>
+		<checkNumber>4</checkNumber>
+	</Data>
+	<Data>
+		<id>3</id>
+		<waitingTime>5400</waitingTime>
+		<horizontalLength>7</horizontalLength>
+		<verticalLength>9</verticalLength>
+		<resetCost>4500</resetCost>
+		<checkNumber>5</checkNumber>
+	</Data>
+</Field>

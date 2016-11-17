@@ -1,237 +1,555 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<MaterialList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<item>
+<Item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Data>
 		<type>1</type>
 		<id>1</id>
-		<file>bough</file>
+		<file>Branch</file>
 		<name>나뭇가지</name>
 		<price>30</price>
-		<countLimit>10</countLimit>
-		<guide>나무</guide>
+		<countLimit>999</countLimit>
+		<guide>어디서나 쉽게 구할수 있는 나뭇가지.</guide>
 		<grade>1</grade>
 		<step>1</step>
-	</item>
-	<item>
+		<material>-</material>
+	</Data>
+	<Data>
 		<type>1</type>
 		<id>2</id>
-		<file>soil</file>
+		<file>Sool</file>
 		<name>흙</name>
 		<price>5</price>
-		<countLimit>50</countLimit>
-		<guide>어두의 색의 흙이다.</guide>
+		<countLimit>999</countLimit>
+		<guide>어두운 색의 흙이다.</guide>
 		<grade>1</grade>
 		<step>1</step>
-	</item>
-	<item>
+		<material>-</material>
+	</Data>
+	<Data>
 		<type>1</type>
 		<id>3</id>
-		<file>stone</file>
+		<file>Stone</file>
 		<name>돌멩이</name>
 		<price>10</price>
-		<countLimit>30</countLimit>
+		<countLimit>999</countLimit>
 		<guide>돌덩이보다 작은 돌. 쉽게 구할 수 있다.</guide>
 		<grade>1</grade>
 		<step>1</step>
-	</item>
-	<item>
+		<material>-</material>
+	</Data>
+	<Data>
 		<type>1</type>
 		<id>4</id>
-		<file>gravel</file>
+		<file>Gravel</file>
 		<name>자갈</name>
 		<price>30</price>
-		<countLimit>25</countLimit>
-		<guide>반질반질하다.</guide>
+		<countLimit>999</countLimit>
+		<guide>자글자글한 자갈. 표면이 반질반질하다.</guide>
 		<grade>1</grade>
 		<step>1</step>
-	</item>
-	<item>
+		<material>-</material>
+	</Data>
+	<Data>
 		<type>1</type>
 		<id>5</id>
-		<file>seed</file>
+		<file>Seed</file>
 		<name>씨앗</name>
 		<price>5</price>
-		<countLimit>100</countLimit>
-		<guide>이 씨앗을 심으면 뭐가 자랄까?</guide>
+		<countLimit>999</countLimit>
+		<guide>알록달록한 씨앗이다. 이 씨앗을 심으면 뭐가 자랄까?</guide>
 		<grade>1</grade>
 		<step>1</step>
-	</item>
-	<item>
+		<material>-</material>
+	</Data>
+	<Data>
 		<type>1</type>
 		<id>6</id>
 		<file>mineralWater</file>
 		<name>광천수</name>
 		<price>50</price>
-		<countLimit>5</countLimit>
-		<guide>광물질이 미량함유되어 있는 물.</guide>
+		<countLimit>999</countLimit>
+		<guide>무기질이 많이 담긴물. 몸에 참 좋다고 한다.</guide>
 		<grade>1</grade>
 		<step>1</step>
-	</item>
-	<item>
+		<material>-</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>7</id>
-		<file>a</file>
-		<name>ㄱ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㄱ</guide>
+		<file>SmallRedPotion</file>
+		<name>작은빨강물약</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>빨강약이 조금 담겨 있다. 바르면 상처가 빨리 낫는다나?</guide>
 		<grade>1</grade>
 		<step>1</step>
-		<materials>나뭇가지,흙,돌멩이</materials>
-	</item>
-	<item>
+		<material>17.1.23.1</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>8</id>
-		<file>b</file>
-		<name>ㄴ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㄴ</guide>
+		<file>SmallBluePotion</file>
+		<name>작은파랑물약</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>파란약이 조금 담겨 있다. 마시면 멘탈 회복에 도움이 된다고….</guide>
 		<grade>1</grade>
 		<step>1</step>
-		<materials>나뭇가지,흙,돌멩이</materials>
-	</item>
-	<item>
+		<material>17.1.22.1</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>9</id>
-		<file>c</file>
-		<name>ㄷ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㄷ</guide>
+		<file>SmallGreenPotion</file>
+		<name>작은녹색물약</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>녹색약이 조금 담겨 있다. 식물에게 주면 도움이 된다고 하는데?</guide>
 		<grade>1</grade>
 		<step>1</step>
-		<materials>나뭇가지,흙,돌멩이</materials>
-	</item>
-	<item>
+		<material>16.1.22.1</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>10</id>
-		<file>d</file>
-		<name>ㄹ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㄹ</guide>
+		<file>RedPotion</file>
+		<name>빨강물약</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>빨강약이 담겨 있다. 바르면 상처가 빨리 낫는다고 한다.</guide>
 		<grade>1</grade>
-		<step>1</step>
-		<materials>나뭇가지,흙,돌멩이</materials>
-	</item>
-	<item>
+		<step>2</step>
+		<material>7.2</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>11</id>
-		<file>e</file>
-		<name>ㅁ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅁ</guide>
+		<file>BluePotion</file>
+		<name>파랑물약</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>파란약이 담겨 있다. 마시면 멘탈을 단단하게(?) 한다.</guide>
 		<grade>1</grade>
-		<step>1</step>
-		<materials>나뭇가지,흙,돌멩이</materials>
-	</item>
-	<item>
+		<step>2</step>
+		<material>8.2</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>12</id>
-		<file>f</file>
-		<name>ㅂ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅂ</guide>
+		<file>GreenPotion</file>
+		<name>녹색물약</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>녹색약이 담겨 있다. 식물에 주면 식물이 잘자란다고 한다.</guide>
 		<grade>1</grade>
-		<step>1</step>
-		<materials>나뭇가지,흙,돌멩이</materials>
-	</item>
-	<item>
+		<step>2</step>
+		<material>9.2</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>13</id>
-		<file>g</file>
-		<name>ㅅ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅅ</guide>
+		<file>FullRedPotion</file>
+		<name>가득한빨강물약</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>빨강약이 양껏 담겨있다. 바르면 상처를 빠르게 낫게한다고 한다.</guide>
 		<grade>1</grade>
 		<step>1</step>
-		<materials>나뭇가지,흙,돌멩이</materials>
-	</item>
-	<item>
+		<material>10.2</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>14</id>
-		<file>h</file>
-		<name>ㅇ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅇ</guide>
+		<file>FullBluePotion</file>
+		<name>가득한파랑물약</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>파란약이 양껏 담겨있다. 마시면 멘탈이 강력(?)해진다고 한다.</guide>
 		<grade>1</grade>
-		<step>1</step>
-		<materials>자갈,씨앗,광천수</materials>
-	</item>
-	<item>
+		<step>3</step>
+		<material>11.2</material>
+	</Data>
+	<Data>
 		<type>2</type>
 		<id>15</id>
-		<file>i</file>
-		<name>ㅈ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅈ</guide>
+		<file>FullGreenPotion</file>
+		<name>가득한녹색물약</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>녹색약이 양껏 담겨있다. 식물에게 주면 식물이 빠워풀(?) 하게 자란다고 한다.</guide>
 		<grade>1</grade>
-		<step>1</step>
-		<materials>자갈,씨앗,광천수</materials>
-	</item>
-	<item>
-		<type>2</type>
+		<step>3</step>
+		<material>12.2</material>
+	</Data>
+	<Data>
+		<type>3</type>
 		<id>16</id>
-		<file>j</file>
-		<name>ㅊ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅊ</guide>
+		<file>YellowHerbStep1</file>
+		<name>노란약초</name>
+		<price>100</price>
+		<countLimit>999</countLimit>
+		<guide>물약재료</guide>
 		<grade>1</grade>
 		<step>1</step>
-		<materials>자갈,씨앗,광천수</materials>
-	</item>
-	<item>
-		<type>2</type>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>3</type>
 		<id>17</id>
-		<file>k</file>
-		<name>ㅋ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅋ</guide>
+		<file>PurpleHerbStep1</file>
+		<name>보라약초</name>
+		<price>100</price>
+		<countLimit>999</countLimit>
+		<guide>물약재료</guide>
 		<grade>1</grade>
 		<step>1</step>
-		<materials>자갈,씨앗,광천수</materials>
-	</item>
-	<item>
-		<type>2</type>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>3</type>
 		<id>18</id>
-		<file>l</file>
-		<name>ㅌ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅌ</guide>
+		<file>YellowHerbStep2</file>
+		<name>자란노란약초</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>345</guide>
 		<grade>1</grade>
-		<step>1</step>
-		<materials>자갈,씨앗,광천수</materials>
-	</item>
-	<item>
-		<type>2</type>
+		<step>2</step>
+		<material>16.2</material>
+	</Data>
+	<Data>
+		<type>3</type>
 		<id>19</id>
-		<file>m</file>
-		<name>ㅍ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅍ</guide>
+		<file>PurpleHerbStep2</file>
+		<name>자란보라약초</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>ㅈ</guide>
 		<grade>1</grade>
-		<step>1</step>
-		<materials>자갈,씨앗,광천수</materials>
-	</item>
-	<item>
-		<type>2</type>
+		<step>2</step>
+		<material>17.2</material>
+	</Data>
+	<Data>
+		<type>3</type>
 		<id>20</id>
-		<file>n</file>
-		<name>ㅎ</name>
-		<price>1</price>
-		<countLimit>5</countLimit>
-		<guide>자음ㅎ</guide>
+		<file>YellowHerbStep3</file>
+		<name>풍성한노란약초</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>5</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>18.2</material>
+	</Data>
+	<Data>
+		<type>3</type>
+		<id>21</id>
+		<file>PurpleHerbStep3</file>
+		<name>풍성한보라약초</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>34</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>19.2</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>22</id>
+		<file>BluePowder</file>
+		<name>파란가루</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>62</guide>
 		<grade>1</grade>
 		<step>1</step>
-		<materials>자갈,씨앗,광천수</materials>
-	</item>
-</MaterialList>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>23</id>
+		<file>RedPowder</file>
+		<name>빨간가루</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>d</guide>
+		<grade>1</grade>
+		<step>1</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>24</id>
+		<file>BluePowderBowl</file>
+		<name>파란가루한대접</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>dsfhdfhdf</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>22.2</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>25</id>
+		<file>RedPowderBowl</file>
+		<name>빨간가루한대접</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>348</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>23.2</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>26</id>
+		<file>BluePowderBox</file>
+		<name>파란가루한상자</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>5</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>24.2</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>27</id>
+		<file>RedPowderBox</file>
+		<name>빨간가루한상자</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>ㄱ8</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>25.2</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>28</id>
+		<file>NormalScroll</file>
+		<name>스크롤1단계</name>
+		<price>100</price>
+		<countLimit>10</countLimit>
+		<guide>dfhdfh</guide>
+		<grade>2</grade>
+		<step>1</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>29</id>
+		<file>-</file>
+		<name>스크롤2단계1</name>
+		<price>200</price>
+		<countLimit>10</countLimit>
+		<guide>2</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>30</id>
+		<file>-</file>
+		<name>스크롤2단계2</name>
+		<price>200</price>
+		<countLimit>10</countLimit>
+		<guide>46</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>31</id>
+		<file>-</file>
+		<name>스크롤3단계1</name>
+		<price>500</price>
+		<countLimit>10</countLimit>
+		<guide>13</guide>
+		<grade>2</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>32</id>
+		<file>-</file>
+		<name>스크롤3단계2</name>
+		<price>500</price>
+		<countLimit>10</countLimit>
+		<guide>6</guide>
+		<grade>2</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>33</id>
+		<file>-</file>
+		<name>지팡이1단계</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>3</guide>
+		<grade>2</grade>
+		<step>1</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>34</id>
+		<file>-</file>
+		<name>지팡이2단계1</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>dfhsdfhdfh</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>35</id>
+		<file>-</file>
+		<name>지팡이2단계2</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>dfgh sd</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>36</id>
+		<file>-</file>
+		<name>지팡이3단계1</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>ㅁㅇㄴㄹ</guide>
+		<grade>3</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>37</id>
+		<file>-</file>
+		<name>지팡이3단계2</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>ㅎ</guide>
+		<grade>3</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>38</id>
+		<file>-</file>
+		<name>지팡이3단계3</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>asd</guide>
+		<grade>4</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>39</id>
+		<file>-</file>
+		<name>지팡이3단계4</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>y</guide>
+		<grade>4</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>40</id>
+		<file>-</file>
+		<name>마법책1단계</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide> h</guide>
+		<grade>2</grade>
+		<step>1</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>41</id>
+		<file>-</file>
+		<name>마법책2단계1</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>sdftuy</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>42</id>
+		<file>-</file>
+		<name>마법책2단계2</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>fds</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>43</id>
+		<file>-</file>
+		<name>마법책3단계1</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>g</guide>
+		<grade>3</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>44</id>
+		<file>-</file>
+		<name>마법책3단계2</name>
+		<price>1000</price>
+		<countLimit>1</countLimit>
+		<guide>asd</guide>
+		<grade>3</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>45</id>
+		<file>-</file>
+		<name>마법책3단계3</name>
+		<price>4000</price>
+		<countLimit>1</countLimit>
+		<guide>dsf</guide>
+		<grade>4</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>46</id>
+		<file>-</file>
+		<name>마법책3단계4</name>
+		<price>4000</price>
+		<countLimit>1</countLimit>
+		<guide>346347</guide>
+		<grade>4</grade>
+		<step>3</step>
+		<material>-</material>
+	</Data>
+</Item>

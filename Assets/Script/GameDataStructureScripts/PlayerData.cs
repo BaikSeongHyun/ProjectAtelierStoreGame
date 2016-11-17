@@ -133,41 +133,25 @@ public class PlayerData
 	}
 
 	// add item data
-	public bool AddItemData( ItemData data, int itemCount )
+	public bool AddItemData( int id, int itemCount )
 	{
-		for( int i = 0; i < haveItemSet.Length; i++ )
+		// if item is exist
+		foreach( ItemInstance element in haveItemSet )
 		{
-			//Debug.Log(haveItemSet.Length);
-			if( ( haveItemSet[ i ] != null ) && ( haveItemSet[ i ].Count == 0 ) )
+			if( element.Item != null && element.Item.ID == id )
 			{
-				//Debug.Log("빈 공간에 새로 생성");
-				haveItemSet[ i ] = new ItemInstance( data, i, itemCount );
-				break;
+				element.Count += itemCount;
+				return true;
 			}
-			else if( haveItemSet[ i ].Item.ID == data.ID )
+		}
+
+		// find empty space
+		for( int i = 0; i < haveItemSet.Length / 3; i++ )
+		{
+			if( haveItemSet[ i ] == null || haveItemSet[ i ].Item == null || haveItemSet[ i ].Item.ID == 0 )
 			{
-				if( haveItemSet[ i ].Count + itemCount <= haveItemSet[ i ].Item.CountLimit )
-				{
-					//Debug.Log("이미 있는 공간에 추가");
-					haveItemSet[ i ].Count += itemCount;
-					break;
-				}
-				else
-				{
-					haveItemSet[ i ].Count = haveItemSet[ i ].Item.CountLimit;
-					if( i + 1 == haveItemSet.Length )
-					{
-						//Debug.Log("full! 남은거 버려진다.");
-						itemCount = 0;
-						break;
-					}
-					else
-					{
-						//Debug.Log("최대수량초과" + i);
-						itemCount = haveItemSet[ i ].Count + itemCount - haveItemSet[ i ].Item.CountLimit;
-						continue;
-					}
-				}
+				haveItemSet[ i ] = new ItemInstance( id, i, itemCount );
+				return true;
 			}
 		}
 		return false;
@@ -176,9 +160,7 @@ public class PlayerData
 	// material -> add item
 	public void AddItemMaterial( int id, int itemCount )
 	{
-		ItemData itemData = DataManager.FindItemDataByID( id );
-
-		AddItemData( itemData, itemCount );
+		AddItemData( id, itemCount );
 	}
 
 	// set default status
@@ -196,7 +178,9 @@ public class PlayerData
 		haveFurnitureSet = new FurnitureInstance[30];
 		allocateFurnitureSet = new List<FurnitureInstance>( );
 
-		allocateFurnitureSet.Add( new FurnitureInstance( 17, 1, true, new Vector3( 4f, 0f, 4f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 2, 0, true, new Vector3( 4f, 0f, 4f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 4, 1, true, new Vector3( 2f, 0f, 2f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 7, 1, true, new Vector3( 8f, 0f, 8f ), Quaternion.identity ) );
 	}
 
 	// check selling item

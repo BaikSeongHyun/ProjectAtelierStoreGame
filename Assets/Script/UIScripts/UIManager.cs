@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject storeCustomizingSet;
 	[SerializeField] CustomizeUI storeCustomizingSetLogic;
 	[SerializeField] GameObject loadingScene;
+	[SerializeField] GameObject fieldUI;
+	[SerializeField] FieldUI fieldUILogic;
 	[SerializeField] Text testField;
 
 	[SerializeField] public GameObject questPopup;
@@ -40,6 +42,9 @@ public class UIManager : MonoBehaviour
 		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<CustomizeUI>();
 		storeCustomizingSetLogic.LinkComponentElement();
 
+		fieldUI = transform.Find( "FieldUI" ).gameObject;
+		fieldUILogic = fieldUI.GetComponent<FieldUI>();
+
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
 	}
 
@@ -53,6 +58,9 @@ public class UIManager : MonoBehaviour
 
 			if( storeCustomizingSet.activeSelf )
 				storeCustomizingSetLogic.UpdateComponentElement();
+
+			if( fieldUI.activeSelf )
+				fieldUILogic.UpdateComponentElement();
 		}
 		testField.text = "x:" + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y + ", z: " + Camera.main.transform.position.z;
 	}
@@ -67,23 +75,30 @@ public class UIManager : MonoBehaviour
 			case GameManager.GameMode.Start:
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
+				fieldUI.SetActive( false );
 				break;
 			case GameManager.GameMode.Loading:
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
+				fieldUI.SetActive( false );
 				break;
 			case GameManager.GameMode.Store:
 				storeUI.SetActive( true );
 				storeCustomizingSet.SetActive( false );
+				fieldUI.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( true );
+				fieldUI.SetActive( false );
 				break;
 			case GameManager.GameMode.Village:
 				break;
 			case GameManager.GameMode.Field:
-
+				storeUI.SetActive( false );
+				storeCustomizingSet.SetActive( false );
+				fieldUI.SetActive( true );
+				fieldUILogic.ResetCard();
 				break;
 		}
 	}

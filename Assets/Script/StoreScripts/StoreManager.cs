@@ -281,7 +281,7 @@ public class StoreManager : MonoBehaviour
 			switch( manager.GamePlayer.StoreData.StoreStep )
 			{
 				case 1:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), new Quaternion( 0f, 0.7f, 0f, 0.7f ) );
 					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step1NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground.transform.position = new Vector3( 0f, -0.01f, 0f );
 					break;

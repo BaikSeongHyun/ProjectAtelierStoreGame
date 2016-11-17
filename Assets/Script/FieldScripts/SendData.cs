@@ -29,7 +29,7 @@ public class SendData : MonoBehaviour
 	{
 		for( int i = 0; i < data.Count; i++ )
 		{
-			player.AddItemData( data[ i ], count[ i ] );
+			//player.AddItemData( data[ i ], count[ i ] );
 		}
 		Debug.Log( "Data Save Success" );
 	}

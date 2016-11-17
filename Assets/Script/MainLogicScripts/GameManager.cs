@@ -157,6 +157,13 @@ public class GameManager : MonoBehaviour
 		SetUI();
 	}
 
+	// set field mode
+	public void SetFieldMode()
+	{
+		presentGameMode = GameMode.Field;
+		SetUI();
+	}
+
 	// set store open mode
 	public void SetStoreOpenMode()
 	{

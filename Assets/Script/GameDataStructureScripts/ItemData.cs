@@ -20,6 +20,8 @@ public class ItemData
 	// property
 	public int ID { get { return id; } }
 
+	public string File { get { return file; } }
+
 	public ItemType Type { get { return itemType; } }
 
 	public int Price { get { return price; } }

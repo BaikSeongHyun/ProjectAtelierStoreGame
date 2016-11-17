@@ -1,46 +1,135 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class FieldManager : MonoBehaviour
 {
-    [SerializeField] GameManager manager;
+	// high structure
+	[SerializeField] GameManager manager;
 
-	[SerializeField] GameObject player;
-	[SerializeField] GameObject objRegen;
-	[SerializeField] PlayerOnField playerLogic;
-	[SerializeField] ObjectRegeneration objRegenLogic;
+	// logic data field
+	[SerializeField] System.DateTime eventTime;
+	[SerializeField] int touchCount;
+	[SerializeField] bool eventStart;
+	[SerializeField] bool[] isOpened;
+	[SerializeField] System.TimeSpan timeDiffer;
+
+
+	// property
+	public int TouchCount { get { return touchCount; } }
+
+	public bool[] IsOpened { get { return isOpened; } }
+
+	public System.TimeSpan TimeDifference { get { return timeDiffer; } }
 
 	void Awake()
-	{
-		FieldSettingStart();
+	{		
+		manager = GetComponent<GameManager>();
 	}
 
-	void Start()
+	// public method
+	// check activate
+	public bool CheckActivateUseTime()
 	{
-        objRegenLogic.SetObjRegeneration();
+		System.DateTime temp = System.Convert.ToDateTime( System.DateTime.Now );
+		timeDiffer = temp - eventTime;
 
-    }
-
-	public void FieldSettingStart()
-	{
-		player = GameObject.Find( "Player" );
-		playerLogic = player.GetComponent<PlayerOnField>();
-		objRegen = GameObject.Find( "ObjectManager" );
-		objRegenLogic = objRegen.GetComponent<ObjectRegeneration>();
+		if( timeDiffer.TotalSeconds >= DataManager.FindFieldDataByID( manager.GamePlayer.StoreData.StoreStep ).WaitingTime )
+		{			
+			return true;
+		}
+		else
+			return false;
 	}
 
-	// 필드 만들기
-	public bool CreateField()
+	public float CalculateWaitingTime()
 	{
-		return true;
+		return ( float ) ( DataManager.FindFieldDataByID( manager.GamePlayer.StoreData.StoreStep ).WaitingTime - timeDiffer.TotalSeconds );
 	}
 
-	// 필드 내 처하기 -> game manager에 업데이트
-	public void FieldProcess()
+	public string WaitingTimeForm()
 	{
-		// 채취할거 만들기 -> 랜덤위치
-		// 갯수가 일정이상일때
+		string result = "";
+		int hours = ( int ) ( CalculateWaitingTime() / 3600 );
+		int min = ( int ) ( CalculateWaitingTime() / 60 );
+		int sec = ( int ) ( CalculateWaitingTime() % 60 );
+
+		if( hours != 0 )
+			result += hours.ToString( "00" ) + ":";
+		if( min != 0 )
+			result += min.ToString( "00" ) + ":";
+
+		result += sec.ToString( "00" );		
+
+		return result;
 	}
+
+	// reset data
+	public void ResetData()
+	{
+		CheckActivateUseTime();
+
+		for( int i = 0; i < isOpened.Length; i++ )
+			isOpened[ i ] = false;
+
+		touchCount = DataManager.FindFieldDataByID( manager.GamePlayer.StoreData.StoreStep ).CheckNumber;
+		touchCount = 3;
+		eventStart = false;
+	}
+
+	// select card
+	public void SelectCard( int index, out int cardIndex )
+	{
+		touchCount--;
+		isOpened[ index ] = true;
+		cardIndex = Random.Range( 0, 12 );
+		if( !eventStart )
+		{
+			eventStart = true;
+			eventTime = System.Convert.ToDateTime( System.DateTime.Now );
+			Debug.Log( eventTime.ToString( "F" ) );
+		}
+
+		int itemID = 0;
+		int itemCount = 0;
+		switch( ( cardIndex + 1 ) % 4 )
+		{
+			case 1:
+				// blue powder
+				itemID = 22;
+				break;
+			case 2:
+				// red powder
+				itemID = 23;
+				break;
+			case 3:
+				// yellow herb
+				itemID = 16;
+				break;
+			case 0:
+				// purple herb
+				itemID = 17;
+				break;
+		}
+
+		switch( cardIndex / 4 )
+		{
+			case 0:
+				itemCount = 1;
+				break;
+			case 1:
+				itemCount = 4;
+				break;
+			case 2:
+				itemCount = 9;
+				break;			
+		}
+
+		manager.GamePlayer.AddItemData( itemID, itemCount );
+	}
+
+
+
 }
 
 

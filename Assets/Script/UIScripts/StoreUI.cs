@@ -86,6 +86,7 @@ public class StoreUI : MonoBehaviour
 	public void OnClickFieldButton()
 	{
 		ClearChildUI();
+		manager.SetFieldMode();
 	}
 
 	// on click mode customizing button

@@ -13,6 +13,7 @@ public class DataManager : MonoBehaviour
 	[SerializeField] static PlayerData playerData;
 	[SerializeField] static Dictionary<int, FurnitureData> furnitureSet;
 	[SerializeField] static Dictionary<int, ItemData> itemSet;
+	[SerializeField] static Dictionary<int, FieldData> fieldDataSet;
 
 	// property
 	public bool PlayerDataLoading { get { return playerDataLoading; } }
@@ -24,6 +25,7 @@ public class DataManager : MonoBehaviour
 		playerDataLoading = false;
 		LoadFurnitureData();
 		LoadItemData();
+		LoadFieldData();
 		LoadPlayerData();
 	}
 
@@ -134,11 +136,11 @@ public class DataManager : MonoBehaviour
 	{
 		itemSet = new Dictionary<int, ItemData>( );
 
-		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/itemData" );
+		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/ItemData" );
 		XmlDocument document = new XmlDocument( );
 		document.LoadXml( loadData.text );
 
-		XmlNodeList nodes = document.SelectNodes( "MaterialList/item" );
+		XmlNodeList nodes = document.SelectNodes( "Item/Data" );
 
 		if( nodes == null )
 		{
@@ -147,8 +149,7 @@ public class DataManager : MonoBehaviour
 		else
 		{
 			foreach( XmlNode node in nodes )
-			{
-				int type = int.Parse( node.SelectSingleNode( "type" ).InnerText );
+			{				
 				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
 				string file = node.SelectSingleNode( "file" ).InnerText;
 				string name = node.SelectSingleNode( "name" ).InnerText;
@@ -157,6 +158,7 @@ public class DataManager : MonoBehaviour
 				string guide = node.SelectSingleNode( "guide" ).InnerText;
 				int grade = int.Parse( node.SelectSingleNode( "grade" ).InnerText );
 				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
+				int type = int.Parse( node.SelectSingleNode( "type" ).InnerText );
 
 				/*
 				string material = node.SelectSingleNode( "materials" ).InnerText;
@@ -182,7 +184,7 @@ public class DataManager : MonoBehaviour
 
 				try
 				{
-					itemSet.Add( id, new ItemData( type, id, name, file, price, countLimit, guide, grade, step ) );
+					itemSet.Add( id, new ItemData( type, id, file, name, price, countLimit, guide, grade, step ) );
 				}
 				catch( Exception e )
 				{
@@ -193,6 +195,46 @@ public class DataManager : MonoBehaviour
 		}
 
 		playerDataLoading = true;
+	}
+
+	// field data load
+	public static void LoadFieldData()
+	{
+		fieldDataSet = new Dictionary<int, FieldData>( );
+
+		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/FieldData" );
+		XmlDocument document = new XmlDocument( );
+		document.LoadXml( loadData.text );
+
+		XmlNodeList nodes = document.SelectNodes( "Field/Data" );
+
+		if( nodes == null )
+		{
+			Debug.Log( "Data is null" );
+		}
+		else
+		{
+			foreach( XmlNode node in nodes )
+			{
+				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
+				float waitingTime = float.Parse( node.SelectSingleNode( "waitingTime" ).InnerText );
+				int horizontalLength = int.Parse( node.SelectSingleNode( "horizontalLength" ).InnerText );
+				int verticalLength = int.Parse( node.SelectSingleNode( "verticalLength" ).InnerText );
+				int resetCost = int.Parse( node.SelectSingleNode( "resetCost" ).InnerText );
+				int checkNumber = int.Parse( node.SelectSingleNode( "checkNumber" ).InnerText );
+
+
+				try
+				{
+					fieldDataSet.Add( id, new FieldData( id, waitingTime, horizontalLength, verticalLength, resetCost, checkNumber ) );
+				}
+				catch( Exception e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
+				}
+			}
+		}
 	}
 
 	// player data load -> use player pref
@@ -410,6 +452,23 @@ public class DataManager : MonoBehaviour
 		}
 
 		return DataManager.itemSet[ id ];
+	}
+
+	// find field data
+	public static FieldData FindFieldDataByID( int id )
+	{
+		try
+		{
+			return DataManager.fieldDataSet[ id ];
+		}
+		catch( KeyNotFoundException e )
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			DataManager.LoadFieldData();
+		}
+
+		return DataManager.fieldDataSet[ id ];
 	}
 
 	// check player data loading

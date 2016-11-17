@@ -43,10 +43,10 @@ public class ItemInstance
 		count = _count;
 	}
 
-	public ItemInstance( int id, int _count, int _sellPrice )
+	public ItemInstance( int id, int _slotNumber, int _count )
 	{
 		itemData = DataManager.FindItemDataByID( id );
+		slotNumber = _slotNumber;
 		count = _count;
-		sellPrice = _sellPrice;
 	}
 }
