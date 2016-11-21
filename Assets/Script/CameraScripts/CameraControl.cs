@@ -18,7 +18,7 @@ public class CameraControl : MonoBehaviour
 	[SerializeField] float xRotation;
 	[SerializeField] float yRotation;
 
-
+	[SerializeField] Transform charPos;
 
 	// property
 
@@ -75,5 +75,10 @@ public class CameraControl : MonoBehaviour
 				YPosition = transform.position.y - Time.deltaTime * 10f;
 		}
 		viewCamera.transform.position = new Vector3( xPosition, yPosition, zPosition );
+	}
+
+	public void MoveObject()
+	{
+		viewCamera.transform.position = charPos.position + new Vector3( xPosition, yPosition, zPosition );
 	}
 }

@@ -6,6 +6,8 @@ public class PlayerAgent : AIAgent
 {
 	[SerializeField] MeshRenderer meshRenderer;
 	[SerializeField] Vector3 destination;
+	[SerializeField] AnimatorStateInfo aniInfor;
+	[SerializeField] float frame;
 
 	// enum type
 	public enum PlayerState : int
@@ -24,17 +26,21 @@ public class PlayerAgent : AIAgent
 
 	void Update()
 	{		
+		frame = agentAnimator.GetCurrentAnimatorStateInfo( 0 ).length;
+		Debug.Log( frame );
+
 		// do not cast overlay ui event point
 		if( !EventSystem.current.IsPointerOverGameObject() )
 		{
 			Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 			RaycastHit hitInfo;
 
+
 			if( Input.GetButtonDown( "LeftClick" ) )
 			{
-				if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
+				if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, ( 1 << LayerMask.NameToLayer( "StoreField" ) ) ) )
 				{
-					destination = hitInfo.point;
+					destination = LimitPosition( hitInfo.point );
 					moveAgent.SetDestination( destination );
 					agentAnimator.SetInteger( "State", ( int ) PlayerState.walk );
 				}
@@ -49,22 +55,13 @@ public class PlayerAgent : AIAgent
 		}
 	}
 
-	IEnumerator FlashPlayer()
+	public Vector3 LimitPosition( Vector3 inputPos )
 	{
-		meshRenderer = GetComponent<MeshRenderer>();
+		Vector3 outputPos = new Vector3( Mathf.Clamp( inputPos.x, -40f, 40f ),
+		                                 Mathf.Clamp( inputPos.y, 0f, 0f ),
+		                                 Mathf.Clamp( inputPos.z, -40f, 40f )
+		                    );
 
-		while( true )
-		{
-			if( meshRenderer.enabled )
-			{
-				meshRenderer.enabled = !meshRenderer.enabled;
-				yield return new WaitForSeconds( 2f );
-			}
-			else
-			{
-				meshRenderer.enabled = !meshRenderer.enabled;
-				yield return new WaitForSeconds( 2f );
-			}
-		}
+		return outputPos;
 	}
 }
