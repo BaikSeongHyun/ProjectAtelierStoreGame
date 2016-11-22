@@ -26,11 +26,13 @@ public abstract class AIAgent : MonoBehaviour
 
 	public virtual void SetAnimator()
 	{
+		
 	}
 
 
 	// ai agent behaviour -> set ai agent policy
 	public virtual void AIAgentBehaviour()
 	{
+		
 	}
 }

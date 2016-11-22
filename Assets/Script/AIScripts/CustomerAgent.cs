@@ -108,9 +108,15 @@ public class CustomerAgent : AIAgent
 		}
 
 		//
-		targetItem = targetObject.SellItem;
-		if( presentSequence != Sequence.Buy )
-			presentSequence = Sequence.GoToStore;
+		for( int i = 0; i < targetObject.SellItem.Length; i++ )
+		{
+			targetItem = targetObject.SellItem[ i ];
+			if( presentSequence != Sequence.Buy )
+			{
+				presentSequence = Sequence.GoToStore;
+				break;
+			}
+		}
 
 	}
 

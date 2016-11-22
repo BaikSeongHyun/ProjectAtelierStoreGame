@@ -14,7 +14,7 @@ public class FurnitureObject : MonoBehaviour
 	[SerializeField] Image allocateTexture;
 	[SerializeField] Collider[] tempSet;
 	[SerializeField] float storePlaneScale;
-	[SerializeField] ItemInstance sellItemSet;
+	[SerializeField] ItemInstance[] sellItemSet;
 
 	// property
 	public FurnitureInstance InstanceData { get { return data; } set { data = value; } }
@@ -33,7 +33,7 @@ public class FurnitureObject : MonoBehaviour
 
 	public bool Activated { get { return isActivated; } set { isActivated = value; } }
 
-	public ItemInstance SellItem { get { return sellItemSet; } set { sellItemSet = value; } }
+	public ItemInstance[] SellItem { get { return sellItemSet; } set { sellItemSet = value; } }
 
 	// unity standard method
 	// awake -> set element
@@ -110,6 +110,9 @@ public class FurnitureObject : MonoBehaviour
 		allocateTexture = temp.GetComponent<Image>();
 
 		AllocateMode = false;
+
+		if( data.Furniture.Function == FurnitureData.FunctionType.SellObject )
+			sellItemSet = new ItemInstance[data.Furniture.SlotLength];
 	}
 
 	// change object position
@@ -187,15 +190,16 @@ public class FurnitureObject : MonoBehaviour
 	// set sell Item
 	public void SetSellItem( ItemInstance instanceData )
 	{
-		for( int i = 0; i < data.Furniture.SellItemGroupSet.Length; i++ )
-		{
-			if( data.Furniture.SellItemGroupSet[ i ] == ( int ) instanceData.Item.Type )
+		if( data.Furniture.Function == FurnitureData.FunctionType.SellObject )
+			for( int i = 0; i < data.Furniture.SellItemGroupSet.Length; i++ )
 			{
-				sellItemSet = new ItemInstance( instanceData, data.Furniture.SellItemCountSet[ i ] );
+				if( data.Furniture.SellItemGroupSet[ i ] == ( int ) instanceData.Item.Type )
+				{
+					
 
-				return;
+					return;
+				}
 			}
-		}
 	}
 
 	// for sell item
@@ -205,8 +209,8 @@ public class FurnitureObject : MonoBehaviour
 
 		if( ( temp != null ) && sellItemSet != null )
 		{
-			temp.BuyItemInstance( sellItemSet );
-			if( sellItemSet.Count == 0 )
+			
+			if( sellItemSet.Length == 0 )
 				sellItemSet = null;
 			temp.WarpOutStore();
 		}

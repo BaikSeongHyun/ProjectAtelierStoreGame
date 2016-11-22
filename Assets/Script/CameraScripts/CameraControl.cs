@@ -37,7 +37,8 @@ public class CameraControl : MonoBehaviour
 	void Awake()
 	{
 		viewCamera = GetComponent<Camera>();
-		xPosition = yPosition = zPosition = 10f;
+		xPosition = zPosition = 5f;
+		yPosition = 10f;
 		touchSensitive = 60000f;
 	}
 

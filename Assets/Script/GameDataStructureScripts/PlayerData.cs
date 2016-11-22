@@ -188,7 +188,7 @@ public class PlayerData
 	{
 		foreach( FurnitureObject element in allocateFurnitureObjectSet )
 		{
-			if( ( element.SellItem != null ) && ( element.SellItem.Item.ID != 0 ) )
+			if( ( element.SellItem != null ) )
 			{
 				return element;
 			}
@@ -203,7 +203,7 @@ public class PlayerData
 		{
 			if( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
 			{
-				element.SellItem = new ItemInstance( 7, 5, 100 );
+				
 			}
 		}
 	}
@@ -222,6 +222,6 @@ public class PlayerData
 
 	public void InsertSellItemUseIndex( int index )
 	{
-		allocateFurnitureObjectSet[ index ].SellItem = new ItemInstance( 7, 5, 100 ); 
+		
 	}
 }
