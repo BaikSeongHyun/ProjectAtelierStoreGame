@@ -7,6 +7,9 @@ public class DataElement : MonoBehaviour
 	// component element
 	[SerializeField] Image elementIcon;
 	[SerializeField] Text count;
+	[SerializeField] Button button;
+
+	public Image ElementIcon { get { return elementIcon; } set { elementIcon = value; } }
 
 	// public method
 	// link element
@@ -74,5 +77,17 @@ public class DataElement : MonoBehaviour
 		{
 			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 		}
+	}
+
+	public void SetActive()
+	{
+		button.enabled = true;
+	}
+
+	// lock &
+	public void LockSlot()
+	{
+		button.enabled = false;	
+		// image set lock
 	}
 }
