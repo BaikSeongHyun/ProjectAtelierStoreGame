@@ -25,10 +25,7 @@ public class PlayerAgent : AIAgent
 	}
 
 	void Update()
-	{		
-		frame = agentAnimator.GetCurrentAnimatorStateInfo( 0 ).length;
-		Debug.Log( frame );
-
+	{
 		// do not cast overlay ui event point
 		if( !EventSystem.current.IsPointerOverGameObject() )
 		{
