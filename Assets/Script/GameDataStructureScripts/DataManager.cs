@@ -185,8 +185,20 @@ public class DataManager : MonoBehaviour
 
 				try
 				{
-					itemSet.Add( id, new ItemData( type, id, file, name, price, countLimit, guide, grade, step, resourceIDSet, resourceCountSet ) );
-				}
+                    if (material.Length == 1)
+                    {
+
+                        itemSet.Add(id, new ItemData(type, id, file, name, price, countLimit, guide, grade, step));
+                    }
+                    else if (material.Length > 1)
+                    {
+                        itemSet.Add(id, new ItemData(type, id, file, name, price, countLimit, guide, grade, step, ref resourceIDSet, ref resourceCountSet));
+                    }
+                    else
+                    {
+                        Debug.Log("오류잡혔으니 확인해보세요!");
+                    }
+                }
 				catch( Exception e )
 				{
 					Debug.Log( e.StackTrace );

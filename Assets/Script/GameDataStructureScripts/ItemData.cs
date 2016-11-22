@@ -20,7 +20,9 @@ public class ItemData
 	// property
 	public int ID { get { return id; } }
 
-	public string File { get { return file; } }
+    public string Name { get { return name; } }
+
+    public string File { get { return file; } }
 
 	public ItemType Type { get { return itemType; } }
 
@@ -30,9 +32,11 @@ public class ItemData
 
 	public int[] ResourceIDSet { get { return resourceIDSet; } }
 
-	// enum data
+    public int[] ResourceCountSet { get { return resourceCountSet; } }
 
-	public enum GradeType : int
+    // enum data
+
+    public enum GradeType : int
 	{
 		Default = 0,
 		common = 1,
@@ -69,9 +73,23 @@ public class ItemData
 		step = 0;
 	}
 
-	// constructor - all parameter
-	// use xml data format
-	public ItemData( int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step, int[] _resourceIDSet, int[] _resourceCountSet )
+    // constructor - all parameter
+    // use xml data format
+
+    public ItemData(int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step)
+    {
+        itemType = ReturnType(_itemType);
+        id = _id;
+        file = _file;
+        name = _name;
+        price = _price;
+        countLimit = _countLimit;
+        guide = _guide;
+        gradeType = ReturnGradeType(_gradeType);
+        step = _step;
+    }
+
+    public ItemData( int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step, ref int[] _resourceIDSet, ref int[] _resourceCountSet )
 	{
 		itemType = ReturnType( _itemType );
 		id = _id;
@@ -85,6 +103,7 @@ public class ItemData
 		resourceIDSet = _resourceIDSet;
 		resourceCountSet = _resourceCountSet;
 	}
+
 
 	GradeType ReturnGradeType( int _gradeType )
 	{
