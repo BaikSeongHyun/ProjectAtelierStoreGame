@@ -174,7 +174,7 @@ public class PlayerData
 		gold = 1000;
 		gem = 1000;
 		haveStoreData = new StoreData( );
-		haveItemSet = new ItemInstance[45];
+		haveItemSet = new ItemInstance[60];
 		haveFurnitureSet = new FurnitureInstance[30];
 		allocateFurnitureSet = new List<FurnitureInstance>( );
 

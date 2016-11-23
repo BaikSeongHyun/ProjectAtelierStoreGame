@@ -13,7 +13,7 @@ public class ItemInstance
 
 
 	// property
-	public ItemData Item { get { return itemData; } }
+	public ItemData Item { get { return itemData; } set { itemData = value; } }
 
 	public int Count { get { return count; } set { count = Mathf.Clamp( value, 0, itemData.CountLimit ); } }
 

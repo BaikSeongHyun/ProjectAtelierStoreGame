@@ -5,9 +5,11 @@ public class CustomerAgent : AIAgent
 {
 	// high structure
 	[SerializeField] GameManager manager;
-	[SerializeField] AIManager aiManager;
+	[SerializeField] StageManager aiManager;
 
 	// field - data
+	[SerializeField] ItemData.ItemType favoriteItemType;
+	[SerializeField] float buyScale;
 	[SerializeField] int gold;
 
 	// field - logic
@@ -79,7 +81,7 @@ public class CustomerAgent : AIAgent
 	public override void DataInitialize()
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
-		aiManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<AIManager>();
+		aiManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 		startPoint = GameObject.FindWithTag( "CustomerStartPoint" ).transform;
 		storeEnterPoint = GameObject.FindWithTag( "CustomerStoreEnterPoint" ).transform;
 		endPoint = GameObject.FindWithTag( "CustomerEndPoint" ).transform;

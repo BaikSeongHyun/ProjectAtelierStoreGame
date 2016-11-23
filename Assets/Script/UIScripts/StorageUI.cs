@@ -26,6 +26,9 @@ public class StorageUI : MonoBehaviour
 	// field - logic data
 	[SerializeField] int presentStepIndex;
 
+	// property
+	public int PresentStepIndex { get { return presentStepIndex; } }
+
 	void Awake()
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();	
@@ -72,7 +75,7 @@ public class StorageUI : MonoBehaviour
 		{
 			for( int i = 0; i < slots.Length; i++ )
 			{
-				slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i + ( presentStepIndex * 15 ) ] );
+				slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i + ( presentStepIndex * manager.GamePlayer.ItemSet.Length / 3 ) ] );
 			}
 		}
 		else if( this.gameObject.name == "FurnitureSetUI" )
@@ -116,8 +119,7 @@ public class StorageUI : MonoBehaviour
 	// on click item inventory element
 	public void OnClickItemStorageElement( int index )
 	{
-		if( this.gameObject.name == "FurnitureSetUI" )
-			storeManager.AllocateStartFurnitureInstance( index, presentStepIndex );
+		// view item information popup
 	}
 
 	public void OnCilckExitStorageUI()

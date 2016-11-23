@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject loadingScene;
 	[SerializeField] GameObject fieldUI;
 	[SerializeField] FieldUI fieldUILogic;
+	[SerializeField] GameObject mixUI;
+	[SerializeField] MixUI mixUILogic;
 	[SerializeField] GameObject sellItemSettingUI;
 	[SerializeField] SellItemSettingUI sellItemSettingUILogic;
 	[SerializeField] Text testField;
@@ -76,6 +78,7 @@ public class UIManager : MonoBehaviour
 	{
 		if( manager == null )
 			LinkComponentElement();
+		
 		switch( manager.PresentMode )
 		{
 			case GameManager.GameMode.Start:
@@ -83,18 +86,21 @@ public class UIManager : MonoBehaviour
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
+				loadingScene.SetActive( true );
 				break;
 			case GameManager.GameMode.Loading:
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
+				loadingScene.SetActive( true );
 				break;
 			case GameManager.GameMode.Store:
 				storeUI.SetActive( true );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
+				loadingScene.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
 				storeUI.SetActive( false );
@@ -121,10 +127,15 @@ public class UIManager : MonoBehaviour
 	}
 	
 	// set sell item setting io
-	public void ActivateSellItemSettingUI(  )
+	public void ActivateSellItemSettingUI()
 	{
 		sellItemSettingUI.SetActive( true );
-		sellItemSettingUILogic.InitializeElement( );
+		sellItemSettingUILogic.InitializeElement();
 	}
 
+	// set mix ui activate
+	public void ActivateMixUI()
+	{
+		mixUI.SetActive( true );
+	}
 }

@@ -13,7 +13,6 @@ public class StoreManager : MonoBehaviour
 	[SerializeField] bool createComplete;
 	[SerializeField] MixUI mixUI;
 
-
 	// game instance data field
 	[SerializeField] float planeScale;
 	[SerializeField] TileMap storeField;
@@ -41,7 +40,7 @@ public class StoreManager : MonoBehaviour
 	{
 		manager = GetComponent<GameManager>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
-		mixUI = GameObject.Find( "MixUI" ).GetComponent<MixUI>();
+		//mixUI = GameObject.Find( "MixUI" ).GetComponent<MixUI>();
 	}
 
 	// public method
@@ -113,17 +112,10 @@ public class StoreManager : MonoBehaviour
 				if( presentAllocateObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
 				{
 					Debug.Log( "Open create ui" );
-					mixUI.MixViewButton();
-				}
-				else if( presentAllocateObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.StorageObject )
-				{
-					Debug.Log( "Open Storage ui" );
-					mainUI.ActivateSellItemSettingUI();				
+					//mixUI.MixViewButton();
 				}
 			}
 		}
-		
-
 	}
 
 	// customzing store object

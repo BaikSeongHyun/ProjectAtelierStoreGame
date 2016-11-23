@@ -8,8 +8,18 @@ public class DataElement : MonoBehaviour
 	[SerializeField] Image elementIcon;
 	[SerializeField] Text count;
 	[SerializeField] Button button;
+	[SerializeField] bool isLocked;
 
+	// property
 	public Image ElementIcon { get { return elementIcon; } set { elementIcon = value; } }
+
+	public bool IsLocked { get { return isLocked; } set { isLocked = value;}}
+
+	// unity method
+	void Awake()
+	{
+		LinkComponentElement();
+	}
 
 	// public method
 	// link element
@@ -17,6 +27,7 @@ public class DataElement : MonoBehaviour
 	{
 		elementIcon = transform.Find( "ElementIcon" ).GetComponent<Image>();
 		count = GetComponentInChildren<Text>();
+		isLocked = false;
 	}
 
 	public void UpdateComponentElement()

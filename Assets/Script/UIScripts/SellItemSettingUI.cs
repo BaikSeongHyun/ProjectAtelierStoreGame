@@ -6,12 +6,16 @@ using System.Collections;
 public class SellItemSettingUI : MonoBehaviour
 {
 	// high structure
-	[SerializeField] StoreManager storeManager;
+	[SerializeField] StageManager stageManager;
 
 	// field - for ui
 	[SerializeField] Image background;
 	[SerializeField] Text groupText;
 	[SerializeField] DataElement[] slots;
+
+	// sub ui
+	[SerializeField] GameObject sellRegisterUI;
+	[SerializeField] SellRegisterUI sellRegisterUILogic;
 
 
 	// unity method
@@ -24,7 +28,7 @@ public class SellItemSettingUI : MonoBehaviour
 	// link component element
 	public void LinkComponentElement()
 	{
-		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
+		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 		background = transform.Find( "Background" ).GetComponent<Image>();
 		groupText = transform.Find( "GroupText" ).GetComponent<Text>();
 		slots = GetComponentsInChildren<DataElement>();
@@ -34,7 +38,7 @@ public class SellItemSettingUI : MonoBehaviour
 	public void InitializeElement()
 	{
 		// set background
-		switch( storeManager.PresentAllocateObject.InstanceData.Furniture.Step )
+		switch( stageManager.PresentSelectedFurniture.InstanceData.Furniture.Step )
 		{
 			case 1:
 				background.sprite = Resources.Load<Sprite>( "Image/UI/SellUI/1stStepSellBackground" ); 
@@ -47,11 +51,13 @@ public class SellItemSettingUI : MonoBehaviour
 				break;
 		}
 
+		// string initialiize
 		string groupString = "";
+
 		// set item group
-		for( int i = 0; i < storeManager.PresentAllocateObject.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
+		for( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
 		{
-			switch( storeManager.PresentAllocateObject.InstanceData.Furniture.SellItemGroupSet[ i ] )
+			switch( stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet[ i ] )
 			{
 				case 1:
 					groupString += "재료 ";
@@ -72,7 +78,7 @@ public class SellItemSettingUI : MonoBehaviour
 					groupString += "스태프 ";
 					break;
 				case 7:
-					groupString += "미법책 ";
+					groupString += "마법책 ";
 					break;
 			}
 		}	
@@ -86,11 +92,11 @@ public class SellItemSettingUI : MonoBehaviour
 			try
 			{
 				// set defalut
-				if( storeManager.PresentAllocateObject.SellItem[ i ].Item == null )
+				if( stageManager.PresentSelectedFurniture.SellItem[ i ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item.ID == 0 )
 					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 				// set item icon
 				else
-					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon" + storeManager.PresentAllocateObject.SellItem[ i ].Item.File );
+					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon" + stageManager.PresentSelectedFurniture.SellItem[ i ].Item.File );
 			}
 			catch( IndexOutOfRangeException e )
 			{
@@ -101,6 +107,17 @@ public class SellItemSettingUI : MonoBehaviour
 	}
 
 	// on click method
-	//
+	// open setting slot
+	public void OnClickOpenSettingSlot( int index )
+	{
+		if( slots[ index ].IsLocked )
+			return;
+		else
+			sellRegisterUI.SetActive( true );			
+			
+	}
+
+	// register sell item
+
 
 }

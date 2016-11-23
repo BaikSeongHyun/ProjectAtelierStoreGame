@@ -24,6 +24,8 @@ public class StoreUI : MonoBehaviour
 	// - button set -> make on click method
 	// achivement, storage, field, customize
 		 
+	// property
+	public StorageUI StorageUILogic { get { return storageUILogic; } }
 
 	// public method
 	// link component

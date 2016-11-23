@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-[CustomEditor( typeof ( AIManager ) )]
+[CustomEditor( typeof ( StageManager ) )]
 public class AIManagerCustomInspector : Editor
 {
 	public override void OnInspectorGUI()
@@ -11,7 +11,7 @@ public class AIManagerCustomInspector : Editor
 
 		if( GUILayout.Button( "RushAllCustomer" ) )
 		{
-			AIManager manager = ( AIManager ) target;
+			StageManager manager = ( StageManager ) target;
 			manager.RushAllCustomer();
 		}
 	}

@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] PacketQueue sendQueue;
 
 	// control logic field
-	[SerializeField] AIManager aiManager;
+	[SerializeField] StageManager stageManager;
 	[SerializeField] CharacterManager characterManager;
 	[SerializeField] FieldManager fieldManager;
 	[SerializeField] NetworkController networkContoller;
@@ -34,9 +34,10 @@ public class GameManager : MonoBehaviour
 		Loading = 2,
 		Store = 3,
 		StoreCustomizing = 4,
-		StoreOpen = 5,
-		Village = 6,
-		Field = 7}
+		StoreOpenPreprocess = 5,
+		StoreOpen = 6,
+		Village = 7,
+		Field = 8}
 
 	;
 
@@ -73,11 +74,13 @@ public class GameManager : MonoBehaviour
 			case GameMode.Store:
 				storeManager.StorePolicy();
 				break;
+			case GameMode.StoreOpenPreprocess:
+				stageManager.StagePreprocessPolicy();
+				break;
 			case GameMode.StoreCustomizing:
 				storeManager.CustomzingFurnitureObject();
 				break;
 			case GameMode.Field:
-
 				break;
 		}
 
@@ -101,7 +104,7 @@ public class GameManager : MonoBehaviour
 	// Link distribute game logic manager
 	private void LinkLogicElement()
 	{
-		aiManager = GetComponent<AIManager>();
+		stageManager = GetComponent<StageManager>();
 		characterManager = GetComponent<CharacterManager>();
 		fieldManager = GetComponent<FieldManager>();
 		networkContoller = GetComponent<NetworkController>();
@@ -168,7 +171,7 @@ public class GameManager : MonoBehaviour
 	public void SetStoreOpenMode()
 	{
 		presentGameMode = GameMode.StoreOpen;
-		aiManager.StoreOpen();
+		stageManager.StoreOpen();
 		SetUI();
 	}
 

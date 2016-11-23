@@ -4,15 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - icon
-  - MainUI
   - GameLogic
   - GameData
   - CustomerStartPoint
   - CustomerEndPoint
   - CustomerStoreEnterPoint
   - CustomerDestroyPoint
-  - CustomerCreatePoint
+  - MainUI
+  - CustomerSet
   layers:
   - Default
   - TransparentFX
