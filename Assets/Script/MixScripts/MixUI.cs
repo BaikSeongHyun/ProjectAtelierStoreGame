@@ -39,7 +39,7 @@ public class MixUI : MonoBehaviour {
     public int currentCount = 0; //제작할 것. 현재 갯수
     public int fabricableCount = 0;
 
-    public int listPage = 0;
+    public int currentPage = 0;
     public int lastPage = 3;
 
     void Awake()
@@ -236,7 +236,6 @@ public class MixUI : MonoBehaviour {
             //최대 만들수 있는 수량 체크
             if ((matSlotNumber[i] != -1))
             {
-                Debug.Log(player.ItemSet[matSlotNumber[i]].Count / id.ResourceCountSet[i - j]);
                 if ((player.ItemSet[matSlotNumber[i]].Count / id.ResourceCountSet[i - j]) <= minItem)
                 {       
                     minItem = player.ItemSet[matSlotNumber[i]].Count / id.ResourceCountSet[i - j];
@@ -279,7 +278,7 @@ public class MixUI : MonoBehaviour {
         }
     }
 
-    public void ListPageManager(int page)
+    public void currentPageManager(int page)
     {
         switch (page)
         {
@@ -329,18 +328,18 @@ public class MixUI : MonoBehaviour {
 
     public void NextButton()
     {
-        if (listPage < lastPage)
+        if (currentPage < lastPage)
         {
-            listPage++;
-            ListPageManager(listPage);
+            currentPage++;
+            currentPageManager(currentPage);
         }
     }
     public void PrevButton()
     {
-        if (listPage > 0)
+        if (currentPage > 0)
         {
-            listPage--;
-            ListPageManager(listPage);
+            currentPage--;
+            currentPageManager(currentPage);
         }
     }
 

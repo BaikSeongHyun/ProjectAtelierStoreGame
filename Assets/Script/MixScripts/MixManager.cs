@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class MixManager : MonoBehaviour {
 
-    public GameObject listMould; //Resource ->Prefabs -> shopMould
+    public GameObject listMould; //Resource ->Prefabs -> MixMaterialListMould 1
 
     //제작목록
     public Image[] mixList; //제작할 것들의 이미지를 넣을 목록
-    public Text[] mixListText; //제작할 것들의 목록 아래의 이름들 목록
 
     //ShopList에 필요한 것들
     private GameObject mixContent; //awake
@@ -19,7 +18,7 @@ public class MixManager : MonoBehaviour {
     private float interval; //start
     public int num; //제작목록 갯수
 
-    public bool loadingOnlyOnce = false;
+    public bool loading = false;
 
     void Awake()
     {
@@ -43,16 +42,15 @@ public class MixManager : MonoBehaviour {
     void FirstCreateList()
     {
         //List를 갯수만큼 생성하고 스크립트랑 오브젝트랑 연결시켜주기.
-        mixListText = new Text[num];
 
-        for (int i = 0; i < num/2; i++)
+        for ( int i = 0 ; i < num/2 ; i++ )
         {
             GameObject temp = Instantiate(listMould, transform.position, Quaternion.identity) as GameObject;
             temp.transform.SetParent(mixContent.transform, false);
             temp.transform.position = contentStart.position + new Vector3(interval * i, 0f, 0f);
             temp.name = "mixList" + i.ToString();
         }
-        for(int i=num/2; i< num;i++)
+        for( int i = num/2 ; i < num ; i++ )
         {
             GameObject temp = Instantiate(listMould, transform.position, Quaternion.identity) as GameObject;
             temp.transform.SetParent(mixContent.transform, false);
@@ -63,7 +61,7 @@ public class MixManager : MonoBehaviour {
 
     public void SecondCreateList()
     {
-        if (!loadingOnlyOnce)
+        if (!loading)
         {
             Debug.Log("첫로딩");
 
@@ -89,7 +87,7 @@ public class MixManager : MonoBehaviour {
                 DataSetting(i, i + 7);
             }
             DataSetting(9, 18);
-            loadingOnlyOnce = true;
+            loading = true;
         }
     }
 
@@ -104,7 +102,7 @@ public class MixManager : MonoBehaviour {
             data = mixList[num].GetComponent<mixSelected>();
             data.info = ID(id);
 
-            if(loadingOnlyOnce && !data.btn.isActiveAndEnabled)
+            if(loading && !data.btn.isActiveAndEnabled)
             {
                 Debug.Log("enable : false -> true");
                 data.btn.enabled = true;
@@ -122,14 +120,13 @@ public class MixManager : MonoBehaviour {
             data.btn.enabled = false;
         }
 
-        //mixListText[num].text = ID(id).Name;
     }
 
 
-    public ItemData ID(int _id)
+    public ItemData ID(int id)
     {
         // id reading in XML => Item Data All Load
-        ItemData item = DataManager.FindItemDataByID(_id);
-        return item;
+        ItemData data = DataManager.FindItemDataByID(id);
+        return data;
     }
 }

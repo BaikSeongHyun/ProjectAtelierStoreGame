@@ -15,9 +15,10 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject loadingScene;
 	[SerializeField] GameObject fieldUI;
 	[SerializeField] FieldUI fieldUILogic;
-	[SerializeField] GameObject sellItemSettingUI;
-	[SerializeField] SellItemSettingUI sellItemSettingUILogic;
 	[SerializeField] Text testField;
+
+    [SerializeField] GameObject furnitureMarket;
+    [SerializeField] FurnitureMarketUI furnitureMarketUI;
 
 	// unity method
 	// awake
@@ -45,11 +46,12 @@ public class UIManager : MonoBehaviour
 		fieldUI = transform.Find( "FieldUI" ).gameObject;
 		fieldUILogic = fieldUI.GetComponent<FieldUI>();
 
-		sellItemSettingUI = transform.Find( "SellItemSettingUI" ).gameObject;
-		sellItemSettingUILogic = sellItemSettingUI.GetComponent<SellItemSettingUI>();
-
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
-	}
+
+        furnitureMarket = transform.Find("FurnitureMarketUI").gameObject;
+        furnitureMarketUI = furnitureMarket.GetComponent<FurnitureMarketUI>();
+        furnitureMarketUI.LinkComponentElement();
+    }
 
 	// update ui component
 	public void UIUpdate()
@@ -65,9 +67,10 @@ public class UIManager : MonoBehaviour
 			if( fieldUI.activeSelf )
 				fieldUILogic.UpdateComponentElement();
 
-			if( sellItemSettingUI.activeSelf )
-				sellItemSettingUILogic.UpdateComponentElement();
-		}
+            if (furnitureMarket.activeSelf)
+                furnitureMarketUI.UpdateComponentElement();
+
+        }
 		testField.text = "x:" + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y + ", z: " + Camera.main.transform.position.z;
 	}
 	
@@ -82,25 +85,21 @@ public class UIManager : MonoBehaviour
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
-				sellItemSettingUI.SetActive( false );
 				break;
 			case GameManager.GameMode.Loading:
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
-				sellItemSettingUI.SetActive( false );
 				break;
 			case GameManager.GameMode.Store:
 				storeUI.SetActive( true );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
-				sellItemSettingUI.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( true );
 				fieldUI.SetActive( false );
-				sellItemSettingUI.SetActive( false );
 				break;
 			case GameManager.GameMode.Village:
 				break;
@@ -108,7 +107,6 @@ public class UIManager : MonoBehaviour
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( true );
-				sellItemSettingUI.SetActive( false );
 				fieldUILogic.ResetCard();
 				break;
 		}
@@ -120,11 +118,7 @@ public class UIManager : MonoBehaviour
 		loadingScene.SetActive( state );
 	}
 	
-	// set sell item setting io
-	public void ActivateSellItemSettingUI(  )
-	{
-		sellItemSettingUI.SetActive( true );
-		sellItemSettingUILogic.InitializeElement( );
-	}
-
+	// set create ui
+	
+	// set storage ui
 }

@@ -80,6 +80,7 @@ public class CameraControl : MonoBehaviour
 
 	public void MoveObject()
 	{
-		viewCamera.transform.position = charPos.position + new Vector3( xPosition, yPosition, zPosition );
+        //오류떠서 주석칩니다.
+		//viewCamera.transform.position = charPos.position + new Vector3( xPosition, yPosition, zPosition );
 	}
 }
