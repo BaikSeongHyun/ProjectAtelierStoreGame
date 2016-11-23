@@ -63,7 +63,7 @@ public class PlayerData
 	{
 		for( int i = 0; i < haveFurnitureSet.Length; i++ )
 		{
-			if( haveFurnitureSet[ i ] == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
+            if ( haveFurnitureSet[ i ] == null || haveFurnitureSet[i].Furniture == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
 			{
 				haveFurnitureSet[ i ] = new FurnitureInstance( data, i );
 				return true;
