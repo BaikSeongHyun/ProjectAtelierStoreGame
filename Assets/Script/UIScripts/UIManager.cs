@@ -15,17 +15,13 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject loadingScene;
 	[SerializeField] GameObject fieldUI;
 	[SerializeField] FieldUI fieldUILogic;
-<<<<<<< HEAD
 	[SerializeField] GameObject mixUI;
 	[SerializeField] MixUI mixUILogic;
 	[SerializeField] GameObject sellItemSettingUI;
 	[SerializeField] SellItemSettingUI sellItemSettingUILogic;
-=======
->>>>>>> 1c13fdbb3dfc8092509b2564f784c17975647968
+	[SerializeField] GameObject furnitureMarket;
+	[SerializeField] FurnitureMarketUI furnitureMarketUI;
 	[SerializeField] Text testField;
-
-    [SerializeField] GameObject furnitureMarket;
-    [SerializeField] FurnitureMarketUI furnitureMarketUI;
 
 	// unity method
 	// awake
@@ -53,12 +49,18 @@ public class UIManager : MonoBehaviour
 		fieldUI = transform.Find( "FieldUI" ).gameObject;
 		fieldUILogic = fieldUI.GetComponent<FieldUI>();
 
-		loadingScene = transform.Find( "LoadingScene" ).gameObject;
+		mixUI = transform.Find( "MixUI" ).gameObject;
+		mixUILogic = mixUI.GetComponent<MixUI>();
 
-        furnitureMarket = transform.Find("FurnitureMarketUI").gameObject;
-        furnitureMarketUI = furnitureMarket.GetComponent<FurnitureMarketUI>();
-        furnitureMarketUI.LinkComponentElement();
-    }
+		sellItemSettingUI = transform.Find( "SellItemSettingUI" ).gameObject;
+		sellItemSettingUILogic = sellItemSettingUI.GetComponent<SellItemSettingUI>();
+
+		furnitureMarket = transform.Find( "FurnitureMarketUI" ).gameObject;
+		furnitureMarketUI = furnitureMarket.GetComponent<FurnitureMarketUI>();
+		furnitureMarketUI.LinkComponentElement();
+
+		loadingScene = transform.Find( "LoadingScene" ).gameObject;
+	}
 
 	// update ui component
 	public void UIUpdate()
@@ -74,10 +76,12 @@ public class UIManager : MonoBehaviour
 			if( fieldUI.activeSelf )
 				fieldUILogic.UpdateComponentElement();
 
-            if (furnitureMarket.activeSelf)
-                furnitureMarketUI.UpdateComponentElement();
+			if( furnitureMarket.activeSelf )
+				furnitureMarketUI.UpdateComponentElement();
 
-        }
+			if( mixUI.activeSelf )
+				mixUILogic.CurrentCountManager();
+		}
 		testField.text = "x:" + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y + ", z: " + Camera.main.transform.position.z;
 	}
 	
@@ -93,31 +97,22 @@ public class UIManager : MonoBehaviour
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
-<<<<<<< HEAD
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( true );
-=======
->>>>>>> 1c13fdbb3dfc8092509b2564f784c17975647968
 				break;
 			case GameManager.GameMode.Loading:
 				storeUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
-<<<<<<< HEAD
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( true );
-=======
->>>>>>> 1c13fdbb3dfc8092509b2564f784c17975647968
 				break;
 			case GameManager.GameMode.Store:
 				storeUI.SetActive( true );
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
-<<<<<<< HEAD
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( false );
-=======
->>>>>>> 1c13fdbb3dfc8092509b2564f784c17975647968
 				break;
 			case GameManager.GameMode.StoreCustomizing:
 				storeUI.SetActive( false );
@@ -141,22 +136,22 @@ public class UIManager : MonoBehaviour
 		loadingScene.SetActive( state );
 	}
 	
-<<<<<<< HEAD
+
 	// set sell item setting io
 	public void ActivateSellItemSettingUI()
 	{
 		sellItemSettingUI.SetActive( true );
 		sellItemSettingUILogic.InitializeElement();
+		storeUILogic.StorageUILogic.gameObject.SetActive( true );
 	}
 
 	// set mix ui activate
 	public void ActivateMixUI()
 	{
 		mixUI.SetActive( true );
+		mixUILogic.MixViewButton();
 	}
-=======
+
 	// set create ui
 	
-	// set storage ui
->>>>>>> 1c13fdbb3dfc8092509b2564f784c17975647968
 }

@@ -75,6 +75,9 @@ public class StageManager : MonoBehaviour
 		}
 	}
 
+	// 
+
+
 	// create customer setting information
 	public void CreateGameInformation()
 	{

@@ -7,16 +7,13 @@ public class DataElement : MonoBehaviour
 	// component element
 	[SerializeField] Image elementIcon;
 	[SerializeField] Text count;
-<<<<<<< HEAD
 	[SerializeField] Button button;
 	[SerializeField] bool isLocked;
 
 	// property
 	public Image ElementIcon { get { return elementIcon; } set { elementIcon = value; } }
-=======
->>>>>>> 1c13fdbb3dfc8092509b2564f784c17975647968
 
-	public bool IsLocked { get { return isLocked; } set { isLocked = value;}}
+	public bool IsLocked { get { return isLocked; } set { isLocked = value; } }
 
 	// unity method
 	void Awake()
@@ -91,5 +88,15 @@ public class DataElement : MonoBehaviour
 		{
 			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 		}
+	}
+
+	public void SetActive()
+	{
+		button.enabled = true;
+	}
+
+	public void LockSlot()
+	{
+		button.enabled = false;
 	}
 }
