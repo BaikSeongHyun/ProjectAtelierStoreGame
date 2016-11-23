@@ -6,9 +6,6 @@ public class CameraControl : MonoBehaviour
 	// main camera
 	[SerializeField] Camera viewCamera;
 
-	// touch sensitive
-	[SerializeField] float touchSensitive;
-
 	// field position
 	[SerializeField] float xPosition = 10f;
 	[SerializeField] float yPosition = 10f;
@@ -37,9 +34,6 @@ public class CameraControl : MonoBehaviour
 	void Awake()
 	{
 		viewCamera = GetComponent<Camera>();
-		xPosition = zPosition = 5f;
-		yPosition = 10f;
-		touchSensitive = 60000f;
 	}
 
 	// public method
@@ -55,9 +49,9 @@ public class CameraControl : MonoBehaviour
 
 		int count = Input.touchCount;
 		// one touch
-		if( count == 1 )
+		if ( count == 1 )
 		{
-			if( Input.GetTouch( 0 ).phase == TouchPhase.Moved )
+			if ( Input.GetTouch( 0 ).phase == TouchPhase.Moved )
 			{			
 				XPosition += Input.GetTouch( 0 ).deltaPosition.x * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
 				ZPosition -= Input.GetTouch( 0 ).deltaPosition.x * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
@@ -67,12 +61,12 @@ public class CameraControl : MonoBehaviour
 			}
 		}	
 		// two touch
-		else if( count == 2 )
+		else if ( count == 2 )
 		{
 			// check y position
-			if( Input.GetAxis( "Mouse ScrollWheel" ) < 0 )
+			if ( Input.GetAxis( "Mouse ScrollWheel" ) < 0 )
 				YPosition = transform.position.y + Time.deltaTime * 10f;
-			else if( Input.GetAxis( "Mouse ScrollWheel" ) > 0 )
+			else if ( Input.GetAxis( "Mouse ScrollWheel" ) > 0 )
 				YPosition = transform.position.y - Time.deltaTime * 10f;
 		}
 		viewCamera.transform.position = new Vector3( xPosition, yPosition, zPosition );
@@ -80,7 +74,7 @@ public class CameraControl : MonoBehaviour
 
 	public void MoveObject()
 	{
-        //오류떠서 주석칩니다.
+		//오류떠서 주석칩니다.
 		//viewCamera.transform.position = charPos.position + new Vector3( xPosition, yPosition, zPosition );
 	}
 }

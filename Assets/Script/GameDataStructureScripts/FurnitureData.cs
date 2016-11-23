@@ -9,6 +9,7 @@ public class FurnitureData
 	[SerializeField] string file;
 	[SerializeField] string name;
 	[SerializeField] string guide;
+	[SerializeField] int price;
 	[SerializeField] int height;
 	[SerializeField] int widthX;
 	[SerializeField] int widthZ;
@@ -27,6 +28,8 @@ public class FurnitureData
 	public string Name { get { return name; } }
 
 	public string Guide { get { return guide; } }
+
+	public int Price { get { return price; } }
 
 	public int Height { get { return height; } }
 
@@ -69,7 +72,7 @@ public class FurnitureData
 	;
 
 	// constructor - no parameter -> set default;
-	public FurnitureData()
+	public FurnitureData ()
 	{
 		functionType = FunctionType.Default;
 		id = 0;
@@ -86,13 +89,14 @@ public class FurnitureData
 	}
 
 	// constructor - all parameter -> set up data
-	public FurnitureData( int _type, int _id, string _file, string _name, string _guide, int _height, int _widthX, int _widthZ, int _step, int[]_firstDataTable, int[] _secondDataTable, int _slotLength, AllocateType _allocateType )
+	public FurnitureData (int _type, int _id, string _file, string _name, string _guide, int _price, int _height, int _widthX, int _widthZ, int _step, int[]_firstDataTable, int[] _secondDataTable, int _slotLength, AllocateType _allocateType)
 	{
 		functionType = ReturnType( _type );
 		id = _id;
 		file = _file;
 		name = _name;
 		guide = _guide;
+		price = _price;
 		height = _height;
 		widthX = _widthX;
 		widthZ = _widthZ;
@@ -102,7 +106,7 @@ public class FurnitureData
 		slotLength = _slotLength;
 
 		// allocate function type
-		switch( _type )
+		switch ( _type )
 		{
 			case 1:
 				functionType = FunctionType.CreateObject;
@@ -124,12 +128,12 @@ public class FurnitureData
 		allocateType = _allocateType;
 	}
 
-	FunctionType ReturnType( int _temp )
+	public static FunctionType ReturnType( int _temp )
 	{
 		// allocate function type
 		FunctionType type;
 
-		switch( _temp )
+		switch ( _temp )
 		{
 			case 1:
 				type = FunctionType.CreateObject;

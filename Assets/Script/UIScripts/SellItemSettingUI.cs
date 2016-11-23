@@ -31,6 +31,9 @@ public class SellItemSettingUI : MonoBehaviour
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 		background = transform.Find( "Background" ).GetComponent<Image>();
 		groupText = transform.Find( "GroupText" ).GetComponent<Text>();
+		
+		sellRegisterUI = transform.Find( "SellRegisterUI" ).gameObject;
+		
 		slots = GetComponentsInChildren<DataElement>();
 	}
 
@@ -38,7 +41,7 @@ public class SellItemSettingUI : MonoBehaviour
 	public void InitializeElement()
 	{
 		// set background
-		switch( stageManager.PresentSelectedFurniture.InstanceData.Furniture.Step )
+		switch ( stageManager.PresentSelectedFurniture.InstanceData.Furniture.Step )
 		{
 			case 1:
 				background.sprite = Resources.Load<Sprite>( "Image/UI/SellUI/1stStepSellBackground" ); 
@@ -55,9 +58,9 @@ public class SellItemSettingUI : MonoBehaviour
 		string groupString = "";
 
 		// set item group
-		for( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
+		for ( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
 		{
-			switch( stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet[ i ] )
+			switch ( stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet[ i ] )
 			{
 				case 1:
 					groupString += "재료 ";
@@ -87,18 +90,18 @@ public class SellItemSettingUI : MonoBehaviour
 	// update component element
 	public void UpdateComponentElement()
 	{
-		for( int i = 0; i < slots.Length; i++ )
+		for ( int i = 0; i < slots.Length; i++ )
 		{
 			try
 			{
 				// set defalut
-				if( stageManager.PresentSelectedFurniture.SellItem[ i ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item.ID == 0 )
+				if ( stageManager.PresentSelectedFurniture.SellItem[ i ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item.ID == 0 )
 					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 				// set item icon
 				else
 					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon" + stageManager.PresentSelectedFurniture.SellItem[ i ].Item.File );
 			}
-			catch( IndexOutOfRangeException e )
+			catch ( IndexOutOfRangeException e )
 			{
 				Debug.Log( e.Message );
 				slots[ i ].LockSlot();
@@ -110,7 +113,7 @@ public class SellItemSettingUI : MonoBehaviour
 	// open setting slot
 	public void OnClickOpenSettingSlot( int index )
 	{
-		if( slots[ index ].IsLocked )
+		if ( slots[ index ].IsLocked )
 			return;
 		else
 			sellRegisterUI.SetActive( true );			

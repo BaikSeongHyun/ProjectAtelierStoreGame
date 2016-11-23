@@ -45,9 +45,9 @@ public class TileMap : MonoBehaviour
 		int[] triangles = new int[triangleNumber * 3];
 
 		int x, y;
-		for( y = 0; y < vertexSizeY; y++ )
+		for ( y = 0; y < vertexSizeY; y++ )
 		{
-			for( x = 0; x < vertexSizeX; x++ )
+			for ( x = 0; x < vertexSizeX; x++ )
 			{
 				vertices[ y * vertexSizeX + x ] = new Vector3( x * tileSize, 0, y * tileSize );
 				normals[ y * vertexSizeX + x ] = Vector3.up;
@@ -55,9 +55,9 @@ public class TileMap : MonoBehaviour
 			}
 		}
 
-		for( y = 0; y < size; y++ )
+		for ( y = 0; y < size; y++ )
 		{
-			for( x = 0; x < size; x++ )
+			for ( x = 0; x < size; x++ )
 			{
 				int squareIndex = y * size + x;
 				int triangleOffset = squareIndex * 6;
@@ -97,7 +97,7 @@ public class TileMap : MonoBehaviour
 
 	public void SetSize( int storeStep )
 	{
-		switch( storeStep )
+		switch ( storeStep )
 		{
 			case 1:
 				size = 10;

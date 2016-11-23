@@ -46,7 +46,7 @@ public class StorageUI : MonoBehaviour
 		tap2 = transform.Find( "TapStep2Button" ).GetComponent<Image>();
 		tap3 = transform.Find( "TapStep3Button" ).GetComponent<Image>();
 		slots = GetComponentsInChildren<DataElement>();
-		foreach( DataElement element in slots )
+		foreach ( DataElement element in slots )
 			element.LinkComponentElement();
 
 		presentStepIndex = 0;
@@ -71,18 +71,18 @@ public class StorageUI : MonoBehaviour
 //				slots[ i ].UpdateComponentElement();
 //			}
 //		}
-		if( this.gameObject.name == "StorageUI" )
+		if ( this.gameObject.name == "StorageUI" )
 		{
-			for( int i = 0; i < slots.Length; i++ )
+			for ( int i = 0; i < slots.Length; i++ )
 			{
-				slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i + ( presentStepIndex * manager.GamePlayer.ItemSet.Length / 3 ) ] );
+				slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i + (presentStepIndex * (manager.GamePlayer.ItemSet.Length / 3)) ] );
 			}
 		}
-		else if( this.gameObject.name == "FurnitureSetUI" )
+		else if ( this.gameObject.name == "FurnitureSetUI" )
 		{
-			for( int i = 0; i < slots.Length; i++ )
+			for ( int i = 0; i < slots.Length; i++ )
 			{
-				slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i + ( presentStepIndex * 10 ) ] );
+				slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i + (presentStepIndex * (manager.GamePlayer.FurnitureSet.Length / 3)) ] );
 			}
 		}
 	}
@@ -93,7 +93,7 @@ public class StorageUI : MonoBehaviour
 	{
 		// set button color & present see step change
 
-		switch( index )
+		switch ( index )
 		{
 			case 1:	
 				tap1.sprite = tap1On;

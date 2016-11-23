@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 
 	// game instance data field
 	[SerializeField] PlayerData player;
-	[SerializeField] GameObject playerCharacter;
 
 	// network data field
 	[SerializeField] PacketQueue receiveQueue;
@@ -22,7 +21,6 @@ public class GameManager : MonoBehaviour
 	[SerializeField] StageManager stageManager;
 	[SerializeField] CharacterManager characterManager;
 	[SerializeField] FieldManager fieldManager;
-	[SerializeField] NetworkController networkContoller;
 	[SerializeField] StoreManager storeManager;
 	[SerializeField] UIManager mainUI;
 	[SerializeField] CameraControl cameraControl;
@@ -45,8 +43,6 @@ public class GameManager : MonoBehaviour
 	public PlayerData GamePlayer { get { return player; } set { player = value; } }
 
 	public GameMode PresentMode { get { return presentGameMode; } }
-
-	public GameObject PlayerCharacter { get { return playerCharacter; } }
 
 	// unity mono behaviour method
 	// awake
@@ -97,9 +93,6 @@ public class GameManager : MonoBehaviour
 		cameraControl.MoveObject();
 	}
 
-
-	// customize method (private & public)
-
 	// private method
 	// Link distribute game logic manager
 	private void LinkLogicElement()
@@ -107,7 +100,6 @@ public class GameManager : MonoBehaviour
 		stageManager = GetComponent<StageManager>();
 		characterManager = GetComponent<CharacterManager>();
 		fieldManager = GetComponent<FieldManager>();
-		networkContoller = GetComponent<NetworkController>();
 		storeManager = GetComponent<StoreManager>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 		cameraControl = Camera.main.gameObject.GetComponent<CameraControl>();

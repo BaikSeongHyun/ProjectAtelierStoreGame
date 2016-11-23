@@ -57,7 +57,7 @@ public class CustomerAgent : AIAgent
 	// update
 	void Update()
 	{
-		switch( presentSequence )
+		switch ( presentSequence )
 		{
 			case Sequence.Ready:
 				// set information
@@ -103,17 +103,17 @@ public class CustomerAgent : AIAgent
 	{
 		targetObject = manager.GamePlayer.CheckSellItem();
 		// item does not exist
-		if( targetObject == null )
+		if ( targetObject == null )
 		{
 			presentSequence = Sequence.GoToHome;
 			return;
 		}
 
 		//
-		for( int i = 0; i < targetObject.SellItem.Length; i++ )
+		for ( int i = 0; i < targetObject.SellItem.Length; i++ )
 		{
 			targetItem = targetObject.SellItem[ i ];
-			if( presentSequence != Sequence.Buy )
+			if ( presentSequence != Sequence.Buy )
 			{
 				presentSequence = Sequence.GoToStore;
 				break;
@@ -155,7 +155,7 @@ public class CustomerAgent : AIAgent
 	// buy item instance -> check gold and buy item
 	public void BuyItemInstance( ItemInstance data )
 	{
-		int buyLimit = ( int ) ( gold / data.SellPrice );
+		// int buyLimit = ( int ) ( gold / data.SellPrice );
 		manager.GamePlayer.Gold += gold;
 		gold = 0;
 		data.Count = 0;
@@ -192,7 +192,7 @@ public class CustomerAgent : AIAgent
 	public static BuyScale ReturnBuyScale( int _buyScale )
 	{
 		BuyScale returnType = BuyScale.Default;
-		switch( _buyScale )
+		switch ( _buyScale )
 		{
 			case 1:
 				returnType = CustomerAgent.BuyScale.Smaller;

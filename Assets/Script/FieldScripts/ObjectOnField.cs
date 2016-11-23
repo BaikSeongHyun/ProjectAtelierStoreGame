@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using System.Collections;
 
-[System.Serializable]
 public class ObjectOnField : MonoBehaviour
 {
 
