@@ -34,6 +34,14 @@ public class StageManager : MonoBehaviour
 	// property
 	public FurnitureObject PresentSelectedFurniture { get { return presentSelectedFurniture; } }
 
+	public ItemData.ItemType FavoriteGroup { get { return favoriteGroup; } }
+
+	public CustomerAgent.BuyScale BuyScale { get { return buyScale; } }
+
+	public int ProScale { get { return probabilityOfBuyScale; } }
+
+	public int ProFavor { get { return probabilityOfFavoriteGroup; } }
+
 	// unity method
 	// awake -> data initialize
 	void Awake()
@@ -75,9 +83,6 @@ public class StageManager : MonoBehaviour
 		}
 	}
 
-	// 
-
-
 	// create customer setting information
 	public void CreateGameInformation()
 	{
@@ -97,7 +102,7 @@ public class StageManager : MonoBehaviour
 
 		// allocate data
 		buyScale = CustomerAgent.ReturnBuyScale( Random.Range( 1, 6 ) );
-		favoriteGroup = ItemData.ReturnType( Random.Range( 1, 7 ) );
+		favoriteGroup = ItemData.ReturnType( Random.Range( 1, 8 ) );
 	}
 
 	// stage process
@@ -109,32 +114,31 @@ public class StageManager : MonoBehaviour
 
 	public void StoreClose()
 	{
+		// set result
+
+		// set reward
+
+		// set rank ui
 
 	}
-
-	// all customer go to store
-	public void RushAllCustomer()
-	{
-		foreach( CustomerAgent element in customerAgentSet )
-		{
-			element.GoToStore();
-		}
-	}
-
-
-
-
 
 	// coroutine section
 	// customger section -> use cycle / customer go to store
 	IEnumerator CustomerGoStore()
 	{
+		// set information
+		CreateGameInformation();
+
+		// loop customer
 		while( manager.PresentMode == GameManager.GameMode.StoreOpen )
 		{
-			customerAgentSet[ customerIndex ].MoveStart();
+			// set infor
+			customerAgentSet[ customerIndex % customerAgentSet.Length ].SetBuyInformation();
+
+			// move start
+			customerAgentSet[ customerIndex % customerAgentSet.Length ].ActivateCustomerAgent( customerIndex );
 			customerIndex++;
-			if( customerIndex >= customerAgentSet.Length )
-				customerIndex = 0;
+
 			yield return new WaitForSeconds( customerCycle ); 
 		}
 	}

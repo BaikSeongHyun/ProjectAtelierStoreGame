@@ -8,12 +8,17 @@ public class PlayerAgent : AIAgent
 	[SerializeField] Vector3 destination;
 	[SerializeField] AnimatorStateInfo aniInfor;
 	[SerializeField] float frame;
+	[SerializeField] PlayerState presentState;
 
 	// enum type
 	public enum PlayerState : int
 	{
-		idle = 0,
-		walk = 1}
+		Idle = 0,
+		Walk = 1,
+		Greeting = 2,
+		Crafting = 3,
+		Cheering = 4,
+		Setting = 5}
 
 	;
 
@@ -25,6 +30,41 @@ public class PlayerAgent : AIAgent
 	}
 
 	void Update()
+	{
+		switch( presentState )
+		{
+			case PlayerState.Idle:
+				agentAnimator.SetInteger( "State", ( int ) PlayerState.Idle );
+				break;
+			case PlayerState.Walk:
+				agentAnimator.SetInteger( "State", ( int ) PlayerState.Walk );
+				break;
+			case PlayerState.Greeting:
+				agentAnimator.SetInteger( "State", ( int ) PlayerState.Greeting );
+				break;
+			case PlayerState.Crafting:
+				agentAnimator.SetInteger( "State", ( int ) PlayerState.Crafting );
+				break;
+			case PlayerState.Cheering:
+				agentAnimator.SetInteger( "State", ( int ) PlayerState.Cheering );
+				break;
+			case PlayerState.Setting:
+				agentAnimator.SetInteger( "State", ( int ) PlayerState.Setting );
+				break;			
+		}		       
+	}
+
+	public Vector3 LimitPosition( Vector3 inputPos )
+	{
+		Vector3 outputPos = new Vector3( Mathf.Clamp( inputPos.x, -40f, 40f ),
+		                                 Mathf.Clamp( inputPos.y, 0f, 0f ),
+		                                 Mathf.Clamp( inputPos.z, -40f, 40f )
+		                    );
+
+		return outputPos;
+	}
+
+	public void CharacterMove()
 	{
 		// do not cast overlay ui event point
 		if( !EventSystem.current.IsPointerOverGameObject() )
@@ -39,26 +79,16 @@ public class PlayerAgent : AIAgent
 				{
 					destination = LimitPosition( hitInfo.point );
 					moveAgent.SetDestination( destination );
-					agentAnimator.SetInteger( "State", ( int ) PlayerState.walk );
+					agentAnimator.SetInteger( "State", ( int ) PlayerState.Walk );
 				}
 			}
 
 			if( Vector3.Distance( transform.position, destination ) <= 0.1f )
 			{
 				moveAgent.ResetPath();
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.idle );
+				agentAnimator.SetInteger( "State", ( int ) PlayerState.Idle );
 
 			}
 		}
-	}
-
-	public Vector3 LimitPosition( Vector3 inputPos )
-	{
-		Vector3 outputPos = new Vector3( Mathf.Clamp( inputPos.x, -40f, 40f ),
-		                                 Mathf.Clamp( inputPos.y, 0f, 0f ),
-		                                 Mathf.Clamp( inputPos.z, -40f, 40f )
-		                    );
-
-		return outputPos;
 	}
 }

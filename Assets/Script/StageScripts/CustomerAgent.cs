@@ -5,31 +5,34 @@ public class CustomerAgent : AIAgent
 {
 	// high structure
 	[SerializeField] GameManager manager;
-	[SerializeField] StageManager aiManager;
+	[SerializeField] StageManager stageManager;
 
 	// field - data
+	[SerializeField] string name;
 	[SerializeField] ItemData.ItemType favoriteItemType;
-	[SerializeField] float buyScale;
+	[SerializeField] BuyScale buyScale;
 	[SerializeField] int gold;
 
 	// field - logic
 	[SerializeField] FurnitureObject targetObject;
 	[SerializeField] ItemInstance targetItem;
+	[SerializeField] Transform waitingPoint;
 	[SerializeField] Transform startPoint;
 	[SerializeField] Transform storeEnterPoint;
+	[SerializeField] Transform endPoint;
 	[SerializeField] Transform storeInside;
 	[SerializeField] Transform storeOutside;
-	[SerializeField] Transform endPoint;
 	[SerializeField] Sequence presentSequence;
 
 	// enum state
 	public enum Sequence : int
 	{
 		Ready = 1,
-		MoveStoreEnter = 2,
-		GoToStore = 3,
+		GoToStore = 2,
+		EnterStore = 3,
 		Buy = 4,
-		GoToHome = 5}
+		ExitStore = 5,
+		GoToHome = 6}
 
 	;
 
@@ -57,22 +60,51 @@ public class CustomerAgent : AIAgent
 	// update
 	void Update()
 	{
-		switch ( presentSequence )
+		switch( presentSequence )
 		{
 			case Sequence.Ready:
-				// set information
+				moveAgent.enabled = false;
 				break;
-			case Sequence.MoveStoreEnter:
+			case Sequence.GoToStore:
 				moveAgent.SetDestination( storeEnterPoint.position );
 				break;
-			case Sequence.GoToStore:				
+			case Sequence.EnterStore:
+				moveAgent.SetDestination( storeOutside.position );
 				break;
 			case Sequence.Buy:
 				SequenceProcessBuy();
 				break;
-			case Sequence.GoToHome:
-				SequenceProcessGoToHome();
+			case Sequence.ExitStore:
+				moveAgent.SetDestination( storeInside.position );
 				break;
+			case Sequence.GoToHome:
+				moveAgent.SetDestination( endPoint.position );
+				break;
+		}
+	}
+
+	// on trigger enter -> customer policy
+	void OnTriggerEnter( Collider col )
+	{
+		switch( col.gameObject.name )
+		{
+			case "CustomerStoreEnterPoint":
+				presentSequence = Sequence.EnterStore;
+				break;
+			case "CustomerEndPoint":
+				ResetCustomerAgent();
+				break;
+			case "CustomerStoreInDoor":
+				WarpStoreIn();
+				break;
+			case "CustomerStoreOutDoor":
+				WarpStoreOut();
+				break;
+		}
+
+		if( col.gameObject.layer == LayerMask.NameToLayer( "Furniture" ) )
+		{
+			// check sell item & buy or no buy item
 		}
 	}
 
@@ -80,101 +112,22 @@ public class CustomerAgent : AIAgent
 	// override -> data initialize
 	public override void DataInitialize()
 	{
+		// high structure
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
-		aiManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
+		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
+
+		// set points
+		waitingPoint = GameObject.FindWithTag( "CustomerWaitingPoint" ).transform;
 		startPoint = GameObject.FindWithTag( "CustomerStartPoint" ).transform;
 		storeEnterPoint = GameObject.FindWithTag( "CustomerStoreEnterPoint" ).transform;
 		endPoint = GameObject.FindWithTag( "CustomerEndPoint" ).transform;
+
+		// logic component
 		agentAnimator = GetComponent<Animator>();
 		moveAgent = GetComponent<NavMeshAgent>();
-		gold = Random.Range( 100, 550 );
-		moveAgent.speed = Random.Range( 3.5f, 4.5f );
-		presentSequence = Sequence.Ready;
-	}
 
-	// override -> ai agent policy
-	public override void AIAgentBehaviour()
-	{
-
-	}
-
-	// set buy target
-	public void CheckStoreItem()
-	{
-		targetObject = manager.GamePlayer.CheckSellItem();
-		// item does not exist
-		if ( targetObject == null )
-		{
-			presentSequence = Sequence.GoToHome;
-			return;
-		}
-
-		//
-		for ( int i = 0; i < targetObject.SellItem.Length; i++ )
-		{
-			targetItem = targetObject.SellItem[ i ];
-			if ( presentSequence != Sequence.Buy )
-			{
-				presentSequence = Sequence.GoToStore;
-				break;
-			}
-		}
-
-	}
-
-	public void MoveStart()
-	{
-		presentSequence = Sequence.MoveStoreEnter;
-		moveAgent.SetDestination( storeEnterPoint.position );
-	}
-
-	// go to store enter point
-	public void GoToStore()
-	{
-		moveAgent.ResetPath();
-		transform.position = storeInside.position;
-		presentSequence = Sequence.Buy;
-	}
-
-	// use warp gate -> in store
-	public void WarpInStore()
-	{
-		moveAgent.ResetPath();
-		transform.position = storeInside.position;
-		presentSequence = Sequence.Buy;
-	}
-
-	// use warp gate -> out store
-	public void WarpOutStore()
-	{
-		moveAgent.ResetPath();
-		transform.position = storeOutside.position;
-		presentSequence = Sequence.GoToHome;
-	}
-
-	// buy item instance -> check gold and buy item
-	public void BuyItemInstance( ItemInstance data )
-	{
-		// int buyLimit = ( int ) ( gold / data.SellPrice );
-		manager.GamePlayer.Gold += gold;
-		gold = 0;
-		data.Count = 0;
-		presentSequence = Sequence.GoToHome;
-	}
-
-	public void SequenceProcessBuy()
-	{
-		moveAgent.SetDestination( targetObject.transform.position );
-	}
-
-	// go to home
-	public void SequenceProcessGoToHome()
-	{
-		// inside house
-		// move outside
-
-		// outside house
-		moveAgent.SetDestination( endPoint.position );
+		// data component
+		ResetCustomerAgent();
 	}
 
 
@@ -182,17 +135,103 @@ public class CustomerAgent : AIAgent
 	public void ResetCustomerAgent()
 	{
 		moveAgent.ResetPath();
-		transform.position = startPoint.position; 
+		moveAgent.enabled = false;
+		transform.position = waitingPoint.position; 
 		gold = Random.Range( 1000, 5000 );
 		moveAgent.speed = Random.Range( 3f, 4f );
 		presentSequence = Sequence.Ready;
+	}
+
+	// move start customer agent
+	public void ActivateCustomerAgent( int customerIndex )
+	{
+		name = "손님" + ( customerIndex + 1 );
+		SetBuyInformation();
+		GoToStore();
+	}
+
+	// set favorite group & buy scale
+	public void SetBuyInformation()
+	{
+		// buy scale
+		if( Random.Range( 1, 101 ) >= stageManager.ProScale )
+		{
+			buyScale = stageManager.BuyScale;
+		}
+		else
+		{
+			int i = ( int ) stageManager.BuyScale;
+			while( i != ( int ) stageManager.BuyScale )
+			{
+				i = Random.Range( 1, 6 );
+			}
+			buyScale = CustomerAgent.ReturnBuyScale( i );
+		}
+
+		// favorite group
+		if( Random.Range( 1, 101 ) >= stageManager.ProFavor )
+		{
+			favoriteItemType = stageManager.FavoriteGroup;
+		}
+		else
+		{
+			int i = ( int ) stageManager.FavoriteGroup;
+			while( i != ( int ) stageManager.FavoriteGroup )
+			{
+				i = Random.Range( 1, 8 );
+			}
+			favoriteItemType = ItemData.ReturnType( i );
+		}
+	}
+
+	// go to store enter point
+	public void GoToStore()
+	{
+		moveAgent.enabled = false;
+		transform.position = startPoint.position;
+		moveAgent.enabled = true;
+		presentSequence = Sequence.GoToStore;
+	}
+
+	// use warp gate -> in store
+	public void WarpStoreIn()
+	{
+		if( presentSequence == Sequence.EnterStore )
+		{
+			moveAgent.ResetPath();
+			moveAgent.enabled = false;
+			transform.position = storeInside.position;
+			moveAgent.enabled = true;
+			presentSequence = Sequence.Buy;
+		}
+	}
+
+	public void SequenceProcessBuy()
+	{
+		// search & check & buy
+
+		// no more buy -> next sequence
+		presentSequence = Sequence.ExitStore;
+	}
+
+	// use warp gate -> out store
+	public void WarpStoreOut()
+	{
+		if( presentSequence == Sequence.ExitStore )
+		{
+			moveAgent.ResetPath();
+			moveAgent.enabled = false;
+			transform.position = storeOutside.position;
+			moveAgent.enabled = true;
+			presentSequence = Sequence.GoToHome;
+		}
 	}
 
 	// return buy scale
 	public static BuyScale ReturnBuyScale( int _buyScale )
 	{
 		BuyScale returnType = BuyScale.Default;
-		switch ( _buyScale )
+		switch( _buyScale )
 		{
 			case 1:
 				returnType = CustomerAgent.BuyScale.Smaller;

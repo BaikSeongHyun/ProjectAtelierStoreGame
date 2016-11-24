@@ -8,11 +8,11 @@ public class AIManagerCustomInspector : Editor
 	public override void OnInspectorGUI()
 	{
 		DrawDefaultInspector();
-
-		if( GUILayout.Button( "RushAllCustomer" ) )
-		{
-			StageManager manager = ( StageManager ) target;
-			manager.RushAllCustomer();
-		}
+//
+//		if( GUILayout.Button( "RushAllCustomer" ) )
+//		{
+//			StageManager manager = ( StageManager ) target;
+//			manager.RushAllCustomer();
+//		}
 	}
 }

@@ -9,7 +9,7 @@ TagManager:
   - CustomerStartPoint
   - CustomerEndPoint
   - CustomerStoreEnterPoint
-  - CustomerDestroyPoint
+  - CustomerWaitingPoint
   - MainUI
   - CustomerSet
   layers:

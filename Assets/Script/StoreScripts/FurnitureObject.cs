@@ -113,6 +113,8 @@ public class FurnitureObject : MonoBehaviour
 
 		if( data.Furniture.Function == FurnitureData.FunctionType.SellObject )
 			sellItemSet = new ItemInstance[data.Furniture.SlotLength];
+		else
+			sellItemSet = null;
 	}
 
 	// change object position
@@ -195,26 +197,8 @@ public class FurnitureObject : MonoBehaviour
 			{
 				if( data.Furniture.SellItemGroupSet[ i ] == ( int ) instanceData.Item.Type )
 				{
-					
-
 					return;
 				}
 			}
-	}
-
-	// for sell item
-	public void OnTriggerEnter( Collider col )
-	{
-		CustomerAgent temp = col.gameObject.GetComponent<CustomerAgent>();
-
-		if( ( temp != null ) && sellItemSet != null )
-		{
-			
-			if( sellItemSet.Length == 0 )
-				sellItemSet = null;
-			temp.WarpOutStore();
-		}
-
-
 	}
 }
