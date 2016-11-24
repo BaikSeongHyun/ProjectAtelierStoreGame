@@ -44,7 +44,7 @@ public class SellItemSettingUI : MonoBehaviour
 		switch ( stageManager.PresentSelectedFurniture.InstanceData.Furniture.Step )
 		{
 			case 1:
-				background.sprite = Resources.Load<Sprite>( "Image/UI/SellUI/1stStepSellBackground" ); 
+				background.sprite = Resources.Load<Sprite>( "Image/UI/SellUI/FirstStepSellBackground" ); 
 				break;
 			case 2:
 				background.sprite = Resources.Load<Sprite>( "Image/UI/SellUI/2ndStepSellBackground" ); 
