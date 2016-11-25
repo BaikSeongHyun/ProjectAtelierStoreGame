@@ -5,7 +5,10 @@ using System.Collections;
 public class SellRegisterUI : MonoBehaviour
 {
 	// high structure
+	[SerializeField] GameManager manager;
+	[SerializeField] StoreManager storeManager;
 	[SerializeField] StageManager stageManager;
+
 
 	// field - ui component
 	[SerializeField] Text itemNameText;
@@ -29,6 +32,8 @@ public class SellRegisterUI : MonoBehaviour
 	public void LinkCompoenentElement()
 	{
 		// high structure
+		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
+		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 
 	}
@@ -41,16 +46,15 @@ public class SellRegisterUI : MonoBehaviour
 
 	// on click method
 	// on click register item in register slot
-	public void OnClickRegisterItem( int index )
+	public void OnClickSetRegisterItem( int index )
 	{
-		
-//		// load item
+		// load item
 //		ItemData temp = DataManager.FindItemDataByID( manager.GamePlayer.ItemSet[ index + storeUILogic.StorageUILogic.PresentStepIndex * ( manager.GamePlayer.ItemSet.Length / 3 ) ].Item.ID );
 //			
 //		// check slot item
-//		for( int i = 0; i < storeManager.PresentAllocateObject.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
+//		for( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
 //		{
-//			if( storeManager.PresentAllocateObject.InstanceData.Furniture.SellItemGroupSet[ i ] == ( int ) temp.Type )
+//			if( stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet[ i ] == ( int ) temp.Type )
 //			{
 //				// check set slot item type
 //				tempData = new ItemInstance( temp.ID, 0, 0 );
@@ -59,15 +63,21 @@ public class SellRegisterUI : MonoBehaviour
 //		}
 	}
 
+	public void OnClickConfirmRegisterItem()
+	{
+		stageManager.AddSellItem( tempData );
+		this.gameObject.SetActive( false );
+	}
+
 	// on click set item price
 	public void OnClickSetItemPrice( int scale )
 	{
 
 	}
 
-	// on click set count
-	public void OnClickSetItemCount( int scale )
+	// on click close register ui
+	public void OnClickCloseRegisterUI()
 	{
-
+		this.gameObject.SetActive( false );
 	}
 }

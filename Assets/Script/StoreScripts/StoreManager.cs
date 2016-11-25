@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -100,7 +101,7 @@ public class StoreManager : MonoBehaviour
 			
 		// target function type -> create : use create ui(object type)
 		// target function type -> storage : use storage ui(object type)
-		if( Input.GetButtonDown( "LeftClick" ) )
+		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
 		{
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{

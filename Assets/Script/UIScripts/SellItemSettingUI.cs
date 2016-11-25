@@ -41,16 +41,16 @@ public class SellItemSettingUI : MonoBehaviour
 	public void InitializeElement()
 	{
 		// set background
-		switch ( stageManager.PresentSelectedFurniture.InstanceData.Furniture.Step )
+		switch( stageManager.PresentSelectedFurniture.InstanceData.Furniture.Step )
 		{
 			case 1:
-				background.sprite = Resources.Load<Sprite>( "Image/UI/SellUI/FirstStepSellBackground" ); 
+				background.sprite = Resources.Load<Sprite>( "Image/UI/StageUI/FirstStepSellBackground" ); 
 				break;
 			case 2:
-				background.sprite = Resources.Load<Sprite>( "Image/UI/SellUI/2ndStepSellBackground" ); 
+				background.sprite = Resources.Load<Sprite>( "Image/UI/StageUI/SecondStepSellBackground" ); 
 				break;
 			case 3:
-				background.sprite = Resources.Load<Sprite>( "Image/UI/SellUI/3rdStepSellBackground" ); 
+				background.sprite = Resources.Load<Sprite>( "Image/UI/StageUI/ThirdStepSellBackground" ); 
 				break;
 		}
 
@@ -58,9 +58,9 @@ public class SellItemSettingUI : MonoBehaviour
 		string groupString = "";
 
 		// set item group
-		for ( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
+		for( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
 		{
-			switch ( stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet[ i ] )
+			switch( stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet[ i ] )
 			{
 				case 1:
 					groupString += "재료 ";
@@ -84,24 +84,26 @@ public class SellItemSettingUI : MonoBehaviour
 					groupString += "마법책 ";
 					break;
 			}
-		}	
+		}
+
+		sellRegisterUI.SetActive( false );
 	}
 
 	// update component element
 	public void UpdateComponentElement()
 	{
-		for ( int i = 0; i < slots.Length; i++ )
+		for( int i = 0; i < slots.Length; i++ )
 		{
 			try
 			{
 				// set defalut
-				if ( stageManager.PresentSelectedFurniture.SellItem[ i ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item.ID == 0 )
+				if( stageManager.PresentSelectedFurniture.SellItem[ i ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item.ID == 0 )
 					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 				// set item icon
 				else
 					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon" + stageManager.PresentSelectedFurniture.SellItem[ i ].Item.File );
 			}
-			catch ( IndexOutOfRangeException e )
+			catch( IndexOutOfRangeException e )
 			{
 				Debug.Log( e.Message );
 				slots[ i ].LockSlot();
@@ -113,14 +115,17 @@ public class SellItemSettingUI : MonoBehaviour
 	// open setting slot
 	public void OnClickOpenSettingSlot( int index )
 	{
-		if ( slots[ index ].IsLocked )
+		if( slots[ index ].IsLocked )
 			return;
 		else
-			sellRegisterUI.SetActive( true );			
-			
+			sellRegisterUI.SetActive( true );
 	}
 
-	// register sell item
+	// using storage 
 
-
+	// closs this ui
+	public void OnClickCloseSellItemSettingUI()
+	{
+		this.gameObject.SetActive( false );
+	}
 }

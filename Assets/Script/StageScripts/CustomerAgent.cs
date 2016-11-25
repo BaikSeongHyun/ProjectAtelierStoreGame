@@ -64,7 +64,7 @@ public class CustomerAgent : AIAgent
 	// update
 	void Update()
 	{
-		switch ( presentSequence )
+		switch( presentSequence )
 		{
 			case Sequence.Ready:
 				moveAgent.enabled = false;
@@ -93,7 +93,7 @@ public class CustomerAgent : AIAgent
 	// on trigger enter -> customer policy
 	void OnTriggerEnter( Collider col )
 	{
-		switch ( col.gameObject.name )
+		switch( col.gameObject.name )
 		{
 			case "CustomerStoreEnterPoint":
 				presentSequence = Sequence.EnterStore;
@@ -109,7 +109,7 @@ public class CustomerAgent : AIAgent
 				break;
 		}
 
-		if ( isFind && (col.gameObject.GetComponent<FurnitureObject>() == targetObject) )
+		if( isFind && ( col.gameObject.GetComponent<FurnitureObject>() == targetObject ) )
 		{				
 			// check sell item & buy or no buy item
 			
@@ -141,7 +141,7 @@ public class CustomerAgent : AIAgent
 		
 		//logic field
 		isFind = false;
-		findObjectSet = new List<FurnitureObject>();
+		findObjectSet = new List<FurnitureObject>( );
 
 		// data component
 		ResetCustomerAgent();
@@ -157,12 +157,13 @@ public class CustomerAgent : AIAgent
 		gold = Random.Range( 1000, 5000 );
 		moveAgent.speed = Random.Range( 4f, 6f );
 		presentSequence = Sequence.Ready;
+		isFind = false;
 	}
 
 	// move start customer agent
 	public void ActivateCustomerAgent( int customerIndex )
 	{
-		name = "손님" + (customerIndex + 1);
+		name = "손님" + ( customerIndex + 1 );
 		SetBuyInformation();
 		GoToStore();
 	}
@@ -171,7 +172,7 @@ public class CustomerAgent : AIAgent
 	public void SetBuyInformation()
 	{
 		// buy scale
-		if ( Random.Range( 1, 101 ) >= stageManager.ProScale )
+		if( Random.Range( 1, 101 ) >= stageManager.ProScale )
 		{
 			buyScale = stageManager.BuyScale;
 		}
@@ -186,7 +187,7 @@ public class CustomerAgent : AIAgent
 		}
 
 		// favorite group
-		if ( Random.Range( 1, 101 ) >= stageManager.ProFavor )
+		if( Random.Range( 1, 101 ) >= stageManager.ProFavor )
 		{
 			favoriteItemType = stageManager.FavoriteGroup;
 		}
@@ -213,7 +214,7 @@ public class CustomerAgent : AIAgent
 	// use warp gate -> in store
 	public void WarpStoreIn()
 	{
-		if ( presentSequence == Sequence.EnterStore )
+		if( presentSequence == Sequence.EnterStore )
 		{
 			moveAgent.ResetPath();
 			moveAgent.enabled = false;
@@ -226,22 +227,22 @@ public class CustomerAgent : AIAgent
 	public void SequenceProcessSearchTarget()
 	{
 		// search
-		if ( !isFind )
+		if( !isFind )
 		{
 			Collider[] tempGroup = Physics.OverlapBox( transform.position, new Vector3( storeManager.PlaneScale, storeManager.PlaneScale, storeManager.PlaneScale ), transform.rotation, 1 << LayerMask.NameToLayer( "Furniture" ) );
 			
-			for ( int i = 0; i < tempGroup.Length; i++ )
+			for( int i = 0; i < tempGroup.Length; i++ )
 			{
 				findObjectSet.Add( tempGroup[ i ].GetComponent<FurnitureObject>() );
 			}
 			isFind = true;
 		}
 		
-		if ( findObjectSet.Count != 0 )
+		if( findObjectSet.Count != 0 )
 		{
-			foreach ( FurnitureObject element in findObjectSet )
+			foreach( FurnitureObject element in findObjectSet )
 			{
-				if ( element.InstanceData.Furniture.Function != FurnitureData.FunctionType.SellObject )
+				if( element.InstanceData.Furniture.Function != FurnitureData.FunctionType.SellObject )
 				{
 					findObjectSet.Remove( element );
 					break;
@@ -263,12 +264,12 @@ public class CustomerAgent : AIAgent
 	public void SequenceProcessBuy()
 	{				
 		// check & buy
-		if ( targetObject != null )
+		if( targetObject != null )
 		{
 			moveAgent.SetDestination( targetObject.transform.position );	
 		}
 		
-		if ( isFind && (findObjectSet.Count == 0) )		
+		if( isFind && ( findObjectSet.Count == 0 ) )		
 		// no more buy -> next sequence
 		presentSequence = Sequence.ExitStore;
 	}
@@ -276,7 +277,7 @@ public class CustomerAgent : AIAgent
 	// use warp gate -> out store
 	public void WarpStoreOut()
 	{
-		if ( presentSequence == Sequence.ExitStore )
+		if( presentSequence == Sequence.ExitStore )
 		{
 			moveAgent.ResetPath();
 			moveAgent.enabled = false;
@@ -290,7 +291,7 @@ public class CustomerAgent : AIAgent
 	public static BuyScale ReturnBuyScale( int _buyScale )
 	{
 		BuyScale returnType = BuyScale.Default;
-		switch ( _buyScale )
+		switch( _buyScale )
 		{
 			case 1:
 				returnType = CustomerAgent.BuyScale.Smaller;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -67,7 +68,7 @@ public class StageManager : MonoBehaviour
 
 		// target function type -> create : use create ui(object type)
 		// target function type -> storage : use storage ui(object type)
-		if( Input.GetButtonDown( "LeftClick" ) )
+		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
 		{
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
@@ -103,6 +104,11 @@ public class StageManager : MonoBehaviour
 		// allocate data
 		buyScale = CustomerAgent.ReturnBuyScale( Random.Range( 1, 6 ) );
 		favoriteGroup = ItemData.ReturnType( Random.Range( 1, 8 ) );
+	}
+
+	public void AddSellItem( ItemInstance data )
+	{
+
 	}
 
 	// stage process
