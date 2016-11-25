@@ -4,20 +4,18 @@ using System.Collections;
 
 public class ObjectOnField : MonoBehaviour
 {
+    //이 스크립트는 오브젝트 프리팹[4종류] 각각이 가지고 있다.
+	[SerializeField] PlayerOnField player; //My character
+	[SerializeField] SendData sendData; //field-> [data send] ->store
+	public ObjectDataBuffer databf; // object -> [data send] -> temp data save script
 
-	[SerializeField] PlayerOnField player;
-	[SerializeField] SendData sendData;
-	public ObjectDataBuffer databf;
-
-	public Renderer rend;
-	public bool objectOnMouse = false;
+	public Renderer rend; //change color
+    public Color myColor; // myColor -> gray -> myColor
+    public bool objectOnMouse = false;
 	public bool getObject = false;
-	public Color myColor;
 
 	//Item List 에서 갖고있는 아이템이름
-
 	public int id;
-
 	public int count;
 	public int min, max;
 
@@ -80,13 +78,12 @@ public class ObjectOnField : MonoBehaviour
 
 	public IEnumerator StartAction()
 	{
-		Debug.Log( "재료수집 쿨타임 " + cooltime );
 		databf.receiveData = true;
 		databf.cooltime = cooltime;
 
 		yield return new WaitForSeconds( cooltime );
-		Debug.Log( "재료수집성공" );
 
+        //임시 데이터 저장소에 차곡차곡 저장시킨다.
 		sendData.data.Add( DataManager.FindItemDataByID( id ) );
 		sendData.count.Add( count );
 

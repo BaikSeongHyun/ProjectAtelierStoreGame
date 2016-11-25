@@ -20,7 +20,6 @@ public class ObjectDataBuffer : MonoBehaviour {
     {
         if(receiveData)
         {
-            Debug.Log("Buffer");
             sendData = true;
             fieldMgr.cooltimeImage.SetActive(true);
             receiveData = false;

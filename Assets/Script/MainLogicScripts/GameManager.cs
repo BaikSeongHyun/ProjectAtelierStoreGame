@@ -90,8 +90,10 @@ public class GameManager : MonoBehaviour
 	// late update -> process camera logic
 	void LateUpdate()
 	{
-		cameraControl.MoveObject();
-	}
+		//cameraControl.MoveObject();
+  //      cameraControl.SetCameraPosition();
+
+    }
 
 	// private method
 	// Link distribute game logic manager
@@ -212,7 +214,7 @@ public class GameManager : MonoBehaviour
 				try
 				{
 					// set camera mode
-					cameraControl.SetCameraDefault( GameMode.Store );
+					//cameraControl.SetCameraDefault( GameMode.Store );
 				}
 				catch( NullReferenceException e )
 				{

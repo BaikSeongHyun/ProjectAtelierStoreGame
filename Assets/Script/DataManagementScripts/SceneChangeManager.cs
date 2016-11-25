@@ -7,30 +7,30 @@ using System.IO;
 public class SceneChangeManager : MonoBehaviour {
 
     [SerializeField] GameManager manager;
-    [SerializeField] GameSave save;
-    [SerializeField] GameLoad load;
+    //[SerializeField] GameSave save;
+    //[SerializeField] GameLoad load;
     [SerializeField] static bool isGameStart = false;
 
     void Start () {
-        save = GetComponent<GameSave>();
-        load = GetComponent<GameLoad>();
+        //save = GetComponent<GameSave>();
+        //load = GetComponent<GameLoad>();
 
-        if(File.Exists(Application.persistentDataPath + GameData.fileName) && GameObject.Find("MainUI"))
-        {
-            manager = GameObject.Find("GameLogic").GetComponent<GameManager>();
-            load.Data();
+        //if(File.Exists(Application.persistentDataPath + GameData.fileName) && GameObject.Find("MainUI"))
+        //{
+        //    manager = GameObject.Find("GameLogic").GetComponent<GameManager>();
+        //    load.Data();
 
-            if (isGameStart)
-            {
-                Debug.Log("static true");
-                manager.GameStart(); 
-            }
-            else
-            {
-                Debug.Log("static false");
-                isGameStart = true;
-            }
-        }
+        //    if (isGameStart)
+        //    {
+        //        Debug.Log("static true");
+        //        manager.GameStart(); 
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("static false");
+        //        isGameStart = true;
+        //    }
+        //}
 
     }
 	
@@ -38,11 +38,11 @@ public class SceneChangeManager : MonoBehaviour {
 	
         if(Input.GetKeyDown(KeyCode.S))
         {
-            SceneManager.LoadSceneAsync("InvenTest002");
+            SceneManager.LoadSceneAsync("hye1117");
         }
         if(Input.GetKeyDown(KeyCode.F))
         {
-            save.Data();
+            //save.Data();
             SceneManager.LoadSceneAsync("Field");
         }
 	}

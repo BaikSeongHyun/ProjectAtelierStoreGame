@@ -5,14 +5,14 @@ public class ObjectRegeneration : MonoBehaviour {
 
     public Camera _camera;
 
-    public GameObject[] objects;
+    public GameObject[] objects; //prefabs
 
     private Vector3 pos;
     private float[] randPos;
 
     public static int curObjects;
-    private int maxObject = 17;
-    private bool objectLoad = false;
+    private int maxObject = 10;
+    public bool objectLoad = false;
 
     void Awake()
     {
@@ -39,16 +39,16 @@ public class ObjectRegeneration : MonoBehaviour {
         }
     } 
 
-    public void SetObjRegeneration()
-    {
-        curObjects = Random.Range(8, 18);
-        Debug.Log(curObjects+ "개 소환합니다");
+    //public void SetObjRegeneration()
+    //{
+    //    curObjects = Random.Range(4, 11);
+    //    Debug.Log(curObjects+ "개 소환합니다");
 
-        for (int i = 0; i < curObjects; i++)
-        {
-            CloneObject();
-        }
-    }
+    //    for (int i = 0; i < curObjects; i++)
+    //    {
+    //        CloneObject();
+    //    }
+    //}
 
     public void CloneObject()
     {
@@ -56,13 +56,13 @@ public class ObjectRegeneration : MonoBehaviour {
         float z = randPos[Random.Range(0, 7)];
         pos = new Vector3(x, 3.5f, z);
 
-        Instantiate(objects[Random.Range(0, 3)], pos, Quaternion.identity);
+        Instantiate(objects[Random.Range(0, objects.Length)], pos, Quaternion.identity);
     }
 
     IEnumerator ObjectUpdating()
     {
         Debug.Log("오브젝트 소환중  ");
-        yield return new WaitForSeconds(5.5f);
+        yield return new WaitForSeconds(0.1f);
         CloneObject();
         curObjects++;
         Debug.Log("필드 내 오브젝트 수  :  " + curObjects + " / " + maxObject);

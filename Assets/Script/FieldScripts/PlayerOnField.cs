@@ -53,7 +53,6 @@ public class PlayerOnField : MonoBehaviour {
         if (dis <= 1.01f && dis != 1)
         {
             transform.position = nav.destination;
-            Debug.Log("true");
             frontOfObject = true;
             //멈추면 채집,채광 시작 애니메이션 및 오브젝트의 HP(?)가 감소
         }

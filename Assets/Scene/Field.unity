@@ -430,6 +430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player:
     name: 
+    charType: 
     level: 0
     fame: 0
     charm: 0
@@ -443,6 +444,7 @@ MonoBehaviour:
     haveItemSet: []
     haveFurnitureSet: []
     allocateFurnitureSet: []
+    allocateFurnitureObjectSet: []
   data: []
   count: 
   isMain: 0
@@ -588,8 +590,6 @@ GameObject:
   - 114: {fileID: 1551337562}
   - 114: {fileID: 1551337563}
   - 114: {fileID: 1551337564}
-  - 114: {fileID: 1551337566}
-  - 114: {fileID: 1551337565}
   m_Layer: 0
   m_Name: ObjectManager
   m_TagString: Untagged
@@ -623,9 +623,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
   objects:
-  - {fileID: 1000010069741652, guid: fd4a7af01de157247a6243f1d9c7a351, type: 2}
-  - {fileID: 1000011435198374, guid: e323602e0c807df448fbe95dcedbf8b7, type: 2}
+  - {fileID: 1000011926679040, guid: 77efbf80cf294d64fa696b3729573d44, type: 2}
   - {fileID: 1000010503836594, guid: b6c2cc4d2e0b55f45a4489e291a00590, type: 2}
+  - {fileID: 1000013163870982, guid: 453ad41b56178a94cbe88b2776528d93, type: 2}
+  - {fileID: 1000011564809066, guid: aaad4999efacd2a43872b58dd6417329, type: 2}
+  objectLoad: 0
 --- !u!114 &1551337562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,10 +655,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  player: {fileID: 0}
-  objRegen: {fileID: 0}
-  playerLogic: {fileID: 0}
-  objRegenLogic: {fileID: 0}
+  touchCount: 0
+  eventStart: 0
+  isOpened: 
 --- !u!114 &1551337564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,32 +667,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 114599fec323f84468db76c1ba1c9def, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  save: {fileID: 0}
-  load: {fileID: 0}
---- !u!114 &1551337565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1551337559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d3ffcfa7490bc44a8c9ed6b093ce0a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
---- !u!114 &1551337566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1551337559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df07c53a1b2ef00468e119eb70328ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
