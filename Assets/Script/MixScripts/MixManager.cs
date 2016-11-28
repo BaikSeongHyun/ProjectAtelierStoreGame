@@ -82,21 +82,23 @@ public class MixManager : MonoBehaviour
 			//갯수(num)에따라 길이조절
 			content.sizeDelta = new Vector2( 201f * num, content.sizeDelta.y );
 
-			//Debug.Log(content.sizeDelta);
+            //Debug.Log(content.sizeDelta);
 
 
-			//이미지와 btn의 스크립트에 ItemData 연결해주기
-			for( int i = 0; i < 9; i++ )
-			{
-				DataSetting( i, i + 7 );
-			}
-			DataSetting( 9, 18 );
-			loading = true;
+            //이미지와 btn의 스크립트에 ItemData 연결해주기
+            for (int i = 0; i < 9; i++)
+            {
+                DataSetting(i, i + 7);
+            }
+            DataSetting(9, 18);
+            loading = true;
 		}
 	}
 
 	public void DataSetting( int num, int id )
 	{
+        //num -> 10칸
+        //id -> 로딩할 이미지 데이터 id
 		if( id != 0 )
 		{
 			mixList[ num ].sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/" + ID( id ).File );

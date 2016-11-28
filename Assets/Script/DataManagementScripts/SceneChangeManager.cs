@@ -38,6 +38,7 @@ public class SceneChangeManager : MonoBehaviour {
 	
         if(Input.GetKeyDown(KeyCode.S))
         {
+            ObjectRegeneration.curObjects = 0; //필드내 오브젝트 수 초기화
             SceneManager.LoadSceneAsync("hye1117");
         }
         if(Input.GetKeyDown(KeyCode.F))

@@ -25,11 +25,11 @@ public class MixUI : MonoBehaviour
 	public Text[] materialTexts;
 	public int[] matSlotNumber;
 
-	public bool terms1;
-	public bool terms2;
-	public bool terms3;
+	public bool terms1; //필요한 재료가 1개 인데 , 있는지 없는지에 대한 bool
+	public bool terms2; // 필요한 재료가 2개 인데, 2개 다 있는지 없는지 〃
+	public bool terms3; // 필요한 재료가 3개 〃 3개 〃
 
-	public Text countText;
+    public Text countText;
 	public Text makeText;
 
 	public GameObject compose;
@@ -40,13 +40,12 @@ public class MixUI : MonoBehaviour
 	public Text resultName;
 	public Text resultCount;
 
-	public ItemData itemData;
+	public ItemData itemData; //mixSelected 스크립트로부터,  클릭된 itemData를 받아놓음
 
-	public int currentCount = 0;
-	//제작할 것. 현재 갯수
-	public int fabricableCount = 0;
+	public int currentCount = 0; //제작할 것. 현재 갯수                            
+    public int fabricableCount = 0; //제작할 수 있는 재료의 최대갯수, 인벤토리의 갯수에 따라..
 
-	public int currentPage = 0;
+	public int currentPage = 0; //page
 	public int lastPage = 3;
 
 	void Awake()
@@ -81,7 +80,6 @@ public class MixUI : MonoBehaviour
 		resultImage = GameObject.Find( "resultItemImage" ).GetComponent<Image>();
 		resultName = GameObject.Find( "resultItemName" ).GetComponent<Text>();
 		resultCount = GameObject.Find( "resultItemCount" ).GetComponent<Text>();
-
 	}
 
 
@@ -96,6 +94,18 @@ public class MixUI : MonoBehaviour
 		matIsTwoAmount.SetActive( false );
 		matISThreeAmount.SetActive( false );
 	}
+
+    void Update()
+    {
+        if(currentCount != 0)
+        {
+            composeImage.sprite = Resources.Load<Sprite>("Image/UI/Mix/composeTrue") as Sprite;
+        }
+        else
+        {
+            composeImage.sprite = Resources.Load<Sprite>("Image/UI/Mix/composeFalse") as Sprite;
+        }
+    }
 
 	public void MixViewButton()
 	{
@@ -112,13 +122,9 @@ public class MixUI : MonoBehaviour
 		{
 			mixView.SetActive( false );
 
-			matIsOneAmount.SetActive( false );
-			matIsTwoAmount.SetActive( false );
-			matISThreeAmount.SetActive( false );
+            valueInitialization();
 
-			productionItem.sprite = Resources.Load<Sprite>( "Image/UI/Mix/none" ) as Sprite;
-			productionName.text = "";
-		}
+        }
 	}
 
 	public void ComposeButton()
@@ -138,7 +144,6 @@ public class MixUI : MonoBehaviour
 			if( ( terms1 || terms2 || terms3 ) && ( currentCount != 0 ) )
 			{
 				Debug.Log( "재료다있음" );
-				composeImage.sprite = Resources.Load<Sprite>( "Image/UI/Mix/composeTrue" ) as Sprite;
 				resultImage.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/" + itemData.File ) as Sprite;
 				resultName.text = itemData.Name;
 				resultCount.text = currentCount.ToString() + "개 획득!";
@@ -165,8 +170,9 @@ public class MixUI : MonoBehaviour
 				resultView.SetActive( true );
 				mixView.SetActive( false );
 
-				//내용 초기화
-				for( int i = 0; i < 6; i++ )
+                //내용 초기화
+                valueInitialization();
+                for ( int i = 0; i < 6; i++ )
 				{
 					matSlotNumber[ i ] = -1;
 				}
@@ -177,8 +183,6 @@ public class MixUI : MonoBehaviour
 			else
 			{
 				Debug.Log( "재료부족" );
-
-				composeImage.sprite = Resources.Load<Sprite>( "Image/UI/Mix/composeFalse" ) as Sprite;
 				resultImage.sprite = null;
 				resultName.text = null;
 				resultCount.text = null;
@@ -187,7 +191,31 @@ public class MixUI : MonoBehaviour
 		}
 	}
 
-	void ItemSetCheck( int num )
+    void valueInitialization()
+    {
+        currentCount = 0;
+        fabricableCount = 0;
+        makeText.text = currentCount.ToString();
+        countText.text = "  /  " + fabricableCount.ToString();
+
+        productionItem.sprite = Resources.Load<Sprite>("Image/UI/ItemIcon/none") as Sprite;
+        productionName.text = "";
+
+        if (matIsOneAmount.activeSelf)
+        {
+            matIsOneAmount.SetActive(false);
+        }
+        else if (matIsTwoAmount.activeSelf)
+        {
+            matIsTwoAmount.SetActive(false);
+        }
+        else if (matISThreeAmount.activeSelf)
+        {
+            matISThreeAmount.SetActive(false);
+        }
+    }
+
+    void ItemSetCheck( int num )
 	{
 		for( int z = 0; z < currentCount; z++ )
 		{
@@ -207,7 +235,7 @@ public class MixUI : MonoBehaviour
 		}
 	}
 
-	public void confirmButton()
+    public void confirmButton()
 	{
 		if( resultView.activeSelf )
 		{
@@ -220,6 +248,7 @@ public class MixUI : MonoBehaviour
 		int minItem = 999;
 		bool noItem = false;
 
+        //배열자리
 		//0 -> 재료가 1개
 		//1~2 -> 재료가 2개짜리
 		//3~5 -> 재료가 3개짜리
@@ -263,7 +292,7 @@ public class MixUI : MonoBehaviour
 	}
 
 
-	public void CurrentCountManager()
+    public void CurrentCountManager()
 	{
 		makeText.text = currentCount.ToString();
 		countText.text = "  /  " + fabricableCount.ToString();
@@ -278,7 +307,7 @@ public class MixUI : MonoBehaviour
 		}
 	}
 
-	public void currentPageManager( int page )
+    public void currentPageManager( int page )
 	{
 		switch( page )
 		{
@@ -392,3 +421,15 @@ public class MixUI : MonoBehaviour
 		}
 	}
 }
+
+/*
+<guide>
+    public Image[] materials; //재료창에서 이미지 로딩을 위해서
+	public Text[] materialTexts; //재료창에서 재료의 이름을 로딩을 위해서
+	public int[] matSlotNumber; //player 인벤토리에서 "몇번째"에 재료가 있는지 확인해서 그 인벤토리 번호 넣음.
+
+    제작재료가 1,2,3개로 각자 다양해서, 위 세개의 배열을 전부 길이 6으로 잡고,
+    배열의 0번째 자리는 재료 1개일때 검사,
+    배열의 1,2번째는 재료 2개일때의 검사,
+    배열의 3,4,5번째는 재료 3개일때 검사 및 사용합니다.
+ */
