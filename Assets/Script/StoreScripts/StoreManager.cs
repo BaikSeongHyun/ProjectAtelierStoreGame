@@ -15,23 +15,31 @@ public class StoreManager : MonoBehaviour
 
 	// game instance data field
 	[SerializeField] float planeScale;
-	[SerializeField] TileMap storeField;
+	[SerializeField] GameObject storeField;
+	[SerializeField] GameObject reticleLine;
+	[SerializeField] bool isCustomzing;
 	[SerializeField] GameObject storeWall;
 	[SerializeField] GameObject storeBackground;
 	[SerializeField] GameObject storeNavField;
 	[SerializeField] List<FurnitureObject> furnitureObjectSet;
+	[SerializeField] int presentViewStorageIndex;
 
 	// customzing data field
 	[SerializeField] Ray ray;
 	[SerializeField] RaycastHit hitInfo;
 	[SerializeField] FurnitureObject presentAllocateObject;
 
+
 	// property
 	public bool CreateComplete { get { return createComplete; } }
 
 	public float PlaneScale { get { return planeScale; } }
 
-	public TileMap StoreField { get { return storeField; } }
+	public int StorageIndex { get { return presentViewStorageIndex; } set { presentViewStorageIndex = value; } }
+
+	public GameObject StoreField { get { return storeField; } }
+
+	public bool IsCustomizing { get { return isCustomzing; } set { reticleLine.SetActive( isCustomzing = value ); } }
 
 	public FurnitureObject PresentAllocateObject { get { return presentAllocateObject; } }
 
@@ -68,7 +76,6 @@ public class StoreManager : MonoBehaviour
 	public void ClearStoreObject()
 	{
 		// destroy object
-
 		// wall & nav field
 		Destroy( storeWall );
 		Destroy( storeNavField );
@@ -109,8 +116,7 @@ public class StoreManager : MonoBehaviour
 				presentAllocateObject = tempSearch.GetComponent<FurnitureObject>();
 				
 				if( presentAllocateObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
-				{
-					Debug.Log( "Open create ui" );
+				{					
 					mainUI.ActivateMixUI();
 				}
 			}
@@ -270,8 +276,11 @@ public class StoreManager : MonoBehaviour
 		try
 		{
 			// create tilemap object - size check & texture setting
-			storeField.SetSize( manager.GamePlayer.StoreData.StoreStep );
-			storeField.BuildMesh();
+			storeField.transform.localScale = new Vector3( planeScale / 10f, planeScale / 10f, planeScale / 10f );
+			storeField.transform.position = new Vector3( planeScale / 2f, 0, planeScale / 2f );
+
+			// set reticle line image
+			reticleLine.SetActive( false );
 
 			// create store wall & background move & nav field
 			switch( manager.GamePlayer.StoreData.StoreStep )
@@ -310,6 +319,7 @@ public class StoreManager : MonoBehaviour
 						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation );
 						furnitureObjectSet.Add( temp.GetComponent<FurnitureObject>() );
 						furnitureObjectSet[ i ].InstanceData = manager.GamePlayer.AllocateFurnitureSet[ i ];
+						furnitureObjectSet[ i ].LinkComponentElement();
 					}
 				}
 

@@ -25,11 +25,6 @@ public class GameManagerCustomInspector :Editor
 			manager.SetItemsInSellObject();
 		}	
 
-		if( GUILayout.Button( "DeleteItemAll" ) )
-		{
-			manager.DeleteItemsInSellObject();
-		}
-
 		if( GUILayout.Button( "SetItemIndex" ) )
 		{
 			manager.SetItemsInSellObjectUseIndex();

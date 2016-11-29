@@ -104,6 +104,9 @@ Material:
         name: _GlossyReflections
       second: 1
     - first:
+        name: _InvFade
+      second: 1
+    - first:
         name: _Metallic
       second: 0
     - first:
@@ -114,7 +117,7 @@ Material:
       second: 1
     - first:
         name: _Outline
-      second: 0.005
+      second: 0.002
     - first:
         name: _Parallax
       second: 0.02
@@ -146,3 +149,6 @@ Material:
     - first:
         name: _SpecColor
       second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _TintColor
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

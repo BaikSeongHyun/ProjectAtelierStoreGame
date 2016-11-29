@@ -46,7 +46,7 @@ public class StorageUI : MonoBehaviour
 		tap2 = transform.Find( "TapStep2Button" ).GetComponent<Image>();
 		tap3 = transform.Find( "TapStep3Button" ).GetComponent<Image>();
 		slots = GetComponentsInChildren<DataElement>();
-		foreach ( DataElement element in slots )
+		foreach( DataElement element in slots )
 			element.LinkComponentElement();
 
 		presentStepIndex = 0;
@@ -55,34 +55,19 @@ public class StorageUI : MonoBehaviour
 	// update component element
 	public void UpdateComponentElement()
 	{
-//		for( int i = 0; i < slots.Length; i++ )
-//		{
-//			try
-//			{
-//				if( this.gameObject.name == "StorageUI" )
-//					slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i ] );
-//				else if( this.gameObject.name == "FurnitureSetUI" )
-//					slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i ] );
-//			}
-//			catch( IndexOutOfRangeException e )
-//			{
-//				Debug.Log( e.StackTrace );
-//				Debug.Log( e.Message );
-//				slots[ i ].UpdateComponentElement();
-//			}
-//		}
-		if ( this.gameObject.name == "StorageUI" )
+		if( this.gameObject.name == "StorageUI" )
 		{
-			for ( int i = 0; i < slots.Length; i++ )
+			for( int i = 0; i < slots.Length; i++ )
 			{
-				slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i + (presentStepIndex * (manager.GamePlayer.ItemSet.Length / 3)) ] );
+				slots[ i ].UpdateComponentElement( manager.GamePlayer.ItemSet[ i + ( presentStepIndex * ( manager.GamePlayer.ItemSet.Length / 3 ) ) ] );
 			}
+			storeManager.StorageIndex = presentStepIndex;
 		}
-		else if ( this.gameObject.name == "FurnitureSetUI" )
+		else if( this.gameObject.name == "FurnitureSetUI" )
 		{
-			for ( int i = 0; i < slots.Length; i++ )
+			for( int i = 0; i < slots.Length; i++ )
 			{
-				slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i + (presentStepIndex * (manager.GamePlayer.FurnitureSet.Length / 3)) ] );
+				slots[ i ].UpdateComponentElement( manager.GamePlayer.FurnitureSet[ i + ( presentStepIndex * ( manager.GamePlayer.FurnitureSet.Length / 3 ) ) ] );
 			}
 		}
 	}
@@ -92,8 +77,7 @@ public class StorageUI : MonoBehaviour
 	public void OnClickStepTapProcess( int index )
 	{
 		// set button color & present see step change
-
-		switch ( index )
+		switch( index )
 		{
 			case 1:	
 				tap1.sprite = tap1On;

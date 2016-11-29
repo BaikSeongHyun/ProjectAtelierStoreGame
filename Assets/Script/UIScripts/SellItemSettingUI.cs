@@ -7,6 +7,7 @@ public class SellItemSettingUI : MonoBehaviour
 {
 	// high structure
 	[SerializeField] StageManager stageManager;
+	[SerializeField] UIManager mainUI;
 
 	// field - for ui
 	[SerializeField] Image background;
@@ -16,6 +17,7 @@ public class SellItemSettingUI : MonoBehaviour
 	// sub ui
 	[SerializeField] GameObject sellRegisterUI;
 	[SerializeField] SellRegisterUI sellRegisterUILogic;
+
 
 
 	// unity method
@@ -28,11 +30,16 @@ public class SellItemSettingUI : MonoBehaviour
 	// link component element
 	public void LinkComponentElement()
 	{
+		// high structure 
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
+		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+
+		// component element
 		background = transform.Find( "Background" ).GetComponent<Image>();
 		groupText = transform.Find( "GroupText" ).GetComponent<Text>();
 		
 		sellRegisterUI = transform.Find( "SellRegisterUI" ).gameObject;
+		sellRegisterUILogic = sellRegisterUI.GetComponent<SellRegisterUI>();
 		
 		slots = GetComponentsInChildren<DataElement>();
 	}
@@ -85,8 +92,11 @@ public class SellItemSettingUI : MonoBehaviour
 					break;
 			}
 		}
-
+	
+		groupText.text = groupString;
 		sellRegisterUI.SetActive( false );
+
+		UpdateComponentElement();
 	}
 
 	// update component element
@@ -97,11 +107,13 @@ public class SellItemSettingUI : MonoBehaviour
 			try
 			{
 				// set defalut
-				if( stageManager.PresentSelectedFurniture.SellItem[ i ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item.ID == 0 )
+				if( stageManager.PresentSelectedFurniture.SellItem[ i ] == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item.ID == 0 )
 					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 				// set item icon
 				else
-					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon" + stageManager.PresentSelectedFurniture.SellItem[ i ].Item.File );
+				{
+					slots[ i ].UpdateComponentElement( stageManager.PresentSelectedFurniture.SellItem[ i ] );
+				}
 			}
 			catch( IndexOutOfRangeException e )
 			{
@@ -118,14 +130,19 @@ public class SellItemSettingUI : MonoBehaviour
 		if( slots[ index ].IsLocked )
 			return;
 		else
+		{			
 			sellRegisterUI.SetActive( true );
+			sellRegisterUILogic.PresentFurnitureSlotIndex = index;
+			sellRegisterUILogic.SetFirstComponentElement();
+		}
 	}
 
-	// using storage 
+	// using storage
 
 	// closs this ui
 	public void OnClickCloseSellItemSettingUI()
 	{
 		this.gameObject.SetActive( false );
+		mainUI.StorageUI.SetActive( false );
 	}
 }

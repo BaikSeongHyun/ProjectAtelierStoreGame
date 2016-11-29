@@ -109,7 +109,6 @@ public class FieldManager : MonoBehaviour
 		{
 			eventStart = true;
 			eventTime = System.Convert.ToDateTime( System.DateTime.Now );
-			Debug.Log( eventTime.ToString( "F" ) );
 		}
 
 		int itemID = 0;

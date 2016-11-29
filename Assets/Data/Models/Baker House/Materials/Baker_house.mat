@@ -36,7 +36,7 @@ Material:
     m_Floats:
     - first:
         name: _Outline
-      second: 0.005
+      second: 0.002
     m_Colors:
     - first:
         name: _Color

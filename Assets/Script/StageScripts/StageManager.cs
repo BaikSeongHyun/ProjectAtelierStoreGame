@@ -23,6 +23,10 @@ public class StageManager : MonoBehaviour
 	[SerializeField] PlayerAgent playerAgent;
 	[SerializeField] CustomerAgent[] customerAgentSet;
 
+	// field - stage data
+	[SerializeField] float presentTime;
+	[SerializeField] float stageTime;
+
 	// field selected object
 	[SerializeField] Ray ray;
 	[SerializeField] RaycastHit hitInfo;
@@ -42,6 +46,8 @@ public class StageManager : MonoBehaviour
 	public int ProScale { get { return probabilityOfBuyScale; } }
 
 	public int ProFavor { get { return probabilityOfFavoriteGroup; } }
+
+	public float PresentTime { get { return presentTime; } }
 
 	// unity method
 	// awake -> data initialize
@@ -77,7 +83,6 @@ public class StageManager : MonoBehaviour
 
 				if( presentSelectedFurniture.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
 				{
-					Debug.Log( "Open sell ui" );
 					mainUI.ActivateSellItemSettingUI();				
 				}
 			}
@@ -106,19 +111,28 @@ public class StageManager : MonoBehaviour
 		favoriteGroup = ItemData.ReturnType( Random.Range( 1, 8 ) );
 	}
 
-	public void AddSellItem( ItemInstance data )
-	{
-
-	}
-
 	// stage process
 	// custmer policy activate -> use coroutine
 	public void StoreOpen()
 	{
 		StartCoroutine( CustomerGoStore() );
+		presentTime = 0.0f;
 	}
 
-	public void StoreClose()
+	public void StageProcessPolicy()
+	{
+		// add time check
+		presentTime += Time.deltaTime;
+
+		// exit statement
+		if( presentTime >= stageTime )
+			manager.SetStoreStageEnd();
+
+		// stage policy
+		StagePreprocessPolicy();
+	}
+
+	public void StageClose()
 	{
 		// set result
 
@@ -148,5 +162,4 @@ public class StageManager : MonoBehaviour
 			yield return new WaitForSeconds( customerCycle ); 
 		}
 	}
-
 }

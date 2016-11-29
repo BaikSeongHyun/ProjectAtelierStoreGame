@@ -13,10 +13,6 @@ public class GameManager : MonoBehaviour
 	// game instance data field
 	[SerializeField] PlayerData player;
 
-	// network data field
-	[SerializeField] PacketQueue receiveQueue;
-	[SerializeField] PacketQueue sendQueue;
-
 	// control logic field
 	[SerializeField] StageManager stageManager;
 	[SerializeField] CharacterManager characterManager;
@@ -70,11 +66,14 @@ public class GameManager : MonoBehaviour
 			case GameMode.Store:
 				storeManager.StorePolicy();
 				break;
+			case GameMode.StoreCustomizing:
+				storeManager.CustomzingFurnitureObject();
+				break;
 			case GameMode.StoreOpenPreprocess:
 				stageManager.StagePreprocessPolicy();
 				break;
-			case GameMode.StoreCustomizing:
-				storeManager.CustomzingFurnitureObject();
+			case GameMode.StoreOpen:
+				stageManager.StageProcessPolicy();
 				break;
 			case GameMode.Field:
 				break;
@@ -90,7 +89,7 @@ public class GameManager : MonoBehaviour
 	// late update -> process camera logic
 	void LateUpdate()
 	{
-		cameraControl.MoveObject();
+		//cameraControl.MoveObject();
 	}
 
 	// private method
@@ -140,7 +139,7 @@ public class GameManager : MonoBehaviour
 	public void SetStoreMode()
 	{
 		presentGameMode = GameMode.Store;
-		storeManager.StoreField.IsCustomizing = false;
+		storeManager.IsCustomizing = false;
 		SetUI();
 	}
 
@@ -148,7 +147,7 @@ public class GameManager : MonoBehaviour
 	public void SetCutomizeingMode()
 	{
 		presentGameMode = GameMode.StoreCustomizing;
-		storeManager.StoreField.IsCustomizing = true;
+		storeManager.IsCustomizing = true;
 		SetUI();
 	}
 
@@ -159,12 +158,30 @@ public class GameManager : MonoBehaviour
 		SetUI();
 	}
 
+	// set store open preprocess mode
+	public void SetStoreOpenPreprocessMode()
+	{
+		presentGameMode = GameMode.StoreOpenPreprocess;
+		SetUI();
+	}
+
 	// set store open mode
 	public void SetStoreOpenMode()
 	{
 		presentGameMode = GameMode.StoreOpen;
 		stageManager.StoreOpen();
+	}
+
+	// set store stage end
+	public void SetStoreStageEnd()
+	{
+		presentGameMode = GameMode.Store;
 		SetUI();
+
+		// set result ui
+
+		// furniture object sell item data initialize
+
 	}
 
 	public void SetDefaultStatus()
@@ -176,12 +193,6 @@ public class GameManager : MonoBehaviour
 	public void SetItemsInSellObject()
 	{
 		player.InsertSellItem();
-	}
-
-	// set item all allocate sell object
-	public void DeleteItemsInSellObject()
-	{
-		player.DeleteSellItem();
 	}
 
 	public void SetItemsInSellObjectUseIndex()

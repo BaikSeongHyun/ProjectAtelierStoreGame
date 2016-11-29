@@ -25,6 +25,8 @@ public class DataElement : MonoBehaviour
 	// link element
 	public void LinkComponentElement()
 	{
+		button = GetComponent<Button>();
+
 		elementIcon = transform.Find( "ElementIcon" ).GetComponent<Image>();
 		count = GetComponentInChildren<Text>();
 		isLocked = false;
@@ -93,10 +95,12 @@ public class DataElement : MonoBehaviour
 	public void SetActive()
 	{
 		button.enabled = true;
+		isLocked = false;
 	}
 
 	public void LockSlot()
 	{
 		button.enabled = false;
+		isLocked = true;
 	}
 }

@@ -21,22 +21,18 @@ public class CustomerAgent : AIAgent
 	[SerializeField] Transform startPoint;
 	[SerializeField] Transform storeEnterPoint;
 	[SerializeField] Transform endPoint;
-	[SerializeField] Transform storeInside;
-	[SerializeField] Transform storeOutside;
 	[SerializeField] Sequence presentSequence;
 	[SerializeField] List<FurnitureObject> findObjectSet;
 	[SerializeField] bool isFind;
 
-	// enum state
+	// enum state -> customer logic sequence
 	public enum Sequence : int
 	{
 		Ready = 1,
 		GoToStore = 2,
-		EnterStore = 3,
-		SetTarget = 4,
-		Buy = 5,
-		ExitStore = 6,
-		GoToHome = 7}
+		SetTarget = 3,
+		Buy = 4,
+		GoToHome = 5}
 
 	;
 
@@ -64,6 +60,7 @@ public class CustomerAgent : AIAgent
 	// update
 	void Update()
 	{
+		// customer logic sequence
 		switch( presentSequence )
 		{
 			case Sequence.Ready:
@@ -71,9 +68,7 @@ public class CustomerAgent : AIAgent
 				break;
 			case Sequence.GoToStore:
 				moveAgent.SetDestination( storeEnterPoint.position );
-				break;
-			case Sequence.EnterStore:
-				moveAgent.SetDestination( storeOutside.position );
+				presentState = AgentState.Walk;
 				break;
 			case Sequence.SetTarget:
 				SequenceProcessSearchTarget();
@@ -81,31 +76,47 @@ public class CustomerAgent : AIAgent
 			case Sequence.Buy:
 				SequenceProcessBuy();
 				break;
-			case Sequence.ExitStore:
-				moveAgent.SetDestination( storeInside.position );
-				break;
 			case Sequence.GoToHome:
 				moveAgent.SetDestination( endPoint.position );
+				presentState = AgentState.Walk;
 				break;
+		}
+
+		// customer movement state
+		switch( presentState )
+		{
+			case AgentState.Idle:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Idle );
+				break;
+			case AgentState.Walk:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Walk );
+				break;
+			case AgentState.Greeting:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Greeting );
+				break;
+			case AgentState.Crafting:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Crafting );
+				break;
+			case AgentState.Cheering:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Cheering );
+				break;
+			case AgentState.Setting:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Setting );
+				break;			
 		}
 	}
 
+				                       
 	// on trigger enter -> customer policy
 	void OnTriggerEnter( Collider col )
 	{
 		switch( col.gameObject.name )
 		{
 			case "CustomerStoreEnterPoint":
-				presentSequence = Sequence.EnterStore;
+				presentSequence = Sequence.SetTarget;
 				break;
 			case "CustomerEndPoint":
 				ResetCustomerAgent();
-				break;
-			case "CustomerStoreInDoor":
-				WarpStoreIn();
-				break;
-			case "CustomerStoreOutDoor":
-				WarpStoreOut();
 				break;
 		}
 
@@ -143,10 +154,9 @@ public class CustomerAgent : AIAgent
 		isFind = false;
 		findObjectSet = new List<FurnitureObject>( );
 
-		// data component
+		// data component reset
 		ResetCustomerAgent();
 	}
-
 
 	// reset information
 	public void ResetCustomerAgent()
@@ -154,7 +164,7 @@ public class CustomerAgent : AIAgent
 		moveAgent.ResetPath();
 		moveAgent.enabled = false;
 		transform.position = waitingPoint.position; 
-		gold = Random.Range( 1000, 5000 );
+		gold = Random.Range( 500, 1000 );
 		moveAgent.speed = Random.Range( 4f, 6f );
 		presentSequence = Sequence.Ready;
 		isFind = false;
@@ -211,25 +221,13 @@ public class CustomerAgent : AIAgent
 		presentSequence = Sequence.GoToStore;
 	}
 
-	// use warp gate -> in store
-	public void WarpStoreIn()
-	{
-		if( presentSequence == Sequence.EnterStore )
-		{
-			moveAgent.ResetPath();
-			moveAgent.enabled = false;
-			transform.position = storeInside.position;
-			moveAgent.enabled = true;
-			presentSequence = Sequence.SetTarget;
-		}
-	}
-
+	// search item
 	public void SequenceProcessSearchTarget()
 	{
 		// search
 		if( !isFind )
 		{
-			Collider[] tempGroup = Physics.OverlapBox( transform.position, new Vector3( storeManager.PlaneScale, storeManager.PlaneScale, storeManager.PlaneScale ), transform.rotation, 1 << LayerMask.NameToLayer( "Furniture" ) );
+			Collider[] tempGroup = Physics.OverlapBox( transform.position, new Vector3( storeManager.PlaneScale * 10f, storeManager.PlaneScale * 10f, storeManager.PlaneScale * 10f ), transform.rotation, 1 << LayerMask.NameToLayer( "Furniture" ) );
 			
 			for( int i = 0; i < tempGroup.Length; i++ )
 			{
@@ -257,7 +255,7 @@ public class CustomerAgent : AIAgent
 		}
 		else
 		{
-			presentSequence = Sequence.ExitStore;	
+			presentSequence = Sequence.GoToHome;	
 		}
 	}
 
@@ -271,20 +269,7 @@ public class CustomerAgent : AIAgent
 		
 		if( isFind && ( findObjectSet.Count == 0 ) )		
 		// no more buy -> next sequence
-		presentSequence = Sequence.ExitStore;
-	}
-
-	// use warp gate -> out store
-	public void WarpStoreOut()
-	{
-		if( presentSequence == Sequence.ExitStore )
-		{
-			moveAgent.ResetPath();
-			moveAgent.enabled = false;
-			transform.position = storeOutside.position;
-			moveAgent.enabled = true;
 			presentSequence = Sequence.GoToHome;
-		}
 	}
 
 	// return buy scale

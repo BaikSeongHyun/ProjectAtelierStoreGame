@@ -8,19 +8,7 @@ public class PlayerAgent : AIAgent
 	[SerializeField] Vector3 destination;
 	[SerializeField] AnimatorStateInfo aniInfor;
 	[SerializeField] float frame;
-	[SerializeField] PlayerState presentState;
 
-	// enum type
-	public enum PlayerState : int
-	{
-		Idle = 0,
-		Walk = 1,
-		Greeting = 2,
-		Crafting = 3,
-		Cheering = 4,
-		Setting = 5}
-
-	;
 
 	// unity stand method
 	// awake
@@ -33,23 +21,23 @@ public class PlayerAgent : AIAgent
 	{
 		switch( presentState )
 		{
-			case PlayerState.Idle:
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.Idle );
+			case AgentState.Idle:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Idle );
 				break;
-			case PlayerState.Walk:
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.Walk );
+			case AgentState.Walk:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Walk );
 				break;
-			case PlayerState.Greeting:
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.Greeting );
+			case AgentState.Greeting:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Greeting );
 				break;
-			case PlayerState.Crafting:
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.Crafting );
+			case AgentState.Crafting:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Crafting );
 				break;
-			case PlayerState.Cheering:
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.Cheering );
+			case AgentState.Cheering:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Cheering );
 				break;
-			case PlayerState.Setting:
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.Setting );
+			case AgentState.Setting:
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Setting );
 				break;			
 		}		       
 	}
@@ -79,14 +67,14 @@ public class PlayerAgent : AIAgent
 				{
 					destination = LimitPosition( hitInfo.point );
 					moveAgent.SetDestination( destination );
-					agentAnimator.SetInteger( "State", ( int ) PlayerState.Walk );
+					agentAnimator.SetInteger( "State", ( int ) AgentState.Walk );
 				}
 			}
 
 			if( Vector3.Distance( transform.position, destination ) <= 0.1f )
 			{
 				moveAgent.ResetPath();
-				agentAnimator.SetInteger( "State", ( int ) PlayerState.Idle );
+				agentAnimator.SetInteger( "State", ( int ) AgentState.Idle );
 
 			}
 		}

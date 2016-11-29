@@ -7,6 +7,7 @@ public class StoreUI : MonoBehaviour
 {
 	// high structure
 	[SerializeField] GameManager manager;
+	[SerializeField] UIManager mainUI;
 
 	// component element
 	// - text set
@@ -16,22 +17,18 @@ public class StoreUI : MonoBehaviour
 
 
 	// - object set -> child ui object
-	[SerializeField] GameObject achievementUI;
-	[SerializeField] GameObject storageUI;
-	[SerializeField] StorageUI storageUILogic;
 	[SerializeField] GameObject questUI;
 
 	// - button set -> make on click method
 	// achivement, storage, field, customize
-		 
-	// property
-	public StorageUI StorageUILogic { get { return storageUILogic; } }
 
 	// public method
 	// link component
 	public void LinkComponentElement()
 	{
+		// high structure
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
+		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 
 		// text element
 		goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
@@ -39,9 +36,6 @@ public class StoreUI : MonoBehaviour
 		storeStepText = transform.Find( "PlayerStatus" ).Find( "StoreStepText" ).GetComponent<Text>();
 
 		// object element
-		achievementUI = transform.Find( "AchievementUI" ).gameObject;
-		storageUI = transform.Find( "StorageUI" ).gameObject;
-		storageUILogic = storageUI.GetComponent<StorageUI>();
 		questUI = transform.Find( "QuestUI" ).gameObject;
 
 		// object element off
@@ -54,34 +48,25 @@ public class StoreUI : MonoBehaviour
 		goldText.text = manager.GamePlayer.Gold.ToString();
 		levelText.text = "Lv." + manager.GamePlayer.Level.ToString();
 		storeStepText.text = manager.GamePlayer.StoreData.StoreStep.ToString();
-
-		if( storageUI.activeSelf )
-		{
-			storageUILogic.UpdateComponentElement();
-		}
 	}
 
 	// clear child ui
 	public void ClearChildUI()
-	{
-		achievementUI.SetActive( false );
-		storageUI.SetActive( false );
+	{		
 		questUI.SetActive( false );
 	}
 
 	// on click method
-	// on click achievement button
-	public void OnClickAchievementButton()
+	// on click store open button
+	public void OnClickStoreOpenButton()
 	{
-		ClearChildUI();
-		achievementUI.SetActive( true );
+		manager.SetStoreOpenPreprocessMode();
 	}
 
 	// on click storage button
 	public void OnClickStorageButton()
 	{
-		ClearChildUI();
-		storageUI.SetActive( true );
+		mainUI.StorageUI.SetActive( true );
 	}
 
 	// on click furniture inventory button

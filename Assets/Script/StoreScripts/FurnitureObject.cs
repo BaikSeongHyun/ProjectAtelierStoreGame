@@ -39,7 +39,6 @@ public class FurnitureObject : MonoBehaviour
 	// awake -> set element
 	void Awake()
 	{
-		LinkComponentElement();
 		storePlaneScale = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>().PlaneScale;
 	}
 
@@ -114,7 +113,7 @@ public class FurnitureObject : MonoBehaviour
 		if( data.Furniture.Function == FurnitureData.FunctionType.SellObject )
 			sellItemSet = new ItemInstance[data.Furniture.SlotLength];
 		else
-			sellItemSet = null;
+			sellItemSet = null;	
 	}
 
 	// change object position
@@ -190,15 +189,8 @@ public class FurnitureObject : MonoBehaviour
 	}
 
 	// set sell Item
-	public void SetSellItem( ItemInstance instanceData )
+	public void SetSellItem( ItemInstance instanceData, int index )
 	{
-		if( data.Furniture.Function == FurnitureData.FunctionType.SellObject )
-			for( int i = 0; i < data.Furniture.SellItemGroupSet.Length; i++ )
-			{
-				if( data.Furniture.SellItemGroupSet[ i ] == ( int ) instanceData.Item.Type )
-				{
-					return;
-				}
-			}
+		sellItemSet[ index ] = instanceData;
 	}
 }

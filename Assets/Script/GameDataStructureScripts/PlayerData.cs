@@ -49,21 +49,21 @@ public class PlayerData
 	public List<FurnitureObject> AllocateFurnitureObjectSet { get { return allocateFurnitureObjectSet; } set { allocateFurnitureObjectSet = value; } }
 
 	// consturctor - no parameter
-	public PlayerData ()
+	public PlayerData()
 	{
 		level = 1;
 		name = "";
-		allocateFurnitureSet = new List<FurnitureInstance>();
-		allocateFurnitureObjectSet = new List<FurnitureObject>();
+		allocateFurnitureSet = new List<FurnitureInstance>( );
+		allocateFurnitureObjectSet = new List<FurnitureObject>( );
 	}
 
 	// public method
 	// add furniture data -> use only data
 	public bool AddFurnitureData( FurnitureData data )
 	{
-		for ( int i = 0; i < haveFurnitureSet.Length; i++ )
+		for( int i = 0; i < haveFurnitureSet.Length; i++ )
 		{
-			if ( haveFurnitureSet[ i ] == null || haveFurnitureSet[ i ].Furniture == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
+			if( haveFurnitureSet[ i ] == null || haveFurnitureSet[ i ].Furniture == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
 			{
 				haveFurnitureSet[ i ] = new FurnitureInstance( data, i );
 				return true;
@@ -78,9 +78,9 @@ public class PlayerData
 	public bool AddFurnitureData( int id )
 	{
 		int i = DataManager.FindFurnitureDataByID( id ).Step * 10;
-		for ( i = 0; i < ( int ) haveFurnitureSet.Length / 3; i++ )
+		for( i = 0; i < ( int ) haveFurnitureSet.Length / 3; i++ )
 		{
-			if ( haveFurnitureSet[ i ] == null || haveFurnitureSet[ i ].Furniture == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
+			if( haveFurnitureSet[ i ] == null || haveFurnitureSet[ i ].Furniture == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
 			{
 				haveFurnitureSet[ i ] = new FurnitureInstance( DataManager.FindFurnitureDataByID( id ), i );
 				haveFurnitureSet[ i ].IsAllocated = false;
@@ -96,20 +96,20 @@ public class PlayerData
 	public bool AllocateFurnitureInstance( int index, int presentStepIndex )
 	{	
 
-		int processIndex = index + (presentStepIndex * (haveFurnitureSet.Length / 3));
+		int processIndex = index + ( presentStepIndex * ( haveFurnitureSet.Length / 3 ) );
 		try
 		{
-			if ( haveFurnitureSet[ processIndex ] == null || haveFurnitureSet[ processIndex ].Furniture == null || haveFurnitureSet[ processIndex ].Furniture.ID == 0 )
+			if( haveFurnitureSet[ processIndex ] == null || haveFurnitureSet[ processIndex ].Furniture == null || haveFurnitureSet[ processIndex ].Furniture.ID == 0 )
 				return false;
 			else
 			{
 				allocateFurnitureSet.Add( new FurnitureInstance( haveFurnitureSet[ processIndex ] ) );
 				allocateFurnitureSet[ allocateFurnitureSet.Count - 1 ].AllocateInstance( allocateFurnitureSet.Count - 1 );
-				haveFurnitureSet[ processIndex ] = new FurnitureInstance();
+				haveFurnitureSet[ processIndex ] = new FurnitureInstance( );
 				return true;
 			}
 		}
-		catch ( Exception e )
+		catch( Exception e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
@@ -125,7 +125,7 @@ public class PlayerData
 		allocateFurnitureObjectSet.RemoveAt( index );
 		allocateFurnitureSet.RemoveAt( index );
 
-		for ( int i = 0; i < allocateFurnitureSet.Count; i++ )
+		for( int i = 0; i < allocateFurnitureSet.Count; i++ )
 		{
 			allocateFurnitureSet[ i ].SlotNumber = i;
 		}
@@ -139,9 +139,9 @@ public class PlayerData
 		ItemData temp = DataManager.FindItemDataByID( id );
 		
 		// if item is exist
-		foreach ( ItemInstance element in haveItemSet )
+		foreach( ItemInstance element in haveItemSet )
 		{
-			if ( element.Item != null && element.Item.ID == id )
+			if( element.Item != null && element.Item.ID == id )
 			{
 				element.Count += itemCount;
 				return true;
@@ -149,9 +149,9 @@ public class PlayerData
 		}
 
 		// find empty space
-		for ( int i = 0; i < haveItemSet.Length / 3; i++ )
+		for( int i = 0; i < haveItemSet.Length / 3; i++ )
 		{
-			if ( haveItemSet[ i ] == null || haveItemSet[ i ].Item == null || haveItemSet[ i ].Item.ID == 0 )
+			if( haveItemSet[ i ] == null || haveItemSet[ i ].Item == null || haveItemSet[ i ].Item.ID == 0 )
 			{
 				haveItemSet[ i ] = new ItemInstance( id, i, itemCount );
 				return true;
@@ -176,10 +176,10 @@ public class PlayerData
 		charm = 0;
 		gold = 1000;
 		gem = 1000;
-		haveStoreData = new StoreData();
+		haveStoreData = new StoreData( );
 		haveItemSet = new ItemInstance[60];
 		haveFurnitureSet = new FurnitureInstance[30];
-		allocateFurnitureSet = new List<FurnitureInstance>();
+		allocateFurnitureSet = new List<FurnitureInstance>( );
 
 		allocateFurnitureSet.Add( new FurnitureInstance( 2, 0, true, new Vector3( 4f, 0f, 4f ), Quaternion.identity ) );
 		allocateFurnitureSet.Add( new FurnitureInstance( 4, 1, true, new Vector3( 2f, 0f, 2f ), Quaternion.identity ) );
@@ -189,9 +189,9 @@ public class PlayerData
 	// check selling item
 	public FurnitureObject CheckSellItem()
 	{
-		foreach ( FurnitureObject element in allocateFurnitureObjectSet )
+		foreach( FurnitureObject element in allocateFurnitureObjectSet )
 		{
-			if ( (element.SellItem != null) )
+			if( ( element.SellItem != null ) )
 			{
 				return element;
 			}
@@ -202,23 +202,11 @@ public class PlayerData
 	// for test
 	public void InsertSellItem()
 	{
-		foreach ( FurnitureObject element in allocateFurnitureObjectSet )
+		foreach( FurnitureObject element in allocateFurnitureObjectSet )
 		{
-			if ( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
+			if( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
 			{
 				
-			}
-		}
-	}
-
-	// for test
-	public void DeleteSellItem()
-	{
-		foreach ( FurnitureObject element in allocateFurnitureObjectSet )
-		{
-			if ( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
-			{
-				element.SellItem = null;
 			}
 		}
 	}
@@ -231,9 +219,9 @@ public class PlayerData
 	public int SearchItem( ItemData data, int count )
 	{
 		//인벤토리 번호 반환합니다.
-		for ( int i = 0; i < (haveItemSet.Length / 3); i++ )
+		for( int i = 0; i < ( haveItemSet.Length / 3 ); i++ )
 		{
-			if ( haveItemSet[ i ] == null || haveItemSet[ i ].Item == null || haveItemSet[ i ].Item.ID == 0 )
+			if( haveItemSet[ i ] == null || haveItemSet[ i ].Item == null || haveItemSet[ i ].Item.ID == 0 )
 			{
 				Debug.Log( "pass" );
 				continue;
@@ -241,7 +229,7 @@ public class PlayerData
 			else
 			{
 
-				if ( haveItemSet[ i ].Item.ID == data.ID && haveItemSet[ i ].Count >= count )
+				if( haveItemSet[ i ].Item.ID == data.ID && haveItemSet[ i ].Count >= count )
 				{
 
 					Debug.Log( "갯수충분" );

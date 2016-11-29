@@ -49,4 +49,18 @@ public class ItemInstance
 		slotNumber = _slotNumber;
 		count = _count;
 	}
+
+	// public method
+	// item divide -> use register sell slot
+	public void RegisterSellItems( int _count )
+	{
+		count -= _count;
+
+		if( count <= 0 )
+		{
+			itemData = null;
+			slotNumber = 0;
+			count = 0;
+		}
+	}
 }

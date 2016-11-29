@@ -257,6 +257,13 @@ public class DataManager : MonoBehaviour
 		playerData = new PlayerData( );
 		try
 		{			
+			// data load - check first loading
+			if( PlayerPrefs.GetInt( "FirstData" ) != 123456789 )
+			{
+				playerData.SetDefaultStatus();
+				return;
+			}
+
 			// data load - player direct data
 			playerData.Name = PlayerPrefs.GetString( "PlayerName" );
 			playerData.CharacterType = PlayerPrefs.GetString( "PlayerCharacter" );
@@ -340,6 +347,9 @@ public class DataManager : MonoBehaviour
 	// player data save -> use player pref
 	public static void SavePlayerData()
 	{
+		// first check data
+		PlayerPrefs.SetInt( "FirstData", 123456789 );
+
 		// save data setting - player direct data
 		PlayerPrefs.SetString( "PlayerName", playerData.Name );
 		PlayerPrefs.SetString( "PlayerCharacter", playerData.CharacterType );
