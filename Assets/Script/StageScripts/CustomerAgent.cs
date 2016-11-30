@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,15 +16,22 @@ public class CustomerAgent : AIAgent
 	[SerializeField] BuyScale buyScale;
 	[SerializeField] int gold;
 
-	// field - logic
+	// field buy item index
 	[SerializeField] FurnitureObject targetObject;
+	[SerializeField] float calculatedBuyScale;
+	[SerializeField] int itemIndex;
+	[SerializeField] bool alreadyBuyItems;
+
+	// field - logic point
 	[SerializeField] Transform waitingPoint;
-	[SerializeField] Transform startPoint;
 	[SerializeField] Transform storeEnterPoint;
-	[SerializeField] Transform endPoint;
+	[SerializeField] Transform storeDoor;
+	[SerializeField] Transform[] worldBoundary;
+	[SerializeField] Transform moveTarget;
 	[SerializeField] Sequence presentSequence;
-	[SerializeField] List<FurnitureObject> findObjectSet;
-	[SerializeField] bool isFind;
+
+	// logic object
+	[SerializeField] System.Random randomPoint;
 
 	// enum state -> customer logic sequence
 	public enum Sequence : int
@@ -67,7 +75,7 @@ public class CustomerAgent : AIAgent
 				moveAgent.enabled = false;
 				break;
 			case Sequence.GoToStore:
-				moveAgent.SetDestination( storeEnterPoint.position );
+				moveAgent.SetDestination( moveTarget.position );
 				presentState = AgentState.Walk;
 				break;
 			case Sequence.SetTarget:
@@ -77,7 +85,7 @@ public class CustomerAgent : AIAgent
 				SequenceProcessBuy();
 				break;
 			case Sequence.GoToHome:
-				moveAgent.SetDestination( endPoint.position );
+				moveAgent.SetDestination( moveTarget.position );
 				presentState = AgentState.Walk;
 				break;
 		}
@@ -110,24 +118,27 @@ public class CustomerAgent : AIAgent
 	// on trigger enter -> customer policy
 	void OnTriggerEnter( Collider col )
 	{
-		switch( col.gameObject.name )
+		FurnitureData temp = DataManager.FindFurnitureDataByID( 23 );
+		if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) )
 		{
-			case "CustomerStoreEnterPoint":
-				presentSequence = Sequence.SetTarget;
-				break;
-			case "CustomerEndPoint":
-				ResetCustomerAgent();
-				break;
-		}
+			// buy item
+			stageManager.BuyItem( targetObject, itemIndex, ref gold );
 
-		if( isFind && ( col.gameObject.GetComponent<FurnitureObject>() == targetObject ) )
-		{				
-			// check sell item & buy or no buy item
-			
-			
-			// post process
-			findObjectSet.Remove( targetObject );
-			presentSequence = Sequence.SetTarget;
+			// check next target
+			SequenceProcessSearchTarget();
+		}
+		if( col.gameObject.name == "CustomerStoreEnterPoint" && ( PresentSequence != Sequence.GoToHome ) )
+		{
+			moveTarget = storeDoor;
+		}
+		else if( col.gameObject.name == "StoreDoor" && ( PresentSequence != Sequence.GoToHome ) )
+		{
+			moveTarget = null;
+			presentSequence = Sequence.SetTarget; 
+		}
+		else if( ( col.gameObject.layer == LayerMask.NameToLayer( "WorldBoundary" ) ) && ( PresentSequence == Sequence.GoToHome ) )
+		{
+			GoToHome();
 		}
 	}
 
@@ -141,18 +152,18 @@ public class CustomerAgent : AIAgent
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 
 		// set points
+		GameObject[] temp = GameObject.FindGameObjectsWithTag( "WorldBoundary" );
+		worldBoundary = new Transform[temp.Length];
+		for( int i = 0; i < worldBoundary.Length; i++ )
+		{
+			worldBoundary[ i ] = temp[ i ].transform;
+		}	
 		waitingPoint = GameObject.FindWithTag( "CustomerWaitingPoint" ).transform;
-		startPoint = GameObject.FindWithTag( "CustomerStartPoint" ).transform;
 		storeEnterPoint = GameObject.FindWithTag( "CustomerStoreEnterPoint" ).transform;
-		endPoint = GameObject.FindWithTag( "CustomerEndPoint" ).transform;
 
 		// logic component
 		agentAnimator = GetComponent<Animator>();
 		moveAgent = GetComponent<NavMeshAgent>();
-		
-		//logic field
-		isFind = false;
-		findObjectSet = new List<FurnitureObject>( );
 
 		// data component reset
 		ResetCustomerAgent();
@@ -164,17 +175,15 @@ public class CustomerAgent : AIAgent
 		moveAgent.ResetPath();
 		moveAgent.enabled = false;
 		transform.position = waitingPoint.position; 
-		gold = Random.Range( 500, 1000 );
-		moveAgent.speed = Random.Range( 4f, 6f );
+		gold = UnityEngine.Random.Range( 500, 1000 );
+		moveAgent.speed = UnityEngine.Random.Range( 4f, 6f );
 		presentSequence = Sequence.Ready;
-		isFind = false;
 	}
 
 	// move start customer agent
 	public void ActivateCustomerAgent( int customerIndex )
 	{
 		name = "손님" + ( customerIndex + 1 );
-		SetBuyInformation();
 		GoToStore();
 	}
 
@@ -182,7 +191,7 @@ public class CustomerAgent : AIAgent
 	public void SetBuyInformation()
 	{
 		// buy scale
-		if( Random.Range( 1, 101 ) >= stageManager.ProScale )
+		if( UnityEngine.Random.Range( 1, 101 ) >= stageManager.ProScale )
 		{
 			buyScale = stageManager.BuyScale;
 		}
@@ -191,13 +200,13 @@ public class CustomerAgent : AIAgent
 			int i = ( int ) stageManager.BuyScale;
 			while( i != ( int ) stageManager.BuyScale )
 			{
-				i = Random.Range( 1, 6 );
+				i = UnityEngine.Random.Range( 1, 6 );
 			}
 			buyScale = CustomerAgent.ReturnBuyScale( i );
 		}
 
 		// favorite group
-		if( Random.Range( 1, 101 ) >= stageManager.ProFavor )
+		if( UnityEngine.Random.Range( 1, 101 ) >= stageManager.ProFavor )
 		{
 			favoriteItemType = stageManager.FavoriteGroup;
 		}
@@ -206,17 +215,22 @@ public class CustomerAgent : AIAgent
 			int i = ( int ) stageManager.FavoriteGroup;
 			while( i != ( int ) stageManager.FavoriteGroup )
 			{
-				i = Random.Range( 1, 8 );
+				i = UnityEngine.Random.Range( 1, 8 );
 			}
 			favoriteItemType = ItemData.ReturnType( i );
 		}
+
+		calculatedBuyScale = BuyScaleSetFloatType( buyScale );
+
+		storeDoor = GameObject.Find( "StoreDoor" ).transform;
+		moveTarget = storeEnterPoint;
 	}
 
 	// go to store enter point
 	public void GoToStore()
 	{
 		moveAgent.enabled = false;
-		transform.position = startPoint.position;
+		transform.position = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ].position;
 		moveAgent.enabled = true;
 		presentSequence = Sequence.GoToStore;
 	}
@@ -224,39 +238,80 @@ public class CustomerAgent : AIAgent
 	// search item
 	public void SequenceProcessSearchTarget()
 	{
-		// search
-		if( !isFind )
+		// set random index & point
+		int randomIndex;
+		randomPoint = new System.Random( );
+
+		// check sell item set
+		for( int i = 0; i < stageManager.SellFurnitureSet.Count; i++ )
 		{
-			Collider[] tempGroup = Physics.OverlapBox( transform.position, new Vector3( storeManager.PlaneScale * 10f, storeManager.PlaneScale * 10f, storeManager.PlaneScale * 10f ), transform.rotation, 1 << LayerMask.NameToLayer( "Furniture" ) );
-			
-			for( int i = 0; i < tempGroup.Length; i++ )
+			randomIndex = randomPoint.Next( 0, stageManager.SellFurnitureSet.Count );
+			// favorite item type
+			for( int j = 0; j < stageManager.SellFurnitureSet[ j ].SellItem.Length; j++ )
 			{
-				findObjectSet.Add( tempGroup[ i ].GetComponent<FurnitureObject>() );
+				try
+				{
+					if( favoriteItemType == stageManager.SellFurnitureSet[ randomIndex ].SellItem[ j ].Item.Type )
+					{
+						if( ( stageManager.SellFurnitureSet[ randomIndex ].SellItem[ j ].SellPrice <= gold ) && ( stageManager.SellFurnitureSet[ randomIndex ].SellItem[ j ].SellPrice <= stageManager.SellFurnitureSet[ randomIndex ].SellItem[ j ].Item.Price * ( calculatedBuyScale + 0.1f ) ) )
+						{
+							targetObject = stageManager.SellFurnitureSet[ randomIndex ];
+							itemIndex = j;
+							presentSequence = Sequence.Buy;
+							return;
+						}
+						else
+						{
+							Debug.Log( "this Item is so expensive" );
+						}
+					}
+				}
+				catch( NullReferenceException e )
+				{
+					//Debug.Log( "No item this slot" );
+				}
 			}
-			isFind = true;
 		}
+
+		// reset ramdom point
+		randomPoint = new System.Random( );
+
+		// check sell item set
+		for( int i = 0; i < stageManager.SellFurnitureSet.Count; i++ )
+		{
+			randomIndex = randomPoint.Next( 0, stageManager.SellFurnitureSet.Count );
+
+			// normal item type
+			for( int j = 0; j < stageManager.SellFurnitureSet[ j ].SellItem.Length; j++ )
+			{
+				try
+				{
+					if( ( stageManager.SellFurnitureSet[ randomIndex ].SellItem[ j ].SellPrice <= gold ) && ( stageManager.SellFurnitureSet[ randomIndex ].SellItem[ j ].SellPrice <= stageManager.SellFurnitureSet[ randomIndex ].SellItem[ j ].Item.Price * ( calculatedBuyScale ) ) )
+					{
+						targetObject = stageManager.SellFurnitureSet[ randomIndex ];
+						itemIndex = j;
+						presentSequence = Sequence.Buy;
+						return;
+					}
+					else
+					{
+						Debug.Log( "this Item is so expensive" );
+					}
+				}
+				catch( NullReferenceException e )
+				{	
+					//Debug.Log( "No item this slot" );
+				}
+			}
+		}
+
+		// set no item opinion
+		if( !alreadyBuyItems )
+			;
 		
-		if( findObjectSet.Count != 0 )
-		{
-			foreach( FurnitureObject element in findObjectSet )
-			{
-				if( element.InstanceData.Furniture.Function != FurnitureData.FunctionType.SellObject )
-				{
-					findObjectSet.Remove( element );
-					break;
-				}
-				else
-				{
-					targetObject = element;
-					presentSequence = Sequence.Buy;
-					break;
-				}
-			}
-		}
-		else
-		{
-			presentSequence = Sequence.GoToHome;	
-		}
+		Debug.Log( "No Items :" + name );
+		moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ];
+		presentSequence = Sequence.GoToHome;
 	}
 
 	public void SequenceProcessBuy()
@@ -266,10 +321,20 @@ public class CustomerAgent : AIAgent
 		{
 			moveAgent.SetDestination( targetObject.transform.position );	
 		}
-		
-		if( isFind && ( findObjectSet.Count == 0 ) )		
-		// no more buy -> next sequence
+		else
+		{
+			moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ];
 			presentSequence = Sequence.GoToHome;
+		}
+	}
+
+	// warp waiting point
+	public void GoToHome()
+	{
+		moveTarget = null;
+		moveAgent.enabled = false;
+		transform.position = waitingPoint.position;
+		presentSequence = Sequence.Ready;
 	}
 
 	// return buy scale
@@ -296,5 +361,35 @@ public class CustomerAgent : AIAgent
 		}
 
 		return returnType;
+	}
+
+	// return calculate buy scale
+	public static float BuyScaleSetFloatType( CustomerAgent.BuyScale scale )
+	{
+		float result = 1f;
+
+		switch( scale )
+		{
+			case BuyScale.Smaller:
+				result = 1.05f;
+				break;
+			case BuyScale.Small:
+				result = 1.10f;
+				break;
+			case BuyScale.Standard:
+				result = 1.20f;
+				break;
+			case BuyScale.Large:
+				result = 1.30f;
+				break;
+			case BuyScale.Larger:
+				result = 1.50f;
+				break;
+			case BuyScale.Default:
+				result = 1.0f;
+				break;
+		}
+
+		return result;
 	}
 }

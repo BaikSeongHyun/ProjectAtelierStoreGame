@@ -6,12 +6,11 @@ TagManager:
   tags:
   - GameLogic
   - GameData
-  - CustomerStartPoint
-  - CustomerEndPoint
   - CustomerStoreEnterPoint
   - CustomerWaitingPoint
   - MainUI
   - CustomerSet
+  - WorldBoundary
   layers:
   - Default
   - TransparentFX
@@ -30,7 +29,7 @@ TagManager:
   - CustomerCharacter
   - Test
   - StoreStructure
-  - 
+  - WorldBoundary
   - 
   - 
   - 

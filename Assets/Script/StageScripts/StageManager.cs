@@ -26,6 +26,7 @@ public class StageManager : MonoBehaviour
 	// field - stage data
 	[SerializeField] float presentTime;
 	[SerializeField] float stageTime;
+	[SerializeField] List<FurnitureObject> sellFurnitureSet;
 
 	// field selected object
 	[SerializeField] Ray ray;
@@ -48,6 +49,8 @@ public class StageManager : MonoBehaviour
 	public int ProFavor { get { return probabilityOfFavoriteGroup; } }
 
 	public float PresentTime { get { return presentTime; } }
+
+	public List<FurnitureObject> SellFurnitureSet { get { return sellFurnitureSet; } }
 
 	// unity method
 	// awake -> data initialize
@@ -109,6 +112,22 @@ public class StageManager : MonoBehaviour
 		// allocate data
 		buyScale = CustomerAgent.ReturnBuyScale( Random.Range( 1, 6 ) );
 		favoriteGroup = ItemData.ReturnType( Random.Range( 1, 8 ) );
+
+		// set sell furiture object set
+		sellFurnitureSet = new List<FurnitureObject>( );
+		for( int i = 0; i < manager.GamePlayer.AllocateFurnitureObjectSet.Count; i++ )
+		{
+			if( manager.GamePlayer.AllocateFurnitureObjectSet[ i ].InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
+			{
+				sellFurnitureSet.Add( manager.GamePlayer.AllocateFurnitureObjectSet[ i ] );
+			}
+		}
+
+		// set stage time
+		stageTime = 90f;
+
+		// set customer cycle 
+		customerCycle = 3f;
 	}
 
 	// stage process
@@ -140,6 +159,19 @@ public class StageManager : MonoBehaviour
 
 		// set rank ui
 
+	}
+
+	public void BuyItem( FurnitureObject sellObject, int itemSlotIndex, ref int gold )
+	{
+		int maxCount = ( int ) ( gold / sellObject.SellItem[ itemSlotIndex ].SellPrice );
+		maxCount = maxCount > sellObject.SellItem[ itemSlotIndex ].Count ? sellObject.SellItem[ itemSlotIndex ].Count : maxCount;
+
+		sellObject.SellItem[ itemSlotIndex ].Count -= maxCount;
+		manager.GamePlayer.Gold += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
+		gold -= sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
+
+		if( sellObject.SellItem[ itemSlotIndex ].Count <= 0 )
+			sellObject.SellItem[ itemSlotIndex ] = null;
 	}
 
 	// coroutine section
