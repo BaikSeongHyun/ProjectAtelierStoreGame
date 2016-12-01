@@ -108,10 +108,14 @@ public class SellItemSettingUI : MonoBehaviour
 			{
 				// set defalut
 				if( stageManager.PresentSelectedFurniture.SellItem[ i ] == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ i ].Item.ID == 0 )
+				{
+					slots[ i ].Count.enabled = false;
 					slots[ i ].ElementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
+				}
 				// set item icon
 				else
 				{
+					slots[ i ].Count.enabled = true;
 					slots[ i ].UpdateComponentElement( stageManager.PresentSelectedFurniture.SellItem[ i ] );
 				}
 			}

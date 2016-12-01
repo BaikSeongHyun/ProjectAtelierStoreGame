@@ -3,78 +3,75 @@ using System.Collections;
 
 public class CameraControl : MonoBehaviour
 {
+	// high structure
+	[SerializeField] GameManager manager;
+
 	// main camera
 	[SerializeField] Camera viewCamera;
 
-	// field position
-	[SerializeField] float xPosition = 10f;
-	[SerializeField] float yPosition = 10f;
-	[SerializeField] float zPosition = 10f;
-
-	// field - rotation
-	[SerializeField] float xRotation;
-	[SerializeField] float yRotation;
-
-	[SerializeField] Transform charPos;
-
-	// property
-
-	public float XPosition { get { return xPosition; } set { xPosition = Mathf.Clamp( value, -30f, 30f ); } }
-
-	public float YPosition { get { return yPosition; } set { yPosition = Mathf.Clamp( value, 0f, 100f ); } }
-
-	public float ZPosition { get { return zPosition; } set { zPosition = Mathf.Clamp( value, -30f, 30f ); } }
-
-	public float XRotation { get { return xRotation; } set { xRotation = Mathf.Clamp( value, 30f, 90f ); } }
-
-	public float YRotation { get { return yRotation; } set { yRotation = Mathf.Clamp( value, 180f, 270f ); } }
+	// field
+	[SerializeField] float sensitive;
+	[SerializeField] Transform cusRot;
+	[SerializeField] Transform norRot;
 
 	// unity method
 	// awake
 	void Awake()
 	{
+		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		viewCamera = GetComponent<Camera>();
+		sensitive = 0.001f;
 	}
 
 	// public method
 	// camera set method
 	public void SetCameraDefault( GameManager.GameMode state )
 	{
-		
+		// set up position & rotation
+		if( state != GameManager.GameMode.StoreCustomizing )
+		{
+			transform.position = new Vector3( 20f, 16f, 20f );
+			transform.localRotation = norRot.rotation;
+		}
+		else
+		{
+			transform.position = new Vector3( 7.5f, 30f, 7.5f );
+			transform.localRotation = cusRot.rotation;
+		}
 	}
 
 	// camera position use update
 	public void SetCameraPosition()
 	{	
-
 		int count = Input.touchCount;
 		// one touch
-		if ( count == 1 )
+		if( count == 2 )
 		{
-			if ( Input.GetTouch( 0 ).phase == TouchPhase.Moved )
-			{			
-				XPosition += Input.GetTouch( 0 ).deltaPosition.x * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
-				ZPosition -= Input.GetTouch( 0 ).deltaPosition.x * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
+			Touch touchZero = Input.GetTouch( 0 );
+			Touch touchOne = Input.GetTouch( 1 );
 
-				XPosition += Input.GetTouch( 0 ).deltaPosition.y * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
-				ZPosition += Input.GetTouch( 0 ).deltaPosition.y * Time.deltaTime / Input.GetTouch( 0 ).deltaTime / 50f;
-			}
-		}	
-		// two touch
-		else if ( count == 2 )
-		{
-			// check y position
-			if ( Input.GetAxis( "Mouse ScrollWheel" ) < 0 )
-				YPosition = transform.position.y + Time.deltaTime * 10f;
-			else if ( Input.GetAxis( "Mouse ScrollWheel" ) > 0 )
-				YPosition = transform.position.y - Time.deltaTime * 10f;
+			Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+			Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+			float prevTouchDeltaMag = ( touchZeroPrevPos - touchOnePrevPos ).magnitude;
+			float touchDeltaMag = ( touchZero.position - touchOne.position ).magnitude;
+
+			float deltaMagnitureDiff = prevTouchDeltaMag - touchDeltaMag;
+
+			transform.position -= ( transform.position * deltaMagnitureDiff * -sensitive );
 		}
-		viewCamera.transform.position = new Vector3( xPosition, yPosition, zPosition );
-	}
 
-	public void MoveObject()
-	{
-		//오류떠서 주석칩니다.
-		//viewCamera.transform.position = charPos.position + new Vector3( xPosition, yPosition, zPosition );
+		if( manager.PresentMode != GameManager.GameMode.StoreCustomizing )
+		{
+			transform.position = new Vector3( Mathf.Clamp( transform.position.x, 10f, 50f ),
+			                                  Mathf.Clamp( viewCamera.transform.position.y, 8f, 40f ),
+			                                  Mathf.Clamp( viewCamera.transform.position.z, 10f, 50f ) );
+		}
+		else
+		{
+			transform.position = new Vector3( Mathf.Clamp( transform.position.x, 7.5f, 7.5f ),
+			                                  Mathf.Clamp( transform.position.y, 7.5f, 50f ),
+			                                  Mathf.Clamp( transform.position.z, 7.5f, 7.5f ) );
+		}
 	}
 }

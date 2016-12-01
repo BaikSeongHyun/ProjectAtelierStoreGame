@@ -11,6 +11,8 @@ public class DataElement : MonoBehaviour
 	[SerializeField] bool isLocked;
 
 	// property
+	public Text Count { get { return count; } set { count = value; } }
+
 	public Image ElementIcon { get { return elementIcon; } set { elementIcon = value; } }
 
 	public bool IsLocked { get { return isLocked; } set { isLocked = value; } }

@@ -247,7 +247,7 @@ public class CustomerAgent : AIAgent
 		{
 			randomIndex = randomPoint.Next( 0, stageManager.SellFurnitureSet.Count );
 			// favorite item type
-			for( int j = 0; j < stageManager.SellFurnitureSet[ j ].SellItem.Length; j++ )
+			for( int j = 0; j < stageManager.SellFurnitureSet[ randomIndex ].SellItem.Length; j++ )
 			{
 				try
 				{
@@ -282,7 +282,7 @@ public class CustomerAgent : AIAgent
 			randomIndex = randomPoint.Next( 0, stageManager.SellFurnitureSet.Count );
 
 			// normal item type
-			for( int j = 0; j < stageManager.SellFurnitureSet[ j ].SellItem.Length; j++ )
+			for( int j = 0; j < stageManager.SellFurnitureSet[ randomIndex ].SellItem.Length; j++ )
 			{
 				try
 				{
@@ -308,8 +308,8 @@ public class CustomerAgent : AIAgent
 		// set no item opinion
 		if( !alreadyBuyItems )
 			;
-		
-		Debug.Log( "No Items :" + name );
+		else
+			Debug.Log( "No Items : " + name );
 		moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ];
 		presentSequence = Sequence.GoToHome;
 	}

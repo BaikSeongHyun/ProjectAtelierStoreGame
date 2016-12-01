@@ -86,30 +86,41 @@ public class SellRegisterUI : MonoBehaviour
 	// on click register item in register slot
 	public void OnClickSetRegisterItem( int index )
 	{
-		if( this.gameObject.activeSelf )
+		try
 		{
-			// save slot index
-			presentStorageSlotIndex = index + storeManager.StorageIndex * ( manager.GamePlayer.ItemSet.Length / 3 );
-			// load item
-			temp = DataManager.FindItemDataByID( manager.GamePlayer.ItemSet[ index + storeManager.StorageIndex * ( manager.GamePlayer.ItemSet.Length / 3 ) ].Item.ID );
-			
-			// check slot item
-			for( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
+			if( ( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess ) || ( manager.PresentMode == GameManager.GameMode.StoreOpen ) )
 			{
-				if( stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet[ i ] == ( int ) temp.Type )
+				// save slot index
+				presentStorageSlotIndex = index + storeManager.StorageIndex * ( manager.GamePlayer.ItemSet.Length / 3 );
+				// load item
+				temp = DataManager.FindItemDataByID( manager.GamePlayer.ItemSet[ index + storeManager.StorageIndex * ( manager.GamePlayer.ItemSet.Length / 3 ) ].Item.ID );
+			
+				// check slot item
+				for( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
 				{
-					// check set slot item type
-					tempData = new ItemInstance( temp.ID, 0, 0 );
-					UpdateComponentElement();
-					return;
+					if( stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet[ i ] == ( int ) temp.Type )
+					{
+						// check set slot item type
+						tempData = new ItemInstance( temp.ID, 0, 0 );
+						UpdateComponentElement();
+						return;
+					}
 				}
 			}
+		}
+		catch( NullReferenceException e )
+		{
+			Debug.Log( e.Message );
+			Debug.Log( e.StackTrace );
 		}
 	}
 
 	// on click confirm into slot
 	public void OnClickConfirmRegisterItem()
 	{
+		if( ( Int32.Parse( registerCountText.text ) <= 0 ) || ( Int32.Parse( registerSellPriceText.text ) <= 0 ) )
+			return;
+
 		// ui off
 		this.gameObject.SetActive( false );
 

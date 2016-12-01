@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 
 public class UIManager : MonoBehaviour
@@ -78,7 +79,7 @@ public class UIManager : MonoBehaviour
 		furnitureMarketUI.LinkComponentElement();
 
 		stageUI = transform.Find( "StageUI" ).gameObject;
-		stageUILogic = storeUI.GetComponent<StageUI>();
+		stageUILogic = stageUI.GetComponent<StageUI>();
 
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
 	}
@@ -86,30 +87,33 @@ public class UIManager : MonoBehaviour
 	// update ui component
 	public void UIUpdate()
 	{
-		if( storeUI != null )
-		{
-			if( storeUI.activeSelf )
-				storeUILogic.UpdateComponentElement();
 
-			if( storeCustomizingSet.activeSelf )
-				storeCustomizingSetLogic.UpdateComponentElement();
+		if( storeUI.activeSelf )
+			storeUILogic.UpdateComponentElement();
 
-			if( fieldUI.activeSelf )
-				fieldUILogic.UpdateComponentElement();
+		if( storeCustomizingSet.activeSelf )
+			storeCustomizingSetLogic.UpdateComponentElement();
 
-			if( furnitureMarket.activeSelf )
-				furnitureMarketUI.UpdateComponentElement();
+		if( fieldUI.activeSelf )
+			fieldUILogic.UpdateComponentElement();
 
-			if( mixUI.activeSelf )
-				mixUILogic.CurrentCountManager();
+		if( furnitureMarket.activeSelf )
+			furnitureMarketUI.UpdateComponentElement();
 
-			if( storageUI.activeSelf )
-				storageUILogic.UpdateComponentElement();
+		if( mixUI.activeSelf )
+			mixUILogic.CurrentCountManager();
 
-			if( sellItemSettingUI.activeSelf )
-				sellItemSettingUILogic.UpdateComponentElement();
-		}
+		if( storageUI.activeSelf )
+			storageUILogic.UpdateComponentElement();
+
+		if( stageUI.activeSelf )
+			stageUILogic.UpdateComponentElement();
+
+		if( sellItemSettingUI.activeSelf )
+			sellItemSettingUILogic.UpdateComponentElement();
+		
 		testField.text = "x:" + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y + ", z: " + Camera.main.transform.position.z;
+	
 	}
 	
 	// mode change

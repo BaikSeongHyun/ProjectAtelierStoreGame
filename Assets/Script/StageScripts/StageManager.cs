@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,6 +9,7 @@ public class StageManager : MonoBehaviour
 	// high structure
 	[SerializeField] GameManager manager;
 	[SerializeField] UIManager mainUI;
+	[SerializeField] StageUI stageUI;
 
 	// field - store open data
 	[SerializeField] float customerCycle;
@@ -48,9 +50,11 @@ public class StageManager : MonoBehaviour
 
 	public int ProFavor { get { return probabilityOfFavoriteGroup; } }
 
-	public float PresentTime { get { return presentTime; } }
-
 	public List<FurnitureObject> SellFurnitureSet { get { return sellFurnitureSet; } }
+
+	public float FreeTime { get { return ( stageTime - presentTime ); } }
+
+	public float TimeFill { get { return( 1 - ( presentTime / stageTime ) ); } }
 
 	// unity method
 	// awake -> data initialize
@@ -66,6 +70,7 @@ public class StageManager : MonoBehaviour
 		manager = GetComponent<GameManager>();
 		customerAgentSet = GameObject.FindWithTag( "CustomerSet" ).GetComponentsInChildren<CustomerAgent>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+		stageUI = mainUI.transform.Find( "StageUI" ).GetComponent<StageUI>();
 	}
 
 	// stage pre process
@@ -110,8 +115,8 @@ public class StageManager : MonoBehaviour
 		}
 
 		// allocate data
-		buyScale = CustomerAgent.ReturnBuyScale( Random.Range( 1, 6 ) );
-		favoriteGroup = ItemData.ReturnType( Random.Range( 1, 8 ) );
+		buyScale = CustomerAgent.ReturnBuyScale( UnityEngine.Random.Range( 1, 6 ) );
+		favoriteGroup = ItemData.ReturnType( UnityEngine.Random.Range( 1, 8 ) );
 
 		// set sell furiture object set
 		sellFurnitureSet = new List<FurnitureObject>( );
@@ -128,6 +133,9 @@ public class StageManager : MonoBehaviour
 
 		// set customer cycle 
 		customerCycle = 3f;
+
+		// reset stage ui
+		stageUI.ResetComponent();
 	}
 
 	// stage process
@@ -135,6 +143,7 @@ public class StageManager : MonoBehaviour
 	public void StoreOpen()
 	{
 		StartCoroutine( CustomerGoStore() );
+		StartCoroutine( stageUI.ActivateDrive() );
 		presentTime = 0.0f;
 	}
 
@@ -163,8 +172,16 @@ public class StageManager : MonoBehaviour
 
 	public void BuyItem( FurnitureObject sellObject, int itemSlotIndex, ref int gold )
 	{
-		int maxCount = ( int ) ( gold / sellObject.SellItem[ itemSlotIndex ].SellPrice );
-		maxCount = maxCount > sellObject.SellItem[ itemSlotIndex ].Count ? sellObject.SellItem[ itemSlotIndex ].Count : maxCount;
+		int maxCount;
+		try
+		{
+			maxCount = ( int ) ( gold / sellObject.SellItem[ itemSlotIndex ].SellPrice );
+			maxCount = maxCount > sellObject.SellItem[ itemSlotIndex ].Count ? sellObject.SellItem[ itemSlotIndex ].Count : maxCount;
+		}
+		catch( DivideByZeroException e )
+		{
+			maxCount = sellObject.SellItem[ itemSlotIndex ].Count;
+		}
 
 		sellObject.SellItem[ itemSlotIndex ].Count -= maxCount;
 		manager.GamePlayer.Gold += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;

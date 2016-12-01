@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
 	// late update -> process camera logic
 	void LateUpdate()
 	{
-		//cameraControl.MoveObject();
+		cameraControl.SetCameraPosition();
 	}
 
 	// private method
@@ -141,6 +141,7 @@ public class GameManager : MonoBehaviour
 		presentGameMode = GameMode.Store;
 		storeManager.IsCustomizing = false;
 		SetUI();
+		cameraControl.SetCameraDefault( presentGameMode );
 	}
 
 	// set store customizing mode
@@ -149,6 +150,7 @@ public class GameManager : MonoBehaviour
 		presentGameMode = GameMode.StoreCustomizing;
 		storeManager.IsCustomizing = true;
 		SetUI();
+		cameraControl.SetCameraDefault( presentGameMode );
 	}
 
 	// set field mode
