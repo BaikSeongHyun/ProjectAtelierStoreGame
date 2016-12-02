@@ -12,7 +12,7 @@ public class StoreUI : MonoBehaviour
 	// component element
 	// - text set
 	[SerializeField] Text goldText;
-	[SerializeField] Text levelText;
+	[SerializeField] Text nameText;
 	[SerializeField] Text storeStepText;
 
 
@@ -32,7 +32,7 @@ public class StoreUI : MonoBehaviour
 
 		// text element
 		goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
-		levelText = transform.Find( "PlayerStatus" ).Find( "LevelText" ).GetComponent<Text>();
+		nameText = transform.Find( "PlayerStatus" ).Find( "NameText" ).GetComponent<Text>();
 		storeStepText = transform.Find( "PlayerStatus" ).Find( "StoreStepText" ).GetComponent<Text>();
 
 		// object element
@@ -46,7 +46,7 @@ public class StoreUI : MonoBehaviour
 	public void UpdateComponentElement()
 	{
 		goldText.text = manager.GamePlayer.Gold.ToString();
-		levelText.text = "Lv." + manager.GamePlayer.Level.ToString();
+		nameText.text = "Lv." + manager.GamePlayer.Name.ToString();
 		storeStepText.text = manager.GamePlayer.StoreData.StoreStep.ToString();
 	}
 

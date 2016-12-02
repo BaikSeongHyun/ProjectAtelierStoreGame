@@ -67,6 +67,7 @@ public class StageUI : MonoBehaviour
 
 	public void ResetComponent()
 	{
+		stageStateButton.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/StoreOff" );
 		timeBarFill.fillAmount = 1;
 		timeBarFill.enabled = true;
 	}
@@ -81,11 +82,35 @@ public class StageUI : MonoBehaviour
 		}
 	}
 
+	public void OnClickGoBack()
+	{
+		if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
+		{			
+			ResetComponent();
+
+			// set items reset
+			stageManager.StagePreprocessReturn();
+		}
+		else if( manager.PresentMode == GameManager.GameMode.StoreOpen )
+		{
+			// time short 
+			ResetComponent();
+			// return result
+
+			// set item reset
+			stageManager.StageProcessReturn();
+		}
+	}
+
 
 	// coroutine section
 	// ui activate drive
 	public IEnumerator ActivateDrive()
 	{
+		stageStateButton.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/StoreOn" );
+		timeBarFill.enabled = true;
+		timeBarFill.fillAmount = 1;
+	
 		while( manager.PresentMode == GameManager.GameMode.StoreOpen )
 		{
 			// set TimeBar

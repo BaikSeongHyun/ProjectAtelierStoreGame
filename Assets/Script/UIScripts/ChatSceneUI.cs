@@ -21,6 +21,12 @@ public class ChatSceneUI : MonoBehaviour
 	}
 
 
+	// set kakao information
+	public void SetKakaoInformation()
+	{
+
+	}
+
 	// on click method
 	// exit chat
 	public void OnClickExitChat()

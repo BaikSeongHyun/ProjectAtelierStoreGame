@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
 	public void SetStoreOpenPreprocessMode()
 	{
 		presentGameMode = GameMode.StoreOpenPreprocess;
+		stageManager.ActivateKakao();
 		SetUI();
 	}
 
@@ -180,10 +181,8 @@ public class GameManager : MonoBehaviour
 		presentGameMode = GameMode.Store;
 		SetUI();
 
-		// set result ui
-
-		// furniture object sell item data initialize
-
+		stageManager.SetItemsReset();
+		stageManager.CustomerReset();
 	}
 
 	public void SetDefaultStatus()

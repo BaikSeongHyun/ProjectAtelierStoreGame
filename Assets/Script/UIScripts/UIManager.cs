@@ -163,6 +163,7 @@ public class UIManager : MonoBehaviour
 				storeCustomizingSet.SetActive( false );
 				fieldUI.SetActive( false );
 				stageUI.SetActive( true );
+				stageUILogic.ResetComponent();
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( false );
 				break;

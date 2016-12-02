@@ -23,6 +23,7 @@ public class StageManager : MonoBehaviour
 
 	// field - element object
 	[SerializeField] PlayerAgent playerAgent;
+	[SerializeField] KakaoAgent kakaoAgent;
 	[SerializeField] CustomerAgent[] customerAgentSet;
 
 	// field - stage data
@@ -69,6 +70,7 @@ public class StageManager : MonoBehaviour
 	{
 		manager = GetComponent<GameManager>();
 		customerAgentSet = GameObject.FindWithTag( "CustomerSet" ).GetComponentsInChildren<CustomerAgent>();
+		kakaoAgent = GameObject.Find( "KakaoAgent" ).GetComponent<KakaoAgent>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 		stageUI = mainUI.transform.Find( "StageUI" ).GetComponent<StageUI>();
 	}
@@ -139,12 +141,32 @@ public class StageManager : MonoBehaviour
 	}
 
 	// stage process
+	public void ActivateKakao()
+	{
+		kakaoAgent.GoToStore();
+	}
+
 	// custmer policy activate -> use coroutine
 	public void StoreOpen()
 	{
 		StartCoroutine( CustomerGoStore() );
 		StartCoroutine( stageUI.ActivateDrive() );
 		presentTime = 0.0f;
+	}
+
+	public void StagePreprocessReturn()
+	{
+		kakaoAgent.GoToOffice();
+		SetItemsReset();
+		manager.SetStoreMode();
+	}
+
+	public void StageProcessReturn()
+	{
+		kakaoAgent.GoToOffice();
+		SetItemsReset();		
+		CustomerReset();
+		manager.SetStoreMode();
 	}
 
 	public void StageProcessPolicy()
@@ -154,20 +176,40 @@ public class StageManager : MonoBehaviour
 
 		// exit statement
 		if( presentTime >= stageTime )
+		{
 			manager.SetStoreStageEnd();
+		}
 
 		// stage policy
 		StagePreprocessPolicy();
 	}
 
-	public void StageClose()
+	public void SetItemsReset()
 	{
-		// set result
+		for( int i = 0; i < sellFurnitureSet.Count; i++ )
+		{
+			for( int j = 0; j < sellFurnitureSet[ i ].SellItem.Length; j++ )
+			{				
+				if( sellFurnitureSet[ i ].SellItem[ j ] != null )
+				{
+					manager.GamePlayer.AddItemData( sellFurnitureSet[ i ].SellItem[ j ].Item.ID, sellFurnitureSet[ i ].SellItem[ j ].Count );
+					sellFurnitureSet[ i ].SellItem[ j ] = new ItemInstance( );
+				}
+			}
+		}
+	}
 
-		// set reward
-
-		// set rank ui
-
+	public void CustomerReset()
+	{
+		// reset index
+		customerIndex = 0;
+	
+		// position reset & data reset
+		for( int i = 0; i < customerAgentSet.Length; i++ )
+		{
+			if( customerAgentSet[ i ].PresentSequence != CustomerAgent.Sequence.Ready )
+				customerAgentSet[ i ].ResetCustomerAgent();
+		}
 	}
 
 	public void BuyItem( FurnitureObject sellObject, int itemSlotIndex, ref int gold )
@@ -210,5 +252,7 @@ public class StageManager : MonoBehaviour
 
 			yield return new WaitForSeconds( customerCycle ); 
 		}
+
+		CustomerReset();
 	}
 }
