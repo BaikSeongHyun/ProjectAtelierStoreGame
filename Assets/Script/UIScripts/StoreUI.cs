@@ -72,8 +72,7 @@ public class StoreUI : MonoBehaviour
 	// on click furniture inventory button
 	public void OnClickFieldButton()
 	{
-		ClearChildUI();
-		manager.SetFieldMode();
+		Debug.Log( "OnClick Field" );
 	}
 
 	// on click mode customizing button

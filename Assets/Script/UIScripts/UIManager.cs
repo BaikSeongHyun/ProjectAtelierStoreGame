@@ -18,8 +18,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject storeCustomizingSet;
 	[SerializeField] CustomizeUI storeCustomizingSetLogic;
 
-	[SerializeField] GameObject fieldUI;
-	[SerializeField] FieldUI fieldUILogic;
+	[SerializeField] GameObject resultUI;
+	[SerializeField] ResultUI resultUILogic;
 
 	[SerializeField] GameObject mixUI;
 	[SerializeField] MixUI mixUILogic;
@@ -65,8 +65,8 @@ public class UIManager : MonoBehaviour
 		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<CustomizeUI>();
 		storeCustomizingSetLogic.LinkComponentElement();
 
-		fieldUI = transform.Find( "FieldUI" ).gameObject;
-		fieldUILogic = fieldUI.GetComponent<FieldUI>();
+		resultUI = transform.Find( "ResultUI" ).gameObject;
+		resultUILogic = resultUI.GetComponent<ResultUI>();
 
 		mixUI = transform.Find( "MixUI" ).gameObject;
 		mixUILogic = mixUI.GetComponent<MixUI>();
@@ -88,28 +88,28 @@ public class UIManager : MonoBehaviour
 	public void UIUpdate()
 	{
 
-		if( storeUI.activeSelf )
+		if ( storeUI.activeSelf )
 			storeUILogic.UpdateComponentElement();
 
-		if( storeCustomizingSet.activeSelf )
+		if ( storeCustomizingSet.activeSelf )
 			storeCustomizingSetLogic.UpdateComponentElement();
 
-		if( fieldUI.activeSelf )
-			fieldUILogic.UpdateComponentElement();
+		if ( resultUI.activeSelf )
+			resultUILogic.UpdateComponentElement();
 
-		if( furnitureMarket.activeSelf )
+		if ( furnitureMarket.activeSelf )
 			furnitureMarketUI.UpdateComponentElement();
 
-		if( mixUI.activeSelf )
+		if ( mixUI.activeSelf )
 			mixUILogic.CurrentCountManager();
 
-		if( storageUI.activeSelf )
+		if ( storageUI.activeSelf )
 			storageUILogic.UpdateComponentElement();
 
-		if( stageUI.activeSelf )
+		if ( stageUI.activeSelf )
 			stageUILogic.UpdateComponentElement();
 
-		if( sellItemSettingUI.activeSelf )
+		if ( sellItemSettingUI.activeSelf )
 			sellItemSettingUILogic.UpdateComponentElement();
 		
 		testField.text = "x:" + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y + ", z: " + Camera.main.transform.position.z;
@@ -119,16 +119,16 @@ public class UIManager : MonoBehaviour
 	// mode change
 	public void UIModeChange()
 	{
-		if( manager == null )
+		if ( manager == null )
 			LinkComponentElement();
 		
-		switch( manager.PresentMode )
+		switch ( manager.PresentMode )
 		{
 			case GameManager.GameMode.Start:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				fieldUI.SetActive( false );
+				resultUI.SetActive( false );
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( true );
@@ -137,7 +137,7 @@ public class UIManager : MonoBehaviour
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				fieldUI.SetActive( false );
+				resultUI.SetActive( false );
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( true );
@@ -146,7 +146,7 @@ public class UIManager : MonoBehaviour
 				storeUI.SetActive( true );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				fieldUI.SetActive( false );
+				resultUI.SetActive( false );
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( false );
@@ -155,26 +155,34 @@ public class UIManager : MonoBehaviour
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( true );
-				fieldUI.SetActive( false );
+				resultUI.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreOpenPreprocess:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				fieldUI.SetActive( false );
+				resultUI.SetActive( false );
 				stageUI.SetActive( true );
 				stageUILogic.ResetComponent();
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( false );
 				break;
-			case GameManager.GameMode.Village:
+			case GameManager.GameMode.StageResult:
+				storeUI.SetActive( false );
+				storageUI.SetActive( false );
+				storeCustomizingSet.SetActive( false );
+				resultUI.SetActive( true );
+				stageUI.SetActive( false );
+				stageUILogic.ResetComponent();
+				sellItemSettingUI.SetActive( false );
+				loadingScene.SetActive( false );
 				break;
 			case GameManager.GameMode.Field:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				fieldUI.SetActive( true );
-				fieldUILogic.ResetCard();
+				resultUI.SetActive( true );
+				resultUILogic.ResetCard();
 				break;
 		}
 	}

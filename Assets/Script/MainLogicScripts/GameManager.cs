@@ -30,8 +30,9 @@ public class GameManager : MonoBehaviour
 		StoreCustomizing = 4,
 		StoreOpenPreprocess = 5,
 		StoreOpen = 6,
-		Village = 7,
-		Field = 8}
+		StageResult = 7,
+		Village = 8,
+		Field = 9}
 
 	;
 
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviour
 		// main ui component update
 		mainUI.UIUpdate();
 
-		switch( presentGameMode )
+		switch ( presentGameMode )
 		{
 			case GameMode.Store:
 				storeManager.StorePolicy();
@@ -79,9 +80,9 @@ public class GameManager : MonoBehaviour
 				break;
 		}
 
-		if( Application.platform == RuntimePlatform.Android )
+		if ( Application.platform == RuntimePlatform.Android )
 		{
-			if( Input.GetKey( KeyCode.Escape ) )
+			if ( Input.GetKey( KeyCode.Escape ) )
 				Application.Quit();
 		}
 	}
@@ -178,7 +179,7 @@ public class GameManager : MonoBehaviour
 	// set store stage end
 	public void SetStoreStageEnd()
 	{
-		presentGameMode = GameMode.Store;
+		presentGameMode = GameMode.StageResult;
 		SetUI();
 
 		stageManager.SetItemsReset();
@@ -213,7 +214,7 @@ public class GameManager : MonoBehaviour
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if( !storeManager.CreateComplete )
+			if ( !storeManager.CreateComplete )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -226,12 +227,12 @@ public class GameManager : MonoBehaviour
 					// set camera mode
 					cameraControl.SetCameraDefault( GameMode.Store );
 				}
-				catch( NullReferenceException e )
+				catch ( NullReferenceException e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
 				}
-				catch( UnassignedReferenceException e )
+				catch ( UnassignedReferenceException e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -254,7 +255,7 @@ public class GameManager : MonoBehaviour
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if( !storeManager.CreateComplete )
+			if ( !storeManager.CreateComplete )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -275,10 +276,10 @@ public class GameManager : MonoBehaviour
 
 		while( true )
 		{		
-			if( DataManager.CheckPlayerDataLoading() )
+			if ( DataManager.CheckPlayerDataLoading() )
 			{				
 				// loading game data false -> wait	
-				if( !storeManager.CreateComplete )
+				if ( !storeManager.CreateComplete )
 				{
 					// set main ui state -> loading state
 					yield return 1.0f;
