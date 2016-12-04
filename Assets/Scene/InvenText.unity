@@ -438,8 +438,8 @@ MonoBehaviour:
   storageUILogic: {fileID: 0}
   storeCustomizingSet: {fileID: 0}
   storeCustomizingSetLogic: {fileID: 0}
-  fieldUI: {fileID: 0}
-  fieldUILogic: {fileID: 0}
+  resultUI: {fileID: 0}
+  resultUILogic: {fileID: 0}
   mixUI: {fileID: 0}
   mixUILogic: {fileID: 0}
   sellItemSettingUI: {fileID: 0}
@@ -629,7 +629,7 @@ GameObject:
   - 224: {fileID: 44662236}
   - 114: {fileID: 44662237}
   m_Layer: 5
-  m_Name: FieldUI
+  m_Name: ResultUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1781719365}
-  fieldManager: {fileID: 0}
+  stageManager: {fileID: 0}
   timeText: {fileID: 56855789}
   touchCountText: {fileID: 426596312}
   cardSet:
@@ -28554,9 +28554,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  touchCount: 0
-  eventStart: 0
-  isOpened: 0000000000000000000000000000000000000000
 --- !u!114 &1781719364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28605,6 +28602,9 @@ MonoBehaviour:
   sellFurnitureSet: []
   presentSelectedCustomer: {fileID: 0}
   presentSelectedFurniture: {fileID: 0}
+  touchCount: 0
+  isOpened: 
+  eventStart: 0
   tempItemInstance:
     uid: 0
     itemData:
