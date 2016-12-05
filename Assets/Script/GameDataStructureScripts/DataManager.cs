@@ -542,7 +542,7 @@ public class DataManager : MonoBehaviour
 
 	public static StageResultData ReturnStageResultData( int step, int profitCount, int profitMoney )
 	{
-		StageResultData tempData = new StageResultData( step, 4, 0, 0, 0, profitMoney, profitCount );
+		StageResultData tempData = new StageResultData( step, 1, 0, 0, 0, profitMoney, profitCount );
 		for( int i = 0; i < stageResultSet.Count; i++ )
 		{
 			if( ( stageResultSet[ i ].Step == step ) && ( tempData.RankProfitMoney >= stageResultSet[ i ].RankProfitMoney ) && ( tempData.RankProfitCount >= stageResultSet[ i ].RankProfitCount ) )
