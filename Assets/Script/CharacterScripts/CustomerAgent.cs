@@ -291,6 +291,7 @@ public class CustomerAgent : AIAgent
 			;
 		else
 			Debug.Log( "No Items : " + name );
+		
 		moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ];
 		presentSequence = Sequence.GoToHome;
 	}

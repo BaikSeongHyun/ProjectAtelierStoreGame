@@ -170,7 +170,7 @@ public class PlayerData
 	public void SetDefaultStatus()
 	{
 		name = "Default";
-		charType = "Default";
+		charType = "Berry";
 		level = 1;
 		fame = 0;
 		charm = 0;
@@ -181,9 +181,17 @@ public class PlayerData
 		haveFurnitureSet = new FurnitureInstance[30];
 		allocateFurnitureSet = new List<FurnitureInstance>( );
 
-		allocateFurnitureSet.Add( new FurnitureInstance( 2, 0, true, new Vector3( 4f, 0f, 4f ), Quaternion.identity ) );
-		allocateFurnitureSet.Add( new FurnitureInstance( 4, 1, true, new Vector3( 2f, 0f, 2f ), Quaternion.identity ) );
-		allocateFurnitureSet.Add( new FurnitureInstance( 7, 1, true, new Vector3( 8f, 0f, 8f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 3, 0, true, new Vector3( 9f, 0f, 3f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 6, 0, true, new Vector3( 9f, 0f, 7f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 9, 0, true, new Vector3( 6f, 0f, 7f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 16, 0, true, new Vector3( 9f, 0f, 0.5f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 24, 0, true, new Vector3( 6.5f, 0f, 3f ), Quaternion.identity ) );
+
+		haveItemSet[ 0 ] = new ItemInstance( 16, 0, 7 );
+		haveItemSet[ 1 ] = new ItemInstance( 17, 1, 6 );
+		haveItemSet[ 2 ] = new ItemInstance( 10, 2, 3 );
+		haveItemSet[ 3 ] = new ItemInstance( 11, 3, 3 );
+
 	}
 
 	// check selling item

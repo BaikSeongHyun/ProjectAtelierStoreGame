@@ -11,6 +11,8 @@ TagManager:
   - MainUI
   - CustomerSet
   - WorldBoundary
+  - StoreField
+  - StoreBackground
   layers:
   - Default
   - TransparentFX

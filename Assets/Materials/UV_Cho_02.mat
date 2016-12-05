@@ -48,7 +48,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: e9bb3d30a54d36a4787959e94e21a679, type: 3}
+        m_Texture: {fileID: 2800000, guid: 248dfea5b50e5484b897af5aba0bf1bb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -102,7 +102,7 @@ Material:
       second: 1
     - first:
         name: _Outline
-      second: 0.002
+      second: 0.0015
     - first:
         name: _Parallax
       second: 0.02

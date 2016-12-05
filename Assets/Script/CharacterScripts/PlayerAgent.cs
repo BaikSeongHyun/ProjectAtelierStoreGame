@@ -4,11 +4,9 @@ using System.Collections;
 
 public class PlayerAgent : AIAgent
 {
-	[SerializeField] MeshRenderer meshRenderer;
 	[SerializeField] Vector3 destination;
 	[SerializeField] AnimatorStateInfo aniInfor;
 	[SerializeField] float frame;
-
 
 	// unity stand method
 	// awake
@@ -19,27 +17,29 @@ public class PlayerAgent : AIAgent
 
 	void Update()
 	{
-		switch( presentState )
-		{
-			case AgentState.Idle:
-				agentAnimator.SetInteger( "State", ( int ) AgentState.Idle );
-				break;
-			case AgentState.Walk:
-				agentAnimator.SetInteger( "State", ( int ) AgentState.Walk );
-				break;
-			case AgentState.Greeting:
-				agentAnimator.SetInteger( "State", ( int ) AgentState.Greeting );
-				break;
-			case AgentState.Crafting:
-				agentAnimator.SetInteger( "State", ( int ) AgentState.Crafting );
-				break;
-			case AgentState.Cheering:
-				agentAnimator.SetInteger( "State", ( int ) AgentState.Cheering );
-				break;
-			case AgentState.Setting:
-				agentAnimator.SetInteger( "State", ( int ) AgentState.Setting );
-				break;			
-		}		       
+		CharacterMove();
+//
+//		switch( presentState )
+//		{
+//			case AgentState.Idle:
+//				agentAnimator.SetInteger( "State", ( int ) AgentState.Idle );
+//				break;
+//			case AgentState.Walk:
+//				agentAnimator.SetInteger( "State", ( int ) AgentState.Walk );
+//				break;
+//			case AgentState.Greeting:
+//				agentAnimator.SetInteger( "State", ( int ) AgentState.Greeting );
+//				break;
+//			case AgentState.Crafting:
+//				agentAnimator.SetInteger( "State", ( int ) AgentState.Crafting );
+//				break;
+//			case AgentState.Cheering:
+//				agentAnimator.SetInteger( "State", ( int ) AgentState.Cheering );
+//				break;
+//			case AgentState.Setting:
+//				agentAnimator.SetInteger( "State", ( int ) AgentState.Setting );
+//				break;			
+//		}		       
 	}
 
 	public Vector3 LimitPosition( Vector3 inputPos )

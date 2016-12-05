@@ -90,7 +90,7 @@ public class DataElement : MonoBehaviour
 		// set image icon
 		else
 		{
-			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/FurnitureIcon/" + data.Furniture.File );
 		}
 	}
 

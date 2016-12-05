@@ -116,7 +116,7 @@ public class FurnitureObject : MonoBehaviour
 		if ( data.Furniture.Function == FurnitureData.FunctionType.SellObject )
 			sellItemSet = new ItemInstance[data.Furniture.SlotLength];
 		else
-			sellItemSet = null;	
+			sellItemSet = null;
 	}
 
 	// change object position

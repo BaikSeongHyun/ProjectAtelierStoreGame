@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ public class StoreManager : MonoBehaviour
 {
 	// high structure
 	[SerializeField] GameManager manager;
+	[SerializeField] CharacterManager characterManager;
 	[SerializeField] UIManager mainUI;
 
 	// game logic simple data field
@@ -16,7 +18,9 @@ public class StoreManager : MonoBehaviour
 	// game instance data field
 	[SerializeField] float planeScale;
 	[SerializeField] GameObject storeField;
+	[SerializeField] Material storeFieldTexture;
 	[SerializeField] GameObject reticleLine;
+	[SerializeField] Image reticleLineTexture;
 	[SerializeField] bool isCustomzing;
 	[SerializeField] GameObject storeWall;
 	[SerializeField] GameObject storeBackground;
@@ -45,9 +49,8 @@ public class StoreManager : MonoBehaviour
 
 	// unity method
 	void Awake()
-	{
-		manager = GetComponent<GameManager>();
-		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+	{		
+		LinkComponentElement();
 	}
 
 	// public method
@@ -71,6 +74,18 @@ public class StoreManager : MonoBehaviour
 		}
 	}
 
+	public void LinkComponentElement()
+	{
+		manager = GetComponent<GameManager>();
+		characterManager = GetComponent<CharacterManager>();
+		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+		storeField = GameObject.FindWithTag( "StoreField" ).gameObject;
+		storeFieldTexture = storeField.GetComponent<Renderer>().material;
+		reticleLine = storeField.transform.Find( "ReticleLine" ).gameObject;
+		reticleLineTexture = reticleLine.GetComponent<Image>();
+		storeBackground = GameObject.FindWithTag( "StoreBackground" ).gameObject;
+	}
+
 
 	// destroy all store object
 	public void ClearStoreObject()
@@ -79,7 +94,6 @@ public class StoreManager : MonoBehaviour
 		// wall & nav field
 		Destroy( storeWall );
 		Destroy( storeNavField );
-
 
 		// furniture object
 		foreach( FurnitureObject element in furnitureObjectSet )
@@ -103,6 +117,8 @@ public class StoreManager : MonoBehaviour
 	// create item
 	public void StorePolicy()
 	{
+		if( !mainUI.CustomizeUI.activeSelf )
+			return;
 		// ray cast set furniture target
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 			
@@ -197,7 +213,9 @@ public class StoreManager : MonoBehaviour
 			                                              Quaternion.identity );
 			presentAllocateObject = temp.GetComponent<FurnitureObject>();
 			presentAllocateObject.InstanceData = manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count - 1 ];
-			presentAllocateObject.AllocateMode = true;
+			presentAllocateObject.LinkComponentElement();
+			presentAllocateObject.AllocateMode = true;	
+			presentAllocateObject.CheckAllocatePossible();
 
 			// link player data & object
 			manager.GamePlayer.AllocateFurnitureObjectSet.Add( presentAllocateObject );
@@ -207,6 +225,8 @@ public class StoreManager : MonoBehaviour
 	// confirm allocate object
 	public void ConfirmMoveFurnitureObject()
 	{
+		presentAllocateObject.CheckAllocatePossible();
+
 		// allocate possible
 		if( presentAllocateObject.AllocatePossible )
 		{
@@ -275,6 +295,9 @@ public class StoreManager : MonoBehaviour
 		// create object
 		try
 		{
+			// set store field image & reticle line image
+			storeFieldTexture.mainTexture = Resources.Load<Texture>( "Image/StoreField/StoreFieldStep" + manager.GamePlayer.StoreData.StoreStep );
+
 			// create tilemap object - size check & texture setting
 			storeField.transform.localScale = new Vector3( planeScale / 10f, planeScale / 10f, planeScale / 10f );
 			storeField.transform.position = new Vector3( planeScale / 2f, 0, planeScale / 2f );
@@ -286,7 +309,7 @@ public class StoreManager : MonoBehaviour
 			switch( manager.GamePlayer.StoreData.StoreStep )
 			{
 				case 1:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( 4.5f, 0f, 5.5f ), Quaternion.Euler( 0f, 90f, 0f ) );
 					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step1NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground.transform.position = new Vector3( 0f, -0.01f, 0f );
 					break;
@@ -325,6 +348,10 @@ public class StoreManager : MonoBehaviour
 
 				manager.GamePlayer.AllocateFurnitureObjectSet = furnitureObjectSet;
 			}
+
+			// make player character
+			characterManager.CreatePlayerAgent();
+
 		}
 		catch( NullReferenceException e )
 		{

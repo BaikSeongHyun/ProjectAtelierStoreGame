@@ -11,6 +11,7 @@ public class DataManager : MonoBehaviour
 
 	// field - for data
 	[SerializeField] static PlayerData playerData;
+	[SerializeField] static List<StageResultData> stageResultSet;
 	[SerializeField] static Dictionary<int, FurnitureData> furnitureSet;
 	[SerializeField] static Dictionary<int, ItemData> itemSet;
 	[SerializeField] static Dictionary<int, FieldData> fieldDataSet;
@@ -27,6 +28,7 @@ public class DataManager : MonoBehaviour
 		LoadItemData();
 		LoadFieldData();
 		LoadPlayerData();
+		LoadStageResultData();
 	}
 
 	void OnApplicationQuit()
@@ -250,6 +252,48 @@ public class DataManager : MonoBehaviour
 		}
 	}
 
+	// stage result data
+	public static void LoadStageResultData()
+	{
+		stageResultSet = new List<StageResultData>( );
+
+		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/StageResultData" );
+		XmlDocument document = new XmlDocument( );
+		document.LoadXml( loadData.text );
+
+		XmlNodeList nodes = document.SelectNodes( "ResultData/Data" );
+
+		if( nodes == null )
+		{
+			Debug.Log( "Data is null : stage result data" );		
+		}
+		else
+		{
+			foreach( XmlNode node in nodes )
+			{
+				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
+				int rank = int.Parse( node.SelectSingleNode( "rank" ).InnerText );
+				int rewardExp = int.Parse( node.SelectSingleNode( "rewardExp" ).InnerText );
+				int rewardGold = int.Parse( node.SelectSingleNode( "rewardGold" ).InnerText );
+				int rewardTouchCount = int.Parse( node.SelectSingleNode( "rewardTouchCount" ).InnerText );
+				int rankProfitMoney = int.Parse( node.SelectSingleNode( "rankProfitMoney" ).InnerText );
+				int rankProfitCount = int.Parse( node.SelectSingleNode( "rankProfitCount" ).InnerText );
+
+				try
+				{
+					stageResultSet.Add( new StageResultData( step, rank, rewardExp, rewardGold, rewardTouchCount, rankProfitMoney, rankProfitCount ) );
+				}
+				catch( Exception e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
+				}
+			}
+		}
+
+
+	}
+
 	// player data load -> use player pref
 	public static void LoadPlayerData()
 	{
@@ -258,7 +302,7 @@ public class DataManager : MonoBehaviour
 		try
 		{			
 			// data load - check first loading
-			if( PlayerPrefs.GetInt( "FirstData" ) != 123456789 )
+			if( PlayerPrefs.GetInt( "FirstData" ) != 123456 )
 			{
 				playerData.SetDefaultStatus();
 				return;
@@ -348,7 +392,7 @@ public class DataManager : MonoBehaviour
 	public static void SavePlayerData()
 	{
 		// first check data
-		PlayerPrefs.SetInt( "FirstData", 123456789 );
+		PlayerPrefs.SetInt( "FirstData", 123456 );
 
 		// save data setting - player direct data
 		PlayerPrefs.SetString( "PlayerName", playerData.Name );
@@ -492,6 +536,23 @@ public class DataManager : MonoBehaviour
 		}
 
 		return DataManager.fieldDataSet[ id ];
+	}
+
+	// find result use profit
+
+	public static StageResultData ReturnStageResultData( int step, int profitCount, int profitMoney )
+	{
+		StageResultData tempData = new StageResultData( step, 4, 0, 0, 0, profitMoney, profitCount );
+		for( int i = 0; i < stageResultSet.Count; i++ )
+		{
+			if( ( stageResultSet[ i ].Step == step ) && ( tempData.RankProfitMoney >= stageResultSet[ i ].RankProfitMoney ) && ( tempData.RankProfitCount >= stageResultSet[ i ].RankProfitCount ) )
+			{
+				tempData = stageResultSet[ i ];
+			}
+		}
+
+		Debug.Log( tempData.Rank );
+		return tempData;
 	}
 
 	// check player data loading

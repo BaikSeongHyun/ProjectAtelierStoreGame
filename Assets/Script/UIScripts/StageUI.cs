@@ -14,7 +14,7 @@ public class StageUI : MonoBehaviour
 	// component element
 	[SerializeField] Image timeBarIcon;
 	[SerializeField] Image timeBarFill;
-	[SerializeField] Image characterImage;
+	[SerializeField] Image charHead;
 	[SerializeField] Text goldText;
 	[SerializeField] Text stepText;
 	[SerializeField] Text nameText;
@@ -42,7 +42,7 @@ public class StageUI : MonoBehaviour
 		timeBarFill = transform.Find( "TimeBar" ).Find( "TimeBarFill" ).GetComponent<Image>();
 		goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
 		stepText = transform.Find( "PlayerStatus" ).Find( "StoreStepText" ).GetComponent<Text>();
-		//stepText = transform.Find( "PlayerStatus" ).Find( "NameText" ).GetComponent<Text>();
+		charHead = transform.Find( "PlayerStatus" ).Find( "CharHead" ).GetComponent<Image>();
 		stageStateButton = transform.Find( "StageStateButton" ).GetComponent<Image>();			
 	}
 
@@ -59,10 +59,12 @@ public class StageUI : MonoBehaviour
 		// set text
 		goldText.text = manager.GamePlayer.Gold.ToString();
 		stepText.text = manager.GamePlayer.StoreData.StoreStep.ToString();
-//		nameText.text = manager.GamePlayer.Name;
 
 		// set character image
-
+		if( manager.GamePlayer.CharacterType == "Berry" )
+			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/BerryHead" );
+		else
+			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/ChouHead" );
 	}
 
 	public void ResetComponent()

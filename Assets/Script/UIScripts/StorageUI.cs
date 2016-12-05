@@ -103,7 +103,12 @@ public class StorageUI : MonoBehaviour
 	// on click item inventory element
 	public void OnClickItemStorageElement( int index )
 	{
+		// furniture item view
+		if( this.gameObject.name == "FurnitureSetUI" )
+			storeManager.AllocateStartFurnitureInstance( index, presentStepIndex );
+
 		// view item information popup
+
 	}
 
 	public void OnCilckExitStorageUI()

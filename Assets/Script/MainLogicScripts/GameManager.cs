@@ -50,19 +50,13 @@ public class GameManager : MonoBehaviour
 		GameStart();
 	}
 
-	// fixed update -> process network logic
-	void FixedUpdate()
-	{
-
-	}
-
 	// update -> process game logic
 	void Update()
 	{
 		// main ui component update
 		mainUI.UIUpdate();
 
-		switch ( presentGameMode )
+		switch( presentGameMode )
 		{
 			case GameMode.Store:
 				storeManager.StorePolicy();
@@ -80,9 +74,9 @@ public class GameManager : MonoBehaviour
 				break;
 		}
 
-		if ( Application.platform == RuntimePlatform.Android )
+		if( Application.platform == RuntimePlatform.Android )
 		{
-			if ( Input.GetKey( KeyCode.Escape ) )
+			if( Input.GetKey( KeyCode.Escape ) )
 				Application.Quit();
 		}
 	}
@@ -101,6 +95,7 @@ public class GameManager : MonoBehaviour
 		characterManager = GetComponent<CharacterManager>();
 		fieldManager = GetComponent<FieldManager>();
 		storeManager = GetComponent<StoreManager>();
+
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 		cameraControl = Camera.main.gameObject.GetComponent<CameraControl>();
 	}
@@ -214,7 +209,7 @@ public class GameManager : MonoBehaviour
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if ( !storeManager.CreateComplete )
+			if( !storeManager.CreateComplete )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -227,12 +222,12 @@ public class GameManager : MonoBehaviour
 					// set camera mode
 					cameraControl.SetCameraDefault( GameMode.Store );
 				}
-				catch ( NullReferenceException e )
+				catch( NullReferenceException e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
 				}
-				catch ( UnassignedReferenceException e )
+				catch( UnassignedReferenceException e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -255,7 +250,7 @@ public class GameManager : MonoBehaviour
 		while( true )
 		{		
 			// loading game data false -> wait	
-			if ( !storeManager.CreateComplete )
+			if( !storeManager.CreateComplete )
 			{
 				// set main ui state -> loading state
 				yield return 1.0f;
@@ -276,10 +271,10 @@ public class GameManager : MonoBehaviour
 
 		while( true )
 		{		
-			if ( DataManager.CheckPlayerDataLoading() )
+			if( DataManager.CheckPlayerDataLoading() )
 			{				
 				// loading game data false -> wait	
-				if ( !storeManager.CreateComplete )
+				if( !storeManager.CreateComplete )
 				{
 					// set main ui state -> loading state
 					yield return 1.0f;

@@ -37,6 +37,12 @@ public class StageManager : MonoBehaviour
 	[SerializeField] CustomerAgent presentSelectedCustomer;
 	[SerializeField] FurnitureObject presentSelectedFurniture;
 
+	// field - result
+	[SerializeField] float playTime;
+	[SerializeField] int rankProfitMoney;
+	[SerializeField] int rankProfitCount;
+	[SerializeField] StageResultData resultData;
+	  
 	// field - result reward
 	[SerializeField] int touchCount;
 	[SerializeField] bool[] isOpened;
@@ -58,14 +64,17 @@ public class StageManager : MonoBehaviour
 
 	public List<FurnitureObject> SellFurnitureSet { get { return sellFurnitureSet; } }
 
-	public float FreeTime { get { return (stageTime - presentTime); } }
+	public float FreeTime { get { return ( stageTime - presentTime ); } }
 
-	public float TimeFill { get { return(1 - (presentTime / stageTime)); } }
+	public float TimeFill { get { return( 1 - ( presentTime / stageTime ) ); } }
 
 	public int TouchCount { get { return touchCount; } }
 
 	public bool[] IsOpened { get { return isOpened; } }
-	
+
+	public float PlayTime { get { return playTime; } }
+
+	public StageResultData ResultData { get { return resultData; } }
 
 	// unity method
 	// awake -> data initialize
@@ -83,6 +92,10 @@ public class StageManager : MonoBehaviour
 		kakaoAgent = GameObject.Find( "KakaoAgent" ).GetComponent<KakaoAgent>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 		stageUI = mainUI.transform.Find( "StageUI" ).GetComponent<StageUI>();
+
+		isOpened = new bool[20];
+		for( int i = 0; i < isOpened.Length; i++ )
+			isOpened[ i ] = false;
 	}
 
 	// stage pre process
@@ -94,14 +107,14 @@ public class StageManager : MonoBehaviour
 
 		// target function type -> create : use create ui(object type)
 		// target function type -> storage : use storage ui(object type)
-		if ( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
+		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
 		{
-			if ( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
+			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
 				GameObject tempSearch = hitInfo.collider.gameObject;
 				presentSelectedFurniture = tempSearch.GetComponent<FurnitureObject>();
 
-				if ( presentSelectedFurniture.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
+				if( presentSelectedFurniture.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
 				{
 					mainUI.ActivateSellItemSettingUI();				
 				}
@@ -113,7 +126,7 @@ public class StageManager : MonoBehaviour
 	public void CreateGameInformation()
 	{
 		// allocate probability
-		switch ( manager.GamePlayer.StoreData.StoreStep )
+		switch( manager.GamePlayer.StoreData.StoreStep )
 		{
 			case 1:
 				probabilityOfBuyScale = probabilityOfFavoriteGroup = 100;
@@ -131,10 +144,10 @@ public class StageManager : MonoBehaviour
 		favoriteGroup = ItemData.ReturnType( UnityEngine.Random.Range( 1, 8 ) );
 
 		// set sell furiture object set
-		sellFurnitureSet = new List<FurnitureObject>();
-		for ( int i = 0; i < manager.GamePlayer.AllocateFurnitureObjectSet.Count; i++ )
+		sellFurnitureSet = new List<FurnitureObject>( );
+		for( int i = 0; i < manager.GamePlayer.AllocateFurnitureObjectSet.Count; i++ )
 		{
-			if ( manager.GamePlayer.AllocateFurnitureObjectSet[ i ].InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
+			if( manager.GamePlayer.AllocateFurnitureObjectSet[ i ].InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
 			{
 				sellFurnitureSet.Add( manager.GamePlayer.AllocateFurnitureObjectSet[ i ] );
 			}
@@ -161,7 +174,11 @@ public class StageManager : MonoBehaviour
 	{
 		StartCoroutine( CustomerGoStore() );
 		StartCoroutine( stageUI.ActivateDrive() );
+
+		// reset data
 		presentTime = 0.0f;
+		rankProfitMoney = 0;
+		rankProfitCount = 0;
 	}
 
 	public void StagePreprocessReturn()
@@ -185,8 +202,12 @@ public class StageManager : MonoBehaviour
 		presentTime += Time.deltaTime;
 
 		// exit statement
-		if ( presentTime >= stageTime )
+		if( presentTime >= stageTime )
 		{
+			// set up rank infor
+			SetUpRankData();
+
+			// end game
 			manager.SetStoreStageEnd();
 		}
 
@@ -194,16 +215,24 @@ public class StageManager : MonoBehaviour
 		StagePreprocessPolicy();
 	}
 
+	// set up rank information
+	public void SetUpRankData()
+	{
+		playTime = presentTime;
+		resultData = DataManager.ReturnStageResultData( manager.GamePlayer.StoreData.StoreStep, rankProfitCount, rankProfitMoney );
+		touchCount = resultData.RewardTouchCount;
+	}
+
 	public void SetItemsReset()
 	{
-		for ( int i = 0; i < sellFurnitureSet.Count; i++ )
+		for( int i = 0; i < sellFurnitureSet.Count; i++ )
 		{
-			for ( int j = 0; j < sellFurnitureSet[ i ].SellItem.Length; j++ )
+			for( int j = 0; j < sellFurnitureSet[ i ].SellItem.Length; j++ )
 			{				
-				if ( sellFurnitureSet[ i ].SellItem[ j ] != null )
+				if( sellFurnitureSet[ i ].SellItem[ j ] != null )
 				{
 					manager.GamePlayer.AddItemData( sellFurnitureSet[ i ].SellItem[ j ].Item.ID, sellFurnitureSet[ i ].SellItem[ j ].Count );
-					sellFurnitureSet[ i ].SellItem[ j ] = new ItemInstance();
+					sellFurnitureSet[ i ].SellItem[ j ] = new ItemInstance( );
 				}
 			}
 		}
@@ -215,9 +244,9 @@ public class StageManager : MonoBehaviour
 		customerIndex = 0;
 	
 		// position reset & data reset
-		for ( int i = 0; i < customerAgentSet.Length; i++ )
+		for( int i = 0; i < customerAgentSet.Length; i++ )
 		{
-			if ( customerAgentSet[ i ].PresentSequence != CustomerAgent.Sequence.Ready )
+			if( customerAgentSet[ i ].PresentSequence != CustomerAgent.Sequence.Ready )
 				customerAgentSet[ i ].ResetCustomerAgent();
 		}
 	}
@@ -227,33 +256,39 @@ public class StageManager : MonoBehaviour
 		int maxCount;
 		try
 		{
-			maxCount = ( int ) (gold / sellObject.SellItem[ itemSlotIndex ].SellPrice);
+			maxCount = ( int ) ( gold / sellObject.SellItem[ itemSlotIndex ].SellPrice );
 			maxCount = maxCount > sellObject.SellItem[ itemSlotIndex ].Count ? sellObject.SellItem[ itemSlotIndex ].Count : maxCount;
 		}
-		catch ( DivideByZeroException e )
+		catch( DivideByZeroException e )
 		{
 			maxCount = sellObject.SellItem[ itemSlotIndex ].Count;
+		}
+		catch( NullReferenceException e )
+		{
+			return;
 		}
 
 		sellObject.SellItem[ itemSlotIndex ].Count -= maxCount;
 		manager.GamePlayer.Gold += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
 		gold -= sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
 
-		if ( sellObject.SellItem[ itemSlotIndex ].Count <= 0 )
+		rankProfitCount += maxCount;
+		rankProfitMoney += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
+
+		if( sellObject.SellItem[ itemSlotIndex ].Count <= 0 )
 			sellObject.SellItem[ itemSlotIndex ] = null;
 	}
 	
 	
 	// result reward control
 	// reset data
-	public void ResetData()
+	public void ResetResultRewardData()
 	{
 
-		for ( int i = 0; i < isOpened.Length; i++ )
+		for( int i = 0; i < isOpened.Length; i++ )
 			isOpened[ i ] = false;
 
-		touchCount = DataManager.FindFieldDataByID( manager.GamePlayer.StoreData.StoreStep ).CheckNumber;
-		touchCount = 3;
+		touchCount = resultData.RewardTouchCount;
 		eventStart = false;
 	}
 
@@ -263,14 +298,14 @@ public class StageManager : MonoBehaviour
 		touchCount--;
 		isOpened[ index ] = true;
 		cardIndex = UnityEngine.Random.Range( 0, 12 );
-		if ( !eventStart )
+		if( !eventStart )
 		{
 			eventStart = true;		
 		}
 
 		int itemID = 0;
 		int itemCount = 0;
-		switch ( (cardIndex + 1) % 4 )
+		switch( ( cardIndex + 1 ) % 4 )
 		{
 			case 1:
 				// blue powder
@@ -290,7 +325,7 @@ public class StageManager : MonoBehaviour
 				break;
 		}
 
-		switch ( cardIndex / 4 )
+		switch( cardIndex / 4 )
 		{
 			case 0:
 				itemCount = 1;

@@ -14,7 +14,7 @@ public class StoreUI : MonoBehaviour
 	[SerializeField] Text goldText;
 	[SerializeField] Text nameText;
 	[SerializeField] Text storeStepText;
-
+	[SerializeField] Image charHead;
 
 	// - object set -> child ui object
 	[SerializeField] GameObject questUI;
@@ -34,6 +34,7 @@ public class StoreUI : MonoBehaviour
 		goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
 		nameText = transform.Find( "PlayerStatus" ).Find( "NameText" ).GetComponent<Text>();
 		storeStepText = transform.Find( "PlayerStatus" ).Find( "StoreStepText" ).GetComponent<Text>();
+		charHead = transform.Find( "PlayerStatus" ).Find( "CharHead" ).GetComponent<Image>();
 
 		// object element
 		questUI = transform.Find( "QuestUI" ).gameObject;
@@ -46,8 +47,12 @@ public class StoreUI : MonoBehaviour
 	public void UpdateComponentElement()
 	{
 		goldText.text = manager.GamePlayer.Gold.ToString();
-		nameText.text = "Lv." + manager.GamePlayer.Name.ToString();
+		nameText.text = manager.GamePlayer.Name.ToString();
 		storeStepText.text = manager.GamePlayer.StoreData.StoreStep.ToString();
+		if( manager.GamePlayer.CharacterType == "Berry" )
+			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/BerryHead" );
+		else
+			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/ChouHead" );
 	}
 
 	// clear child ui

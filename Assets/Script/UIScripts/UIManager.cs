@@ -18,9 +18,6 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject storeCustomizingSet;
 	[SerializeField] CustomizeUI storeCustomizingSetLogic;
 
-	[SerializeField] GameObject resultUI;
-	[SerializeField] ResultUI resultUILogic;
-
 	[SerializeField] GameObject mixUI;
 	[SerializeField] MixUI mixUILogic;
 
@@ -33,11 +30,21 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject stageUI;
 	[SerializeField] StageUI stageUILogic;
 
+	[SerializeField] GameObject resultUI;
+	[SerializeField] ResultUI resultUILogic;
+
+	[SerializeField] GameObject resultRewardUI;
+	[SerializeField] ResultRewardUI resultRewardUILogic;
+
+	[SerializeField] GameObject chatScene;
+
 	[SerializeField] GameObject loadingScene;
 	[SerializeField] Text testField;
 
 	// property
 	public GameObject StorageUI { get { return storageUI; } }
+
+	public GameObject CustomizeUI { get { return storeCustomizingSet; } }
 
 	// unity method
 	// awake
@@ -65,9 +72,6 @@ public class UIManager : MonoBehaviour
 		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<CustomizeUI>();
 		storeCustomizingSetLogic.LinkComponentElement();
 
-		resultUI = transform.Find( "ResultUI" ).gameObject;
-		resultUILogic = resultUI.GetComponent<ResultUI>();
-
 		mixUI = transform.Find( "MixUI" ).gameObject;
 		mixUILogic = mixUI.GetComponent<MixUI>();
 
@@ -81,6 +85,14 @@ public class UIManager : MonoBehaviour
 		stageUI = transform.Find( "StageUI" ).gameObject;
 		stageUILogic = stageUI.GetComponent<StageUI>();
 
+		resultRewardUI = transform.Find( "ResultRewardUI" ).gameObject;
+		resultRewardUILogic = resultRewardUI.GetComponent<ResultRewardUI>();
+
+		resultUI = transform.Find( "ResultUI" ).gameObject;
+		resultUILogic = resultUI.GetComponent<ResultUI>();
+
+		chatScene = transform.Find( "ChatScene" ).gameObject;
+
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
 	}
 
@@ -88,28 +100,28 @@ public class UIManager : MonoBehaviour
 	public void UIUpdate()
 	{
 
-		if ( storeUI.activeSelf )
+		if( storeUI.activeSelf )
 			storeUILogic.UpdateComponentElement();
 
-		if ( storeCustomizingSet.activeSelf )
+		if( storeCustomizingSet.activeSelf )
 			storeCustomizingSetLogic.UpdateComponentElement();
 
-		if ( resultUI.activeSelf )
-			resultUILogic.UpdateComponentElement();
+		if( resultRewardUI.activeSelf )
+			resultRewardUILogic.UpdateComponentElement();
 
-		if ( furnitureMarket.activeSelf )
+		if( furnitureMarket.activeSelf )
 			furnitureMarketUI.UpdateComponentElement();
 
-		if ( mixUI.activeSelf )
+		if( mixUI.activeSelf )
 			mixUILogic.CurrentCountManager();
 
-		if ( storageUI.activeSelf )
+		if( storageUI.activeSelf )
 			storageUILogic.UpdateComponentElement();
 
-		if ( stageUI.activeSelf )
+		if( stageUI.activeSelf )
 			stageUILogic.UpdateComponentElement();
 
-		if ( sellItemSettingUI.activeSelf )
+		if( sellItemSettingUI.activeSelf )
 			sellItemSettingUILogic.UpdateComponentElement();
 		
 		testField.text = "x:" + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y + ", z: " + Camera.main.transform.position.z;
@@ -119,70 +131,76 @@ public class UIManager : MonoBehaviour
 	// mode change
 	public void UIModeChange()
 	{
-		if ( manager == null )
+		if( manager == null )
 			LinkComponentElement();
 		
-		switch ( manager.PresentMode )
+		switch( manager.PresentMode )
 		{
 			case GameManager.GameMode.Start:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
-				storeCustomizingSet.SetActive( false );
-				resultUI.SetActive( false );
+				storeCustomizingSet.SetActive( false );	
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
+				resultUI.SetActive( false );
+				chatScene.SetActive( false );
+				resultRewardUI.SetActive( false );
 				loadingScene.SetActive( true );
 				break;
 			case GameManager.GameMode.Loading:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				resultUI.SetActive( false );
+			
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
+				resultRewardUI.SetActive( false );
 				loadingScene.SetActive( true );
 				break;
 			case GameManager.GameMode.Store:
 				storeUI.SetActive( true );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				resultUI.SetActive( false );
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
+				resultRewardUI.SetActive( false );
 				loadingScene.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( true );
-				resultUI.SetActive( false );
+				resultRewardUI.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreOpenPreprocess:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				resultUI.SetActive( false );
+				resultRewardUI.SetActive( false );
 				stageUI.SetActive( true );
 				stageUILogic.ResetComponent();
+				chatScene.SetActive( true );
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( false );
 				break;
 			case GameManager.GameMode.StageResult:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
-				storeCustomizingSet.SetActive( false );
-				resultUI.SetActive( true );
+				storeCustomizingSet.SetActive( false );			
 				stageUI.SetActive( false );
 				stageUILogic.ResetComponent();
 				sellItemSettingUI.SetActive( false );
+				resultUI.SetActive( true );
+				resultUILogic.SetComponentElement();
+				resultRewardUI.SetActive( false );
 				loadingScene.SetActive( false );
 				break;
 			case GameManager.GameMode.Field:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				resultUI.SetActive( true );
-				resultUILogic.ResetCard();
+				resultRewardUI.SetActive( true );
+				resultRewardUILogic.ResetCard();
 				break;
 		}
 	}
@@ -209,6 +227,11 @@ public class UIManager : MonoBehaviour
 		mixUILogic.MixViewButton();
 	}
 
-	// set create ui
+	// set result reward ui
+	public void ActivateResultRewardUI()
+	{
+		resultRewardUI.SetActive( true );
+		resultRewardUILogic.ResetCard();
+	}
 	
 }

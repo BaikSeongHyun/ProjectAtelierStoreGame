@@ -114,7 +114,8 @@ public class KakaoAgent : AIAgent
 	}
 
 	public void GoToOffice()
-	{		
+	{	
+		moveAgent.enabled = true;	
 		moveAgent.ResetPath();
 		moveAgent.enabled = false;
 		moveTarget = null;

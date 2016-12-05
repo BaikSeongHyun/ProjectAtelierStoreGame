@@ -3,19 +3,6 @@
 	<object>
 		<type>1</type>
 		<id>1</id>
-		<file>pot1</file>
-		<name>기본 항아리</name>
-		<guide>기본 물약을 몇개 만들 수 있는 항아리.</guide>
-		<price>300</price>
-		<height>5</height>
-		<widthX>2</widthX>
-		<widthZ>2</widthZ>
-		<level>1</level>
-		<materials>2.3.4</materials>
-	</object>
-	<object>
-		<type>1</type>
-		<id>2</id>
 		<file>pot2</file>
 		<name>신비한 항아리</name>
 		<guide>여러종류의 물약을 만들 수 있는 항아리.</guide>
@@ -28,7 +15,7 @@
 	</object>
 	<object>
 		<type>1</type>
-		<id>3</id>
+		<id>2</id>
 		<file>pot3</file>
 		<name>고오급 항아리</name>
 		<guide>못만드는 것이 없는 항아리.</guide>
@@ -41,20 +28,20 @@
 	</object>
 	<object>
 		<type>1</type>
-		<id>4</id>
+		<id>3</id>
 		<file>objectMaker1</file>
 		<name>기본 제작대</name>
 		<guide>간단한 스크롤과 지팡이를 만들 수 있다.</guide>
 		<price>300</price>
 		<height>4</height>
 		<widthX>2</widthX>
-		<widthZ>2</widthZ>
+		<widthZ>1</widthZ>
 		<level>1</level>
 		<materials>5.6.7</materials>
 	</object>
 	<object>
 		<type>1</type>
-		<id>5</id>
+		<id>4</id>
 		<file>objectMaker2</file>
 		<name>화려한 제작대</name>
 		<guide>스크롤과 지팡이를 많이 만들 수 있다.</guide>
@@ -63,11 +50,11 @@
 		<widthX>2</widthX>
 		<widthZ>2</widthZ>
 		<level>2</level>
-		<materials>5.6.7</materials>
+		<materials>2.3.4.5.6.7</materials>
 	</object>
 	<object>
 		<type>1</type>
-		<id>6</id>
+		<id>5</id>
 		<file>objectMaker3</file>
 		<name>고오급 제작대</name>
 		<guide>못만드는 것이 없는 제작대.</guide>
@@ -80,7 +67,7 @@
 	</object>
 	<object>
 		<type>2</type>
-		<id>7</id>
+		<id>6</id>
 		<file>stand1</file>
 		<name>낡은 판매대</name>
 		<guide>먼지 쌓인 판매대. 물건이 잘 팔릴까...?</guide>
@@ -93,7 +80,7 @@
 	</object>
 	<object>
 		<type>2</type>
-		<id>8</id>
+		<id>7</id>
 		<file>stand2</file>
 		<name>화려한 판매대</name>
 		<guide>먼지를 닦으니 화려해진 판매대.</guide>
@@ -106,7 +93,7 @@
 	</object>
 	<object>
 		<type>2</type>
-		<id>9</id>
+		<id>8</id>
 		<file>stand3</file>
 		<name>황금 판매대</name>
 		<guide>반짝반짝 빛나는 판매대. 물건이 잘 팔릴 것 같다.</guide>
@@ -119,7 +106,7 @@
 	</object>
 	<object>
 		<type>2</type>
-		<id>10</id>
+		<id>9</id>
 		<file>display1</file>
 		<name>낡은 진열대</name>
 		<guide>먼지가 쌓여서 진열대의 물건이 잘 안보인다.</guide>
@@ -132,7 +119,7 @@
 	</object>
 	<object>
 		<type>2</type>
-		<id>11</id>
+		<id>10</id>
 		<file>display2</file>
 		<name>반짝이는 진열대</name>
 		<guide>먼지를 털어내니 반짝이는 판매대.</guide>
@@ -145,7 +132,7 @@
 	</object>
 	<object>
 		<type>2</type>
-		<id>12</id>
+		<id>11</id>
 		<file>display3</file>
 		<name>다이아몬드 진열대</name>
 		<guide>반짝반짝 고급 진열대. 물건이 더 잘 보인다.</guide>
@@ -158,7 +145,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>13</id>
+		<id>12</id>
 		<file>broom1</file>
 		<name>낡은 빗자루</name>
 		<guide>열심히 청소하지만 더 더러워지는 느낌이다.</guide>
@@ -171,7 +158,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>14</id>
+		<id>13</id>
 		<file>broom2</file>
 		<name>빗자루</name>
 		<guide>일반 빗자루이다.</guide>
@@ -184,7 +171,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>15</id>
+		<id>14</id>
 		<file>broom3</file>
 		<name>빛나는 빗자루</name>
 		<guide>일반 빗자루보다 더 잘 쓸린다.</guide>
@@ -197,7 +184,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>16</id>
+		<id>15</id>
 		<file>broom4</file>
 		<name>고오급 빗자루</name>
 		<guide>자동으로 청소를 해주는 최고의 빗자루이다.</guide>
@@ -210,20 +197,20 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>17</id>
+		<id>16</id>
 		<file>bookshelf1</file>
 		<name>낡은 책장</name>
 		<guide>낡아서 책장에 먼지가 빨리 쌓인다.</guide>
 		<price>700</price>
 		<height>10</height>
-		<widthX>3</widthX>
-		<widthZ>2</widthZ>
+		<widthX>2</widthX>
+		<widthZ>1</widthZ>
 		<level>1</level>
 		<materials>-</materials>
 	</object>
 	<object>
 		<type>3</type>
-		<id>18</id>
+		<id>17</id>
 		<file>bookshelf2</file>
 		<name>갈색 책장</name>
 		<guide>책을 꽂아두니 보기가 좋다.</guide>
@@ -236,7 +223,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>19</id>
+		<id>18</id>
 		<file>bookshelf3</file>
 		<name>웅장한 책장</name>
 		<guide>그저 서있는 모습이 장관이다.</guide>
@@ -249,7 +236,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>20</id>
+		<id>19</id>
 		<file>desk1</file>
 		<name>낡은 책상</name>
 		<guide>책을 올려두면 다리가 부러질 것 같다.</guide>
@@ -262,7 +249,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>21</id>
+		<id>20</id>
 		<file>desk2</file>
 		<name>나무 책상</name>
 		<guide>꽤 쓸만한 책상이다.</guide>
@@ -275,7 +262,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>22</id>
+		<id>21</id>
 		<file>desk3</file>
 		<name>빛나는 책상</name>
 		<guide>빛나서 공부하고싶은 책상이다.</guide>
@@ -288,7 +275,7 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>23</id>
+		<id>22</id>
 		<file>desk4</file>
 		<name>고오급 책상</name>
 		<guide>견고해보이는 책상이다. 색이 고급스럽다.</guide>
@@ -300,8 +287,8 @@
 		<materials>-</materials>
 	</object>
 	<object>
-		<type>4</type>
-		<id>24</id>
+		<type>3</type>
+		<id>23</id>
 		<file>storage1</file>
 		<name>작은 창고</name>
 		<guide>물건을 조금 보관할 수 있다.</guide>
@@ -311,5 +298,18 @@
 		<widthZ>1</widthZ>
 		<level>1</level>
 		<materials>10</materials>
+	</object>
+	<object>
+		<type>3</type>
+		<id>24</id>
+		<file>counter1</file>
+		<name>낡은 계산대</name>
+		<guide>낡은 계산대이다.</guide>
+		<price>1000</price>
+		<height>2</height>
+		<widthX>2</widthX>
+		<widthZ>1</widthZ>
+		<level>1</level>
+		<materials>-</materials>
 	</object>
 </furniture>

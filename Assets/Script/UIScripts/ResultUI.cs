@@ -5,16 +5,16 @@ using System.Collections;
 public class ResultUI : MonoBehaviour
 {
 	// high structure
-	[SerializeField] GameManager manager;
 	[SerializeField] StageManager stageManager;
+	[SerializeField] UIManager mainUI;
 
-	// component element
-	[SerializeField] Text timeText;
-	[SerializeField] Text touchCountText;
-	[SerializeField] Image[] cardSet;
-	[SerializeField] Sprite cardRear;
-	[SerializeField] Sprite[] itemSet;
+	// field - component
+	[SerializeField] Image rankImage;
+	[SerializeField] Text goldText;
+	[SerializeField] Text expText;
+	[SerializeField] Text playTimeText;
 
+	// unity method
 	void Awake()
 	{
 		LinkComponentElement();
@@ -24,50 +24,31 @@ public class ResultUI : MonoBehaviour
 	// link component element
 	public void LinkComponentElement()
 	{
-		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
+		// high structure
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
+		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+
+		// field  - component
+		rankImage = transform.Find( "RankImage" ).GetComponent<Image>();
+		goldText = transform.Find( "GoldReward" ).Find( "GoldText" ).GetComponent<Text>();
+		expText = transform.Find( "ExpReward" ).Find( "ExpText" ).GetComponent<Text>();
+		playTimeText = transform.Find( "PlayTime" ).Find( "PlayTimeText" ).GetComponent<Text>();
 	}
 
-	// update component element
-	public void UpdateComponentElement()
+	// set element
+	public void SetComponentElement()
 	{
-		timeText.text = "선택하세요";
-
-		touchCountText.text = "횟수: " + stageManager.TouchCount.ToString();
+		rankImage.sprite = Resources.Load<Sprite>( "Image/UI/ResultUI/Rank" + stageManager.ResultData.Rank );
+		goldText.text = stageManager.ResultData.RewardGold.ToString();
+		expText.text = stageManager.ResultData.RewardExp.ToString();
+		playTimeText.text = ( ( int ) ( stageManager.PlayTime / 60 ) ).ToString() + " : " + ( ( int ) ( stageManager.PlayTime % 60 ) ).ToString();
 	}
-
-	// reset card
-	public void ResetCard()
-	{
-		foreach ( Image element in cardSet )
-		{
-			element.sprite = cardRear;
-		}
-
-		stageManager.ResetData();
-	}
-
 
 	// on click method
-	// on click card
-	public void OnClickDataCard( int index )
+	// check information & reward window open
+	public void OnClickConfirmResult()
 	{
-		if ( stageManager.TouchCount > 0 && !stageManager.IsOpened[ index ] )
-		{
-			int cardIndex;
-			stageManager.SelectCard( index, out cardIndex );
-
-			cardSet[ index ].sprite = itemSet[ cardIndex ];
-		}
-		else
-		{
-			return;
-		}
-	}
-
-	// exit field
-	public void OnClickExitField()
-	{
-		manager.SetStoreMode();
+		mainUI.ActivateResultRewardUI();
+		this.gameObject.SetActive( false );
 	}
 }
