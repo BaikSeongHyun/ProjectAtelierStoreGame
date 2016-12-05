@@ -49,7 +49,7 @@ public class StageUI : MonoBehaviour
 	// call event has occured
 	public void SetComponentElement()
 	{
-		if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
+		if ( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
 			stageStateButton.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/StoreOff" );
 	}
 
@@ -61,7 +61,7 @@ public class StageUI : MonoBehaviour
 		stepText.text = manager.GamePlayer.StoreData.StoreStep.ToString();
 
 		// set character image
-		if( manager.GamePlayer.CharacterType == "Berry" )
+		if ( manager.GamePlayer.CharacterType == "Berry" )
 			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/BerryHead" );
 		else
 			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/ChouHead" );
@@ -77,7 +77,7 @@ public class StageUI : MonoBehaviour
 	// on click method
 	public void OnClickStoreOpen()
 	{
-		if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
+		if ( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
 		{
 			stageStateButton.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/StoreOn" );
 			manager.SetStoreOpenMode();
@@ -86,14 +86,14 @@ public class StageUI : MonoBehaviour
 
 	public void OnClickGoBack()
 	{
-		if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
+		if ( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
 		{			
 			ResetComponent();
 
 			// set items reset
 			stageManager.StagePreprocessReturn();
 		}
-		else if( manager.PresentMode == GameManager.GameMode.StoreOpen )
+		else if ( manager.PresentMode == GameManager.GameMode.StoreOpen )
 		{
 			// time short 
 			ResetComponent();
@@ -117,9 +117,11 @@ public class StageUI : MonoBehaviour
 		{
 			// set TimeBar
 			timeBarFill.fillAmount = stageManager.TimeFill;
+			if ( !timeBarFill.enabled )
+				timeBarFill.enabled = true;
 
 			// flash time bar fill
-			if( stageManager.FreeTime <= 10f )
+			if ( stageManager.FreeTime <= 10f )
 				timeBarFill.enabled = !timeBarFill.enabled;
 
 			yield return new WaitForSeconds( 0.1f );
