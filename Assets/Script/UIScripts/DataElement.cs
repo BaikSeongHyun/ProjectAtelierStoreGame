@@ -37,11 +37,23 @@ public class DataElement : MonoBehaviour
 	public void UpdateComponentElement()
 	{
 		// set image default
-		Debug.Log( "Update instance element : default" );
+		elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
 
 		// count off
 		count.enabled = false;
 	}
+
+	// update component element -> use item data
+	public void UpdateComponentElement( ItemData data )
+	{
+		count.enabled = false;
+
+		if( ( data == null ) || ( data.ID == 0 ) )
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
+		else
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/" + data.File );
+	}
+
 
 	// update component element -> use item instance
 	public void UpdateComponentElement( ItemInstance data )

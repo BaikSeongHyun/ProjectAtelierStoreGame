@@ -37,7 +37,7 @@
 		<widthX>2</widthX>
 		<widthZ>1</widthZ>
 		<level>1</level>
-		<materials>5.6.7</materials>
+		<materials>2.3.4.5.6.7</materials>
 	</object>
 	<object>
 		<type>1</type>
@@ -50,7 +50,7 @@
 		<widthX>2</widthX>
 		<widthZ>2</widthZ>
 		<level>2</level>
-		<materials>2.3.4.5.6.7</materials>
+		<materials>5.6.7</materials>
 	</object>
 	<object>
 		<type>1</type>

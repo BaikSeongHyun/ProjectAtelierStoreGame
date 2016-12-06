@@ -154,13 +154,10 @@ public class StageManager : MonoBehaviour
 		}
 
 		// set stage time
-		stageTime = 90f;
+		stageTime = 10f;
 
 		// set customer cycle 
 		customerCycle = 3f;
-
-		// reset stage ui
-		stageUI.ResetComponent();
 	}
 
 	// stage process
@@ -265,6 +262,7 @@ public class StageManager : MonoBehaviour
 		}
 		catch( NullReferenceException e )
 		{
+			Debug.Log( "물건이 없슴메 ㅠㅠ" );
 			return;
 		}
 
@@ -344,10 +342,7 @@ public class StageManager : MonoBehaviour
 	// coroutine section
 	// customger section -> use cycle / customer go to store
 	IEnumerator CustomerGoStore()
-	{
-		// set information
-		CreateGameInformation();
-
+	{		
 		// loop customer
 		while( manager.PresentMode == GameManager.GameMode.StoreOpen )
 		{

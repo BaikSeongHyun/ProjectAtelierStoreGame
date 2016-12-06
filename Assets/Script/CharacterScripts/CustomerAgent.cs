@@ -379,7 +379,7 @@ public class CustomerAgent : AIAgent
 	}
 
 	// return calculate buy scale
-	public static float BuyScaleSetFloatType( CustomerAgent.BuyScale scale )
+	public static float BuyScaleSetFloatType( BuyScale scale )
 	{
 		float result = 1f;
 
@@ -406,5 +406,27 @@ public class CustomerAgent : AIAgent
 		}
 
 		return result;
+	}
+
+	// return buy scale string
+	public static string ReturnBuyScaleString( BuyScale scale )
+	{	
+		switch( scale )
+		{
+			case BuyScale.Smaller:
+				return "많이 싸게";
+			case BuyScale.Small:
+				return "조금 싸게";
+			case BuyScale.Standard:
+				return "평범하게";
+			case BuyScale.Large:
+				return "조금 비싸게";
+			case BuyScale.Larger:
+				return "대박! 비싸게";
+			case BuyScale.Default:
+				return "안사요";
+		}
+
+		return null;
 	}
 }

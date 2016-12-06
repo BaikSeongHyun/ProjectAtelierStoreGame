@@ -127,9 +127,10 @@ public class KakaoAgent : AIAgent
 	{
 		presentSequence = Sequence.GoToOffice;
 		moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ];
+
 		// ui on!
-
-
+		mainUI.ChatSceneUI.SetActive( true );
+		mainUI.ChatSceneUILogic.SetKakaoInformation();
 	}
 
 

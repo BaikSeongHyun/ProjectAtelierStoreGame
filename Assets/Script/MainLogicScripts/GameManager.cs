@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
 	public void SetStoreOpenPreprocessMode()
 	{
 		presentGameMode = GameMode.StoreOpenPreprocess;
+		stageManager.CreateGameInformation();
 		stageManager.ActivateKakao();
 		SetUI();
 	}

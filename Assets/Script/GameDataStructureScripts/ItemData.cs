@@ -20,23 +20,27 @@ public class ItemData
 	// property
 	public int ID { get { return id; } }
 
-    public string Name { get { return name; } }
+	public string Name { get { return name; } }
 
-    public string File { get { return file; } }
+	public string File { get { return file; } }
+
+	public int CountLimit { get { return countLimit; } }
+
+	public string Guide { get { return guide; } }
+
+	public int Step { get { return step; } }
 
 	public ItemType Type { get { return itemType; } }
 
 	public int Price { get { return price; } }
 
-	public int CountLimit { get { return countLimit; } }
-
 	public int[] ResourceIDSet { get { return resourceIDSet; } }
 
-    public int[] ResourceCountSet { get { return resourceCountSet; } }
+	public int[] ResourceCountSet { get { return resourceCountSet; } }
 
-    // enum data
+	// enum data
 
-    public enum GradeType : int
+	public enum GradeType : int
 	{
 		Default = 0,
 		common = 1,
@@ -73,23 +77,23 @@ public class ItemData
 		step = 0;
 	}
 
-    // constructor - all parameter
-    // use xml data format
+	// constructor - all parameter
+	// use xml data format
 
-    public ItemData(int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step)
-    {
-        itemType = ReturnType(_itemType);
-        id = _id;
-        file = _file;
-        name = _name;
-        price = _price;
-        countLimit = _countLimit;
-        guide = _guide;
-        gradeType = ReturnGradeType(_gradeType);
-        step = _step;
-    }
+	public ItemData( int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step )
+	{
+		itemType = ReturnType( _itemType );
+		id = _id;
+		file = _file;
+		name = _name;
+		price = _price;
+		countLimit = _countLimit;
+		guide = _guide;
+		gradeType = ReturnGradeType( _gradeType );
+		step = _step;
+	}
 
-    public ItemData( int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step, ref int[] _resourceIDSet, ref int[] _resourceCountSet )
+	public ItemData( int _itemType, int _id, string _file, string _name, int _price, int _countLimit, string _guide, int _gradeType, int _step, ref int[] _resourceIDSet, ref int[] _resourceCountSet )
 	{
 		itemType = ReturnType( _itemType );
 		id = _id;
@@ -137,27 +141,48 @@ public class ItemData
 		switch( _itemType )
 		{
 			case 1:
-				item = ItemData.ItemType.FoundationMaterial;
+				item = ItemType.FoundationMaterial;
 				break;
 			case 2:
-				item = ItemData.ItemType.Potion;
+				item = ItemType.Potion;
 				break;
 			case 3:
-				item = ItemData.ItemType.MagicHerb;
+				item = ItemType.MagicHerb;
 				break;
 			case 4:
-				item = ItemData.ItemType.MagicPowder;
+				item = ItemType.MagicPowder;
 				break;
 			case 5:
-				item = ItemData.ItemType.Scroll;
+				item = ItemType.Scroll;
 				break;
 			case 6:
-				item = ItemData.ItemType.Staff;
+				item = ItemType.Staff;
 				break;
 			case 7:
-				item = ItemData.ItemType.MagicBook;
+				item = ItemType.MagicBook;
 				break;
 		}
 		return item;
+	}
+
+	public static string ReturnTypeString( ItemType type )
+	{
+		switch( type )
+		{
+			case ItemType.Potion:
+				return "포션";
+			case ItemType.MagicHerb:
+				return "허브";
+			case ItemType.MagicPowder:
+				return "마법가루";
+			case ItemType.Scroll:
+				return "스크롤";
+			case ItemType.Staff:
+				return "스태프";
+			case ItemType.MagicBook:
+				return "마법책";		
+		}
+
+		return null;
 	}
 }

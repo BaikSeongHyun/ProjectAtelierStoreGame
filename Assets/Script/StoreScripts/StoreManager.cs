@@ -28,11 +28,19 @@ public class StoreManager : MonoBehaviour
 	[SerializeField] List<FurnitureObject> furnitureObjectSet;
 	[SerializeField] int presentViewStorageIndex;
 
-	// customzing data field
+	// customize & store policy data field
 	[SerializeField] Ray ray;
 	[SerializeField] RaycastHit hitInfo;
-	[SerializeField] FurnitureObject presentAllocateObject;
+	[SerializeField] FurnitureObject presentSelectedObject;
 
+	// create data field
+	[SerializeField] List<ItemData> viewItemGroup;
+	[SerializeField] ItemData selectedItem;
+	[SerializeField] List<ItemInstance> resourceItem;
+	[SerializeField] int createCount;
+	[SerializeField] int createLimitCount;
+	[SerializeField] int presentIndex;
+	[SerializeField] bool itemCreate;
 
 	// property
 	public bool CreateComplete { get { return createComplete; } }
@@ -45,7 +53,21 @@ public class StoreManager : MonoBehaviour
 
 	public bool IsCustomizing { get { return isCustomzing; } set { reticleLine.SetActive( isCustomzing = value ); } }
 
-	public FurnitureObject PresentAllocateObject { get { return presentAllocateObject; } }
+	public FurnitureObject PresentSelectedObject { get { return presentSelectedObject; } }
+
+	public int PresentCreateListIndex { get { return presentIndex; } set { presentIndex = value; } }
+
+	public List<ItemData> ViewItemGroup { get { return viewItemGroup; } }
+
+	public ItemData SelectedItem { get { return selectedItem; } }
+
+	public List<ItemInstance> ResourceItem { get { return resourceItem; } }
+
+	public int CreateCount { get { return createCount; } }
+
+	public int CreateLimitCount { get { return createLimitCount; } }
+
+	public bool ItemCreate { get { return itemCreate; } }
 
 	// unity method
 	void Awake()
@@ -74,6 +96,7 @@ public class StoreManager : MonoBehaviour
 		}
 	}
 
+	// data & component link
 	public void LinkComponentElement()
 	{
 		manager = GetComponent<GameManager>();
@@ -86,7 +109,7 @@ public class StoreManager : MonoBehaviour
 		storeBackground = GameObject.FindWithTag( "StoreBackground" ).gameObject;
 	}
 
-
+	// create & destroy store section
 	// destroy all store object
 	public void ClearStoreObject()
 	{
@@ -117,8 +140,6 @@ public class StoreManager : MonoBehaviour
 	// create item
 	public void StorePolicy()
 	{
-		if( !mainUI.CustomizeUI.activeSelf )
-			return;
 		// ray cast set furniture target
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 			
@@ -129,41 +150,47 @@ public class StoreManager : MonoBehaviour
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
 				GameObject tempSearch = hitInfo.collider.gameObject;
-				presentAllocateObject = tempSearch.GetComponent<FurnitureObject>();
+				presentSelectedObject = tempSearch.GetComponent<FurnitureObject>();
 				
-				if( presentAllocateObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
+				if( presentSelectedObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
 				{					
-					mainUI.ActivateMixUI();
+					PullCreateItemData();
+					mainUI.CreateUI.SetActive( true );
+					mainUI.CreateUILogic.SetComponentElement();
 				}
 			}
 		}
 	}
 
+	// custimize section
 	// customzing store object
 	public void CustomzingFurnitureObject()
 	{
+		if( !mainUI.CustomizeUI.activeSelf )
+			return;
+
 		// reload ray
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
 		// clear furniture object -> when mouse button right click
-		if( Input.GetButtonDown( "LeftClick" ) && ( presentAllocateObject != null ) )
+		if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject != null ) )
 		{
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{				
-				if( hitInfo.collider.gameObject.GetComponent<FurnitureObject>() == presentAllocateObject )
+				if( hitInfo.collider.gameObject.GetComponent<FurnitureObject>() == presentSelectedObject )
 					ConfirmMoveFurnitureObject();
 			}
 		}
 		// set up furniture object => when mouse button right click
-		else if( Input.GetButtonDown( "LeftClick" ) && ( presentAllocateObject == null ) )
+		else if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject == null ) )
 		{
 			// cast & check furniture object -> if exist -> set present object
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
 				// object allocate mode -> move mode
 				GameObject tempSearch = hitInfo.collider.gameObject;
-				presentAllocateObject = tempSearch.GetComponent<FurnitureObject>();
-				presentAllocateObject.AllocateMode = true;
+				presentSelectedObject = tempSearch.GetComponent<FurnitureObject>();
+				presentSelectedObject.AllocateMode = true;
 			}
 		}/*
 		// present object is fleid move object -> cast store field 
@@ -202,7 +229,7 @@ public class StoreManager : MonoBehaviour
 	// allocate start
 	public void AllocateStartFurnitureInstance( int index, int presentStepIndex )
 	{
-		if( presentAllocateObject != null )
+		if( presentSelectedObject != null )
 			return;
 
 		if( manager.GamePlayer.AllocateFurnitureInstance( index, presentStepIndex ) )
@@ -211,39 +238,39 @@ public class StoreManager : MonoBehaviour
 			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count - 1 ].Furniture.File ), 
 			                                              new Vector3( planeScale / 2f, 0f, planeScale / 2f ), 
 			                                              Quaternion.identity );
-			presentAllocateObject = temp.GetComponent<FurnitureObject>();
-			presentAllocateObject.InstanceData = manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count - 1 ];
-			presentAllocateObject.LinkComponentElement();
-			presentAllocateObject.AllocateMode = true;	
-			presentAllocateObject.CheckAllocatePossible();
+			presentSelectedObject = temp.GetComponent<FurnitureObject>();
+			presentSelectedObject.InstanceData = manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count - 1 ];
+			presentSelectedObject.LinkComponentElement();
+			presentSelectedObject.AllocateMode = true;	
+			presentSelectedObject.CheckAllocatePossible();
 
 			// link player data & object
-			manager.GamePlayer.AllocateFurnitureObjectSet.Add( presentAllocateObject );
+			manager.GamePlayer.AllocateFurnitureObjectSet.Add( presentSelectedObject );
 		}
 	}
 
 	// confirm allocate object
 	public void ConfirmMoveFurnitureObject()
 	{
-		presentAllocateObject.CheckAllocatePossible();
+		presentSelectedObject.CheckAllocatePossible();
 
 		// allocate possible
-		if( presentAllocateObject.AllocatePossible )
+		if( presentSelectedObject.AllocatePossible )
 		{
 			// set allocate mode false
-			presentAllocateObject.AllocateMode = false;
+			presentSelectedObject.AllocateMode = false;
 
 			// clear present object 
-			presentAllocateObject = null;
+			presentSelectedObject = null;
 		}
 	}
 
 	// cancel allocate object
 	public void CancelAllocateFurnitureObject()
 	{
-		if( manager.GamePlayer.AddFurnitureData( presentAllocateObject.InstanceData.Furniture.ID ) )
+		if( manager.GamePlayer.AddFurnitureData( presentSelectedObject.InstanceData.Furniture.ID ) )
 		{
-			manager.GamePlayer.DeleteAllocateFurniture( presentAllocateObject.InstanceData.SlotNumber );
+			manager.GamePlayer.DeleteAllocateFurniture( presentSelectedObject.InstanceData.SlotNumber );
 		}
 	}
 
@@ -266,7 +293,7 @@ public class StoreManager : MonoBehaviour
 				moveDirection = new Vector3( -0.5f, 0f, 0f );
 				break;
 		}
-		presentAllocateObject.ChangeObjectPosition( presentAllocateObject.transform.position + moveDirection );
+		presentSelectedObject.ChangeObjectPosition( presentSelectedObject.transform.position + moveDirection );
 	}
 
 	// allocate furniture object rotation set
@@ -276,14 +303,76 @@ public class StoreManager : MonoBehaviour
 		switch( direction )
 		{
 			case 1:
-				presentAllocateObject.ChangeObjectRotation( "Left" );
+				presentSelectedObject.ChangeObjectRotation( "Left" );
 				break;
 			case 2:
-				presentAllocateObject.ChangeObjectRotation( "Right" );
+				presentSelectedObject.ChangeObjectRotation( "Right" );
 				break;
 			case 3:
-				presentAllocateObject.ChangeObjectRotation( "Reset" );
+				presentSelectedObject.ChangeObjectRotation( "Reset" );
 				break;
+		}
+	}
+
+	// create section
+	// pull data & step
+	public void PullCreateItemData()
+	{
+		viewItemGroup = new List<ItemData>( );
+		for( int i = 0; i < DataManager.SearchItemList.Count; i++ )
+		{
+			if( DataManager.SearchItemList[ i ].Step <= presentSelectedObject.InstanceData.Furniture.Step )
+			{
+				for( int j = 0; j < presentSelectedObject.InstanceData.Furniture.CreateItemGroupSet.Length; j++ )
+				{
+					if( presentSelectedObject.InstanceData.Furniture.CreateItemGroupSet[ j ] == ( int ) DataManager.SearchItemList[ i ].Type )
+						viewItemGroup.Add( DataManager.SearchItemList[ i ] );
+				}
+			}
+		}
+		presentIndex = 0;
+	}
+
+	// select item
+	public void SelectCreateItem( int index )
+	{
+		resourceItem = new List<ItemInstance>( );
+		// select item
+		selectedItem = viewItemGroup[ index + ( presentIndex * mainUI.CreateUILogic.ListSlotLength ) ];
+
+		// check items ( gp pull item )
+		for( int i = 0; i < manager.GamePlayer.ItemSet.Length; i++ )
+		{
+			for( int j = 0; j < selectedItem.ResourceIDSet.Length; j++ )
+			{
+				if( manager.GamePlayer.ItemSet[ i ].Item.ID == selectedItem.ResourceIDSet[ j ] )
+				{
+					resourceItem.Add( manager.GamePlayer.ItemSet[ i ] );
+				}
+			}
+		}
+
+		createLimitCount = 999;
+
+		// set create count
+		for( int i = 0; i < selectedItem.ResourceIDSet.Length; i++ )
+		{
+			try
+			{
+				for( int j = 0; j < resourceItem.Count; j++ )
+				{
+					if( resourceItem[ j ].Item.ID == selectedItem.ResourceIDSet[ i ] )
+					{
+						if( ( int ) ( resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ] ) < createLimitCount )
+							createLimitCount = ( int ) ( resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ] );
+					}
+				}
+			}
+			catch( NullReferenceException e )
+			{
+				createCount = 0;
+				createLimitCount = 0;
+			}
 		}
 	}
 

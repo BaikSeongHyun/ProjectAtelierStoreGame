@@ -18,8 +18,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject storeCustomizingSet;
 	[SerializeField] CustomizeUI storeCustomizingSetLogic;
 
-	[SerializeField] GameObject mixUI;
-	[SerializeField] MixUI mixUILogic;
+	[SerializeField] GameObject createUI;
+	[SerializeField] CreateUI createUILogic;
 
 	[SerializeField] GameObject sellItemSettingUI;
 	[SerializeField] SellItemSettingUI sellItemSettingUILogic;
@@ -36,15 +36,25 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject resultRewardUI;
 	[SerializeField] ResultRewardUI resultRewardUILogic;
 
-	[SerializeField] GameObject chatScene;
+	[SerializeField] GameObject chatSceneUI;
+	[SerializeField] ChatSceneUI chatSceneUILogic;
 
 	[SerializeField] GameObject loadingScene;
+
 	[SerializeField] Text testField;
 
 	// property
 	public GameObject StorageUI { get { return storageUI; } }
 
 	public GameObject CustomizeUI { get { return storeCustomizingSet; } }
+
+	public GameObject CreateUI { get { return createUI; } }
+
+	public CreateUI CreateUILogic { get { return createUILogic; } }
+
+	public GameObject ChatSceneUI { get { return chatSceneUI; } }
+
+	public ChatSceneUI ChatSceneUILogic { get { return chatSceneUILogic; } }
 
 	// unity method
 	// awake
@@ -72,8 +82,8 @@ public class UIManager : MonoBehaviour
 		storeCustomizingSetLogic = storeCustomizingSet.GetComponent<CustomizeUI>();
 		storeCustomizingSetLogic.LinkComponentElement();
 
-		mixUI = transform.Find( "MixUI" ).gameObject;
-		mixUILogic = mixUI.GetComponent<MixUI>();
+		createUI = transform.Find( "CreateUI" ).gameObject;
+		createUILogic = createUI.GetComponent<CreateUI>();
 
 		sellItemSettingUI = transform.Find( "SellItemSettingUI" ).gameObject;
 		sellItemSettingUILogic = sellItemSettingUI.GetComponent<SellItemSettingUI>();
@@ -91,7 +101,8 @@ public class UIManager : MonoBehaviour
 		resultUI = transform.Find( "ResultUI" ).gameObject;
 		resultUILogic = resultUI.GetComponent<ResultUI>();
 
-		chatScene = transform.Find( "ChatScene" ).gameObject;
+		chatSceneUI = transform.Find( "ChatScene" ).gameObject;
+		chatSceneUILogic = chatSceneUI.GetComponent<ChatSceneUI>();
 
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
 	}
@@ -111,10 +122,7 @@ public class UIManager : MonoBehaviour
 
 		if( furnitureMarket.activeSelf )
 			furnitureMarketUI.UpdateComponentElement();
-
-		if( mixUI.activeSelf )
-			mixUILogic.CurrentCountManager();
-
+		
 		if( storageUI.activeSelf )
 			storageUILogic.UpdateComponentElement();
 
@@ -143,8 +151,9 @@ public class UIManager : MonoBehaviour
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
 				resultUI.SetActive( false );
-				chatScene.SetActive( false );
+				chatSceneUI.SetActive( false );
 				resultRewardUI.SetActive( false );
+				createUI.SetActive( false );
 				loadingScene.SetActive( true );
 				break;
 			case GameManager.GameMode.Loading:
@@ -179,7 +188,6 @@ public class UIManager : MonoBehaviour
 				resultRewardUI.SetActive( false );
 				stageUI.SetActive( true );
 				stageUILogic.ResetComponent();
-				chatScene.SetActive( true );
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( false );
 				break;
@@ -218,13 +226,6 @@ public class UIManager : MonoBehaviour
 		sellItemSettingUI.SetActive( true );
 		sellItemSettingUILogic.InitializeElement();
 		storageUI.SetActive( true );
-	}
-
-	// set mix ui activate
-	public void ActivateMixUI()
-	{
-		mixUI.SetActive( true );
-		mixUILogic.MixViewButton();
 	}
 
 	// set result reward ui

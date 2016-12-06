@@ -9,15 +9,21 @@ public class DataManager : MonoBehaviour
 	// field - for check load
 	[SerializeField] static bool playerDataLoading;
 
-	// field - for data
+	// field - data maps
 	[SerializeField] static PlayerData playerData;
-	[SerializeField] static List<StageResultData> stageResultSet;
+	[SerializeField] static List<StageResultData> tempDataSet;
+	[SerializeField] static Dictionary<int , List<StageResultData>> stageResultSet;
 	[SerializeField] static Dictionary<int, FurnitureData> furnitureSet;
 	[SerializeField] static Dictionary<int, ItemData> itemSet;
 	[SerializeField] static Dictionary<int, FieldData> fieldDataSet;
 
+	// field - refine data
+	[SerializeField] static List<ItemData> searchItemList;
+
 	// property
 	public bool PlayerDataLoading { get { return playerDataLoading; } }
+
+	public static List<ItemData> SearchItemList { get { return searchItemList; } }
 
 	// unity method
 	// awake
@@ -29,6 +35,7 @@ public class DataManager : MonoBehaviour
 		LoadFieldData();
 		LoadPlayerData();
 		LoadStageResultData();
+		playerDataLoading = true;
 	}
 
 	void OnApplicationQuit()
@@ -207,9 +214,8 @@ public class DataManager : MonoBehaviour
 					Debug.Log( e.Message );
 				}
 			}
-		}
-
-		playerDataLoading = true;
+		}	
+		searchItemList = new List<ItemData>( itemSet.Values );
 	}
 
 	// field data load
@@ -255,8 +261,8 @@ public class DataManager : MonoBehaviour
 	// stage result data
 	public static void LoadStageResultData()
 	{
-		stageResultSet = new List<StageResultData>( );
-
+		tempDataSet = new List<StageResultData>( );
+		stageResultSet = new Dictionary<int, List<StageResultData>>( );
 		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/StageResultData" );
 		XmlDocument document = new XmlDocument( );
 		document.LoadXml( loadData.text );
@@ -281,17 +287,21 @@ public class DataManager : MonoBehaviour
 
 				try
 				{
-					stageResultSet.Add( new StageResultData( step, rank, rewardExp, rewardGold, rewardTouchCount, rankProfitMoney, rankProfitCount ) );
+					tempDataSet.Add( new StageResultData( step, rank, rewardExp, rewardGold, rewardTouchCount, rankProfitMoney, rankProfitCount ) );
+
+					if( rank == 4 )
+					{
+						stageResultSet.Add( step, tempDataSet );
+						tempDataSet = new List<StageResultData>( );
+					}
 				}
 				catch( Exception e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
 				}
-			}
+			}		
 		}
-
-
 	}
 
 	// player data load -> use player pref
@@ -539,20 +549,17 @@ public class DataManager : MonoBehaviour
 	}
 
 	// find result use profit
-
 	public static StageResultData ReturnStageResultData( int step, int profitCount, int profitMoney )
 	{
-		StageResultData tempData = new StageResultData( step, 1, 0, 0, 0, profitMoney, profitCount );
-		for( int i = 0; i < stageResultSet.Count; i++ )
+		List<StageResultData> tempSet = stageResultSet[ step ];
+
+		for( int i = 0; i < tempSet.Count; i++ )
 		{
-			if( ( stageResultSet[ i ].Step == step ) && ( tempData.RankProfitMoney >= stageResultSet[ i ].RankProfitMoney ) && ( tempData.RankProfitCount >= stageResultSet[ i ].RankProfitCount ) )
-			{
-				tempData = stageResultSet[ i ];
-			}
+			if( ( tempSet[ i ].RankProfitCount <= profitCount ) && ( tempSet[ i ].RankProfitMoney <= profitMoney ) )
+				return tempSet[ i ];
 		}
 
-		Debug.Log( tempData.Rank );
-		return tempData;
+		return tempSet[ tempSet.Count - 1 ];
 	}
 
 	// check player data loading

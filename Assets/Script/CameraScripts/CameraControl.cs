@@ -10,11 +10,8 @@ public class CameraControl : MonoBehaviour
 	[SerializeField] Camera viewCamera;
 
 	// field
-
-	Vector2?[] oldTouchPositions = {
-		null,
-		null
-	};
+	[SerializeField] float sensitive;
+	Vector2?[] oldTouchPositions = { null, null };
 	Vector2 oldTouchVector;
 	float oldTouchDistance;
 
@@ -25,6 +22,7 @@ public class CameraControl : MonoBehaviour
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		viewCamera = GetComponent<Camera>();
+		sensitive = 0.001f;
 	}
 
 	// public method
@@ -34,8 +32,8 @@ public class CameraControl : MonoBehaviour
 		// set up position & rotation
 		if( state != GameManager.GameMode.StoreCustomizing )
 		{
-			transform.position = new Vector3( 20f, 16f, 20f );
-			transform.localRotation = Quaternion.Euler( 40, 225, 0 );
+			transform.position = new Vector3( 32f, 24f, 32f );
+			transform.localRotation = Quaternion.Euler( 30, 225, 0 );
 		}
 		else
 		{
@@ -79,24 +77,17 @@ public class CameraControl : MonoBehaviour
 			}
 			else
 			{
-				Vector2 screen = new Vector2( GetComponent<Camera>().pixelWidth, GetComponent<Camera>().pixelHeight );
+				Touch touchZero = Input.GetTouch( 0 );
+				Touch touchOne = Input.GetTouch( 1 );
 
-				Vector2[] newTouchPositions = {
-					Input.GetTouch( 0 ).position,
-					Input.GetTouch( 1 ).position
-				};
-				Vector2 newTouchVector = newTouchPositions[ 0 ] - newTouchPositions[ 1 ];
-				float newTouchDistance = newTouchVector.magnitude;
+				Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+				Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+				float prevTouchDeltaMag = ( touchZeroPrevPos - touchOnePrevPos ).magnitude;
+				float touchDeltaMag = ( touchZero.position - touchOne.position ).magnitude;
 
-				transform.position += transform.TransformDirection( ( Vector3 ) ( ( oldTouchPositions[ 0 ] + oldTouchPositions[ 1 ] - screen ) * GetComponent<Camera>().orthographicSize / screen.y ) );
-				transform.localRotation *= Quaternion.Euler( new Vector3( 0, 0, Mathf.Asin( Mathf.Clamp( ( oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y ) / oldTouchDistance / newTouchDistance, -1f, 1f ) ) / 0.0174532924f ) );
-				GetComponent<Camera>().orthographicSize *= oldTouchDistance / newTouchDistance;
-				transform.position -= transform.TransformDirection( ( newTouchPositions[ 0 ] + newTouchPositions[ 1 ] - screen ) * GetComponent<Camera>().orthographicSize / screen.y );
+				float deltaMagnitureDiff = prevTouchDeltaMag - touchDeltaMag;
 
-				oldTouchPositions[ 0 ] = newTouchPositions[ 0 ];
-				oldTouchPositions[ 1 ] = newTouchPositions[ 1 ];
-				oldTouchVector = newTouchVector;
-				oldTouchDistance = newTouchDistance;
+				transform.position -= ( transform.position * deltaMagnitureDiff * -sensitive );
 			}
 		}
 	}
