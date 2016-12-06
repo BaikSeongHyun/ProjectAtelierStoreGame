@@ -35,6 +35,7 @@ public class mixSelected : MonoBehaviour
     {
         ui.productionItem.sprite = Resources.Load<Sprite>("Image/UI/ItemIcon/" + info.File) as Sprite;
         ui.productionName.text = info.Name;
+        ui.currentCount = 0;
         if (ui.matIsOneAmount.activeSelf)
         {
             ui.matIsOneAmount.SetActive(false);

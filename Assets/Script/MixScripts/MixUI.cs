@@ -97,6 +97,18 @@ public class MixUI : MonoBehaviour
 		matISThreeAmount.SetActive( false );
 	}
 
+    void Update()
+    {
+        if (currentCount != 0)
+        {
+            composeImage.sprite = Resources.Load<Sprite>("Image/UI/Mix/composeTrue") as Sprite;
+        }
+        else
+        {
+            composeImage.sprite = Resources.Load<Sprite>("Image/UI/Mix/composeFalse") as Sprite;
+        }
+    }
+
 	public void MixViewButton()
 	{
 		if( !mixView.activeSelf )
@@ -112,13 +124,8 @@ public class MixUI : MonoBehaviour
 		{
 			mixView.SetActive( false );
 
-			matIsOneAmount.SetActive( false );
-			matIsTwoAmount.SetActive( false );
-			matISThreeAmount.SetActive( false );
-
-			productionItem.sprite = Resources.Load<Sprite>( "Image/UI/Mix/none" ) as Sprite;
-			productionName.text = "";
-		}
+            valueInitialization();
+        }
 	}
 
 	public void ComposeButton()
@@ -187,7 +194,31 @@ public class MixUI : MonoBehaviour
 		}
 	}
 
-	void ItemSetCheck( int num )
+    void valueInitialization()
+    {
+        currentCount = 0;
+        fabricableCount = 0;
+        makeText.text = currentCount.ToString();
+        countText.text = "  /  " + fabricableCount.ToString();
+
+        productionItem.sprite = Resources.Load<Sprite>("Image/UI/ItemIcon/none") as Sprite;
+        productionName.text = "";
+
+        if (matIsOneAmount.activeSelf)
+        {
+            matIsOneAmount.SetActive(false);
+        }
+        else if (matIsTwoAmount.activeSelf)
+        {
+            matIsTwoAmount.SetActive(false);
+        }
+        else if (matISThreeAmount.activeSelf)
+        {
+            matISThreeAmount.SetActive(false);
+        }
+    }
+
+    void ItemSetCheck( int num )
 	{
 		for( int z = 0; z < currentCount; z++ )
 		{
