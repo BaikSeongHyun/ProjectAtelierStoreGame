@@ -113,7 +113,6 @@ public class FieldManager : MonoBehaviour
 
             if (target != null)
             {
-                Debug.Log(target.name);
                 if (target.name == "CloudCanvas")
                 {
                     tempItemData = target.GetComponent<ObjectOnField>();
@@ -124,10 +123,7 @@ public class FieldManager : MonoBehaviour
                     Destroy(destroyBody);
                 }
             }
-            else
-            {
-                Debug.Log("none");
-            }
+
         }
 
         if (currentObjectNumber < maxObject)
