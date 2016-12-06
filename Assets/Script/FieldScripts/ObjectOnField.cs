@@ -4,93 +4,42 @@ using System.Collections;
 
 public class ObjectOnField : MonoBehaviour
 {
-
-	[SerializeField] PlayerOnField player;
-	[SerializeField] SendData sendData;
-	public ObjectDataBuffer databf;
-
-	public Renderer rend;
-	public bool objectOnMouse = false;
-	public bool getObject = false;
-	public Color myColor;
+    //상위
+    public GameObject body;
 
 	//Item List 에서 갖고있는 아이템이름
-
 	public int id;
-
 	public int count;
 	public int min, max;
+	public float time ;
 
-	public float cooltime;
+    public GameObject cloud;
+    public int position = 0 ;
+
 
 	void Start()
 	{
-		player = GameObject.Find( "Player" ).GetComponent<PlayerOnField>();
-		databf = GameObject.Find( "ObjectManager" ).GetComponent<ObjectDataBuffer>();
-		sendData = GameObject.Find( "Data" ).GetComponent<SendData>();
-
-		rend = GetComponent<Renderer>();
-		myColor = rend.material.color;
-
 		count = Random.Range( min, max );
-	}
+        time = Random.Range(3f, 10f);
+
+        cloud = transform.Find("cloud").gameObject;
+        cloud.SetActive(false);
+
+
+
+        StartCoroutine("CollectTime");
+    }
 
 	void Update()
 	{
-		GetMaterials();
-	}
 
-	void OnMouseEnter()
-	{
-		if( rend.material.color != null )
-		{
-			rend.material.color = Color.gray;
-			objectOnMouse = true;
-		}
-	}
+        transform.forward = -Camera.main.transform.forward;
+    }
 
-	void OnMouseExit()
-	{
-		rend.material.color = myColor;
-		objectOnMouse = false;
-	}
 
-	void GetMaterials()
-	{
-		if( objectOnMouse )
-		{
-			if( Input.GetMouseButtonDown( 0 ) )
-			{
-				Debug.Log( this.name + " 오브젝트를 클릭했다." );
-				getObject = true;
-			}
-		}
-
-		if( getObject )
-		{
-			if( player.frontOfObject )
-			{
-				Debug.Log( "플레이어가 물체앞" );
-				StartCoroutine( "StartAction" );
-				getObject = false;
-				player.frontOfObject = false;
-			}
-		}
-	}
-
-	public IEnumerator StartAction()
-	{
-		Debug.Log( "재료수집 쿨타임 " + cooltime );
-		databf.receiveData = true;
-		databf.cooltime = cooltime;
-
-		yield return new WaitForSeconds( cooltime );
-		Debug.Log( "재료수집성공" );
-
-		sendData.data.Add( DataManager.FindItemDataByID( id ) );
-		sendData.count.Add( count );
-
-		ObjectRegeneration.curObjects--;
-		Destroy( this.gameObject );
-	}
+    IEnumerator CollectTime()
+    {
+        yield return new WaitForSeconds(time);
+        cloud.SetActive(true);
+    }
 }
