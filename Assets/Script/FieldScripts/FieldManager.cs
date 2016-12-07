@@ -6,10 +6,6 @@ using System;
 
 public class FieldManager : MonoBehaviour
 {
-	// high structure
-	[SerializeField] GameManager manager;
-    [SerializeField] PlayerData player;
-
     // logic data field
     GameObject target; //clicked object
     int layerMask; 
@@ -29,7 +25,7 @@ public class FieldManager : MonoBehaviour
 
     public Vector3 position;
 
-    public static int currentObjectNumber;
+    public int currentObjectNumber;
     private int maxObject;
     private bool objectLoad = false;
 
@@ -37,7 +33,7 @@ public class FieldManager : MonoBehaviour
 
     // temporary storage of prefab data
     GameObject destroyBody;
-    ObjectOnField tempItemData;
+    ObjectOnField ClickItemData;
 
     // now step
     public enum PresentState : int
@@ -68,9 +64,6 @@ public class FieldManager : MonoBehaviour
 
     public void LinkComponentElement()
     {
-        manager = GetComponent<GameManager>();
-        player = manager.GamePlayer;
-
         objects = new GameObject[4];
         objects[0] = Resources.Load("Prefabs/Field/bushPurple") as GameObject;
         objects[1] = Resources.Load("Prefabs/Field/bushYellow") as GameObject;
@@ -115,12 +108,7 @@ public class FieldManager : MonoBehaviour
             {
                 if (target.name == "CloudCanvas")
                 {
-                    tempItemData = target.GetComponent<ObjectOnField>();
-                    destroyBody = tempItemData.body;
-                    player.AddItemData(tempItemData.id, tempItemData.count);
-                    stepLocation[tempItemData.position] = false;
-                    currentObjectNumber--;
-                    Destroy(destroyBody);
+                    target.GetComponent<ObjectOnField>().CloudCooltime();
                 }
             }
 
