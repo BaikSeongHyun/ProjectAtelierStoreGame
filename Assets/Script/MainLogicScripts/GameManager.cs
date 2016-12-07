@@ -149,6 +149,25 @@ public class GameManager : MonoBehaviour
 		cameraControl.SetCameraDefault( presentGameMode );
 	}
 
+	// recreate store object -> data clear & create
+	public void RecreateStoreField()
+	{
+		// step up
+		player.StoreData.RankUp();
+
+		// save game data
+		DataManager.SavePlayerData();
+
+		// mode to loading
+		DataInitailize();
+
+		// data clear
+		storeManager.ClearStoreObject();
+
+		// create store object
+		GameStart();
+	}
+
 	// set field mode
 	public void SetFieldMode()
 	{
@@ -176,6 +195,10 @@ public class GameManager : MonoBehaviour
 	public void SetStoreStageEnd()
 	{
 		presentGameMode = GameMode.StageResult;
+
+		player.Gold += stageManager.ResultData.RewardGold;
+		player.StoreData.AddExperience( stageManager.ResultData.RewardExp );
+
 		SetUI();
 
 		stageManager.SetItemsReset();
@@ -202,6 +225,11 @@ public class GameManager : MonoBehaviour
 	// game start loading Process
 	IEnumerator GameStartLoadingProcess()
 	{
+		// load game data
+		DataManager.LoadPlayerData();
+
+		yield return new WaitForSeconds( 2f );
+
 		player = DataManager.GetPlayerData();
 
 		// start store create

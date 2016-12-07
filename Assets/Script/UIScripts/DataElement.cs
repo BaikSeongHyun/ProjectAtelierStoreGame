@@ -88,6 +88,30 @@ public class DataElement : MonoBehaviour
 		}
 	}
 
+	// update component element -> use resource item instance
+	public void UpdateComponentElement( ItemInstance data, int resourceCount )
+	{
+		// set default
+
+		if( ( data.Item == null ) || ( data.Item.ID == 0 ) )
+		{
+			// set image default
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
+
+			// count off
+			count.enabled = false;
+		}
+		else
+		{
+			// set image use icon
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/" + data.Item.File );
+
+			// count on -> renew count
+			count.enabled = true;
+			count.text = data.Count.ToString() + " / " + resourceCount.ToString();
+		}
+	}
+
 	// update component element -> use furniture instance
 	public void UpdateComponentElement( FurnitureInstance data )
 	{

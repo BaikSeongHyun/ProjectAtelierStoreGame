@@ -15,6 +15,7 @@ public class StoreUI : MonoBehaviour
 	[SerializeField] Text nameText;
 	[SerializeField] Text storeStepText;
 	[SerializeField] Image charHead;
+	[SerializeField] GameObject stepUpButton;
 
 	// - object set -> child ui object
 	[SerializeField] GameObject questUI;
@@ -38,6 +39,7 @@ public class StoreUI : MonoBehaviour
 
 		// object element
 		questUI = transform.Find( "QuestUI" ).gameObject;
+		stepUpButton = transform.Find( "StepUpButton" ).gameObject;
 
 		// object element off
 		ClearChildUI();
@@ -53,6 +55,8 @@ public class StoreUI : MonoBehaviour
 			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/BerryHead" );
 		else
 			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/ChouHead" );
+
+		stepUpButton.SetActive( manager.GamePlayer.StoreData.StepUpAlready );
 	}
 
 	// clear child ui
@@ -94,4 +98,10 @@ public class StoreUI : MonoBehaviour
 		questUI.SetActive( true );
 	}
 
+	// on click step up button
+	// recreate game field
+	public void OnClickStepUpButton()
+	{
+		manager.RecreateStoreField();
+	}
 }

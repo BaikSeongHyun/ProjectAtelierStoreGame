@@ -21,6 +21,10 @@ public class CreateUI : MonoBehaviour
 	[SerializeField] Text limitCreateCount;
 	[SerializeField] Image confirmButtonImage;
 
+	// low structure
+	[SerializeField] GameObject createResultUI;
+	[SerializeField] CreateResultUI createResultUILogic;
+
 	// field - logic data
 
 	// property
@@ -118,19 +122,19 @@ public class CreateUI : MonoBehaviour
 		}
 
 		if( singleResourceControl.activeSelf )
-			singleResourceSlot.UpdateComponentElement( storeManager.ResourceItem[ 0 ] );
+			singleResourceSlot.UpdateComponentElement( storeManager.ResourceItem[ 0 ], storeManager.SelectedItem.ResourceCountSet[ 0 ] );
 		if( doubleResourceControl.activeSelf )
 		{
 			for( int i = 0; i < doubleResourceSlots.Length; i++ )
 			{
-				doubleResourceSlots[ i ].UpdateComponentElement( storeManager.ResourceItem[ i ] );
+				doubleResourceSlots[ i ].UpdateComponentElement( storeManager.ResourceItem[ i ], storeManager.SelectedItem.ResourceCountSet[ i ] );
 			}
 		}
 		if( tripleResourceControl.activeSelf )
 		{
 			for( int i = 0; i < tripleResourceSlots.Length; i++ )
 			{
-				tripleResourceSlots[ i ].UpdateComponentElement( storeManager.ResourceItem[ i ] );
+				tripleResourceSlots[ i ].UpdateComponentElement( storeManager.ResourceItem[ i ], storeManager.SelectedItem.ResourceCountSet[ i ] );
 			}
 		}
 		
@@ -165,13 +169,19 @@ public class CreateUI : MonoBehaviour
 	// set create count
 	public void OnClickSetCreateCount( int increaseDirection )
 	{
+		storeManager.ControlCreateCount( increaseDirection );
 
+		SetComponentElement();
 	}
 
 	// create item
 	public void OnClickConfirmCreate()
 	{
-		
+		if( storeManager.ItemCreate )
+		{
+			storeManager.CreateItemConfirm();
+			SetComponentElement();
+		}
 	}
 
 	// close this ui

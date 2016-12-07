@@ -13,11 +13,6 @@ public class StoreManagerCustomInspector : Editor
 		DrawDefaultInspector();
 		StoreManager store = ( StoreManager ) target;
 
-		if( GUILayout.Button( "RecreateStoreData " ) )
-		{			
-			store.RecreateStoreObject();
-		}
-
 		if( !store.CreateComplete )
 			setNavMesh = false;
 

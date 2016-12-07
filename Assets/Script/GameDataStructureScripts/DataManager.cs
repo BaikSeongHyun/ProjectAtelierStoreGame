@@ -16,6 +16,7 @@ public class DataManager : MonoBehaviour
 	[SerializeField] static Dictionary<int, FurnitureData> furnitureSet;
 	[SerializeField] static Dictionary<int, ItemData> itemSet;
 	[SerializeField] static Dictionary<int, FieldData> fieldDataSet;
+	[SerializeField] static Dictionary<int, StoreData> storeDataSet;
 
 	// field - refine data
 	[SerializeField] static List<ItemData> searchItemList;
@@ -33,8 +34,8 @@ public class DataManager : MonoBehaviour
 		LoadFurnitureData();
 		LoadItemData();
 		LoadFieldData();
-		LoadPlayerData();
 		LoadStageResultData();
+		LoadStoreData();
 		playerDataLoading = true;
 	}
 
@@ -44,7 +45,6 @@ public class DataManager : MonoBehaviour
 	}
 
 	// public method
-
 	// furniture data load
 	public static void LoadFurnitureData()
 	{
@@ -304,6 +304,41 @@ public class DataManager : MonoBehaviour
 		}
 	}
 
+	// store data
+	public static void LoadStoreData()
+	{
+		storeDataSet = new Dictionary<int, StoreData>( );
+
+		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/StoreData" );
+		XmlDocument document = new XmlDocument( );
+		document.LoadXml( loadData.text );
+
+		XmlNodeList nodes = document.SelectNodes( "StoreData/Data" );
+
+
+		if( nodes == null )
+		{
+			Debug.Log( "Data is null : stage result data" );		
+		}
+		else
+		{
+			foreach( XmlNode node in nodes )
+			{
+				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
+				int requireExperiance = int.Parse( node.SelectSingleNode( "requireExperience" ).InnerText );
+				try
+				{
+					storeDataSet.Add( step, new StoreData( step, requireExperiance ) );
+				}
+				catch( Exception e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
+				}
+			}
+		}
+	}
+
 	// player data load -> use player pref
 	public static void LoadPlayerData()
 	{
@@ -327,12 +362,14 @@ public class DataManager : MonoBehaviour
 			playerData.Gold = PlayerPrefs.GetInt( "PlayerGold" );
 			playerData.Gem = PlayerPrefs.GetInt( "PlayerGem" );
 
+
+
 			// data load - data length
 			playerData.ItemSet = new ItemInstance[PlayerPrefs.GetInt( "ItemSetLength" )];
 			playerData.FurnitureSet = new FurnitureInstance[PlayerPrefs.GetInt( "FurnitureSetLength" )];
 
 			// data load - store data
-			playerData.StoreData = new StoreData( PlayerPrefs.GetInt( "StoreStep" ) );
+			playerData.StoreData = new StoreData( DataManager.FindStoreDataByStep( PlayerPrefs.GetInt( "StoreStep" ) ), PlayerPrefs.GetInt( "PresentExperience" ) );
 
 			// data load - have item set data
 			for( int i = 0; i < playerData.ItemSet.Length; i++ )
@@ -420,6 +457,7 @@ public class DataManager : MonoBehaviour
 
 		// save data setting - store data
 		PlayerPrefs.SetInt( "StoreStep", playerData.StoreData.StoreStep );
+		PlayerPrefs.SetInt( "PresentExperience", playerData.StoreData.PresentExperience );
 
 		// save data setting - have item set data
 		for( int i = 0; i < playerData.ItemSet.Length; i++ )
@@ -497,7 +535,7 @@ public class DataManager : MonoBehaviour
 		return _grade;
 	}
 
-	// find furnirue
+	// find furniture
 	public static FurnitureData FindFurnitureDataByID( int id )
 	{
 		try
@@ -560,6 +598,23 @@ public class DataManager : MonoBehaviour
 		}
 
 		return tempSet[ tempSet.Count - 1 ];
+	}
+
+	// find store data use step
+	public static StoreData FindStoreDataByStep( int step )
+	{
+		try
+		{
+			return DataManager.storeDataSet[ step ];
+		}
+		catch( KeyNotFoundException e )
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			DataManager.LoadStoreData();
+		}
+
+		return DataManager.storeDataSet[ step ];
 	}
 
 	// check player data loading

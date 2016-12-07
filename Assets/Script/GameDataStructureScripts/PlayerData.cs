@@ -15,8 +15,6 @@ public class PlayerData
 	[SerializeField] int charm;
 	[SerializeField] int gold;
 	[SerializeField] int gem;
-	[SerializeField] int presentExperience;
-	[SerializeField] int requireExperience;
 	[SerializeField] StoreData haveStoreData;
 	[SerializeField] ItemInstance[] haveItemSet;
 	[SerializeField] FurnitureInstance[] haveFurnitureSet;
@@ -141,7 +139,7 @@ public class PlayerData
 		// if item is exist
 		foreach( ItemInstance element in haveItemSet )
 		{
-			if( element.Item != null && element.Item.ID == id )
+			if( element != null && element.Item != null && element.Item.ID == id )
 			{
 				element.Count += itemCount;
 				return true;
@@ -176,7 +174,7 @@ public class PlayerData
 		charm = 0;
 		gold = 1000;
 		gem = 1000;
-		haveStoreData = new StoreData( );
+		haveStoreData = new StoreData( DataManager.FindStoreDataByStep( 1 ), 0 );
 		haveItemSet = new ItemInstance[60];
 		haveFurnitureSet = new FurnitureInstance[30];
 		allocateFurnitureSet = new List<FurnitureInstance>( );

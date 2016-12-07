@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<StoreData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Data>
+		<step>1</step>
+		<requireExperience>2000</requireExperience>
+	</Data>
+	<Data>
+		<step>2</step>
+		<requireExperience>6000</requireExperience>
+	</Data>
+	<Data>
+		<step>3</step>
+		<requireExperience>2000000</requireExperience>
+	</Data>
+</StoreData>

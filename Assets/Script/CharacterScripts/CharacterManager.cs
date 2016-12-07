@@ -33,4 +33,10 @@ public class CharacterManager : MonoBehaviour
 		                                              Quaternion.identity );
 		playerableCharacter = temp.GetComponent<PlayerAgent>();
 	}
+
+	// clear player agent
+	public void ClearPlayerAgent()
+	{
+		Destroy( playerableCharacter.gameObject );
+	}
 }

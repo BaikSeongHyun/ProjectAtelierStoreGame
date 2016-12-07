@@ -117,6 +117,7 @@ public class StoreManager : MonoBehaviour
 		// wall & nav field
 		Destroy( storeWall );
 		Destroy( storeNavField );
+		characterManager.ClearPlayerAgent();
 
 		// furniture object
 		foreach( FurnitureObject element in furnitureObjectSet )
@@ -127,13 +128,6 @@ public class StoreManager : MonoBehaviour
 
 		// create set false
 		createComplete = false;
-	}
-
-	// recreate store object -> data clear & create
-	public void RecreateStoreObject()
-	{
-		ClearStoreObject();
-		CreateStoreObject();
 	}
 
 	// store policy
@@ -321,7 +315,7 @@ public class StoreManager : MonoBehaviour
 		viewItemGroup = new List<ItemData>( );
 		for( int i = 0; i < DataManager.SearchItemList.Count; i++ )
 		{
-			if( DataManager.SearchItemList[ i ].Step <= presentSelectedObject.InstanceData.Furniture.Step )
+			if( ( DataManager.SearchItemList[ i ].Step <= presentSelectedObject.InstanceData.Furniture.Step ) && ( DataManager.SearchItemList[ i ].ResourceIDSet != null ) )
 			{
 				for( int j = 0; j < presentSelectedObject.InstanceData.Furniture.CreateItemGroupSet.Length; j++ )
 				{
@@ -338,20 +332,41 @@ public class StoreManager : MonoBehaviour
 	{
 		resourceItem = new List<ItemInstance>( );
 		// select item
-		selectedItem = viewItemGroup[ index + ( presentIndex * mainUI.CreateUILogic.ListSlotLength ) ];
+		try
+		{
+			selectedItem = viewItemGroup[ index + ( presentIndex * mainUI.CreateUILogic.ListSlotLength ) ];
+		}
+		catch( ArgumentOutOfRangeException e )
+		{
+			// slot is empty
+		}
 
-		// check items ( gp pull item )
+		// regist resource items
+		for( int i = 0; i < selectedItem.ResourceIDSet.Length; i++ )
+		{
+			resourceItem.Add( new ItemInstance( selectedItem.ResourceIDSet[ i ], i, 0 ) );
+		}
+
+		// check items ( game player data pull )
 		for( int i = 0; i < manager.GamePlayer.ItemSet.Length; i++ )
 		{
-			for( int j = 0; j < selectedItem.ResourceIDSet.Length; j++ )
+			for( int j = 0; j < resourceItem.Count; j++ )
 			{
-				if( manager.GamePlayer.ItemSet[ i ].Item.ID == selectedItem.ResourceIDSet[ j ] )
+				try
 				{
-					resourceItem.Add( manager.GamePlayer.ItemSet[ i ] );
+					if( resourceItem[ j ].Item.ID == manager.GamePlayer.ItemSet[ i ].Item.ID )
+					{
+						resourceItem[ j ].ResourceCount += manager.GamePlayer.ItemSet[ i ].Count;
+					}
+				}
+				catch( NullReferenceException e )
+				{
+					// have no item
 				}
 			}
 		}
 
+		// set maximum size
 		createLimitCount = 999;
 
 		// set create count
@@ -374,6 +389,92 @@ public class StoreManager : MonoBehaviour
 				createLimitCount = 0;
 			}
 		}
+	}
+
+	// create count control
+	public void ControlCreateCount( int increaseDirection )
+	{
+		switch( increaseDirection )
+		{
+			case 1:
+				if( createCount + 1 <= createLimitCount )
+					createCount += 1;
+				break;
+			case 10:
+				if( createCount + 10 <= createLimitCount )
+					createCount += 10;
+				else
+					createCount = createLimitCount;
+				break;
+			case -1:
+				if( createCount - 1 >= 0 )
+					createCount -= 1;
+				break;
+			case -10:
+				if( createCount - 10 >= 0 )
+					createCount -= 10;
+				else
+					createCount = 0;
+				break;
+		}
+
+		if( createCount > 0 )
+			itemCreate = true;
+		else
+			itemCreate = false;
+	}
+
+	// create item
+	public void CreateItemConfirm()
+	{
+		// regist resourece item consume count
+		int[] tempCounter = new int[selectedItem.ResourceCountSet.Length];
+		for( int i = 0; i < selectedItem.ResourceCountSet.Length; i++ )
+		{
+			tempCounter[ i ] = selectedItem.ResourceCountSet[ i ] * CreateCount;
+		}
+
+		// search item & decrease count
+		// if count == 0 -> destroy instance
+		for( int i = 0; i < manager.GamePlayer.ItemSet.Length; i++ )
+		{
+			try
+			{
+				for( int j = 0; j < tempCounter.Length; j++ )
+				{
+					if( ( manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID ) && ( tempCounter[ j ] != 0 ) && ( manager.GamePlayer.ItemSet[ i ].Count >= tempCounter[ j ] ) )
+					{
+						manager.GamePlayer.ItemSet[ i ].Count -= tempCounter[ j ];
+						tempCounter[ j ] = 0;
+					}
+					else if( ( manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID ) && ( tempCounter[ j ] != 0 ) && ( manager.GamePlayer.ItemSet[ i ].Count < tempCounter[ j ] ) )
+					{
+						tempCounter[ j ] -= manager.GamePlayer.ItemSet[ i ].Count;
+						manager.GamePlayer.ItemSet[ i ] = null;
+					}
+				}
+			}
+			catch( NullReferenceException e )
+			{
+				// game player slot it empty
+			}
+		}
+
+		// create item instance & add item
+		manager.GamePlayer.AddItemData( selectedItem.ID, createCount );
+
+		// reset data
+		ResetCreateData();
+	}
+
+	// reset data
+	public void ResetCreateData()
+	{
+		createCount = 0;
+		createLimitCount = 0;
+		itemCreate = false;
+		selectedItem = null;
+		resourceItem = null;
 	}
 
 	// coroutine
@@ -403,7 +504,7 @@ public class StoreManager : MonoBehaviour
 					storeBackground.transform.position = new Vector3( 0f, -0.01f, 0f );
 					break;
 				case 2:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall2ndStep" ), new Vector3( 0f, 0f, 34f ), Quaternion.Euler( 0f, 90f, 0f ) );
 					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step2NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground.transform.position = new Vector3( 5f, -0.01f, 5f );
 					break;

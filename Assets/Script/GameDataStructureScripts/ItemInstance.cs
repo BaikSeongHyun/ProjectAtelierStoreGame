@@ -17,6 +17,8 @@ public class ItemInstance
 
 	public int Count { get { return count; } set { count = Mathf.Clamp( value, 0, itemData.CountLimit ); } }
 
+	public int ResourceCount { get { return count; } set { count = value; } }
+
 	public int SellPrice { get { return sellPrice; } set { sellPrice = value; } }
 
 	public int SlotNumber { get { return slotNumber; } set { slotNumber = value; } }

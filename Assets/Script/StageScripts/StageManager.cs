@@ -282,7 +282,6 @@ public class StageManager : MonoBehaviour
 	// reset data
 	public void ResetResultRewardData()
 	{
-
 		for( int i = 0; i < isOpened.Length; i++ )
 			isOpened[ i ] = false;
 
