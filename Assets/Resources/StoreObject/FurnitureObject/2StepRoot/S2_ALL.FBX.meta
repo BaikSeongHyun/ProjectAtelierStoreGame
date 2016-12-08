@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: b2d97c655f77c4141be318cd9d179ea3
+timeCreated: 1481180619
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bookshell
+    100002: box
+    100004: crafting table1
+    100006: crafting table2
+    100008: hat table
+    100010: lathe
+    100012: Object134
+    100014: Object142
+    100016: pot
+    100018: //RootNode
+    100020: storage 2
+    100022: storage_2
+    100024: table
+    100026: wall
+    100028: WWI
+    400000: Bookshell
+    400002: box
+    400004: crafting table1
+    400006: crafting table2
+    400008: hat table
+    400010: lathe
+    400012: Object134
+    400014: Object142
+    400016: pot
+    400018: //RootNode
+    400020: storage 2
+    400022: storage_2
+    400024: table
+    400026: wall
+    400028: WWI
+    2300000: Bookshell
+    2300002: box
+    2300004: crafting table1
+    2300006: crafting table2
+    2300008: hat table
+    2300010: lathe
+    2300012: Object142
+    2300014: pot
+    2300016: storage 2
+    2300018: storage_2
+    2300020: table
+    2300022: wall
+    2300024: WWI
+    3300000: Bookshell
+    3300002: box
+    3300004: crafting table1
+    3300006: crafting table2
+    3300008: hat table
+    3300010: lathe
+    3300012: Object142
+    3300014: pot
+    3300016: storage 2
+    3300018: storage_2
+    3300020: table
+    3300022: wall
+    3300024: WWI
+    4300000: crafting table1
+    4300002: table
+    4300004: storage 2
+    4300006: Bookshell
+    4300008: hat table
+    4300010: box
+    4300012: pot
+    4300014: lathe
+    4300016: WWI
+    4300018: Object142
+    4300020: storage_2
+    4300022: crafting table2
+    4300024: wall
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

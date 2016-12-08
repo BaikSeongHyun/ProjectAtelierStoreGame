@@ -24,15 +24,14 @@ public class GameManager : MonoBehaviour
 	// enum state
 	public enum GameMode : int
 	{
+		Create = 0,
 		Start = 1,
 		Loading = 2,
 		Store = 3,
 		StoreCustomizing = 4,
 		StoreOpenPreprocess = 5,
 		StoreOpen = 6,
-		StageResult = 7,
-		Village = 8,
-		Field = 9}
+		StageResult = 7}
 
 	;
 
@@ -60,6 +59,7 @@ public class GameManager : MonoBehaviour
 		{
 			case GameMode.Store:
 				storeManager.StorePolicy();
+				fieldManager.FieldPolicy();
 				break;
 			case GameMode.StoreCustomizing:
 				storeManager.CustomzingFurnitureObject();
@@ -69,8 +69,6 @@ public class GameManager : MonoBehaviour
 				break;
 			case GameMode.StoreOpen:
 				stageManager.StageProcessPolicy();
-				break;
-			case GameMode.Field:
 				break;
 		}
 
@@ -168,13 +166,6 @@ public class GameManager : MonoBehaviour
 		GameStart();
 	}
 
-	// set field mode
-	public void SetFieldMode()
-	{
-		presentGameMode = GameMode.Field;
-		SetUI();
-	}
-
 	// set store open preprocess mode
 	public void SetStoreOpenPreprocessMode()
 	{
@@ -203,6 +194,8 @@ public class GameManager : MonoBehaviour
 
 		stageManager.SetItemsReset();
 		stageManager.CustomerReset();
+
+		StartCoroutine( fieldManager.CreateFieldItemPolicy() );
 	}
 
 	public void SetDefaultStatus()
@@ -228,9 +221,23 @@ public class GameManager : MonoBehaviour
 		// load game data
 		DataManager.LoadPlayerData();
 
-		yield return new WaitForSeconds( 2f );
-
 		player = DataManager.GetPlayerData();
+
+		if( DataManager.PlayFirst )
+		{
+			presentGameMode = GameMode.Create;
+			SetUI();
+			yield break;
+		}
+		else
+		{
+			presentGameMode = GameMode.Loading;
+			SetUI();				
+		}
+
+		yield return new WaitForSeconds( 2f );
+		// set field data
+		fieldManager.CheckStepFieldData();
 
 		// start store create
 		StartCoroutine( storeManager.CreateStoreObject() );
@@ -266,6 +273,7 @@ public class GameManager : MonoBehaviour
 				presentGameMode = GameMode.Store;
 				mainUI.UIModeChange();
 				mainUI.LoadingSceneState( false );
+				StartCoroutine( fieldManager.CreateFieldItemPolicy() );
 				yield break;
 			}
 		}

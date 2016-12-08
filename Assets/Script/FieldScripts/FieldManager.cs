@@ -6,231 +6,256 @@ using System;
 
 public class FieldManager : MonoBehaviour
 {
-    // logic data field
-    GameObject target; //clicked object
-    int layerMask; 
+	// high structure
+	GameManager manager;
 
-    public PresentState state;
+	// logic data field
+	GameObject target;
+	//clicked object
+	int layerMask;
 
-    public GameObject[] objects; //prefabs
-    private GameObject[] step1Position;
-    private GameObject[] step2Position;
-    private GameObject[] step3Position;
+	public PresentState state;
 
-    public GameObject[] stepPosition;
+	public GameObject[] objects;
 
-    public bool[] stepLocation;
+	// field - field object location
+	private GameObject[] step1Position;
+	private GameObject[] step2Position;
+	private GameObject[] step3Position;
+	public GameObject[] stepPosition;
 
-    public int temp;
+	public bool[] stepLocation;
 
-    public Vector3 position;
+	public int temp;
+	public Vector3 position;
 
-    public int currentObjectNumber;
-    private int maxObject;
-    private bool objectLoad = false;
+	public int currentObjectNumber;
+	private int maxObject;
+	private bool objectLoad = false;
 
-    public float updateTime;
+	public float updateTime;
 
-    // temporary storage of prefab data
-    GameObject destroyBody;
-    ObjectOnField ClickItemData;
+	// temporary storage of prefab data
+	GameObject destroyBody;
+	ObjectOnField ClickItemData;
 
-    // now step
-    public enum PresentState : int
-    {
-        Default = 0,
-        Step1,
-        Step2,
-        Step3
-    };
+	// field - present step field data
+	[SerializeField] FieldData presentFieldData;
 
+	// enum - present step
+	public enum PresentState : int
+	{
+		Default = 0,
+		Step1,
+		Step2,
+		Step3}
 
-    void Awake()
-    {
-        LinkComponentElement();
-    }
-
-    void Start()
-    {
-        layerMask = 1 << LayerMask.NameToLayer("Cloud");
-
-    }
-
-    void Update()
-    {
-        FieldPolicy();
-
-    }
-
-    public void LinkComponentElement()
-    {
-        objects = new GameObject[4];
-        objects[0] = Resources.Load("Prefabs/Field/bushPurple") as GameObject;
-        objects[1] = Resources.Load("Prefabs/Field/bushYellow") as GameObject;
-        objects[2] = Resources.Load("Prefabs/Field/StoneBlue") as GameObject;
-        objects[3] = Resources.Load("Prefabs/Field/StoneRed") as GameObject;
-
-        step1Position = GameObject.FindGameObjectsWithTag("Step1Position");
-        step2Position = GameObject.FindGameObjectsWithTag("Step2Position");
-        step3Position = GameObject.FindGameObjectsWithTag("Step3Position");
-
-        stepPosition = new GameObject[step1Position.Length + step2Position.Length + step3Position.Length];
-        Array.Copy(step1Position, 0, stepPosition, 0, step1Position.Length);
-        Array.Copy(step2Position, 0, stepPosition, step1Position.Length, step2Position.Length);
-        Array.Copy(step3Position, 0, stepPosition, step1Position.Length+step2Position.Length, step3Position.Length);
-
-        stepLocation = new bool[stepPosition.Length];
-
-        position = new Vector3();
-
-        if (state == PresentState.Step1)
-        {
-            maxObject = step1Position.Length;
-        }
-        else if(state == PresentState.Step2)
-        {
-            maxObject = step1Position.Length + step2Position.Length;
-        }
-        else if(state == PresentState.Step3)
-        {
-            maxObject = step1Position.Length + step2Position.Length + step3Position.Length;
-        }
-
-    }
-
-    public void FieldPolicy()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            target = GetClickedObject();
-
-            if (target != null)
-            {
-                if (target.name == "CloudCanvas")
-                {
-                    target.GetComponent<ObjectOnField>().CloudCooltime();
-                }
-            }
-
-        }
-
-        if (currentObjectNumber < maxObject)
-        {
-            if (!objectLoad)
-            {
-                StartCoroutine("ObjectUpdating");
-                objectLoad = true;
-            }
-        }
-    }
-
-    public void CloneObject()
-    {
-        GameObject _temp;
-
-        switch (state)
-        {
-            case PresentState.Step1:
-                temp = UnityEngine.Random.Range(0, step1Position.Length);
-                Overlap(temp, PresentState.Step1);
-                position = stepPosition[temp].transform.position;
-
-                break;
-            case PresentState.Step2:
-                temp = UnityEngine.Random.Range(0, step1Position.Length + step2Position.Length);
-                Overlap(temp, PresentState.Step2);
-                position = stepPosition[temp].transform.position;
-                break;
-
-            case PresentState.Step3:
-                temp = UnityEngine.Random.Range(0, step1Position.Length + step2Position.Length + step3Position.Length);
-                Overlap(temp, PresentState.Step3);
-                position = stepPosition[temp].transform.position;
-
-                break;
-
-            default:
-
-                break;
-        }
-
-        _temp = Instantiate(objects[UnityEngine.Random.Range(0, 4)], position, new Quaternion(0, UnityEngine.Random.Range(-1.0f, 1.0f), 0, 1)) as GameObject;
-        ObjectOnField tempObject = _temp.transform.Find("CloudCanvas").GetComponent<ObjectOnField>();
-        tempObject.position = temp;
+	;
 
 
-        currentObjectNumber++;
+	void Awake()
+	{
+		LinkComponentElement();
+		layerMask = 1 << LayerMask.NameToLayer( "Cloud" );
 
-    }
+	}
 
-    IEnumerator ObjectUpdating()
-    {
-        yield return new WaitForSeconds(updateTime);
-        CloneObject();
-        objectLoad = false;
-    }
+	public void LinkComponentElement()
+	{
+		// high structure
+		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 
-    void Overlap(int i, PresentState step)
-    {
-        temp = i;
+		// data pull
+		CheckStepFieldData();
 
-        switch (state)
-        {
-            case PresentState.Step1:
-                if(stepLocation[i])
-                {
-                    Overlap(UnityEngine.Random.Range(0, step1Position.Length), PresentState.Step1);
-                }
-                else
-                {
-                    stepLocation[i] = true;
-                }
+		objects = new GameObject[4];
+		objects[ 0 ] = Resources.Load( "Prefabs/Field/bushPurple" ) as GameObject;
+		objects[ 1 ] = Resources.Load( "Prefabs/Field/bushYellow" ) as GameObject;
+		objects[ 2 ] = Resources.Load( "Prefabs/Field/StoneBlue" ) as GameObject;
+		objects[ 3 ] = Resources.Load( "Prefabs/Field/StoneRed" ) as GameObject;
 
-                break;
-            case PresentState.Step2:
-                if (stepLocation[i])
-                {
-                    Overlap(UnityEngine.Random.Range(0, step1Position.Length + step2Position.Length), PresentState.Step2);
-                }
-                else
-                {
-                    stepLocation[i] = true;
-                }
-                break;
+		step1Position = GameObject.FindGameObjectsWithTag( "Step1Position" );
+		step2Position = GameObject.FindGameObjectsWithTag( "Step2Position" );
+		step3Position = GameObject.FindGameObjectsWithTag( "Step3Position" );
 
-            case PresentState.Step3:
-                if (stepLocation[i])
-                {
-                    Overlap(UnityEngine.Random.Range(0, step1Position.Length + step2Position.Length + step3Position.Length), PresentState.Step3);
-                }
-                else
-                {
-                    stepLocation[i] = true;
-                }
+		stepPosition = new GameObject[step1Position.Length + step2Position.Length + step3Position.Length];
+		Array.Copy( step1Position, 0, stepPosition, 0, step1Position.Length );
+		Array.Copy( step2Position, 0, stepPosition, step1Position.Length, step2Position.Length );
+		Array.Copy( step3Position, 0, stepPosition, step1Position.Length + step2Position.Length, step3Position.Length );
 
-                break;
-        }
+		stepLocation = new bool[stepPosition.Length];
+
+		position = new Vector3( );
+
+		if( state == PresentState.Step1 )
+		{
+			maxObject = step1Position.Length;
+		}
+		else if( state == PresentState.Step2 )
+		{
+			maxObject = step1Position.Length + step2Position.Length;
+		}
+		else if( state == PresentState.Step3 )
+		{
+			maxObject = step1Position.Length + step2Position.Length + step3Position.Length;
+		}
+	}
+
+	public void CheckStepFieldData()
+	{
+		presentFieldData = DataManager.FindFieldDataByStep( manager.GamePlayer.StoreData.StoreStep );
+	}
+
+	public void FieldPolicy()
+	{
+		if( Input.GetMouseButtonDown( 0 ) )
+		{
+			target = GetClickedObject();
+
+			if( target != null )
+			{
+				if( target.name == "CloudCanvas" )
+				{
+					target.GetComponent<ObjectOnField>().CloudCooltime();
+				}
+			}
+
+		}
+
+		if( currentObjectNumber < maxObject )
+		{
+			if( !objectLoad )
+			{
+				StartCoroutine( "ObjectUpdating" );
+				objectLoad = true;
+			}
+		}
+	}
+
+	public void CloneObject()
+	{
+		GameObject _temp;
+	
+		switch( presentFieldData.Step )
+		{
+			case 1:
+				temp = UnityEngine.Random.Range( 0, step1Position.Length );
+				Overlap( temp, 1 );
+				position = stepPosition[ temp ].transform.position;
+
+				break;
+			case 2:
+				temp = UnityEngine.Random.Range( 0, step1Position.Length + step2Position.Length );
+				Overlap( temp, 2 );
+				position = stepPosition[ temp ].transform.position;
+				break;
+
+			case 3:
+				temp = UnityEngine.Random.Range( 0, step1Position.Length + step2Position.Length + step3Position.Length );
+				Overlap( temp, 3 );
+				position = stepPosition[ temp ].transform.position;
+
+				break;
+
+			default:
+
+				break;
+		}
 
 
-        }
 
-    private GameObject GetClickedObject()
-    {
-        RaycastHit hit;
-        GameObject target = null;
+		_temp = Instantiate( objects[ UnityEngine.Random.Range( 0, 4 ) ], position, new Quaternion( 0, UnityEngine.Random.Range( -1.0f, 1.0f ), 0, 1 ) ) as GameObject;
+		ObjectOnField tempObject = _temp.transform.Find( "CloudCanvas" ).GetComponent<ObjectOnField>();
+		tempObject.position = temp;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		currentObjectNumber++;
+	}
 
-        if (true == (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)))
-        {
-            target = hit.collider.gameObject;
-        }
-        Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
+	private void Overlap( int i, int step )
+	{
+		temp = i;
+
+		switch( step )
+		{
+			case 1:
+				if( stepLocation[ i ] )
+				{
+					Overlap( UnityEngine.Random.Range( 0, step1Position.Length ), 1 );
+				}
+				else
+				{
+					stepLocation[ i ] = true;
+				}
+
+				break;
+			case 2:
+				if( stepLocation[ i ] )
+				{
+					Overlap( UnityEngine.Random.Range( 0, step1Position.Length + step2Position.Length ), 2 );
+				}
+				else
+				{
+					stepLocation[ i ] = true;
+				}
+				break;
+
+			case 3:
+				if( stepLocation[ i ] )
+				{
+					Overlap( UnityEngine.Random.Range( 0, step1Position.Length + step2Position.Length + step3Position.Length ), 3 );
+				}
+				else
+				{
+					stepLocation[ i ] = true;
+				}
+
+				break;
+		}
+	}
+
+	private GameObject GetClickedObject()
+	{
+		RaycastHit hit;
+		GameObject target = null;
+
+		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+
+		if( true == ( Physics.Raycast( ray, out hit, Mathf.Infinity, layerMask ) ) )
+		{
+			target = hit.collider.gameObject;
+		}
+		Debug.DrawLine( Camera.main.transform.position, hit.point, Color.red );
 
 
         
-        return target;
-    }
+		return target;
+	}
+
+	// coroutine section
+
+	IEnumerator ObjectUpdating()
+	{
+		yield return new WaitForSeconds( updateTime );
+		CloneObject();
+		objectLoad = false;
+	}
+
+	// stage
+	public IEnumerator CreateFieldItemPolicy()
+	{
+		while( ( manager.PresentMode == GameManager.GameMode.Store ) || ( manager.PresentMode == GameManager.GameMode.StoreCustomizing ) )
+		{
+			if( currentObjectNumber >= presentFieldData.ObjectMaxCount )
+			{
+				yield return new WaitForSeconds( presentFieldData.CreateTime + currentObjectNumber );
+			}
+			else
+			{
+				CloneObject();
+				yield return new WaitForSeconds( presentFieldData.CreateTime + currentObjectNumber );
+			}
+		}
+	}
 }
 
 

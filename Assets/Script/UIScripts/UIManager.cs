@@ -39,6 +39,9 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject chatSceneUI;
 	[SerializeField] ChatSceneUI chatSceneUILogic;
 
+	[SerializeField] GameObject characterCreateUI;
+	[SerializeField] CharacterCreateUI characterCreateUILogic;
+
 	[SerializeField] GameObject loadingScene;
 
 	[SerializeField] Text testField;
@@ -104,6 +107,9 @@ public class UIManager : MonoBehaviour
 		chatSceneUI = transform.Find( "ChatScene" ).gameObject;
 		chatSceneUILogic = chatSceneUI.GetComponent<ChatSceneUI>();
 
+		characterCreateUI = transform.Find( "CharacterCreateUI" ).gameObject;
+		characterCreateUILogic = characterCreateUI.GetComponent<CharacterCreateUI>();
+
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
 	}
 
@@ -131,9 +137,6 @@ public class UIManager : MonoBehaviour
 
 		if( sellItemSettingUI.activeSelf )
 			sellItemSettingUILogic.UpdateComponentElement();
-		
-		testField.text = "x:" + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y + ", z: " + Camera.main.transform.position.z;
-	
 	}
 	
 	// mode change
@@ -144,6 +147,19 @@ public class UIManager : MonoBehaviour
 		
 		switch( manager.PresentMode )
 		{
+			case GameManager.GameMode.Create:
+				storeUI.SetActive( false );
+				storageUI.SetActive( false );
+				storeCustomizingSet.SetActive( false );	
+				stageUI.SetActive( false );
+				sellItemSettingUI.SetActive( false );
+				resultUI.SetActive( false );
+				chatSceneUI.SetActive( false );
+				resultRewardUI.SetActive( false );
+				createUI.SetActive( false );
+				loadingScene.SetActive( false );
+				characterCreateUI.SetActive( true );
+				break;
 			case GameManager.GameMode.Start:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
@@ -154,61 +170,54 @@ public class UIManager : MonoBehaviour
 				chatSceneUI.SetActive( false );
 				resultRewardUI.SetActive( false );
 				createUI.SetActive( false );
+				characterCreateUI.SetActive( false );
 				loadingScene.SetActive( true );
 				break;
 			case GameManager.GameMode.Loading:
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
-				storeCustomizingSet.SetActive( false );
-			
+				storeCustomizingSet.SetActive( false );	
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
+				resultUI.SetActive( false );
+				chatSceneUI.SetActive( false );
 				resultRewardUI.SetActive( false );
+				createUI.SetActive( false );
+				loadingScene.SetActive( false );
+				characterCreateUI.SetActive( false );
 				loadingScene.SetActive( true );
 				break;
 			case GameManager.GameMode.Store:
 				storeUI.SetActive( true );
+				chatSceneUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
-				resultRewardUI.SetActive( false );
 				loadingScene.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
+				chatSceneUI.SetActive( false );
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( true );
-				resultRewardUI.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreOpenPreprocess:
+				chatSceneUI.SetActive( false );
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
-				resultRewardUI.SetActive( false );
 				stageUI.SetActive( true );
 				stageUILogic.ResetComponent();
-				sellItemSettingUI.SetActive( false );
-				loadingScene.SetActive( false );
 				break;
 			case GameManager.GameMode.StageResult:
-				storeUI.SetActive( false );
+				chatSceneUI.SetActive( false );
 				storageUI.SetActive( false );
-				storeCustomizingSet.SetActive( false );			
 				stageUI.SetActive( false );
 				stageUILogic.ResetComponent();
 				sellItemSettingUI.SetActive( false );
 				resultUI.SetActive( true );
 				resultUILogic.SetComponentElement();
-				resultRewardUI.SetActive( false );
-				loadingScene.SetActive( false );
-				break;
-			case GameManager.GameMode.Field:
-				storeUI.SetActive( false );
-				storageUI.SetActive( false );
-				storeCustomizingSet.SetActive( false );
-				resultRewardUI.SetActive( true );
-				resultRewardUILogic.ResetCard();
 				break;
 		}
 	}

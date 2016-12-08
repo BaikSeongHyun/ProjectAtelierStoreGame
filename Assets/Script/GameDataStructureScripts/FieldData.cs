@@ -5,40 +5,38 @@ using System.Collections;
 public class FieldData
 {
 	// field data
-	[SerializeField] int id;
-	[SerializeField] float waitingTime;
-	[SerializeField] int horizontalLength;
-	[SerializeField] int verticalLength;
-	[SerializeField] int resetCost;
-	[SerializeField] int checkNumber;
+	[SerializeField] int step;
+	[SerializeField] float createTime;
+	[SerializeField] int acquireExperience;
+	[SerializeField] int objectMaxCount;
+
 
 	// property
-	public int CheckNumber { get { return checkNumber; } }
+	public int Step { get { return step; } }
 
-	public float WaitingTime { get { return waitingTime; } }
+	public float CreateTime { get { return createTime; } }
 
-	public int ResetCost { get { return resetCost; } }
+	public int AcquireExperience { get { return acquireExperience; } }
+
+	public int ObjectMaxCount { get { return objectMaxCount; } }
+
 
 	// constructor - no parameter
 	public FieldData()
 	{
-		id = 0;
-		waitingTime = 0;
-		horizontalLength = 0;
-		verticalLength = 0;
-		resetCost = 0;
-		checkNumber = 0;
+		step = 0;
+		createTime = Mathf.Infinity;
+		acquireExperience = 0;
+		objectMaxCount = 0;
 	}
 
 	// constructor - all parameter
-	public FieldData( int _id, float _waitingTime, int _horizontalLength, int _verticalLength, int _resetCost, int _checkNumber )
+	public FieldData( int _step, int _createTime, int _acquireExperience, int _objectMaxCount )
 	{
-		id = _id;
-		waitingTime = _waitingTime;
-		horizontalLength = _horizontalLength;
-		verticalLength = _verticalLength;
-		resetCost = _resetCost;
-		checkNumber = _checkNumber;
+		step = _step;
+		createTime = _createTime;
+		acquireExperience = _acquireExperience;
+		objectMaxCount = _objectMaxCount;
 	}
 
 }

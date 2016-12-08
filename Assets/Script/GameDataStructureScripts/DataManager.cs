@@ -7,6 +7,7 @@ using System.Xml;
 public class DataManager : MonoBehaviour
 {
 	// field - for check load
+	[SerializeField] static bool playFirst;
 	[SerializeField] static bool playerDataLoading;
 
 	// field - data maps
@@ -22,6 +23,8 @@ public class DataManager : MonoBehaviour
 	[SerializeField] static List<ItemData> searchItemList;
 
 	// property
+	public static bool PlayFirst { get { return playFirst; } }
+
 	public bool PlayerDataLoading { get { return playerDataLoading; } }
 
 	public static List<ItemData> SearchItemList { get { return searchItemList; } }
@@ -237,17 +240,14 @@ public class DataManager : MonoBehaviour
 		{
 			foreach( XmlNode node in nodes )
 			{
-				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
-				float waitingTime = float.Parse( node.SelectSingleNode( "waitingTime" ).InnerText );
-				int horizontalLength = int.Parse( node.SelectSingleNode( "horizontalLength" ).InnerText );
-				int verticalLength = int.Parse( node.SelectSingleNode( "verticalLength" ).InnerText );
-				int resetCost = int.Parse( node.SelectSingleNode( "resetCost" ).InnerText );
-				int checkNumber = int.Parse( node.SelectSingleNode( "checkNumber" ).InnerText );
-
+				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
+				int createTime = int.Parse( node.SelectSingleNode( "createTime" ).InnerText );
+				int acquireExperience = int.Parse( node.SelectSingleNode( "acquireExperience" ).InnerText );
+				int objectMaxCount = int.Parse( node.SelectSingleNode( "objectMaxCount" ).InnerText );
 
 				try
 				{
-					fieldDataSet.Add( id, new FieldData( id, waitingTime, horizontalLength, verticalLength, resetCost, checkNumber ) );
+					fieldDataSet.Add( step, new FieldData( step, createTime, acquireExperience, objectMaxCount ) );
 				}
 				catch( Exception e )
 				{
@@ -347,10 +347,15 @@ public class DataManager : MonoBehaviour
 		try
 		{			
 			// data load - check first loading
-			if( PlayerPrefs.GetInt( "FirstData" ) != 123456 )
+			if( PlayerPrefs.GetInt( "FirstData" ) != 123456789 )
 			{
 				playerData.SetDefaultStatus();
+				playFirst = true;
 				return;
+			}
+			else
+			{
+				playFirst = false;
 			}
 
 			// data load - player direct data
@@ -439,7 +444,7 @@ public class DataManager : MonoBehaviour
 	public static void SavePlayerData()
 	{
 		// first check data
-		PlayerPrefs.SetInt( "FirstData", 123456 );
+		PlayerPrefs.SetInt( "FirstData", 123456789 );
 
 		// save data setting - player direct data
 		PlayerPrefs.SetString( "PlayerName", playerData.Name );
@@ -570,11 +575,11 @@ public class DataManager : MonoBehaviour
 	}
 
 	// find field data
-	public static FieldData FindFieldDataByID( int id )
+	public static FieldData FindFieldDataByStep( int step )
 	{
 		try
 		{
-			return DataManager.fieldDataSet[ id ];
+			return DataManager.fieldDataSet[ step ];
 		}
 		catch( KeyNotFoundException e )
 		{
@@ -583,7 +588,7 @@ public class DataManager : MonoBehaviour
 			DataManager.LoadFieldData();
 		}
 
-		return DataManager.fieldDataSet[ id ];
+		return DataManager.fieldDataSet[ step ];
 	}
 
 	// find result use profit

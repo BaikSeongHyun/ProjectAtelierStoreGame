@@ -5,11 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scene/UISceneBack.unity
   - enabled: 1
-    path: Assets/Scene/InvenText.unity
-  - enabled: 0
-    path: Assets/Scene/Field.unity
-  - enabled: 0
-    path: Assets/Scene/InvenTest002.unity
+    path: Assets/Scene/GameTitle.unity
+  - enabled: 1
+    path: Assets/Scene/GameMainScene.unity

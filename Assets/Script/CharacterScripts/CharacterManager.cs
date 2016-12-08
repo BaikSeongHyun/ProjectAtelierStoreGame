@@ -11,6 +11,8 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] Transform storeDoor;
 	[SerializeField] PlayerAgent playerableCharacter;
 
+	// create field
+	[SerializeField] string characterName;
 	// unity method
 	void Awake()
 	{
@@ -38,5 +40,22 @@ public class CharacterManager : MonoBehaviour
 	public void ClearPlayerAgent()
 	{
 		Destroy( playerableCharacter.gameObject );
+	}
+
+	// set information character
+	public void SetCharacterInformation( int type )
+	{
+		if( type == 0 )
+			characterName = "Chou";
+		else if( type == 1 )
+			characterName = "Berry";
+	}
+
+	//
+	public void SetInformation( string name )
+	{
+		manager.GamePlayer.CharacterType = characterName;
+		manager.GamePlayer.Name = name;
+		DataManager.SavePlayerData();
 	}
 }
