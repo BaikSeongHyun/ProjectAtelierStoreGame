@@ -89,7 +89,7 @@ NavMeshSettings:
     minRegionArea: 2
     cellSize: 0.16666667
     manualCellSize: 0
-  m_NavMeshData: {fileID: 23800000, guid: 0d154b80be3d50f4090d21068f071c99, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e255e45cae75453489f3dbd58b5cc1af, type: 2}
 --- !u!1 &70527894
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,7 +2025,87 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!1001 &693668829
+--- !u!1 &1208014607 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100050, guid: 956ae4ee38a0424409e276981e63c7a8, type: 3}
+  m_PrefabInternal: {fileID: 1346358025}
+--- !u!4 &1208014609 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400050, guid: 956ae4ee38a0424409e276981e63c7a8, type: 3}
+  m_PrefabInternal: {fileID: 1346358025}
+--- !u!136 &1208014610
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1208014607}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.7
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1208014611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1208014607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ed4de63b35bdc49844361b5e195307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentAnimator: {fileID: 0}
+  moveAgent: {fileID: 0}
+  presentState: 0
+  stageManager: {fileID: 0}
+  mainUI: {fileID: 0}
+  runEffect: {fileID: 0}
+  moveTarget: {fileID: 0}
+  worldBoundary: []
+  storeDoor: {fileID: 0}
+  waitingPoint: {fileID: 0}
+  sendMessage: 0
+  wait: 0
+  presentSequence: 0
+--- !u!195 &1208014612
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1208014607}
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Speed: 10
+  m_Acceleration: 9999
+  avoidancePriority: 50
+  m_AngularSpeed: 9999
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &1208014613
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1208014607}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1001 &1210637014
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2130,86 +2210,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0266ae59fc6392146ba60cb0faf5d999, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1208014607 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100050, guid: 956ae4ee38a0424409e276981e63c7a8, type: 3}
-  m_PrefabInternal: {fileID: 1346358025}
---- !u!4 &1208014609 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400050, guid: 956ae4ee38a0424409e276981e63c7a8, type: 3}
-  m_PrefabInternal: {fileID: 1346358025}
---- !u!136 &1208014610
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1208014607}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.7
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1208014611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1208014607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5ed4de63b35bdc49844361b5e195307, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentAnimator: {fileID: 0}
-  moveAgent: {fileID: 0}
-  presentState: 0
-  stageManager: {fileID: 0}
-  mainUI: {fileID: 0}
-  runEffect: {fileID: 0}
-  moveTarget: {fileID: 0}
-  worldBoundary: []
-  storeDoor: {fileID: 0}
-  waitingPoint: {fileID: 0}
-  sendMessage: 0
-  wait: 0
-  presentSequence: 0
---- !u!195 &1208014612
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1208014607}
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Speed: 10
-  m_Acceleration: 9999
-  avoidancePriority: 50
-  m_AngularSpeed: 9999
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!54 &1208014613
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1208014607}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &1346358025
 Prefab:
   m_ObjectHideFlags: 0

@@ -195,6 +195,7 @@ public class UIManager : MonoBehaviour
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( false );
+				resultRewardUI.SetActive( false );
 				break;
 			case GameManager.GameMode.StoreCustomizing:
 				chatSceneUI.SetActive( false );

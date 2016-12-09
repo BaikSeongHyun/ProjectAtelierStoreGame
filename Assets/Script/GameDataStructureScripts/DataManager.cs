@@ -218,6 +218,7 @@ public class DataManager : MonoBehaviour
 				}
 			}
 		}	
+
 		searchItemList = new List<ItemData>( itemSet.Values );
 	}
 
@@ -631,5 +632,21 @@ public class DataManager : MonoBehaviour
 	public static PlayerData GetPlayerData()
 	{
 		return playerData;
+	}
+
+	public static List<ItemData> GetSearchItemList()
+	{
+		try
+		{
+			return DataManager.searchItemList;
+		}
+		catch( NullReferenceException e )
+		{
+			Debug.Log( e.Message );
+			Debug.Log( e.StackTrace );
+			DataManager.searchItemList = new List<ItemData>( itemSet.Values );
+		}
+
+		return DataManager.searchItemList;
 	}
 }

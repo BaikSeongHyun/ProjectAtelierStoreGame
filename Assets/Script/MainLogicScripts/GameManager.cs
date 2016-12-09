@@ -136,6 +136,8 @@ public class GameManager : MonoBehaviour
 		storeManager.IsCustomizing = false;
 		SetUI();
 		cameraControl.SetCameraDefault( presentGameMode );
+
+		StartCoroutine( fieldManager.CreateFieldItemPolicy() );
 	}
 
 	// set store customizing mode
@@ -194,8 +196,6 @@ public class GameManager : MonoBehaviour
 
 		stageManager.SetItemsReset();
 		stageManager.CustomerReset();
-
-		StartCoroutine( fieldManager.CreateFieldItemPolicy() );
 	}
 
 	public void SetDefaultStatus()

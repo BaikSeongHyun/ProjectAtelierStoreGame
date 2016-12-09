@@ -313,7 +313,7 @@ public class StoreManager : MonoBehaviour
 	public void PullCreateItemData()
 	{
 		viewItemGroup = new List<ItemData>( );
-		for( int i = 0; i < DataManager.SearchItemList.Count; i++ )
+		for( int i = 0; i < DataManager.GetSearchItemList().Count; i++ )
 		{
 			if( ( DataManager.SearchItemList[ i ].Step <= presentSelectedObject.InstanceData.Furniture.Step ) && ( DataManager.SearchItemList[ i ].ResourceIDSet != null ) )
 			{
