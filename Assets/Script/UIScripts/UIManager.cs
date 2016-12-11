@@ -91,10 +91,6 @@ public class UIManager : MonoBehaviour
 		sellItemSettingUI = transform.Find( "SellItemSettingUI" ).gameObject;
 		sellItemSettingUILogic = sellItemSettingUI.GetComponent<SellItemSettingUI>();
 
-		furnitureMarket = transform.Find( "FurnitureMarketUI" ).gameObject;
-		furnitureMarketUI = furnitureMarket.GetComponent<FurnitureMarketUI>();
-		furnitureMarketUI.LinkComponentElement();
-
 		stageUI = transform.Find( "StageUI" ).gameObject;
 		stageUILogic = stageUI.GetComponent<StageUI>();
 
@@ -125,9 +121,6 @@ public class UIManager : MonoBehaviour
 
 		if( resultRewardUI.activeSelf )
 			resultRewardUILogic.UpdateComponentElement();
-
-		if( furnitureMarket.activeSelf )
-			furnitureMarketUI.UpdateComponentElement();
 		
 		if( storageUI.activeSelf )
 			storageUILogic.UpdateComponentElement();
