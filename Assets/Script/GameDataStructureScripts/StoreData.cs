@@ -11,6 +11,7 @@ public class StoreData
 	[SerializeField] int storeStep;
 	[SerializeField] int presentExperience;
 	[SerializeField] int requireExperience;
+	[SerializeField] float stageTime;
 
 
 	// property
@@ -22,32 +23,38 @@ public class StoreData
 
 	public int RequireExperience { get { return requireExperience; } }
 
+	public float StageTime { get { return stageTime; } }
+
 	// constructor - default
-	public StoreData()
+	public StoreData ()
 	{
 		storeStep = 1;
 		stepUpAlready = false;
+		stageTime = 0.0f;
 	}
 
 	// constructor - step number
-	public StoreData( int _step )
+	public StoreData (int _step)
 	{
 		storeStep = _step;
 		stepUpAlready = false;
+		stageTime = 0.0f;
 	}
 
 	// constructor - step & exp data
-	public StoreData( int _step, int _requireExperience )
+	public StoreData (int _step, int _requireExperience, float _stageTime)
 	{
 		storeStep = _step;
 		requireExperience = _requireExperience;
 		stepUpAlready = false;
+		stageTime = _stageTime;
 	}
 
-	public StoreData( StoreData stepInfor, int _presentExperience )
+	public StoreData (StoreData stepInfor, int _presentExperience)
 	{
 		storeStep = stepInfor.storeStep;
 		requireExperience = stepInfor.requireExperience;
+		stageTime = stepInfor.stageTime;
 		presentExperience = _presentExperience;
 
 		CheckStepUpAlready();
@@ -65,7 +72,7 @@ public class StoreData
 	// check step up
 	public bool CheckStepUpAlready()
 	{
-		if( presentExperience >= requireExperience )
+		if ( presentExperience >= requireExperience )
 		{
 			stepUpAlready = true;
 		}

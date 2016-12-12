@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
 	public void SetCutomizeingMode()
 	{
 		presentGameMode = GameMode.StoreCustomizing;
-		storeManager.IsCustomizing = true;
+		storeManager.SetCustomizing();
 		SetUI();
 		cameraControl.SetCameraDefault( presentGameMode );
 	}

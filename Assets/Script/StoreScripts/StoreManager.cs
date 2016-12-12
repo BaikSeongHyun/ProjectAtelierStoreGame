@@ -97,7 +97,7 @@ public class StoreManager : MonoBehaviour
 		// set plane scale
 		planeScale = 0.0f;
 
-		switch( manager.GamePlayer.StoreData.StoreStep )
+		switch ( manager.GamePlayer.StoreData.StoreStep )
 		{
 			case 1:
 				planeScale = 10f;
@@ -135,9 +135,9 @@ public class StoreManager : MonoBehaviour
 		characterManager.ClearPlayerAgent();
 
 		// furniture object
-		foreach( FurnitureObject element in furnitureObjectSet )
+		foreach ( FurnitureObject element in furnitureObjectSet )
 		{
-			if( element != null )
+			if ( element != null )
 				Destroy( element.gameObject );
 		}
 
@@ -154,14 +154,14 @@ public class StoreManager : MonoBehaviour
 			
 		// target function type -> create : use create ui(object type)
 		// target function type -> storage : use storage ui(object type)
-		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
+		if ( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
 		{
-			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
+			if ( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
 				GameObject tempSearch = hitInfo.collider.gameObject;
 				presentSelectedObject = tempSearch.GetComponent<FurnitureObject>();
 				
-				if( presentSelectedObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
+				if ( presentSelectedObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
 				{					
 					PullCreateItemData();
 					mainUI.CreateUI.SetActive( true );
@@ -172,20 +172,27 @@ public class StoreManager : MonoBehaviour
 	}
 
 	// custimize section
+	// set customizing mode
+	public void SetCustomizing()
+	{
+		isCustomzing = true;
+		presentSelectedObject = null;
+	}
+	
 	// customzing store object
 	public void CustomzingFurnitureObject()
 	{
-		if( !mainUI.CustomizeUI.activeSelf )
+		if ( !mainUI.CustomizeUI.activeSelf )
 			return;
 
 		// reload ray
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
 		// set up furniture object => when mouse button right click
-		if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject == null ) )
+		if ( Input.GetButtonDown( "LeftClick" ) && (presentSelectedObject == null) )
 		{
 			// cast & check furniture object -> if exist -> set present object
-			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
+			if ( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
 				// object allocate mode -> move mode
 				GameObject tempSearch = hitInfo.collider.gameObject;
@@ -229,10 +236,10 @@ public class StoreManager : MonoBehaviour
 	// allocate start
 	public void AllocateStartFurnitureInstance( int index, int presentStepIndex )
 	{
-		if( presentSelectedObject != null )
+		if ( presentSelectedObject != null )
 			return;
 
-		if( manager.GamePlayer.AllocateFurnitureInstance( index, presentStepIndex ) )
+		if ( manager.GamePlayer.AllocateFurnitureInstance( index, presentStepIndex ) )
 		{
 			// create object
 			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ manager.GamePlayer.AllocateFurnitureSet.Count - 1 ].Furniture.File ), 
@@ -255,7 +262,7 @@ public class StoreManager : MonoBehaviour
 		presentSelectedObject.CheckAllocatePossible();
 
 		// allocate possible
-		if( presentSelectedObject.AllocatePossible )
+		if ( presentSelectedObject.AllocatePossible )
 		{
 			// set allocate mode false
 			presentSelectedObject.AllocateMode = false;
@@ -268,7 +275,7 @@ public class StoreManager : MonoBehaviour
 	// cancel allocate object
 	public void CancelAllocateFurnitureObject()
 	{
-		if( manager.GamePlayer.AddFurnitureData( presentSelectedObject.InstanceData.Furniture.ID ) )
+		if ( manager.GamePlayer.AddFurnitureData( presentSelectedObject.InstanceData.Furniture.ID ) )
 		{
 			manager.GamePlayer.DeleteAllocateFurniture( presentSelectedObject.InstanceData.SlotNumber );
 		}
@@ -278,7 +285,7 @@ public class StoreManager : MonoBehaviour
 	public void AllocateFurnintureObjectPositionSet( int direction )
 	{
 		Vector3 moveDirection = Vector3.zero;
-		switch( direction )
+		switch ( direction )
 		{
 			case 1:
 				moveDirection = new Vector3( 0f, 0f, -0.5f );
@@ -300,7 +307,7 @@ public class StoreManager : MonoBehaviour
 	public void AllocateFurnitureObjectRotationSet( int direction )
 	{
 		// rotation change
-		switch( direction )
+		switch ( direction )
 		{
 			case 1:
 				presentSelectedObject.ChangeObjectRotation( "Left" );
@@ -318,14 +325,14 @@ public class StoreManager : MonoBehaviour
 	// pull data & step
 	public void PullCreateItemData()
 	{
-		viewItemGroup = new List<ItemData>( );
-		for( int i = 0; i < DataManager.GetSearchItemList().Count; i++ )
+		viewItemGroup = new List<ItemData>();
+		for ( int i = 0; i < DataManager.GetSearchItemList().Count; i++ )
 		{
-			if( ( DataManager.SearchItemList[ i ].Step <= presentSelectedObject.InstanceData.Furniture.Step ) && ( DataManager.SearchItemList[ i ].ResourceIDSet != null ) )
+			if ( (DataManager.SearchItemList[ i ].Step <= presentSelectedObject.InstanceData.Furniture.Step) && (DataManager.SearchItemList[ i ].ResourceIDSet != null) )
 			{
-				for( int j = 0; j < presentSelectedObject.InstanceData.Furniture.CreateItemGroupSet.Length; j++ )
+				for ( int j = 0; j < presentSelectedObject.InstanceData.Furniture.CreateItemGroupSet.Length; j++ )
 				{
-					if( presentSelectedObject.InstanceData.Furniture.CreateItemGroupSet[ j ] == ( int ) DataManager.SearchItemList[ i ].Type )
+					if ( presentSelectedObject.InstanceData.Furniture.CreateItemGroupSet[ j ] == ( int ) DataManager.SearchItemList[ i ].Type )
 						viewItemGroup.Add( DataManager.SearchItemList[ i ] );
 				}
 			}
@@ -336,36 +343,36 @@ public class StoreManager : MonoBehaviour
 	// select item
 	public void SelectCreateItem( int index )
 	{
-		resourceItem = new List<ItemInstance>( );
+		resourceItem = new List<ItemInstance>();
 		// select item
 		try
 		{
-			selectedItem = viewItemGroup[ index + ( presentIndexItem * mainUI.CreateUILogic.ListSlotLength ) ];
+			selectedItem = viewItemGroup[ index + (presentIndexItem * mainUI.CreateUILogic.ListSlotLength) ];
 		}
-		catch( ArgumentOutOfRangeException e )
+		catch ( ArgumentOutOfRangeException e )
 		{
 			// slot is empty
 		}
 
 		// regist resource items
-		for( int i = 0; i < selectedItem.ResourceIDSet.Length; i++ )
+		for ( int i = 0; i < selectedItem.ResourceIDSet.Length; i++ )
 		{
 			resourceItem.Add( new ItemInstance( selectedItem.ResourceIDSet[ i ], i, 0 ) );
 		}
 
 		// check items ( game player data pull )
-		for( int i = 0; i < manager.GamePlayer.ItemSet.Length; i++ )
+		for ( int i = 0; i < manager.GamePlayer.ItemSet.Length; i++ )
 		{
-			for( int j = 0; j < resourceItem.Count; j++ )
+			for ( int j = 0; j < resourceItem.Count; j++ )
 			{
 				try
 				{
-					if( resourceItem[ j ].Item.ID == manager.GamePlayer.ItemSet[ i ].Item.ID )
+					if ( resourceItem[ j ].Item.ID == manager.GamePlayer.ItemSet[ i ].Item.ID )
 					{
 						resourceItem[ j ].ResourceCount += manager.GamePlayer.ItemSet[ i ].Count;
 					}
 				}
-				catch( NullReferenceException e )
+				catch ( NullReferenceException e )
 				{
 					// have no item
 				}
@@ -376,20 +383,20 @@ public class StoreManager : MonoBehaviour
 		createLimitCount = 999;
 
 		// set create count
-		for( int i = 0; i < selectedItem.ResourceIDSet.Length; i++ )
+		for ( int i = 0; i < selectedItem.ResourceIDSet.Length; i++ )
 		{
 			try
 			{
-				for( int j = 0; j < resourceItem.Count; j++ )
+				for ( int j = 0; j < resourceItem.Count; j++ )
 				{
-					if( resourceItem[ j ].Item.ID == selectedItem.ResourceIDSet[ i ] )
+					if ( resourceItem[ j ].Item.ID == selectedItem.ResourceIDSet[ i ] )
 					{
-						if( ( int ) ( resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ] ) < createLimitCount )
-							createLimitCount = ( int ) ( resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ] );
+						if ( ( int ) (resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ]) < createLimitCount )
+							createLimitCount = ( int ) (resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ]);
 					}
 				}
 			}
-			catch( NullReferenceException e )
+			catch ( NullReferenceException e )
 			{
 				createCount = 0;
 				createLimitCount = 0;
@@ -400,31 +407,31 @@ public class StoreManager : MonoBehaviour
 	// create count control
 	public void ControlCreateCount( int increaseDirection )
 	{
-		switch( increaseDirection )
+		switch ( increaseDirection )
 		{
 			case 1:
-				if( createCount + 1 <= createLimitCount )
+				if ( createCount + 1 <= createLimitCount )
 					createCount += 1;
 				break;
 			case 10:
-				if( createCount + 10 <= createLimitCount )
+				if ( createCount + 10 <= createLimitCount )
 					createCount += 10;
 				else
 					createCount = createLimitCount;
 				break;
 			case -1:
-				if( createCount - 1 >= 0 )
+				if ( createCount - 1 >= 0 )
 					createCount -= 1;
 				break;
 			case -10:
-				if( createCount - 10 >= 0 )
+				if ( createCount - 10 >= 0 )
 					createCount -= 10;
 				else
 					createCount = 0;
 				break;
 		}
 
-		if( createCount > 0 )
+		if ( createCount > 0 )
 			itemCreate = true;
 		else
 			itemCreate = false;
@@ -435,32 +442,32 @@ public class StoreManager : MonoBehaviour
 	{
 		// regist resourece item consume count
 		int[] tempCounter = new int[selectedItem.ResourceCountSet.Length];
-		for( int i = 0; i < selectedItem.ResourceCountSet.Length; i++ )
+		for ( int i = 0; i < selectedItem.ResourceCountSet.Length; i++ )
 		{
 			tempCounter[ i ] = selectedItem.ResourceCountSet[ i ] * CreateCount;
 		}
 
 		// search item & decrease count
 		// if count == 0 -> destroy instance
-		for( int i = 0; i < manager.GamePlayer.ItemSet.Length; i++ )
+		for ( int i = 0; i < manager.GamePlayer.ItemSet.Length; i++ )
 		{
 			try
 			{
-				for( int j = 0; j < tempCounter.Length; j++ )
+				for ( int j = 0; j < tempCounter.Length; j++ )
 				{
-					if( ( manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID ) && ( tempCounter[ j ] != 0 ) && ( manager.GamePlayer.ItemSet[ i ].Count >= tempCounter[ j ] ) )
+					if ( (manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID) && (tempCounter[ j ] != 0) && (manager.GamePlayer.ItemSet[ i ].Count >= tempCounter[ j ]) )
 					{
 						manager.GamePlayer.ItemSet[ i ].Count -= tempCounter[ j ];
 						tempCounter[ j ] = 0;
 					}
-					else if( ( manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID ) && ( tempCounter[ j ] != 0 ) && ( manager.GamePlayer.ItemSet[ i ].Count < tempCounter[ j ] ) )
+					else if ( (manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID) && (tempCounter[ j ] != 0) && (manager.GamePlayer.ItemSet[ i ].Count < tempCounter[ j ]) )
 					{
 						tempCounter[ j ] -= manager.GamePlayer.ItemSet[ i ].Count;
 						manager.GamePlayer.ItemSet[ i ] = null;
 					}
 				}
 			}
-			catch( NullReferenceException e )
+			catch ( NullReferenceException e )
 			{
 				// game player slot it empty
 			}
@@ -487,10 +494,10 @@ public class StoreManager : MonoBehaviour
 	// pull data & setup
 	public void PullFurnitureData()
 	{
-		viewFurnitureGroup = new List<FurnitureData>( );
-		for( int i = 0; i < DataManager.GetSearchFurnitureList().Count; i++ )
+		viewFurnitureGroup = new List<FurnitureData>();
+		for ( int i = 0; i < DataManager.GetSearchFurnitureList().Count; i++ )
 		{
-			if( DataManager.SearchFurnitureList[ i ].Step <= manager.GamePlayer.StoreData.StoreStep )
+			if ( DataManager.SearchFurnitureList[ i ].Step <= manager.GamePlayer.StoreData.StoreStep )
 			{
 				viewFurnitureGroup.Add( DataManager.SearchFurnitureList[ i ] );
 			}
@@ -503,10 +510,10 @@ public class StoreManager : MonoBehaviour
 	{
 		try
 		{
-			selectedFurniture = viewFurnitureGroup[ index + ( presentIndexFurniture * presentIndexFurniture ) ];
+			selectedFurniture = viewFurnitureGroup[ index + (presentIndexFurniture * presentIndexFurniture) ];
 			return true;
 		}
-		catch( ArgumentOutOfRangeException e )
+		catch ( ArgumentOutOfRangeException e )
 		{
 			return false;
 		}
@@ -514,7 +521,7 @@ public class StoreManager : MonoBehaviour
 
 	public bool BuyFurniture()
 	{
-		if( manager.GamePlayer.Gold >= selectedFurniture.Price )
+		if ( manager.GamePlayer.Gold >= selectedFurniture.Price )
 		{
 			manager.GamePlayer.AddFurnitureData( selectedFurniture.ID );
 			manager.GamePlayer.Gold -= selectedFurniture.Price;
@@ -544,7 +551,7 @@ public class StoreManager : MonoBehaviour
 			reticleLine.SetActive( false );
 
 			// create store wall & background move & nav field
-			switch( manager.GamePlayer.StoreData.StoreStep )
+			switch ( manager.GamePlayer.StoreData.StoreStep )
 			{
 				case 1:
 					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( 4.5f, 0f, 5.5f ), Quaternion.Euler( 0f, 90f, 0f ) );
@@ -565,15 +572,15 @@ public class StoreManager : MonoBehaviour
 
 			// create funiture object
 			// set data array
-			furnitureObjectSet = new List<FurnitureObject>( );
+			furnitureObjectSet = new List<FurnitureObject>();
 			GameObject temp;
 
 			// make object - allocated furniture
-			if( manager.GamePlayer.AllocateFurnitureSet.Count != 0 )
+			if ( manager.GamePlayer.AllocateFurnitureSet.Count != 0 )
 			{
-				for( int i = 0; i < manager.GamePlayer.AllocateFurnitureSet.Count; i++ )
+				for ( int i = 0; i < manager.GamePlayer.AllocateFurnitureSet.Count; i++ )
 				{
-					if( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
+					if ( manager.GamePlayer.AllocateFurnitureSet[ i ].IsAllocated )
 					{
 						temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/FurnitureObject/" + manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.File ), 
 						                                   manager.GamePlayer.AllocateFurnitureSet[ i ].Position, 
@@ -591,7 +598,7 @@ public class StoreManager : MonoBehaviour
 			characterManager.CreatePlayerAgent();
 
 		}
-		catch( NullReferenceException e )
+		catch ( NullReferenceException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );

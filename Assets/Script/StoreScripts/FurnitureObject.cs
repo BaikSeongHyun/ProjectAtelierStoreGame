@@ -138,15 +138,15 @@ public class FurnitureObject : MonoBehaviour
 	// change object position
 	public void ChangeObjectPosition( Vector3 point )
 	{
-		// check overlap furniture
-		CheckAllocatePossible();
-
 		// set position
 		this.gameObject.transform.position = SetPoint( point );
 		data.Position = this.gameObject.transform.position;
 
 		// set rotation
 		data.Rotation = transform.rotation;
+		
+		// check overlap furniture
+		CheckAllocatePossible();
 	}
 
 	// change object rotation
@@ -180,19 +180,19 @@ public class FurnitureObject : MonoBehaviour
 
 		if( tempSet.Length == 1 )
 		{
-			allocatePossible = true;
+			AllocatePossible = true;
 			allocateTexture.sprite = Resources.Load<Sprite>( "Image/FurnitureTexture/FurnitureTextureGreen" );
 			return true;
 		}
 		else if( ( data.Furniture.Function == FurnitureData.FunctionType.SellObject ) && ( tempSet.Length == 2 ) )
 		{
-			allocatePossible = true;
+			AllocatePossible = true;
 			allocateTexture.sprite = Resources.Load<Sprite>( "Image/FurnitureTexture/FurnitureTextureGreen" );
 			return true;
 		}
 		else
 		{
-			allocatePossible = false;
+			AllocatePossible = false;
 			allocateTexture.sprite = Resources.Load<Sprite>( "Image/FurnitureTexture/FurnitureTextureRed" );
 			return false;
 		}

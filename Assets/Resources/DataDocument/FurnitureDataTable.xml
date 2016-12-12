@@ -184,34 +184,8 @@
 	</object>
 	<object>
 		<type>3</type>
-		<id>19</id>
-		<file>desk1</file>
-		<name>낡은 책상</name>
-		<guide>책을 올려두면 다리가 부러질 것 같다.</guide>
-		<price>500</price>
-		<height>4</height>
-		<widthX>2</widthX>
-		<widthZ>2</widthZ>
-		<level>1</level>
-		<materials>-</materials>
-	</object>
-	<object>
-		<type>3</type>
-		<id>20</id>
-		<file>desk2</file>
-		<name>나무 책상</name>
-		<guide>꽤 쓸만한 책상이다.</guide>
-		<price>800</price>
-		<height>4</height>
-		<widthX>2</widthX>
-		<widthZ>2</widthZ>
-		<level>1</level>
-		<materials>-</materials>
-	</object>
-	<object>
-		<type>3</type>
 		<id>21</id>
-		<file>desk3</file>
+		<file>desk2</file>
 		<name>빛나는 책상</name>
 		<guide>빛나서 공부하고싶은 책상이다.</guide>
 		<price>1300</price>
@@ -224,7 +198,7 @@
 	<object>
 		<type>3</type>
 		<id>22</id>
-		<file>desk4</file>
+		<file>desk3</file>
 		<name>고오급 책상</name>
 		<guide>견고해보이는 책상이다. 색이 고급스럽다.</guide>
 		<price>2000</price>
