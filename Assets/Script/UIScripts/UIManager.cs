@@ -24,8 +24,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject sellItemSettingUI;
 	[SerializeField] SellItemSettingUI sellItemSettingUILogic;
 
-	[SerializeField] GameObject furnitureMarket;
-	[SerializeField] FurnitureMarketUI furnitureMarketUI;
+	[SerializeField] GameObject furnitureMarketUI;
+	[SerializeField] FurnitureMarketUI furnitureMarketUILogic;
 
 	[SerializeField] GameObject stageUI;
 	[SerializeField] StageUI stageUILogic;
@@ -54,6 +54,10 @@ public class UIManager : MonoBehaviour
 	public GameObject CreateUI { get { return createUI; } }
 
 	public CreateUI CreateUILogic { get { return createUILogic; } }
+
+	public GameObject FurnitureMarketUI { get { return furnitureMarketUI; } }
+
+	public FurnitureMarketUI FurnitureMarketUILogic { get { return furnitureMarketUILogic; } }
 
 	public GameObject ChatSceneUI { get { return chatSceneUI; } }
 
@@ -90,6 +94,9 @@ public class UIManager : MonoBehaviour
 
 		sellItemSettingUI = transform.Find( "SellItemSettingUI" ).gameObject;
 		sellItemSettingUILogic = sellItemSettingUI.GetComponent<SellItemSettingUI>();
+
+		furnitureMarketUI = transform.Find( "FurnitureMarketUI" ).gameObject;
+		furnitureMarketUILogic = furnitureMarketUI.GetComponent<FurnitureMarketUI>();
 
 		stageUI = transform.Find( "StageUI" ).gameObject;
 		stageUILogic = stageUI.GetComponent<StageUI>();
@@ -146,6 +153,7 @@ public class UIManager : MonoBehaviour
 				storeCustomizingSet.SetActive( false );	
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
+				furnitureMarketUI.SetActive( false );
 				resultUI.SetActive( false );
 				chatSceneUI.SetActive( false );
 				resultRewardUI.SetActive( false );
@@ -185,6 +193,7 @@ public class UIManager : MonoBehaviour
 				chatSceneUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
+				furnitureMarketUI.SetActive( false );
 				stageUI.SetActive( false );
 				sellItemSettingUI.SetActive( false );
 				loadingScene.SetActive( false );
@@ -194,6 +203,7 @@ public class UIManager : MonoBehaviour
 				chatSceneUI.SetActive( false );
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
+				furnitureMarketUI.SetActive( false );
 				storeCustomizingSet.SetActive( true );
 				break;
 			case GameManager.GameMode.StoreOpenPreprocess:
@@ -201,6 +211,7 @@ public class UIManager : MonoBehaviour
 				storeUI.SetActive( false );
 				storageUI.SetActive( false );
 				storeCustomizingSet.SetActive( false );
+				furnitureMarketUI.SetActive( false );
 				stageUI.SetActive( true );
 				stageUILogic.ResetComponent();
 				break;

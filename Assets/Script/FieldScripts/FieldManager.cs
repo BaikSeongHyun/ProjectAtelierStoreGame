@@ -41,6 +41,7 @@ public class FieldManager : MonoBehaviour
 
 	// field - present step field data
 	[SerializeField] FieldData presentFieldData;
+	[SerializeField] List<GameObject> fieldObjectSet;
 
 	// enum - present step
 	public enum PresentState : int
@@ -99,6 +100,8 @@ public class FieldManager : MonoBehaviour
 		{
 			maxObject = step1Position.Length + step2Position.Length + step3Position.Length;
 		}
+
+		fieldObjectSet = new List<GameObject>( );
 	}
 
 	public void CheckStepFieldData()
@@ -168,7 +171,20 @@ public class FieldManager : MonoBehaviour
 		ObjectOnField tempObject = _temp.transform.Find( "CloudCanvas" ).GetComponent<ObjectOnField>();
 		tempObject.position = temp;
 
+		fieldObjectSet.Add( _temp );
+
 		currentObjectNumber++;
+	}
+
+	public void ClearObject()
+	{
+		for( int i = 0; i < fieldObjectSet.Count; i++ )
+		{
+			Destroy( fieldObjectSet[ i ] );
+		}
+
+		fieldObjectSet = new List<GameObject>( );
+		currentObjectNumber = 0;
 	}
 
 	private void Overlap( int i, int step )

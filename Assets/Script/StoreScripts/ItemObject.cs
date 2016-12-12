@@ -12,6 +12,9 @@ public class ItemObject : MonoBehaviour
 	
 	// field - component
 	[SerializeField] Image itemImage;
+
+	// property
+	public ItemInstance Instance { get { return data; } }
 	
 	// unity method
 	void Awake()

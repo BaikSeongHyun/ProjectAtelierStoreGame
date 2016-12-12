@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour
 
 	// field - refine data
 	[SerializeField] static List<ItemData> searchItemList;
+	[SerializeField] static List<FurnitureData> searchFurnitureList;
 
 	// property
 	public static bool PlayFirst { get { return playFirst; } }
@@ -28,6 +29,8 @@ public class DataManager : MonoBehaviour
 	public bool PlayerDataLoading { get { return playerDataLoading; } }
 
 	public static List<ItemData> SearchItemList { get { return searchItemList; } }
+
+	public static List<FurnitureData> SearchFurnitureList { get { return searchFurnitureList; } }
 
 	// unity method
 	// awake
@@ -143,6 +146,7 @@ public class DataManager : MonoBehaviour
 				}
 			}
 		}
+		searchFurnitureList = new List<FurnitureData>( furnitureSet.Values );
 	}
 
 	// item data load
@@ -632,6 +636,22 @@ public class DataManager : MonoBehaviour
 	public static PlayerData GetPlayerData()
 	{
 		return playerData;
+	}
+
+	public static List<FurnitureData> GetSearchFurnitureList()
+	{
+		try
+		{
+			return DataManager.searchFurnitureList;
+		}
+		catch( NullReferenceException e )
+		{
+			Debug.Log( e.Message );
+			Debug.Log( e.StackTrace );
+			DataManager.searchFurnitureList = new List<FurnitureData>( furnitureSet.Values );
+		}
+
+		return DataManager.searchFurnitureList;
 	}
 
 	public static List<ItemData> GetSearchItemList()

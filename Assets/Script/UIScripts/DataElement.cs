@@ -37,10 +37,21 @@ public class DataElement : MonoBehaviour
 	public void UpdateComponentElement()
 	{
 		// set image default
-		elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
+		elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/FurnitureIcon/none" );
 
 		// count off
 		count.enabled = false;
+	}
+
+	// update component element -> use furniture data
+	public void UpdateComponentElement( FurnitureData data )
+	{
+		count.enabled = false;
+
+		if( ( data == null ) || ( data.ID == 0 ) )
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/FurnitureIcon/none" );
+		else
+			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/FurnitureIcon/" + data.File );
 	}
 
 	// update component element -> use item data

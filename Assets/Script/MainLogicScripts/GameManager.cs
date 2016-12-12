@@ -152,6 +152,9 @@ public class GameManager : MonoBehaviour
 	// recreate store object -> data clear & create
 	public void RecreateStoreField()
 	{
+		// set game mode
+		presentGameMode = GameMode.Loading;
+		
 		// step up
 		player.StoreData.RankUp();
 
@@ -163,6 +166,7 @@ public class GameManager : MonoBehaviour
 
 		// data clear
 		storeManager.ClearStoreObject();
+		fieldManager.ClearObject();
 
 		// create store object
 		GameStart();

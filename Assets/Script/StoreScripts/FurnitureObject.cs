@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class FurnitureObject : MonoBehaviour
 {
+	// high structure
+	[SerializeField] GameManager manager;
+
 	// field
 	[SerializeField] FurnitureInstance data;
 	[SerializeField] bool isAllocated;
@@ -15,6 +18,9 @@ public class FurnitureObject : MonoBehaviour
 	[SerializeField] Collider[] tempSet;
 	[SerializeField] float storePlaneScale;
 	[SerializeField] ItemInstance[] sellItemSet;
+	[SerializeField] Transform[] itemLocation;
+	[SerializeField] ItemObject[] sellItemObject;
+
 
 	// property
 	public FurnitureInstance InstanceData { get { return data; } set { data = value; } }
@@ -39,6 +45,7 @@ public class FurnitureObject : MonoBehaviour
 	// awake -> set element
 	void Awake()
 	{
+		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		storePlaneScale = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>().PlaneScale;
 	}
 
@@ -115,9 +122,17 @@ public class FurnitureObject : MonoBehaviour
 		AllocateMode = false;
 
 		if( data.Furniture.Function == FurnitureData.FunctionType.SellObject )
+		{
 			sellItemSet = new ItemInstance[data.Furniture.SlotLength];
+			itemLocation = new Transform[sellItemSet.Length];
+			sellItemObject = new ItemObject[sellItemSet.Length];
+		}
 		else
+		{
 			sellItemSet = null;
+		}
+
+		// find location
 	}
 
 	// change object position
@@ -201,6 +216,31 @@ public class FurnitureObject : MonoBehaviour
 	// set sell Item
 	public void SetSellItem( ItemInstance instanceData, int index )
 	{
-		sellItemSet[ index ] = instanceData;
+		if( sellItemObject[ index ] == null )
+		{
+			sellItemSet[ index ] = instanceData;
+
+			// create item object
+			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameManager>( "StoreObject/ItemObject/ " + instanceData.Item.File ), itemLocation[ index ].position, Quaternion.identity );
+
+			sellItemObject[ index ] = temp.GetComponent<ItemObject>();
+		}
+		else if( ( sellItemObject[ index ] != null ) && ( sellItemObject[ index ].Instance.Item.ID == instanceData.Item.ID ) )
+		{
+			manager.GamePlayer.AddItemData( instanceData.Item.ID, instanceData.Count );
+
+			sellItemObject[ index ].Instance.Count = instanceData.Count;
+		}
+		else if( ( sellItemObject[ index ] != null ) && ( sellItemObject[ index ].Instance.Item.ID != instanceData.Item.ID ) )
+		{
+			manager.GamePlayer.AddItemData( instanceData.Item.ID, instanceData.Count );
+
+			sellItemSet[ index ] = instanceData;
+
+			// create item object
+			GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameManager>( "StoreObject/ItemObject/ " + instanceData.Item.File ), itemLocation[ index ].position, Quaternion.identity );
+
+			sellItemObject[ index ] = temp.GetComponent<ItemObject>();
+		}
 	}
 }

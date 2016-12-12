@@ -39,8 +39,14 @@ public class StoreManager : MonoBehaviour
 	[SerializeField] List<ItemInstance> resourceItem;
 	[SerializeField] int createCount;
 	[SerializeField] int createLimitCount;
-	[SerializeField] int presentIndex;
+	[SerializeField] int presentIndexItem;
 	[SerializeField] bool itemCreate;
+
+	// furniture market data field
+	[SerializeField] List<FurnitureData> viewFurnitureGroup;
+	[SerializeField] FurnitureData selectedFurniture;
+	[SerializeField] int presentIndexFurniture;
+
 
 	// property
 	public bool CreateComplete { get { return createComplete; } }
@@ -55,7 +61,8 @@ public class StoreManager : MonoBehaviour
 
 	public FurnitureObject PresentSelectedObject { get { return presentSelectedObject; } }
 
-	public int PresentCreateListIndex { get { return presentIndex; } set { presentIndex = value; } }
+	// create
+	public int PresentCreateListIndex { get { return presentIndexItem; } set { presentIndexItem = value; } }
 
 	public List<ItemData> ViewItemGroup { get { return viewItemGroup; } }
 
@@ -68,6 +75,14 @@ public class StoreManager : MonoBehaviour
 	public int CreateLimitCount { get { return createLimitCount; } }
 
 	public bool ItemCreate { get { return itemCreate; } }
+
+	// furniture market
+	public List<FurnitureData> ViewFurnitureGroup { get { return viewFurnitureGroup; } }
+
+	public FurnitureData SelectedFurniture { get { return selectedFurniture; } }
+
+	public int PresentFurnitureListIndex { get { return presentIndexFurniture; } set { presentIndexFurniture = value; } }
+
 
 	// unity method
 	void Awake()
@@ -166,17 +181,8 @@ public class StoreManager : MonoBehaviour
 		// reload ray
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
-		// clear furniture object -> when mouse button right click
-		if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject != null ) )
-		{
-			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
-			{				
-				if( hitInfo.collider.gameObject.GetComponent<FurnitureObject>() == presentSelectedObject )
-					ConfirmMoveFurnitureObject();
-			}
-		}
 		// set up furniture object => when mouse button right click
-		else if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject == null ) )
+		if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject == null ) )
 		{
 			// cast & check furniture object -> if exist -> set present object
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
@@ -324,7 +330,7 @@ public class StoreManager : MonoBehaviour
 				}
 			}
 		}
-		presentIndex = 0;
+		presentIndexItem = 0;
 	}
 
 	// select item
@@ -334,7 +340,7 @@ public class StoreManager : MonoBehaviour
 		// select item
 		try
 		{
-			selectedItem = viewItemGroup[ index + ( presentIndex * mainUI.CreateUILogic.ListSlotLength ) ];
+			selectedItem = viewItemGroup[ index + ( presentIndexItem * mainUI.CreateUILogic.ListSlotLength ) ];
 		}
 		catch( ArgumentOutOfRangeException e )
 		{
@@ -477,6 +483,47 @@ public class StoreManager : MonoBehaviour
 		resourceItem = null;
 	}
 
+	// furniture section
+	// pull data & setup
+	public void PullFurnitureData()
+	{
+		viewFurnitureGroup = new List<FurnitureData>( );
+		for( int i = 0; i < DataManager.GetSearchFurnitureList().Count; i++ )
+		{
+			if( DataManager.SearchFurnitureList[ i ].Step <= manager.GamePlayer.StoreData.StoreStep )
+			{
+				viewFurnitureGroup.Add( DataManager.SearchFurnitureList[ i ] );
+			}
+		}
+		presentIndexItem = 0;
+	}
+
+	// select furniture
+	public bool SelectFurniture( int index )
+	{
+		try
+		{
+			selectedFurniture = viewFurnitureGroup[ index + ( presentIndexFurniture * presentIndexFurniture ) ];
+			return true;
+		}
+		catch( ArgumentOutOfRangeException e )
+		{
+			return false;
+		}
+	}
+
+	public bool BuyFurniture()
+	{
+		if( manager.GamePlayer.Gold >= selectedFurniture.Price )
+		{
+			manager.GamePlayer.AddFurnitureData( selectedFurniture.ID );
+			manager.GamePlayer.Gold -= selectedFurniture.Price;
+			return true;
+		}
+
+		return false;
+	}
+
 	// coroutine
 	public IEnumerator CreateStoreObject()
 	{
@@ -493,6 +540,7 @@ public class StoreManager : MonoBehaviour
 			storeField.transform.position = new Vector3( planeScale / 2f, 0, planeScale / 2f );
 
 			// set reticle line image
+			reticleLineTexture.sprite = Resources.Load<Sprite>( "Image/TileMap/ReticleLineStep" + manager.GamePlayer.StoreData.StoreStep );
 			reticleLine.SetActive( false );
 
 			// create store wall & background move & nav field

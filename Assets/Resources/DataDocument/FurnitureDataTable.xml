@@ -86,7 +86,7 @@
 		<guide>먼지를 닦으니 화려해진 판매대.</guide>
 		<price>800</price>
 		<height>4</height>
-		<widthX>3</widthX>
+		<widthX>2</widthX>
 		<widthZ>2</widthZ>
 		<level>2</level>
 		<materials>2.30.3.20.4.30.3</materials>
@@ -125,7 +125,7 @@
 		<guide>먼지를 털어내니 반짝이는 판매대.</guide>
 		<price>800</price>
 		<height>3</height>
-		<widthX>3</widthX>
+		<widthX>2</widthX>
 		<widthZ>2</widthZ>
 		<level>2</level>
 		<materials>5.10.6.2.7.2.3</materials>
@@ -142,58 +142,6 @@
 		<widthZ>4</widthZ>
 		<level>3</level>
 		<materials>5.15.6.3.7.3.3</materials>
-	</object>
-	<object>
-		<type>3</type>
-		<id>12</id>
-		<file>broom1</file>
-		<name>낡은 빗자루</name>
-		<guide>열심히 청소하지만 더 더러워지는 느낌이다.</guide>
-		<price>500</price>
-		<height>3</height>
-		<widthX>2</widthX>
-		<widthZ>2</widthZ>
-		<level>1</level>
-		<materials>-</materials>
-	</object>
-	<object>
-		<type>3</type>
-		<id>13</id>
-		<file>broom2</file>
-		<name>빗자루</name>
-		<guide>일반 빗자루이다.</guide>
-		<price>1000</price>
-		<height>3</height>
-		<widthX>1</widthX>
-		<widthZ>1</widthZ>
-		<level>1</level>
-		<materials>-</materials>
-	</object>
-	<object>
-		<type>3</type>
-		<id>14</id>
-		<file>broom3</file>
-		<name>빛나는 빗자루</name>
-		<guide>일반 빗자루보다 더 잘 쓸린다.</guide>
-		<price>2000</price>
-		<height>3</height>
-		<widthX>1</widthX>
-		<widthZ>1</widthZ>
-		<level>2</level>
-		<materials>-</materials>
-	</object>
-	<object>
-		<type>3</type>
-		<id>15</id>
-		<file>broom4</file>
-		<name>고오급 빗자루</name>
-		<guide>자동으로 청소를 해주는 최고의 빗자루이다.</guide>
-		<price>4000</price>
-		<height>3</height>
-		<widthX>1</widthX>
-		<widthZ>1</widthZ>
-		<level>3</level>
-		<materials>-</materials>
 	</object>
 	<object>
 		<type>3</type>
@@ -216,8 +164,8 @@
 		<guide>책을 꽂아두니 보기가 좋다.</guide>
 		<price>1400</price>
 		<height>10</height>
-		<widthX>3</widthX>
-		<widthZ>2</widthZ>
+		<widthX>2</widthX>
+		<widthZ>1</widthZ>
 		<level>2</level>
 		<materials>-</materials>
 	</object>
@@ -229,8 +177,8 @@
 		<guide>그저 서있는 모습이 장관이다.</guide>
 		<price>3400</price>
 		<height>10</height>
-		<widthX>3</widthX>
-		<widthZ>2</widthZ>
+		<widthX>2</widthX>
+		<widthZ>1</widthZ>
 		<level>3</level>
 		<materials>-</materials>
 	</object>
@@ -294,22 +242,48 @@
 		<guide>물건을 조금 보관할 수 있다.</guide>
 		<price>1000</price>
 		<height>2</height>
-		<widthX>2</widthX>
+		<widthX>1</widthX>
 		<widthZ>1</widthZ>
 		<level>1</level>
-		<materials>10</materials>
+		<materials>-</materials>
 	</object>
 	<object>
 		<type>3</type>
 		<id>24</id>
-		<file>counter1</file>
-		<name>낡은 계산대</name>
-		<guide>낡은 계산대이다.</guide>
+		<file>storage2</file>
+		<name>창고</name>
+		<guide>물건을 보관할 수 있다.</guide>
 		<price>1000</price>
 		<height>2</height>
 		<widthX>2</widthX>
 		<widthZ>1</widthZ>
-		<level>1</level>
+		<level>2</level>
+		<materials>-</materials>
+	</object>
+	<object>
+		<type>3</type>
+		<id>25</id>
+		<file>hat2</file>
+		<name>마법 모자걸이</name>
+		<guide>-</guide>
+		<price>1000</price>
+		<height>3</height>
+		<widthX>2</widthX>
+		<widthZ>2</widthZ>
+		<level>2</level>
+		<materials>-</materials>
+	</object>
+	<object>
+		<type>3</type>
+		<id>26</id>
+		<file>table2</file>
+		<name>화려한 테이블</name>
+		<guide>-</guide>
+		<price>1000</price>
+		<height>3</height>
+		<widthX>2</widthX>
+		<widthZ>2</widthZ>
+		<level>2</level>
 		<materials>-</materials>
 	</object>
 </furniture>

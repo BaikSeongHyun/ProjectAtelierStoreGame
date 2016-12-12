@@ -151,7 +151,7 @@ public class CreateUI : MonoBehaviour
 		}
 		else
 		{
-			if( ( storeManager.ViewItemGroup.Count / 10 ) > storeManager.PresentCreateListIndex )
+			if( ( storeManager.ViewItemGroup.Count / listSlots.Length ) > storeManager.PresentCreateListIndex )
 				storeManager.PresentCreateListIndex++;
 		}
 

@@ -13,11 +13,9 @@ TagManager:
   - WorldBoundary
   - StoreField
   - StoreBackground
-  - icon
-  - object
-  - Step1Position
   - Step2Position
   - Step3Position
+  - Step1Position
   layers:
   - Default
   - TransparentFX
@@ -34,7 +32,7 @@ TagManager:
   - StoreBackground
   - PlayerCharacter
   - CustomerCharacter
-  - Test
+  - BakeArea
   - StoreStructure
   - WorldBoundary
   - Cloud

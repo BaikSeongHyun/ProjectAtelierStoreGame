@@ -75,8 +75,8 @@ public class PlayerData
 	// add furniture data -> move instance data
 	public bool AddFurnitureData( int id )
 	{
-		int i = DataManager.FindFurnitureDataByID( id ).Step * 10;
-		for( i = 0; i < ( int ) haveFurnitureSet.Length / 3; i++ )
+		
+		for( int i = 0; i < ( int ) haveFurnitureSet.Length; i++ )
 		{
 			if( haveFurnitureSet[ i ] == null || haveFurnitureSet[ i ].Furniture == null || haveFurnitureSet[ i ].Furniture.ID == 0 )
 			{

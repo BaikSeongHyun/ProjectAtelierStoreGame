@@ -48,7 +48,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: c8996bf45bcb6ef45bb61f220b5c2ed9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7f40b80318347454380230b365f26b3a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -67,12 +67,6 @@ Material:
         name: _ParallaxMap
       second:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _Ramp
-      second:
-        m_Texture: {fileID: 2800000, guid: 4a056241e2722dc46a7262a8e7073fd9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -107,9 +101,6 @@ Material:
         name: _OcclusionStrength
       second: 1
     - first:
-        name: _Outline
-      second: 0.002
-    - first:
         name: _Parallax
       second: 0.02
     - first:
@@ -133,7 +124,4 @@ Material:
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0, g: 0, b: 0, a: 1}
-    - first:
-        name: _OutlineColor
       second: {r: 0, g: 0, b: 0, a: 1}

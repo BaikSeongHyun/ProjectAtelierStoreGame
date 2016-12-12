@@ -189,6 +189,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elementIcon: {fileID: 0}
   count: {fileID: 0}
+  button: {fileID: 0}
+  isLocked: 0
 --- !u!114 &114000013832929018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,7 +210,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300006, guid: 5753df6bd0e1c8f499992f6d4cf1ef2d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f80ed5754e6093d4493f781b398730da, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -7,6 +7,7 @@ public class StoreUI : MonoBehaviour
 {
 	// high structure
 	[SerializeField] GameManager manager;
+	[SerializeField] StoreManager storeManager;
 	[SerializeField] UIManager mainUI;
 
 	// component element
@@ -29,6 +30,7 @@ public class StoreUI : MonoBehaviour
 	{
 		// high structure
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
+		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 
 		// text element
@@ -78,10 +80,12 @@ public class StoreUI : MonoBehaviour
 		mainUI.StorageUI.SetActive( true );
 	}
 
-	// on click furniture inventory button
-	public void OnClickFieldButton()
+	// on click open furniture market button
+	public void OnClickFunitureMarketButton()
 	{
-		Debug.Log( "OnClick Field" );
+		storeManager.PullFurnitureData();
+		mainUI.FurnitureMarketUI.SetActive( true );
+		mainUI.FurnitureMarketUILogic.SetComponentElement();
 	}
 
 	// on click mode customizing button
