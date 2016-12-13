@@ -62,9 +62,10 @@ public class SellRegisterUI : MonoBehaviour
 		if( stageManager.PresentSelectedFurniture.SellItem[ presentFurnitureSlotIndex ] == null || stageManager.PresentSelectedFurniture.SellItem[ presentFurnitureSlotIndex ].Item == null || stageManager.PresentSelectedFurniture.SellItem[ presentFurnitureSlotIndex ].Item.ID == 0 )
 		{
 			itemPriceText.text = "";
-			itemImage.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );
+			itemImage.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/none" );
 			presentTempItemCounter = 0;
 			registerCountText.text = presentTempItemCounter.ToString();
+			registerSellPriceText.text = 0.ToString();
 		}
 		else
 		{
@@ -133,6 +134,9 @@ public class SellRegisterUI : MonoBehaviour
 
 		// add item
 		stageManager.PresentSelectedFurniture.SetSellItem( tempData, presentFurnitureSlotIndex );
+
+		// data initialize
+
 	}
 
 	// on click set item price

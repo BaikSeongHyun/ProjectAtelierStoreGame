@@ -13,6 +13,10 @@ public class CharacterManager : MonoBehaviour
 
 	// create field
 	[SerializeField] string characterName;
+
+	// property
+	public PlayerAgent PlayerableCharacter { get { return playerableCharacter; } }
+
 	// unity method
 	void Awake()
 	{

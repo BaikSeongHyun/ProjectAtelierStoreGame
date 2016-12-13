@@ -122,6 +122,18 @@ public class CustomerAgent : AIAgent
 		}
 	}
 
+	// on trigger enter -> only use buy sequence
+	void OnTriggerStay( Collider col )
+	{
+		// trigger stay bug -> don't move customer
+		if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && presentSequence == Sequence.Buy )
+		{
+			moveAgent.ResetPath();
+			agentAnimator.SetTrigger( "PickUp" );
+			presentSequence = Sequence.WaitAnimation;
+		}
+	}
+
 	// public method
 	// override -> data initialize
 	public override void DataInitialize()

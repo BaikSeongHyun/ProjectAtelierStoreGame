@@ -864,6 +864,7 @@ GameObject:
   - 136: {fileID: 136000012416889064}
   - 195: {fileID: 195000013964609666}
   - 114: {fileID: 114000013219903212}
+  - 54: {fileID: 54000014197216682}
   m_Layer: 0
   m_Name: ChouStep2
   m_TagString: Untagged
@@ -1940,6 +1941,21 @@ Transform:
   - {fileID: 4000012904325330}
   m_Father: {fileID: 4000012184902762}
   m_RootOrder: 0
+--- !u!54 &54000014197216682
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013582356758}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95000012052334572
 Animator:
   serializedVersion: 3
@@ -1971,8 +1987,14 @@ MonoBehaviour:
   agentAnimator: {fileID: 0}
   moveAgent: {fileID: 0}
   presentState: 0
-  destination: {x: 0, y: 0, z: 0}
+  manager: {fileID: 0}
+  storeManager: {fileID: 0}
+  stageManager: {fileID: 0}
+  charManager: {fileID: 0}
+  mainUI: {fileID: 0}
+  targetObject: {fileID: 0}
   frame: 0
+  presentSequence: 0
 --- !u!136 &136000012416889064
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1980,7 +2002,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013582356758}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 50
   m_Height: 300

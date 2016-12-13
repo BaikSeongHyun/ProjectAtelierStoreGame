@@ -32,7 +32,12 @@ public class ItemObject : MonoBehaviour
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		
-		itemImage = transform.Find( "InfoBubble" ).GetComponent<Image>();
-		
+		itemImage = transform.Find( "InfoBubble" ).GetComponent<Image>();		
+	}
+
+	// data setting
+	public void SetItemInstanceData( ItemInstance instanceData )
+	{
+		data = instanceData;
 	}
 }

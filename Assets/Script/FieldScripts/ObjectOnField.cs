@@ -85,6 +85,7 @@ public class ObjectOnField : MonoBehaviour
 		if( cloudBackground.fillAmount >= 1 )
 		{
 			manager.GamePlayer.AddItemData( id, count );
+			manager.GamePlayer.StoreData.AddExperience( 100 );
 			fieldManager.stepLocation[ position ] = false;
 			fieldManager.currentObjectNumber--;
 			Destroy( body );

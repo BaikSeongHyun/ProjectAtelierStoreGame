@@ -7,6 +7,7 @@ public class CreateUI : MonoBehaviour
 {
 	// high structure
 	[SerializeField] StoreManager storeManager;
+	[SerializeField] CharacterManager charManager;
 
 	// field - component element
 	[SerializeField] DataElement[] listSlots;
@@ -43,6 +44,7 @@ public class CreateUI : MonoBehaviour
 	{
 		// high structure
 		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
+		charManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<CharacterManager>();
 
 		// component element
 		listSlots = transform.Find( "CreateListBackground" ).GetComponentsInChildren<DataElement>();
@@ -179,8 +181,8 @@ public class CreateUI : MonoBehaviour
 	{
 		if( storeManager.ItemCreate )
 		{
-			storeManager.CreateItemConfirm();
-			SetComponentElement();
+			charManager.PlayerableCharacter.ItemCreate();
+			this.gameObject.SetActive( false );
 		}
 	}
 

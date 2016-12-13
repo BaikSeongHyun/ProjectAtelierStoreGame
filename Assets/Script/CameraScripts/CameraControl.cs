@@ -22,7 +22,7 @@ public class CameraControl : MonoBehaviour
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		viewCamera = GetComponent<Camera>();
-		sensitive = 0.001f;
+		sensitive = 0.00015f;
 	}
 
 	// public method
@@ -37,8 +37,8 @@ public class CameraControl : MonoBehaviour
 		}
 		else
 		{
-			transform.position = new Vector3( 7.5f, 30f, 7.5f );
-			transform.localRotation = Quaternion.Euler( 90, 225, 0 );
+			transform.position = new Vector3( 21f, 32f, 21f );
+			transform.localRotation = Quaternion.Euler( 60, 225, 0 );
 		}
 	}
 
@@ -90,5 +90,6 @@ public class CameraControl : MonoBehaviour
 				transform.position -= ( transform.position * deltaMagnitureDiff * -sensitive );
 			}
 		}
+		Debug.Log( transform.position.magnitude );
 	}
 }
