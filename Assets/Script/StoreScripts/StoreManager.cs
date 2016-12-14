@@ -59,7 +59,7 @@ public class StoreManager : MonoBehaviour
 
 	public bool IsCustomizing { get { return isCustomzing; } set { reticleLineTexture.enabled = isCustomzing = value; } }
 
-	public FurnitureObject PresentSelectedObject { get { return presentSelectedObject; } }
+	public FurnitureObject PresentSelectedFurniture { get { return presentSelectedObject; } }
 
 	// create
 	public int PresentCreateListIndex { get { return presentIndexItem; } set { presentIndexItem = value; } }
@@ -87,7 +87,7 @@ public class StoreManager : MonoBehaviour
 	// unity method
 	void Awake()
 	{		
-		LinkComponentElement();
+		DataInitialize();
 	}
 
 	// public method
@@ -112,7 +112,7 @@ public class StoreManager : MonoBehaviour
 	}
 
 	// data & component link
-	public void LinkComponentElement()
+	public void DataInitialize()
 	{
 		manager = GetComponent<GameManager>();
 		characterManager = GetComponent<CharacterManager>();

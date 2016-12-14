@@ -56,12 +56,12 @@ public class FieldManager : MonoBehaviour
 
 	void Awake()
 	{
-		LinkComponentElement();
+		DataInitialize();
 		layerMask = 1 << LayerMask.NameToLayer( "Cloud" );
 
 	}
 
-	public void LinkComponentElement()
+	public void DataInitialize()
 	{
 		// high structure
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();

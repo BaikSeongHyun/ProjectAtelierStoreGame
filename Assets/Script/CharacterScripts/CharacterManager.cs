@@ -11,6 +11,11 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] Transform storeDoor;
 	[SerializeField] PlayerAgent playerableCharacter;
 
+	// kakao character
+	[SerializeField] KakaoAgent kakaoAgent;
+
+	// marshmello character
+
 	// create field
 	[SerializeField] string characterName;
 
@@ -26,10 +31,15 @@ public class CharacterManager : MonoBehaviour
 	// public method
 	public void DataInitialize()
 	{
+		// high structure
 		manager = GetComponent<GameManager>();
 		storeManager = GetComponent<StoreManager>();
+
+		// field
+		kakaoAgent = GameObject.Find( "KakaoAgent" ).GetComponent<KakaoAgent>();
 	}
 
+	// player section
 	// create player agent -> store create
 	public void CreatePlayerAgent()
 	{		
@@ -61,5 +71,25 @@ public class CharacterManager : MonoBehaviour
 		manager.GamePlayer.CharacterType = characterName;
 		manager.GamePlayer.Name = name;
 		DataManager.SavePlayerData();
+	}
+
+	// kakao section
+	public void ActivateKakao()
+	{
+		kakaoAgent.GoToStore();
+	}
+
+
+	// logic stage reset
+	// stage preprocess reset
+	public void StagePreprocessReset()
+	{
+		kakaoAgent.GoToOffice();
+	}
+
+	// stage reset
+	public void StageReset()
+	{
+		kakaoAgent.GoToOffice();
 	}
 }

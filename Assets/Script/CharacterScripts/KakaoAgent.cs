@@ -4,6 +4,7 @@ using System.Collections;
 public class KakaoAgent : AIAgent
 {
 	// high structure
+	[SerializeField] CharacterManager charManager;
 	[SerializeField] StageManager stageManager;
 	[SerializeField] UIManager mainUI;
 
@@ -86,6 +87,7 @@ public class KakaoAgent : AIAgent
 	{
 		// high structure
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
+		charManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<CharacterManager>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 
 		// logic component

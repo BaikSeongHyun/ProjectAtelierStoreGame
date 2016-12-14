@@ -24,7 +24,7 @@ public class PlayerAgent : AIAgent
 		WaitAnimation = 0,
 		Ready = 1,
 		GoToCreate = 2,
-		GoToSet = 3}
+		GoToSetting = 3}
 
 	;
 
@@ -52,6 +52,10 @@ public class PlayerAgent : AIAgent
 				moveAgent.SetDestination( targetObject.transform.position );
 				agentAnimator.SetInteger( "State", 1 );
 				break;
+			case Sequence.GoToSetting:
+				moveAgent.SetDestination( targetObject.transform.position );
+				agentAnimator.SetInteger( "State", 1 );
+				break;
 		}
 	}
 
@@ -66,11 +70,12 @@ public class PlayerAgent : AIAgent
 			mainUI.CreateUI.SetActive( true );
 			mainUI.CreateUILogic.SetComponentElement();
 		}
-		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToSet ) )
+		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToSetting ) )
 		{
 			moveAgent.ResetPath();
 			presentSequence = Sequence.Ready;
 			targetObject = null;
+			mainUI.ActivateSellItemSettingUI();			
 		}
 	}
 
@@ -85,11 +90,12 @@ public class PlayerAgent : AIAgent
 			mainUI.CreateUI.SetActive( true );
 			mainUI.CreateUILogic.SetComponentElement();
 		}
-		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToSet ) )
+		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToSetting ) )
 		{
 			moveAgent.ResetPath();
 			presentSequence = Sequence.Ready;
 			targetObject = null;
+			mainUI.ActivateSellItemSettingUI();
 		}
 	}
 
@@ -114,25 +120,43 @@ public class PlayerAgent : AIAgent
 	public void SetCreateMode()
 	{
 		presentSequence = Sequence.GoToCreate;
-		targetObject = storeManager.PresentSelectedObject;
+		targetObject = storeManager.PresentSelectedFurniture;
 	}
 
 	// item create
 	public void ItemCreate()
 	{		
 		agentAnimator.SetTrigger( "Crafting" );
+		presentSequence = Sequence.WaitAnimation;
 	}
 
+	// set item setting mode
+	public void SetItemSettingMode()
+	{
+		presentSequence = Sequence.GoToSetting;
+		targetObject = stageManager.PresentSelectedFurniture;
+	}
+
+	// item setting
+	public void ItemSetting()
+	{
+		agentAnimator.SetTrigger( "Setting" );
+		presentSequence = Sequence.WaitAnimation;
+	}
 
 	public void CreateEndEvent()
 	{
 		storeManager.CreateItemConfirm();
 
-		// ui set
+		presentSequence = Sequence.Ready;
+
+		// ui set (pop up)
 	}
 
 	public void SetEndEvent()
 	{
-
+		// set items
+		
+		presentSequence = Sequence.Ready;
 	}
 }

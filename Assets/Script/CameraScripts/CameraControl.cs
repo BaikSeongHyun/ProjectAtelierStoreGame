@@ -22,7 +22,7 @@ public class CameraControl : MonoBehaviour
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		viewCamera = GetComponent<Camera>();
-		sensitive = 0.00015f;
+		sensitive = 0.0015f;
 	}
 
 	// public method
@@ -90,6 +90,5 @@ public class CameraControl : MonoBehaviour
 				transform.position -= ( transform.position * deltaMagnitureDiff * -sensitive );
 			}
 		}
-		Debug.Log( transform.position.magnitude );
 	}
 }

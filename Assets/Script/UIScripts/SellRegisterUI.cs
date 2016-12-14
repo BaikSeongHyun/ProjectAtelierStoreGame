@@ -9,6 +9,7 @@ public class SellRegisterUI : MonoBehaviour
 	[SerializeField] GameManager manager;
 	[SerializeField] StoreManager storeManager;
 	[SerializeField] StageManager stageManager;
+	[SerializeField] CharacterManager charManager;
 
 
 	// field - ui component
@@ -47,6 +48,7 @@ public class SellRegisterUI : MonoBehaviour
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
+		charManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<CharacterManager>();
 
 		// component element
 		itemImage = transform.Find( "StorageSlot" ).Find( "ElementIcon" ).GetComponent<Image>();
@@ -135,7 +137,8 @@ public class SellRegisterUI : MonoBehaviour
 		// add item
 		stageManager.PresentSelectedFurniture.SetSellItem( tempData, presentFurnitureSlotIndex );
 
-		// data initialize
+		// playerCharacter set items
+		charManager.PlayerableCharacter.ItemSetting();
 
 	}
 

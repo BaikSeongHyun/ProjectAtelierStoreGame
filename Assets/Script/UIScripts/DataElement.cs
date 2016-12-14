@@ -71,7 +71,7 @@ public class DataElement : MonoBehaviour
 	{
 		// set default
 
-		if( ( data.Item == null ) || ( data.Item.ID == 0 ) )
+		if( ( data == null ) || ( data.Item == null ) || ( data.Item.ID == 0 ) )
 		{
 			// set image default
 			elementIcon.sprite = Resources.Load<Sprite>( "Image/UI/ItemIcon/EmptySpace" );

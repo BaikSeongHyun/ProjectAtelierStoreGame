@@ -27,7 +27,7 @@ TagManager:
   - 
   - StoreField
   - StoreWall
-  - 
+  - Item
   - Furniture
   - StoreBackground
   - PlayerCharacter

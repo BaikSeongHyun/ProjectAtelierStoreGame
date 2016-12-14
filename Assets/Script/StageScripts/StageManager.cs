@@ -8,6 +8,7 @@ public class StageManager : MonoBehaviour
 {
 	// high structure
 	[SerializeField] GameManager manager;
+	[SerializeField] CharacterManager charManager;
 	[SerializeField] UIManager mainUI;
 	[SerializeField] StageUI stageUI;
 
@@ -23,7 +24,6 @@ public class StageManager : MonoBehaviour
 
 	// field - element object
 	[SerializeField] PlayerAgent playerAgent;
-	[SerializeField] KakaoAgent kakaoAgent;
 	[SerializeField] CustomerAgent[] customerAgentSet;
 
 	// field - stage data
@@ -87,9 +87,11 @@ public class StageManager : MonoBehaviour
 	// create game information
 	public void DataInitialize()
 	{
+		// high structure 
 		manager = GetComponent<GameManager>();
+		charManager = GetComponent<CharacterManager>();
+		;
 		customerAgentSet = GameObject.FindWithTag( "CustomerSet" ).GetComponentsInChildren<CustomerAgent>();
-		kakaoAgent = GameObject.Find( "KakaoAgent" ).GetComponent<KakaoAgent>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 		stageUI = mainUI.transform.Find( "StageUI" ).GetComponent<StageUI>();
 
@@ -116,7 +118,7 @@ public class StageManager : MonoBehaviour
 
 				if( presentSelectedFurniture.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
 				{
-					mainUI.ActivateSellItemSettingUI();				
+					charManager.PlayerableCharacter.SetItemSettingMode();	
 				}
 			}
 		}
@@ -161,10 +163,6 @@ public class StageManager : MonoBehaviour
 	}
 
 	// stage process
-	public void ActivateKakao()
-	{
-		kakaoAgent.GoToStore();
-	}
 
 	// custmer policy activate -> use coroutine
 	public void StoreOpen()
@@ -180,14 +178,14 @@ public class StageManager : MonoBehaviour
 
 	public void StagePreprocessReturn()
 	{
-		kakaoAgent.GoToOffice();
+		charManager.StagePreprocessReset();
 		SetItemsReset();
 		manager.SetStoreMode();
 	}
 
 	public void StageProcessReturn()
 	{
-		kakaoAgent.GoToOffice();
+		charManager.StageReset();
 		SetItemsReset();		
 		CustomerReset();
 		manager.SetStoreMode();
@@ -230,6 +228,7 @@ public class StageManager : MonoBehaviour
 				{
 					manager.GamePlayer.AddItemData( sellFurnitureSet[ i ].SellItem[ j ].Item.ID, sellFurnitureSet[ i ].SellItem[ j ].Count );
 					sellFurnitureSet[ i ].SellItem[ j ] = new ItemInstance( );
+					sellFurnitureSet[ i ].SellItemObject[ j ].SetComponentElement();
 				}
 			}
 		}
@@ -274,7 +273,11 @@ public class StageManager : MonoBehaviour
 		rankProfitMoney += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
 
 		if( sellObject.SellItem[ itemSlotIndex ].Count <= 0 )
+		{
 			sellObject.SellItem[ itemSlotIndex ] = null;
+		}
+
+		sellObject.SellItemObject[ itemSlotIndex ].SetComponentElement();
 	}
 	
 	

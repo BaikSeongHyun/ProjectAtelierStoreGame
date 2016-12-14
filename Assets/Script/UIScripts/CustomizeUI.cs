@@ -30,7 +30,7 @@ public class CustomizeUI : MonoBehaviour
 
 	public void UpdateComponentElement()
 	{
-		if( storeManager.PresentSelectedObject == null )
+		if( storeManager.PresentSelectedFurniture == null )
 			buttonSet.SetActive( false );
 		else
 			buttonSet.SetActive( true );
@@ -69,7 +69,7 @@ public class CustomizeUI : MonoBehaviour
 	// exit customizing -> mode : store mode
 	public void OnClickExitCustomizing()
 	{
-		if( storeManager.PresentSelectedObject == null )
+		if( storeManager.PresentSelectedFurniture == null )
 			manager.SetStoreMode();
 	}
 
