@@ -118,16 +118,47 @@ public class PlayerData
 	// delete allocate furniture instance
 	public bool DeleteAllocateFurniture( int index )
 	{	
-		// remove item
+		// remove furniture
 		allocateFurnitureObjectSet[ index ].ObjectAllocateOff( this );
 		allocateFurnitureObjectSet.RemoveAt( index );
-		allocateFurnitureSet.RemoveAt( index );
 
 		for( int i = 0; i < allocateFurnitureSet.Count; i++ )
 		{
 			allocateFurnitureSet[ i ].SlotNumber = i;
 		}
 		return true;		
+	}
+
+	// sell furniture instance
+	public bool SellAllocateFurniture( int index )
+	{
+		try
+		{
+			// remove object
+			allocateFurnitureObjectSet[ index ].ObjectAllocateOff( this );
+			allocateFurnitureObjectSet.RemoveAt( index );
+
+			// gold add
+			gold += ( int ) ( allocateFurnitureSet[ index ].Furniture.Price * 0.8f );
+
+			// remove furniture
+			allocateFurnitureSet.RemoveAt( index );
+
+			// reload slot number
+			for( int i = 0; i < allocateFurnitureSet.Count; i++ )
+			{
+				allocateFurnitureSet[ i ].SlotNumber = i;
+			}
+
+			return true;
+		}
+		catch( Exception e )
+		{
+			Debug.Log( e.Message );
+			Debug.Log( e.StackTrace );
+
+			return false;
+		}
 	}
 
 	// add item data

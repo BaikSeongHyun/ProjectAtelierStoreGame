@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 
 public class StageUI : MonoBehaviour
@@ -7,11 +8,12 @@ public class StageUI : MonoBehaviour
 	// high structure
 	[SerializeField] GameManager manager;
 	[SerializeField] StageManager stageManager;
+	[SerializeField] CharacterManager charManager;
 
 	// field logic data
 	[SerializeField] bool isRight;
 
-	// component element
+	// component element - normal items
 	[SerializeField] Image timeBarIcon;
 	[SerializeField] Image timeBarFill;
 	[SerializeField] Image charHead;
@@ -20,6 +22,15 @@ public class StageUI : MonoBehaviour
 	[SerializeField] Text nameText;
 	[SerializeField] Image stageStateButton;
 
+	// component element - log element
+	[SerializeField] LogElement[] logData;
+
+	// component element - kakao information
+	[SerializeField] GameObject kakaoInformation;
+	[SerializeField] Text probabilityGroupText;
+	[SerializeField] Text probabilityScaleText;
+	[SerializeField] Text groupText;
+	[SerializeField] Text scaleText;
 
 	// property
 
@@ -36,27 +47,36 @@ public class StageUI : MonoBehaviour
 		// high structure
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
+		charManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<CharacterManager>();
 
-		// component element
+		// component element - normal
 		timeBarIcon = transform.Find( "TimeBar" ).Find( "TimeBarIcon" ).GetComponent<Image>();
 		timeBarFill = transform.Find( "TimeBar" ).Find( "TimeBarFill" ).GetComponent<Image>();
+		nameText = transform.Find( "PlayerStatus" ).Find( "NameText" ).GetComponent<Text>();
 		goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
 		stepText = transform.Find( "PlayerStatus" ).Find( "StoreStepText" ).GetComponent<Text>();
 		charHead = transform.Find( "PlayerStatus" ).Find( "CharHead" ).GetComponent<Image>();
-		stageStateButton = transform.Find( "StageStateButton" ).GetComponent<Image>();			
+		stageStateButton = transform.Find( "StageStateButton" ).GetComponent<Image>();	
+
+		// component element - log element
+		logData = GetComponentsInChildren<LogElement>();
+
+		// component element - kakao information
+		kakaoInformation = transform.Find( "KakaoInformation" ).gameObject;
+		probabilityGroupText = kakaoInformation.transform.Find( "ProbabilityGroup" ).GetComponent<Text>();
+		probabilityScaleText = kakaoInformation.transform.Find( "ProbabilityScale" ).GetComponent<Text>();
+		groupText = kakaoInformation.transform.Find( "GroupText" ).GetComponent<Text>();
+		scaleText = kakaoInformation.transform.Find( "ScaleText" ).GetComponent<Text>();
+
+		kakaoInformation.SetActive( false );
+
 	}
 
 	// call event has occured
 	public void SetComponentElement()
 	{
-		if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
-			stageStateButton.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/StoreOff" );
-	}
-
-	// call per on frame
-	public void UpdateComponentElement()
-	{
 		// set text
+		nameText.text = manager.GamePlayer.Name;
 		goldText.text = manager.GamePlayer.Gold.ToString();
 		stepText.text = manager.GamePlayer.StoreData.StoreStep.ToString();
 
@@ -65,6 +85,32 @@ public class StageUI : MonoBehaviour
 			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/BerryHead" );
 		else
 			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/ChouHead" );
+
+		if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
+			stageStateButton.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/StoreOff" );
+
+		// log data
+		for( int i = 0; i < logData.Length; i++ )
+		{
+			try
+			{
+				logData[ i ].UpdateComponentElement( stageManager.SellItem[ i ], stageManager.SellGold[ i ] );
+			}
+			catch( ArgumentOutOfRangeException e )
+			{
+				// no data in list
+			}
+		}
+
+		// kakao information
+		if( charManager.MrKakao.SendMessage )
+		{
+			kakaoInformation.SetActive( true );
+			probabilityGroupText.text = stageManager.ProFavor.ToString() + "%";
+			probabilityScaleText.text = stageManager.ProScale.ToString() + "%";
+			groupText.text = ItemData.ReturnTypeString( stageManager.FavoriteGroup );
+			scaleText.text = CustomerAgent.ReturnBuyScaleString( stageManager.BuyScale );
+		}
 	}
 
 	public void ResetComponent()

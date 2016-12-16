@@ -23,6 +23,9 @@ public class KakaoAgent : AIAgent
 	[SerializeField] bool wait;
 	[SerializeField] Sequence presentSequence;
 
+	// property
+	public bool SendMessage { get { return sendMessage; } }
+
 	public enum Sequence : int
 	{
 		Ready = 1,
@@ -118,6 +121,7 @@ public class KakaoAgent : AIAgent
 		moveTarget = storeDoor;
 		transform.position = worldBoundary[ 0 ].position;
 		moveAgent.enabled = true;
+		sendMessage = false;
 	}
 
 	// kakao go to office (ready point)
@@ -140,8 +144,10 @@ public class KakaoAgent : AIAgent
 		moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ];
 
 		// ui on!
+		sendMessage = true;
 		mainUI.ChatSceneUI.SetActive( true );
 		mainUI.ChatSceneUILogic.SetKakaoInformation();
+		mainUI.StageUILogic.SetComponentElement();
 	}
 
 

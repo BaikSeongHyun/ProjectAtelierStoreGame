@@ -91,7 +91,7 @@ public class MarshmelloAgent : AIAgent
 				moveAgent.ResetPath();
 				break;
 			case Sequence.GoToHome:
-				moveAgent.SetDestination( moveTarget.position );
+				moveAgent.SetDestination( moveTarget.position );			
 				break;
 			case Sequence.WaitAnimation:
 				moveAgent.ResetPath();
@@ -282,6 +282,7 @@ public class MarshmelloAgent : AIAgent
 		{
 			// item has fallen
 		}
-		SearchItemTarget();
+		if( presentSequence != Sequence.Ready )
+			SearchItemTarget();
 	}
 }

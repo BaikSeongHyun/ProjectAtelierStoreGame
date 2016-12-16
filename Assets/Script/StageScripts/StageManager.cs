@@ -50,8 +50,11 @@ public class StageManager : MonoBehaviour
 	
 	// field - ui process temp data
 	[SerializeField] ItemInstance tempItemInstance;
-
 	[SerializeField] ItemObject tempItemObject;
+
+	// field - sell log data
+	[SerializeField] List<int> sellItem;
+	[SerializeField] List<int> sellGold;
 
 	// property
 	public FurnitureObject PresentSelectedFurniture { get { return presentSelectedFurniture; } }
@@ -78,6 +81,11 @@ public class StageManager : MonoBehaviour
 
 	public StageResultData ResultData { get { return resultData; } }
 
+	// sell log data
+	public List<int> SellItem { get { return sellItem; } }
+
+	public List<int> SellGold { get { return sellGold; } }
+
 	// unity method
 	// awake -> data initialize
 	void Awake()
@@ -100,6 +108,10 @@ public class StageManager : MonoBehaviour
 		isOpened = new bool[20];
 		for( int i = 0; i < isOpened.Length; i++ )
 			isOpened[ i ] = false;
+
+		// sell log data
+		sellItem = new List<int>( );
+		sellGold = new List<int>( );
 	}
 
 	// stage pre process
@@ -147,7 +159,7 @@ public class StageManager : MonoBehaviour
 
 		// allocate data
 		buyScale = CustomerAgent.ReturnBuyScale( UnityEngine.Random.Range( 1, 6 ) );
-		favoriteGroup = ItemData.ReturnType( UnityEngine.Random.Range( 1, 8 ) );
+		favoriteGroup = ItemData.ReturnType( UnityEngine.Random.Range( 2, 8 ) );
 
 		// set sell furiture object set
 		sellFurnitureSet = new List<FurnitureObject>( );
@@ -189,14 +201,14 @@ public class StageManager : MonoBehaviour
 	public void StagePreprocessReturn()
 	{
 		charManager.StagePreprocessReset();
-		SetItemsReset();
+		SetDataReset();
 		manager.SetStoreMode();
 	}
 
 	public void StageProcessReturn()
 	{
 		charManager.StageReset();
-		SetItemsReset();		
+		SetDataReset();		
 		CustomerReset();
 		manager.SetStoreMode();
 	}
@@ -274,7 +286,7 @@ public class StageManager : MonoBehaviour
 		touchCount = resultData.RewardTouchCount;
 	}
 
-	public void SetItemsReset()
+	public void SetDataReset()
 	{
 		for( int i = 0; i < sellFurnitureSet.Count; i++ )
 		{
@@ -284,11 +296,30 @@ public class StageManager : MonoBehaviour
 				{
 					manager.GamePlayer.AddItemData( sellFurnitureSet[ i ].SellItem[ j ].Item.ID, sellFurnitureSet[ i ].SellItem[ j ].Count );
 					sellFurnitureSet[ i ].SellItem[ j ] = new ItemInstance( );
-					if( sellFurnitureSet[ i ].SellItemObject[ j ] != null )
-						sellFurnitureSet[ i ].SellItemObject[ j ].DestroyGameObject();
 				}
 			}
 		}
+
+		// layer item -> all delete
+		GameObject[] tempArray = FindObjectsOfType<GameObject>();
+		for( int i = 0; i < tempArray.Length; i++ )
+		{
+			try
+			{
+				if( tempArray[ i ].layer == LayerMask.NameToLayer( "Item" ) )
+				{
+					Destroy( tempArray[ i ] );
+				}
+			}
+			catch( NullReferenceException e )
+			{
+				// object already break
+			}
+		}
+
+		// log data reset
+		sellItem.Clear();
+		sellGold.Clear();
 	}
 
 	public void CustomerReset()
@@ -313,6 +344,32 @@ public class StageManager : MonoBehaviour
 		{
 			maxCount = ( int ) ( gold / sellObject.SellItem[ itemSlotIndex ].SellPrice );
 			maxCount = maxCount > sellObject.SellItem[ itemSlotIndex ].Count ? sellObject.SellItem[ itemSlotIndex ].Count : maxCount;
+
+			sellObject.SellItem[ itemSlotIndex ].Count -= maxCount;
+			manager.GamePlayer.Gold += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
+			gold -= sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
+
+			rankProfitCount += maxCount;
+			rankProfitMoney += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
+
+			// add log data
+			sellItem.Add( sellObject.SellItem[ itemSlotIndex ].Item.ID );
+			sellGold.Add( sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount );
+
+			if( SellItem.Count > 5 )
+			{
+				sellItem.RemoveAt( 0 );
+				sellGold.RemoveAt( 0 );
+			}
+
+			stageUI.SetComponentElement();
+
+			if( sellObject.SellItem[ itemSlotIndex ].Count <= 0 )
+			{
+				sellObject.SellItem[ itemSlotIndex ] = null;
+			}
+
+			sellObject.SellItemObject[ itemSlotIndex ].SetComponentElement();
 		}
 		catch( DivideByZeroException e )
 		{
@@ -323,20 +380,6 @@ public class StageManager : MonoBehaviour
 			Debug.Log( "물건이 없슴메 ㅠㅠ" );
 			return;
 		}
-
-		sellObject.SellItem[ itemSlotIndex ].Count -= maxCount;
-		manager.GamePlayer.Gold += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
-		gold -= sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
-
-		rankProfitCount += maxCount;
-		rankProfitMoney += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
-
-		if( sellObject.SellItem[ itemSlotIndex ].Count <= 0 )
-		{
-			sellObject.SellItem[ itemSlotIndex ] = null;
-		}
-
-		sellObject.SellItemObject[ itemSlotIndex ].SetComponentElement();
 	}
 	
 	

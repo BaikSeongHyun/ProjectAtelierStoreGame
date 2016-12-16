@@ -407,6 +407,18 @@ public class StoreManager : MonoBehaviour
 		}
 	}
 
+	// sell furniture
+	public void SellFurnitureObject()
+	{
+		for( int i = 0; i < manager.GamePlayer.AllocateFurnitureObjectSet.Count; i++ )
+		{
+			if( manager.GamePlayer.AllocateFurnitureObjectSet[ i ] == presentSelectedObject )
+			{
+				manager.GamePlayer.SellAllocateFurniture( i );
+			}
+		}
+	}
+
 	// create count control
 	public void ControlCreateCount( int increaseDirection )
 	{

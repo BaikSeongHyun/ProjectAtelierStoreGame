@@ -29,6 +29,8 @@ public class CharacterManager : MonoBehaviour
 	// property
 	public PlayerAgent PlayerableCharacter { get { return playerableCharacter; } }
 
+	public KakaoAgent MrKakao { get { return kakaoAgent; } }
+
 	public MarshmelloAgent PinkyAgent { get { return pinkyAgent; } }
 
 	public bool MarshmelloActivate { get { return marshmelloActivate; } set { marshmelloActivate = value; } }

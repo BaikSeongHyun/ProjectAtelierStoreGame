@@ -265,7 +265,7 @@ GameObject:
   - 136: {fileID: 136000013060539416}
   - 195: {fileID: 195000011991755296}
   - 114: {fileID: 114000010624517490}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: MarshmelloAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012717070286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.333061, y: -0.02, z: 16.306498}
+  m_LocalPosition: {x: 76.44, y: -0.02, z: 16.306498}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -846,9 +846,13 @@ MonoBehaviour:
   agentAnimator: {fileID: 95000011946550404}
   moveAgent: {fileID: 195000011991755296}
   presentState: 0
+  manager: {fileID: 0}
   charManager: {fileID: 0}
   stageManager: {fileID: 0}
   mainUI: {fileID: 0}
+  presentClick: 0
+  clickRequire: 0
+  rest: 0
   runEffect: {fileID: 0}
   throwEffect: {fileID: 0}
   moveTarget: {fileID: 0}

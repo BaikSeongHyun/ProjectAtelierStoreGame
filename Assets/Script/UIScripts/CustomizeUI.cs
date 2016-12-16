@@ -13,6 +13,9 @@ public class CustomizeUI : MonoBehaviour
 	[SerializeField] StorageUI furnitureSetUILogic;
 	[SerializeField] GameObject buttonSet;
 
+	// low structure
+	[SerializeField] GameObject popUpSell;
+
 	// public method
 	// link component
 	public void LinkComponentElement()
@@ -26,6 +29,10 @@ public class CustomizeUI : MonoBehaviour
 		buttonSet.SetActive( false );
 		furnitureSetUI = transform.Find( "FurnitureSetUI" ).gameObject;
 		furnitureSetUILogic = furnitureSetUI.GetComponent<StorageUI>();
+
+		// low structure
+		popUpSell = transform.Find( "PopUpSell" ).gameObject;
+		popUpSell.SetActive( false );
 	}
 
 	public void UpdateComponentElement()
@@ -60,8 +67,8 @@ public class CustomizeUI : MonoBehaviour
 		storeManager.ConfirmMoveFurnitureObject();
 	}
 
-	// allocate cancel -> and recollect in furniture inventory
-	public void OnClickAllocateCancelFurnitureObject()
+	// allocate collect -> and recollect in furniture inventory
+	public void OnClickAllocateCollectFurnitureObject()
 	{
 		storeManager.CancelAllocateFurnitureObject();
 	}
@@ -73,4 +80,25 @@ public class CustomizeUI : MonoBehaviour
 			manager.SetStoreMode();
 	}
 
+	// pop up on
+	public void OnClickPopUpActivate()
+	{
+		popUpSell.SetActive( true );
+	}
+
+	// sell furniture object
+	public void OnClickSellFurniture()
+	{
+		// sell furniture
+		storeManager.SellFurnitureObject();
+
+		// close pop up
+		popUpSell.SetActive( false );
+	}
+
+	// exit pop up
+	public void OnClickExitPopup()
+	{
+		popUpSell.SetActive( false );
+	}
 }

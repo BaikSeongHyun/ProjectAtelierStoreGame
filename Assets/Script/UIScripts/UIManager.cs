@@ -60,6 +60,8 @@ public class UIManager : MonoBehaviour
 
 	public FurnitureMarketUI FurnitureMarketUILogic { get { return furnitureMarketUILogic; } }
 
+	public StageUI StageUILogic { get { return stageUILogic; } }
+
 	public GameObject ChatSceneUI { get { return chatSceneUI; } }
 
 	public ChatSceneUI ChatSceneUILogic { get { return chatSceneUILogic; } }
@@ -133,9 +135,6 @@ public class UIManager : MonoBehaviour
 		
 		if( storageUI.activeSelf )
 			storageUILogic.UpdateComponentElement();
-
-		if( stageUI.activeSelf )
-			stageUILogic.UpdateComponentElement();
 
 		if( sellItemSettingUI.activeSelf )
 			sellItemSettingUILogic.UpdateComponentElement();
@@ -216,6 +215,7 @@ public class UIManager : MonoBehaviour
 				furnitureMarketUI.SetActive( false );
 				stageUI.SetActive( true );
 				stageUILogic.ResetComponent();
+				stageUILogic.SetComponentElement();
 				break;
 			case GameManager.GameMode.StageResult:
 				chatSceneUI.SetActive( false );

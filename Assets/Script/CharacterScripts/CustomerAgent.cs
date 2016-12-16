@@ -168,7 +168,7 @@ public class CustomerAgent : AIAgent
 		moveAgent.ResetPath();
 		moveAgent.enabled = false;
 		transform.position = waitingPoint.position; 
-		gold = UnityEngine.Random.Range( 500, 1000 );
+		gold = UnityEngine.Random.Range( 500, 2000 );
 		moveAgent.speed = UnityEngine.Random.Range( 4f, 6f );
 		presentSequence = Sequence.Ready;		
 	}

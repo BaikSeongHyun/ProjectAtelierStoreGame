@@ -76,8 +76,6 @@ public class GameManager : MonoBehaviour
 		{
 			if( Input.GetKey( KeyCode.Escape ) )
 				StartCoroutine( SaveAndQuitGame() );
-
-
 		}
 	}
 
@@ -122,7 +120,6 @@ public class GameManager : MonoBehaviour
 	public void CheckFieldDataLoading()
 	{
 		Debug.Log( "Field data loading process" );
-
 	}
 
 	// set ui -> use present game mode
@@ -200,7 +197,7 @@ public class GameManager : MonoBehaviour
 
 		SetUI();
 
-		stageManager.SetItemsReset();
+		stageManager.SetDataReset();
 		stageManager.CustomerReset();
 	}
 
@@ -329,6 +326,17 @@ public class GameManager : MonoBehaviour
 					yield break;
 				}
 			}
+		}
+	}
+
+	// cycle data save
+	IEnumerator SaveCycle()
+	{
+		while( true )
+		{
+			DataManager.SavePlayerData();
+
+			yield return new WaitForSeconds( 60f );
 		}
 	}
 
