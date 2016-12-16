@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
 	[SerializeField] PlayerData player;
 
 	// control logic field
-	[SerializeField] StageManager stageManager;
 	[SerializeField] CharacterManager characterManager;
 	[SerializeField] FieldManager fieldManager;
 	[SerializeField] StoreManager storeManager;
+	[SerializeField] StageManager stageManager;
 	[SerializeField] UIManager mainUI;
 	[SerializeField] CameraControl cameraControl;
 
@@ -75,7 +75,9 @@ public class GameManager : MonoBehaviour
 		if( Application.platform == RuntimePlatform.Android )
 		{
 			if( Input.GetKey( KeyCode.Escape ) )
-				Application.Quit();
+				StartCoroutine( SaveAndQuitGame() );
+
+
 		}
 	}
 
@@ -328,5 +330,15 @@ public class GameManager : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	// game end process
+	IEnumerator SaveAndQuitGame()
+	{
+		DataManager.SavePlayerData();
+
+		yield return new WaitForSeconds( 2f );
+
+		Application.Quit();
 	}
 }

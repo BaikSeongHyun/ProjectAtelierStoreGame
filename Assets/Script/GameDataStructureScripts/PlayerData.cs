@@ -167,7 +167,7 @@ public class PlayerData
 	// set default status
 	public void SetDefaultStatus()
 	{
-		name = "Default";
+		name = "";
 		charType = "Berry";
 		level = 1;
 		fame = 0;

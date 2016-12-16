@@ -11,7 +11,7 @@ public class CustomerAgent : AIAgent
 	[SerializeField] StageManager stageManager;
 
 	// field - data
-	[SerializeField] string name;
+	[SerializeField] string customerName;
 	[SerializeField] ItemData.ItemType favoriteItemType;
 	[SerializeField] BuyScale buyScale;
 	[SerializeField] int gold;

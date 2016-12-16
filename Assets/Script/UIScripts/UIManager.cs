@@ -44,7 +44,8 @@ public class UIManager : MonoBehaviour
 
 	[SerializeField] GameObject loadingScene;
 
-	[SerializeField] Text testField;
+	// effect data
+	[SerializeField] GameObject clickEffect;
 
 	// property
 	public GameObject StorageUI { get { return storageUI; } }
@@ -119,6 +120,7 @@ public class UIManager : MonoBehaviour
 	// update ui component
 	public void UIUpdate()
 	{
+		
 
 		if( storeUI.activeSelf )
 			storeUILogic.UpdateComponentElement();

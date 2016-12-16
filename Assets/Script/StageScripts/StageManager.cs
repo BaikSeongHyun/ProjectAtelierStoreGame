@@ -51,6 +51,8 @@ public class StageManager : MonoBehaviour
 	// field - ui process temp data
 	[SerializeField] ItemInstance tempItemInstance;
 
+	[SerializeField] ItemObject tempItemObject;
+
 	// property
 	public FurnitureObject PresentSelectedFurniture { get { return presentSelectedFurniture; } }
 
@@ -122,6 +124,8 @@ public class StageManager : MonoBehaviour
 				}
 			}
 		}
+
+		ItemAcquire();
 	}
 
 	// create customer setting information
@@ -163,7 +167,6 @@ public class StageManager : MonoBehaviour
 	}
 
 	// stage process
-
 	// custmer policy activate -> use coroutine
 	public void StoreOpen()
 	{
@@ -174,6 +177,13 @@ public class StageManager : MonoBehaviour
 		presentTime = 0.0f;
 		rankProfitMoney = 0;
 		rankProfitCount = 0;
+	}
+
+	// marshmello throw item -> logic
+	public void ThrowSellItem( int targetIndex, int throwItemIndex )
+	{
+		sellFurnitureSet[ targetIndex ].SellItem[ throwItemIndex ] = new ItemInstance( );
+		sellFurnitureSet[ targetIndex ].SellItemObject[ throwItemIndex ] = null;
 	}
 
 	public void StagePreprocessReturn()
@@ -206,8 +216,54 @@ public class StageManager : MonoBehaviour
 			manager.SetStoreStageEnd();
 		}
 
+		// activate marshmello
+		if( ( presentTime >= stageTime / 2 ) && ( !charManager.PinkyAgent.RestMarshmello ) )
+		{
+			charManager.ActivateMarshMello();
+		}
+
+		// check marshmello
+		if( charManager.MarshmelloActivate && charManager.DamageMarshmello() )
+		{				
+			return;
+		}
+
+
+		// item acquire
+		if( ItemAcquire() )
+		{			
+			return;
+		}
+
 		// stage policy
 		StagePreprocessPolicy();
+	}
+
+	// acquire items
+	public bool ItemAcquire()
+	{
+		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+
+		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject( Input.GetTouch( 0 ).fingerId ) )
+		{
+			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Item" ) ) )
+			{
+				GameObject tempSearch = hitInfo.collider.gameObject;
+
+				if( tempSearch.name == "InfoBubble(Clone)" )
+					tempItemObject = tempSearch.GetComponentInParent<ItemObject>();
+				else
+					return false;
+				
+				if( tempItemObject.IsField )
+				{
+					tempItemObject.AcquireItems();
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	// set up rank information
@@ -224,11 +280,12 @@ public class StageManager : MonoBehaviour
 		{
 			for( int j = 0; j < sellFurnitureSet[ i ].SellItem.Length; j++ )
 			{				
-				if( sellFurnitureSet[ i ].SellItem[ j ] != null )
+				if( ( sellFurnitureSet[ i ].SellItem[ j ] != null ) && ( sellFurnitureSet[ i ].SellItem[ j ].Item != null ) && ( sellFurnitureSet[ i ].SellItem[ j ].Item.ID == 0 ) )
 				{
 					manager.GamePlayer.AddItemData( sellFurnitureSet[ i ].SellItem[ j ].Item.ID, sellFurnitureSet[ i ].SellItem[ j ].Count );
 					sellFurnitureSet[ i ].SellItem[ j ] = new ItemInstance( );
-					sellFurnitureSet[ i ].SellItemObject[ j ].SetComponentElement();
+					if( sellFurnitureSet[ i ].SellItemObject[ j ] != null )
+						sellFurnitureSet[ i ].SellItemObject[ j ].DestroyGameObject();
 				}
 			}
 		}
@@ -245,6 +302,8 @@ public class StageManager : MonoBehaviour
 			if( customerAgentSet[ i ].PresentSequence != CustomerAgent.Sequence.Ready )
 				customerAgentSet[ i ].ResetCustomerAgent();
 		}
+
+		charManager.PinkyAgent.GoToHome();
 	}
 
 	public void BuyItem( FurnitureObject sellObject, int itemSlotIndex, ref int gold )

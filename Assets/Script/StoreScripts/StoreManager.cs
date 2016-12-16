@@ -567,7 +567,7 @@ public class StoreManager : MonoBehaviour
 					storeBackground.transform.position = new Vector3( 5f, -0.01f, 5f );
 					break;
 				case 3:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall1stStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall3rdStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.Euler( 0f, 90f, 0f ) );
 					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step3NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground.transform.position = new Vector3( 10f, -0.01f, 10f );
 					break;

@@ -11,6 +11,7 @@ public class SellItemSettingUI : MonoBehaviour
 
 	// field - for ui
 	[SerializeField] Image background;
+	[SerializeField] Text stepText;
 	[SerializeField] Text groupText;
 	[SerializeField] DataElement[] slots;
 
@@ -36,6 +37,7 @@ public class SellItemSettingUI : MonoBehaviour
 
 		// component element
 		background = transform.Find( "Background" ).GetComponent<Image>();
+		stepText = transform.Find( "StepText" ).GetComponent<Text>();
 		groupText = transform.Find( "GroupText" ).GetComponent<Text>();
 		
 		sellRegisterUI = transform.Find( "SellRegisterUI" ).gameObject;
@@ -63,6 +65,9 @@ public class SellItemSettingUI : MonoBehaviour
 
 		// string initialiize
 		string groupString = "";
+
+		// set furniture step
+		stepText.text = stageManager.PresentSelectedFurniture.InstanceData.Furniture.Step.ToString();
 
 		// set item group
 		for( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )

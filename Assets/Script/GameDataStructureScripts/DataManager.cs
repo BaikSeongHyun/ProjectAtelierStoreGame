@@ -6,6 +6,9 @@ using System.Xml;
 
 public class DataManager : MonoBehaviour
 {
+	// high structure
+	[SerializeField] static GameManager manager;
+
 	// field - for check load
 	[SerializeField] static bool playFirst;
 	[SerializeField] static bool playerDataLoading;
@@ -36,6 +39,7 @@ public class DataManager : MonoBehaviour
 	// awake
 	void Awake()
 	{
+		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		playerDataLoading = false;
 		LoadFurnitureData();
 		LoadItemData();
@@ -45,30 +49,25 @@ public class DataManager : MonoBehaviour
 		playerDataLoading = true;
 	}
 
-	void OnApplicationQuit()
-	{
-		SavePlayerData();
-	}
-
 	// public method
 	// furniture data load
 	public static void LoadFurnitureData()
 	{
-		furnitureSet = new Dictionary<int, FurnitureData>();
+		furnitureSet = new Dictionary<int, FurnitureData>( );
 
 		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/FurnitureDataTable" );
-		XmlDocument document = new XmlDocument();
+		XmlDocument document = new XmlDocument( );
 		document.LoadXml( loadData.text );
 
 		XmlNodeList nodes = document.SelectNodes( "furniture/object" );
 
-		if ( nodes == null )
+		if( nodes == null )
 		{
 			Debug.Log( "Data is null" );
 		}
 		else
 		{
-			foreach ( XmlNode node in nodes )
+			foreach( XmlNode node in nodes )
 			{
 				// data create
 				int type = int.Parse( node.SelectSingleNode( "type" ).InnerText );
@@ -85,21 +84,21 @@ public class DataManager : MonoBehaviour
 				int[] firstDataTable = null;
 				int[] secondDataTable = null;
 				int slotLength = 0;
-				switch ( type )
+				switch( type )
 				{
 					case 1:
 						//type = FunctionType.CreateObject;
-						if ( material.Length == 1 )
+						if( material.Length == 1 )
 						{
 							firstDataTable = new int[1];
 							firstDataTable[ 0 ] = Int32.Parse( material );
 							secondDataTable = null;
 						}
-						else if ( material.Length > 1 )
+						else if( material.Length > 1 )
 						{
 							string[] temp = material.Split( '.' );
 							firstDataTable = new int[temp.Length];
-							for ( int i = 0; i < temp.Length; i++ )
+							for( int i = 0; i < temp.Length; i++ )
 							{
 								firstDataTable[ i ] = Int32.Parse( temp[ i ] ); 
 							}
@@ -108,20 +107,20 @@ public class DataManager : MonoBehaviour
 						break;
 					case 2:
 						//type = FunctionType.SellObject;
-						if ( material.Length == 1 )
+						if( material.Length == 1 )
 						{
 							firstDataTable = null;
 							secondDataTable = null;
 						}
-						else if ( material.Length > 1 )
+						else if( material.Length > 1 )
 						{
 							string[] temp = material.Split( '.' );
 							firstDataTable = new int[temp.Length / 2];
 							secondDataTable = new int[temp.Length / 2];
-							for ( int i = 0; i < (temp.Length - 1); i += 2 )
+							for( int i = 0; i < ( temp.Length - 1 ); i += 2 )
 							{						
-								firstDataTable[ ( int ) (i / 2) ] = Int32.Parse( temp[ i ] );
-								secondDataTable[ ( int ) (i / 2) ] = Int32.Parse( temp[ i + 1 ] );
+								firstDataTable[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i ] );
+								secondDataTable[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i + 1 ] );
 								slotLength = Int32.Parse( temp[ temp.Length - 1 ] );
 							}
 						}
@@ -139,7 +138,7 @@ public class DataManager : MonoBehaviour
 				{					
 					furnitureSet.Add( id, new FurnitureData( type, id, file, name, guide, price, height, widthX, widthZ, level, firstDataTable, secondDataTable, slotLength, FurnitureData.AllocateType.Field ) );
 				}
-				catch ( Exception e )
+				catch( Exception e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -152,21 +151,21 @@ public class DataManager : MonoBehaviour
 	// item data load
 	public static void LoadItemData()
 	{
-		itemSet = new Dictionary<int, ItemData>();
+		itemSet = new Dictionary<int, ItemData>( );
 
 		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/ItemData" );
-		XmlDocument document = new XmlDocument();
+		XmlDocument document = new XmlDocument( );
 		document.LoadXml( loadData.text );
 
 		XmlNodeList nodes = document.SelectNodes( "Item/Data" );
 
-		if ( nodes == null )
+		if( nodes == null )
 		{
 			Debug.Log( "Data is null" );
 		}
 		else
 		{
-			foreach ( XmlNode node in nodes )
+			foreach( XmlNode node in nodes )
 			{				
 				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
 				string file = node.SelectSingleNode( "file" ).InnerText;
@@ -182,31 +181,31 @@ public class DataManager : MonoBehaviour
 				int[] resourceIDSet = null;
 				int[] resourceCountSet = null;
 
-				if ( material.Length == 1 )
+				if( material.Length == 1 )
 				{
 					resourceIDSet = null;
 					resourceCountSet = null;
 				}
-				else if ( material.Length > 1 )
+				else if( material.Length > 1 )
 				{
 					string[] temp = material.Split( '.' );
 					resourceIDSet = new int[temp.Length / 2];
 					resourceCountSet = new int[temp.Length / 2];
-					for ( int i = 0; i < temp.Length; i += 2 )
+					for( int i = 0; i < temp.Length; i += 2 )
 					{						
-						resourceIDSet[ ( int ) (i / 2) ] = Int32.Parse( temp[ i ] );
-						resourceCountSet[ ( int ) (i / 2) ] = Int32.Parse( temp[ i + 1 ] );
+						resourceIDSet[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i ] );
+						resourceCountSet[ ( int ) ( i / 2 ) ] = Int32.Parse( temp[ i + 1 ] );
 					}
 				}
 
 				try
 				{
-					if ( material.Length == 1 )
+					if( material.Length == 1 )
 					{
 
 						itemSet.Add( id, new ItemData( type, id, file, name, price, countLimit, guide, grade, step ) );
 					}
-					else if ( material.Length > 1 )
+					else if( material.Length > 1 )
 					{
 						itemSet.Add( id, new ItemData( type, id, file, name, price, countLimit, guide, grade, step, ref resourceIDSet, ref resourceCountSet ) );
 					}
@@ -215,7 +214,7 @@ public class DataManager : MonoBehaviour
 						Debug.Log( "오류잡혔으니 확인해보세요!" );
 					}
 				}
-				catch ( Exception e )
+				catch( Exception e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -229,21 +228,21 @@ public class DataManager : MonoBehaviour
 	// field data load
 	public static void LoadFieldData()
 	{
-		fieldDataSet = new Dictionary<int, FieldData>();
+		fieldDataSet = new Dictionary<int, FieldData>( );
 
 		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/FieldData" );
-		XmlDocument document = new XmlDocument();
+		XmlDocument document = new XmlDocument( );
 		document.LoadXml( loadData.text );
 
 		XmlNodeList nodes = document.SelectNodes( "Field/Data" );
 
-		if ( nodes == null )
+		if( nodes == null )
 		{
 			Debug.Log( "Data is null" );
 		}
 		else
 		{
-			foreach ( XmlNode node in nodes )
+			foreach( XmlNode node in nodes )
 			{
 				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
 				int createTime = int.Parse( node.SelectSingleNode( "createTime" ).InnerText );
@@ -254,7 +253,7 @@ public class DataManager : MonoBehaviour
 				{
 					fieldDataSet.Add( step, new FieldData( step, createTime, acquireExperience, objectMaxCount ) );
 				}
-				catch ( Exception e )
+				catch( Exception e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -266,21 +265,21 @@ public class DataManager : MonoBehaviour
 	// stage result data
 	public static void LoadStageResultData()
 	{
-		tempDataSet = new List<StageResultData>();
-		stageResultSet = new Dictionary<int, List<StageResultData>>();
+		tempDataSet = new List<StageResultData>( );
+		stageResultSet = new Dictionary<int, List<StageResultData>>( );
 		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/StageResultData" );
-		XmlDocument document = new XmlDocument();
+		XmlDocument document = new XmlDocument( );
 		document.LoadXml( loadData.text );
 
 		XmlNodeList nodes = document.SelectNodes( "ResultData/Data" );
 
-		if ( nodes == null )
+		if( nodes == null )
 		{
 			Debug.Log( "Data is null : stage result data" );		
 		}
 		else
 		{
-			foreach ( XmlNode node in nodes )
+			foreach( XmlNode node in nodes )
 			{
 				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
 				int rank = int.Parse( node.SelectSingleNode( "rank" ).InnerText );
@@ -294,13 +293,13 @@ public class DataManager : MonoBehaviour
 				{
 					tempDataSet.Add( new StageResultData( step, rank, rewardExp, rewardGold, rewardTouchCount, rankProfitMoney, rankProfitCount ) );
 
-					if ( rank == 4 )
+					if( rank == 4 )
 					{
 						stageResultSet.Add( step, tempDataSet );
-						tempDataSet = new List<StageResultData>();
+						tempDataSet = new List<StageResultData>( );
 					}
 				}
-				catch ( Exception e )
+				catch( Exception e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -312,22 +311,22 @@ public class DataManager : MonoBehaviour
 	// store data
 	public static void LoadStoreData()
 	{
-		storeDataSet = new Dictionary<int, StoreData>();
+		storeDataSet = new Dictionary<int, StoreData>( );
 
 		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/StoreData" );
-		XmlDocument document = new XmlDocument();
+		XmlDocument document = new XmlDocument( );
 		document.LoadXml( loadData.text );
 
 		XmlNodeList nodes = document.SelectNodes( "StoreData/Data" );
 
 
-		if ( nodes == null )
+		if( nodes == null )
 		{
 			Debug.Log( "Data is null : stage result data" );		
 		}
 		else
 		{
-			foreach ( XmlNode node in nodes )
+			foreach( XmlNode node in nodes )
 			{
 				int step = int.Parse( node.SelectSingleNode( "step" ).InnerText );
 				int requireExperiance = int.Parse( node.SelectSingleNode( "requireExperience" ).InnerText );
@@ -336,7 +335,7 @@ public class DataManager : MonoBehaviour
 				{
 					storeDataSet.Add( step, new StoreData( step, requireExperiance, stageTime ) );
 				}
-				catch ( Exception e )
+				catch( Exception e )
 				{
 					Debug.Log( e.StackTrace );
 					Debug.Log( e.Message );
@@ -349,11 +348,11 @@ public class DataManager : MonoBehaviour
 	public static void LoadPlayerData()
 	{
 		// set default data
-		playerData = new PlayerData();
+		playerData = new PlayerData( );
 		try
 		{			
 			// data load - check first loading
-			if ( PlayerPrefs.GetInt( "FirstData" ) != 1234567890 )
+			if( PlayerPrefs.GetInt( "FirstData" ) != 1234567890 )
 			{
 				playerData.SetDefaultStatus();
 				playFirst = true;
@@ -366,6 +365,14 @@ public class DataManager : MonoBehaviour
 
 			// data load - player direct data
 			playerData.Name = PlayerPrefs.GetString( "PlayerName" );
+
+			if( playerData.Name == "" )
+			{
+				playerData.SetDefaultStatus();
+				playFirst = true;
+				return;
+			}
+
 			playerData.CharacterType = PlayerPrefs.GetString( "PlayerCharacter" );
 			playerData.Level = PlayerPrefs.GetInt( "PlayerLevel" );
 			playerData.Fame = PlayerPrefs.GetInt( "PlayerFame" );
@@ -383,11 +390,11 @@ public class DataManager : MonoBehaviour
 			playerData.StoreData = new StoreData( DataManager.FindStoreDataByStep( PlayerPrefs.GetInt( "StoreStep" ) ), PlayerPrefs.GetInt( "PresentExperience" ) );
 
 			// data load - have item set data
-			for ( int i = 0; i < playerData.ItemSet.Length; i++ )
+			for( int i = 0; i < playerData.ItemSet.Length; i++ )
 			{
-				if ( PlayerPrefs.GetInt( "HaveItemID" + i ) == 0 )
+				if( PlayerPrefs.GetInt( "HaveItemID" + i ) == 0 )
 				{
-					playerData.ItemSet[ i ] = new ItemInstance();
+					playerData.ItemSet[ i ] = new ItemInstance( );
 				}
 				else
 				{
@@ -398,11 +405,11 @@ public class DataManager : MonoBehaviour
 			}
 
 			// data load - have furniture set data
-			for ( int i = 0; i < playerData.FurnitureSet.Length; i++ )
+			for( int i = 0; i < playerData.FurnitureSet.Length; i++ )
 			{
-				if ( PlayerPrefs.GetInt( "HaveFurnitureID" + i ) == 0 )
+				if( PlayerPrefs.GetInt( "HaveFurnitureID" + i ) == 0 )
 				{
-					playerData.FurnitureSet[ i ] = new FurnitureInstance();
+					playerData.FurnitureSet[ i ] = new FurnitureInstance( );
 				}
 				else
 				{
@@ -412,7 +419,7 @@ public class DataManager : MonoBehaviour
 			}
 
 			// data load - allocate furniture set data
-			for ( int i = 0; i < PlayerPrefs.GetInt( "AllocateFurnitureLength" ); i++ )
+			for( int i = 0; i < PlayerPrefs.GetInt( "AllocateFurnitureLength" ); i++ )
 			{
 				// set position
 				Vector3 position = new Vector3( PlayerPrefs.GetFloat( "AllocateFurniturePositionX" + i ),
@@ -432,13 +439,13 @@ public class DataManager : MonoBehaviour
 			}
 
 		}
-		catch ( KeyNotFoundException e )
+		catch( KeyNotFoundException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
 			playerData.SetDefaultStatus();
 		}
-		catch ( NullReferenceException e )
+		catch( NullReferenceException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
@@ -450,36 +457,36 @@ public class DataManager : MonoBehaviour
 	public static void SavePlayerData()
 	{
 		// first check data
-		PlayerPrefs.SetInt( "FirstData", 1234567890);
+		PlayerPrefs.SetInt( "FirstData", 1234567890 );
 
 		// save data setting - player direct data
-		PlayerPrefs.SetString( "PlayerName", playerData.Name );
-		PlayerPrefs.SetString( "PlayerCharacter", playerData.CharacterType );
-		PlayerPrefs.SetInt( "PlayerLevel", playerData.Level );
-		PlayerPrefs.SetInt( "PlayerFame", playerData.Fame );
-		PlayerPrefs.SetInt( "PlayerCharm", playerData.Charm );
-		PlayerPrefs.SetInt( "PlayerGold", playerData.Gold );
-		PlayerPrefs.SetInt( "PlayerGem", playerData.Gem );
+		PlayerPrefs.SetString( "PlayerName", manager.GamePlayer.Name );
+		PlayerPrefs.SetString( "PlayerCharacter", manager.GamePlayer.CharacterType );
+		PlayerPrefs.SetInt( "PlayerLevel", manager.GamePlayer.Level );
+		PlayerPrefs.SetInt( "PlayerFame", manager.GamePlayer.Fame );
+		PlayerPrefs.SetInt( "PlayerCharm", manager.GamePlayer.Charm );
+		PlayerPrefs.SetInt( "PlayerGold", manager.GamePlayer.Gold );
+		PlayerPrefs.SetInt( "PlayerGem", manager.GamePlayer.Gem );
 
 		// save data setting - data length
-		PlayerPrefs.SetInt( "ItemSetLength", playerData.ItemSet.Length );
-		PlayerPrefs.SetInt( "FurnitureSetLength", playerData.FurnitureSet.Length );
-		PlayerPrefs.SetInt( "AllocateFurnitureLength", playerData.AllocateFurnitureSet.Count );
+		PlayerPrefs.SetInt( "ItemSetLength", manager.GamePlayer.ItemSet.Length );
+		PlayerPrefs.SetInt( "FurnitureSetLength", manager.GamePlayer.FurnitureSet.Length );
+		PlayerPrefs.SetInt( "AllocateFurnitureLength", manager.GamePlayer.AllocateFurnitureSet.Count );
 
 		// save data setting - store data
-		PlayerPrefs.SetInt( "StoreStep", playerData.StoreData.StoreStep );
-		PlayerPrefs.SetInt( "PresentExperience", playerData.StoreData.PresentExperience );
+		PlayerPrefs.SetInt( "StoreStep", manager.GamePlayer.StoreData.StoreStep );
+		PlayerPrefs.SetInt( "PresentExperience", manager.GamePlayer.StoreData.PresentExperience );
 
 		// save data setting - have item set data
-		for ( int i = 0; i < playerData.ItemSet.Length; i++ )
+		for( int i = 0; i < manager.GamePlayer.ItemSet.Length; i++ )
 		{
 			try
 			{
-				PlayerPrefs.SetInt( "HaveItemID" + i, playerData.ItemSet[ i ].Item.ID );
-				PlayerPrefs.SetInt( "HaveItemSlot" + i, playerData.ItemSet[ i ].SlotNumber );
-				PlayerPrefs.SetInt( "HaveItemCount" + i, playerData.ItemSet[ i ].Count );
+				PlayerPrefs.SetInt( "HaveItemID" + i, manager.GamePlayer.ItemSet[ i ].Item.ID );
+				PlayerPrefs.SetInt( "HaveItemSlot" + i, manager.GamePlayer.ItemSet[ i ].SlotNumber );
+				PlayerPrefs.SetInt( "HaveItemCount" + i, manager.GamePlayer.ItemSet[ i ].Count );
 			}
-			catch ( NullReferenceException e )
+			catch( NullReferenceException e )
 			{				
 				PlayerPrefs.SetInt( "HaveItemID" + i, 0 );
 				PlayerPrefs.SetInt( "HaveItemSlot" + i, i );
@@ -488,14 +495,14 @@ public class DataManager : MonoBehaviour
 		}
 
 		// save data setting - have furniture set data
-		for ( int i = 0; i < playerData.FurnitureSet.Length; i++ )
+		for( int i = 0; i < manager.GamePlayer.FurnitureSet.Length; i++ )
 		{
 			try
 			{
-				PlayerPrefs.SetInt( "HaveFurnitureID" + i, playerData.FurnitureSet[ i ].Furniture.ID );
-				PlayerPrefs.SetInt( "HaveFurnitureSlot" + i, playerData.FurnitureSet[ i ].SlotNumber );
+				PlayerPrefs.SetInt( "HaveFurnitureID" + i, manager.GamePlayer.FurnitureSet[ i ].Furniture.ID );
+				PlayerPrefs.SetInt( "HaveFurnitureSlot" + i, manager.GamePlayer.FurnitureSet[ i ].SlotNumber );
 			}
-			catch ( NullReferenceException e )
+			catch( NullReferenceException e )
 			{
 				PlayerPrefs.SetInt( "HaveFurnitureID" + i, 0 );
 				PlayerPrefs.SetInt( "HaveFurnitureSlot" + i, i );
@@ -503,17 +510,17 @@ public class DataManager : MonoBehaviour
 		}
 
 		// save data setting - allocate furniture set data
-		for ( int i = 0; i < playerData.AllocateFurnitureSet.Count; i++ )
+		for( int i = 0; i < manager.GamePlayer.AllocateFurnitureSet.Count; i++ )
 		{
-			PlayerPrefs.SetInt( "AllocateFurnitureID" + i, playerData.AllocateFurnitureSet[ i ].Furniture.ID );
+			PlayerPrefs.SetInt( "AllocateFurnitureID" + i, manager.GamePlayer.AllocateFurnitureSet[ i ].Furniture.ID );
 			PlayerPrefs.SetInt( "AllocateFurnitureSlot" + i, i );
-			PlayerPrefs.SetFloat( "AllocateFurniturePositionX" + i, playerData.AllocateFurnitureSet[ i ].Position.x );
-			PlayerPrefs.SetFloat( "AllocateFurniturePositionY" + i, playerData.AllocateFurnitureSet[ i ].Position.y );
-			PlayerPrefs.SetFloat( "AllocateFurniturePositionZ" + i, playerData.AllocateFurnitureSet[ i ].Position.z );
-			PlayerPrefs.SetFloat( "AllocateFurnitureRotationX" + i, playerData.AllocateFurnitureSet[ i ].Rotation.x );
-			PlayerPrefs.SetFloat( "AllocateFurnitureRotationY" + i, playerData.AllocateFurnitureSet[ i ].Rotation.y );
-			PlayerPrefs.SetFloat( "AllocateFurnitureRotationZ" + i, playerData.AllocateFurnitureSet[ i ].Rotation.z );
-			PlayerPrefs.SetFloat( "AllocateFurnitureRotationW" + i, playerData.AllocateFurnitureSet[ i ].Rotation.w );
+			PlayerPrefs.SetFloat( "AllocateFurniturePositionX" + i, manager.GamePlayer.AllocateFurnitureSet[ i ].Position.x );
+			PlayerPrefs.SetFloat( "AllocateFurniturePositionY" + i, manager.GamePlayer.AllocateFurnitureSet[ i ].Position.y );
+			PlayerPrefs.SetFloat( "AllocateFurniturePositionZ" + i, manager.GamePlayer.AllocateFurnitureSet[ i ].Position.z );
+			PlayerPrefs.SetFloat( "AllocateFurnitureRotationX" + i, manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation.x );
+			PlayerPrefs.SetFloat( "AllocateFurnitureRotationY" + i, manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation.y );
+			PlayerPrefs.SetFloat( "AllocateFurnitureRotationZ" + i, manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation.z );
+			PlayerPrefs.SetFloat( "AllocateFurnitureRotationW" + i, manager.GamePlayer.AllocateFurnitureSet[ i ].Rotation.w );
 		}
 	
 		// save data
@@ -525,7 +532,7 @@ public class DataManager : MonoBehaviour
 	{
 		ItemData.GradeType _grade;
 
-		switch ( _type )
+		switch( _type )
 		{
 			case 1:
 				_grade = ItemData.GradeType.common;
@@ -553,7 +560,7 @@ public class DataManager : MonoBehaviour
 		{
 			return DataManager.furnitureSet[ id ];
 		}
-		catch ( KeyNotFoundException e )
+		catch( KeyNotFoundException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
@@ -570,7 +577,13 @@ public class DataManager : MonoBehaviour
 		{
 			return DataManager.itemSet[ id ];
 		}
-		catch ( KeyNotFoundException e )
+		catch( KeyNotFoundException e )
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			DataManager.LoadItemData();
+		}
+		catch( NullReferenceException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
@@ -587,7 +600,7 @@ public class DataManager : MonoBehaviour
 		{
 			return DataManager.fieldDataSet[ step ];
 		}
-		catch ( KeyNotFoundException e )
+		catch( KeyNotFoundException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
@@ -602,9 +615,9 @@ public class DataManager : MonoBehaviour
 	{
 		List<StageResultData> tempSet = stageResultSet[ step ];
 
-		for ( int i = 0; i < tempSet.Count; i++ )
+		for( int i = 0; i < tempSet.Count; i++ )
 		{
-			if ( (tempSet[ i ].RankProfitCount <= profitCount) && (tempSet[ i ].RankProfitMoney <= profitMoney) )
+			if( ( tempSet[ i ].RankProfitCount <= profitCount ) && ( tempSet[ i ].RankProfitMoney <= profitMoney ) )
 				return tempSet[ i ];
 		}
 
@@ -618,7 +631,7 @@ public class DataManager : MonoBehaviour
 		{
 			return DataManager.storeDataSet[ step ];
 		}
-		catch ( KeyNotFoundException e )
+		catch( KeyNotFoundException e )
 		{
 			Debug.Log( e.StackTrace );
 			Debug.Log( e.Message );
@@ -645,7 +658,7 @@ public class DataManager : MonoBehaviour
 		{
 			return DataManager.searchFurnitureList;
 		}
-		catch ( NullReferenceException e )
+		catch( NullReferenceException e )
 		{
 			Debug.Log( e.Message );
 			Debug.Log( e.StackTrace );
@@ -661,7 +674,7 @@ public class DataManager : MonoBehaviour
 		{
 			return DataManager.searchItemList;
 		}
-		catch ( NullReferenceException e )
+		catch( NullReferenceException e )
 		{
 			Debug.Log( e.Message );
 			Debug.Log( e.StackTrace );

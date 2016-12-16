@@ -33,7 +33,7 @@ public class ItemInstance
 
 	public ItemInstance( ItemInstance data, int limit )
 	{
-		itemData = DataManager.FindItemDataByID( data.Item.ID );
+		itemData = new ItemData( DataManager.FindItemDataByID( data.Item.ID ) );
 		count = Mathf.Clamp( data.count, 0, limit );
 		data.count -= count;
 	}
@@ -46,8 +46,8 @@ public class ItemInstance
 	}
 
 	public ItemInstance( int id, int _slotNumber, int _count )
-	{
-		itemData = DataManager.FindItemDataByID( id );
+	{		
+		itemData = new ItemData( DataManager.FindItemDataByID( id ) );
 		slotNumber = _slotNumber;
 		count = _count;
 	}

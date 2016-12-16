@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class CharacterManager : MonoBehaviour
@@ -6,6 +7,10 @@ public class CharacterManager : MonoBehaviour
 	// high structure
 	[SerializeField] GameManager manager;
 	[SerializeField] StoreManager storeManager;
+
+	// cast data
+	[SerializeField] Ray ray;
+	[SerializeField] RaycastHit hitInfo;
 
 	// player character
 	[SerializeField] Transform storeDoor;
@@ -15,12 +20,18 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] KakaoAgent kakaoAgent;
 
 	// marshmello character
+	[SerializeField] bool marshmelloActivate;
+	[SerializeField] MarshmelloAgent pinkyAgent;
 
 	// create field
 	[SerializeField] string characterName;
 
 	// property
 	public PlayerAgent PlayerableCharacter { get { return playerableCharacter; } }
+
+	public MarshmelloAgent PinkyAgent { get { return pinkyAgent; } }
+
+	public bool MarshmelloActivate { get { return marshmelloActivate; } set { marshmelloActivate = value; } }
 
 	// unity method
 	void Awake()
@@ -37,6 +48,7 @@ public class CharacterManager : MonoBehaviour
 
 		// field
 		kakaoAgent = GameObject.Find( "KakaoAgent" ).GetComponent<KakaoAgent>();
+		pinkyAgent = GameObject.Find( "MarshmelloAgent" ).GetComponent<MarshmelloAgent>();
 	}
 
 	// player section
@@ -79,17 +91,54 @@ public class CharacterManager : MonoBehaviour
 		kakaoAgent.GoToStore();
 	}
 
+	// marshmello section
+	public void ActivateMarshMello()
+	{
+		if( pinkyAgent.PresentSequence == MarshmelloAgent.Sequence.Ready )
+		{
+			pinkyAgent.GoToStore();
+			marshmelloActivate = true;
+		}
+	}
+
+	// click count on -> use stage policy
+	public bool DamageMarshmello()
+	{
+		if( pinkyAgent.PresentSequence != MarshmelloAgent.Sequence.Ready )
+		{			
+			ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+
+			if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject( Input.GetTouch( 0 ).fingerId ) )
+			{
+				Debug.Log( "check click" );
+				if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Marshmello" ) ) )
+				{
+					Debug.Log( " ray cast success" );
+					GameObject tempSearch = hitInfo.collider.gameObject;
+					MarshmelloAgent tempMarshmello = tempSearch.GetComponent<MarshmelloAgent>();
+
+					tempMarshmello.PresentClick += 1;
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 
 	// logic stage reset
 	// stage preprocess reset
 	public void StagePreprocessReset()
 	{
-		kakaoAgent.GoToOffice();
+		kakaoAgent.GoToOffice();	
 	}
 
 	// stage reset
 	public void StageReset()
 	{
 		kakaoAgent.GoToOffice();
+		pinkyAgent.GoToHome();
+		pinkyAgent.ResetLoopData();
 	}
 }

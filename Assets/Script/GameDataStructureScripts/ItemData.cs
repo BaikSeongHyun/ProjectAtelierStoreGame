@@ -108,6 +108,37 @@ public class ItemData
 		resourceCountSet = _resourceCountSet;
 	}
 
+	public ItemData( ItemData data )
+	{
+		itemType = data.itemType;
+		id = data.id;
+		file = data.file;
+		name = data.name;
+		price = data.price;
+		countLimit = data.countLimit;
+		guide = data.guide;
+		gradeType = data.gradeType;
+		step = data.step;
+
+		if( resourceIDSet != null )
+		{
+			resourceIDSet = new int[data.resourceIDSet.Length];
+			for( int i = 0; i < data.resourceIDSet.Length; i++ )
+			{
+				resourceIDSet[ i ] = data.resourceIDSet[ i ];
+			}
+		}
+
+		if( resourceCountSet != null )
+		{
+			resourceCountSet = new int[data.resourceCountSet.Length];
+			for( int i = 0; i < data.resourceCountSet.Length; i++ )
+			{
+				resourceCountSet[ i ] = data.resourceCountSet[ i ];
+			}
+		}
+	}
+
 
 	GradeType ReturnGradeType( int _gradeType )
 	{

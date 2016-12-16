@@ -94,7 +94,7 @@ public class KakaoAgent : AIAgent
 		agentAnimator = GetComponent<Animator>();
 		moveAgent = GetComponent<NavMeshAgent>();
 
-		// set points
+		// set move points
 		GameObject[] temp = GameObject.FindGameObjectsWithTag( "WorldBoundary" );
 		worldBoundary = new Transform[temp.Length];
 		for( int i = 0; i < worldBoundary.Length; i++ )
@@ -103,9 +103,14 @@ public class KakaoAgent : AIAgent
 		}	
 		waitingPoint = GameObject.FindWithTag( "CustomerWaitingPoint" ).transform;
 
+		// set effect object
 		runEffect = transform.Find( "RunEffect" ).gameObject;
+
+		// set start sequence
+		presentSequence = Sequence.Ready;
 	}
 
+	// kakao go to store
 	public void GoToStore()
 	{		
 		storeDoor = GameObject.Find( "StoreDoor" ).transform;
@@ -115,8 +120,9 @@ public class KakaoAgent : AIAgent
 		moveAgent.enabled = true;
 	}
 
+	// kakao go to office (ready point)
 	public void GoToOffice()
-	{	
+	{		
 		moveAgent.enabled = true;	
 		moveAgent.ResetPath();
 		moveAgent.enabled = false;
@@ -125,6 +131,9 @@ public class KakaoAgent : AIAgent
 		presentSequence = Sequence.Ready;
 	}
 
+
+	// animatoer event method
+	// end send letter
 	public void SendEndEvent()
 	{
 		presentSequence = Sequence.GoToOffice;
