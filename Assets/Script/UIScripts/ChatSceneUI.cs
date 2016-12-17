@@ -8,7 +8,6 @@ public class ChatSceneUI : MonoBehaviour
 	[SerializeField] StageManager stageManager;
 
 	// field - component
-	[SerializeField] Image pieImage;
 	[SerializeField] Image kakaoImage;
 	[SerializeField] Text chatText;
 
@@ -26,7 +25,6 @@ public class ChatSceneUI : MonoBehaviour
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 
 		// field - component
-		pieImage = transform.Find( "PieImage" ).GetComponent<Image>();
 		kakaoImage = transform.Find( "KakaoImage" ).GetComponent<Image>();
 		chatText = transform.Find( "ChatBack" ).Find( "ChatText" ).GetComponent<Text>();
 	}
@@ -42,9 +40,8 @@ public class ChatSceneUI : MonoBehaviour
 	public void SetKakaoInformation()
 	{
 		kakaoImage.enabled = true;
-		pieImage.enabled = false;
-		chatText.text = "오늘의 정보 \n\n" + "손님들이" + stageManager.ProFavor + "%의 확률로 " + ItemData.ReturnTypeString( stageManager.FavoriteGroup ) + "을(를) 선호합니다.\n"
-		+ "손님들이" + stageManager.ProFavor + "%의 확률로 " + CustomerAgent.ReturnBuyScaleString( stageManager.BuyScale ) + "삽니다.";
+		chatText.text = "오늘의 정보 \n\n" + "손님들이 " + stageManager.ProFavor + "%의 확률로 " + ItemData.ReturnTypeString( stageManager.FavoriteGroup ) + "을(를) 선호합니다.\n"
+		+ "손님들이 " + stageManager.ProFavor + "%의 확률로 " + CustomerAgent.ReturnBuyScaleString( stageManager.BuyScale ) + "삽니다.";
 	}
 
 	// on click method

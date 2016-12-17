@@ -21,9 +21,9 @@ GameObject:
   - 4: {fileID: 4000010487197614}
   - 33: {fileID: 33000013237365424}
   - 23: {fileID: 23000012579514048}
-  - 65: {fileID: 65000013743104954}
   - 54: {fileID: 54000010458517460}
   - 114: {fileID: 114000012053572478}
+  - 65: {fileID: 65000011642835162}
   m_Layer: 10
   m_Name: RedScroll
   m_TagString: Untagged
@@ -95,7 +95,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65000013743104954
+--- !u!65 &65000011642835162
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,8 +105,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.97569484, y: 0.12990418, z: 0.15000038}
-  m_Center: {x: 0, y: 0.06495179, z: -0.00000017136335}
+  m_Size: {x: 0.12990412, y: 0.97569484, z: 0.15000038}
+  m_Center: {x: 0, y: 0.48784742, z: 0.000000037252903}
 --- !u!114 &114000012053572478
 MonoBehaviour:
   m_ObjectHideFlags: 1

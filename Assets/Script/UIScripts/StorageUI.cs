@@ -15,14 +15,6 @@ public class StorageUI : MonoBehaviour
 	[SerializeField] Image tap3;
 	[SerializeField] DataElement[] slots;
 
-	// field - image data
-	[SerializeField] Sprite tap1On;
-	[SerializeField] Sprite tap1Off;
-	[SerializeField] Sprite tap2On;
-	[SerializeField] Sprite tap2Off;
-	[SerializeField] Sprite tap3On;
-	[SerializeField] Sprite tap3Off;
-
 	// field - logic data
 	[SerializeField] int presentStepIndex;
 
@@ -80,21 +72,21 @@ public class StorageUI : MonoBehaviour
 		switch( index )
 		{
 			case 1:	
-				tap1.sprite = tap1On;
-				tap2.sprite = tap2Off;
-				tap3.sprite = tap3Off;
+				tap1.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab1On" );
+				tap2.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab2Off" );
+				tap3.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab2Off" );
 				presentStepIndex = 0;
 				break;
 			case 2:
-				tap1.sprite = tap1Off;
-				tap2.sprite = tap2On;
-				tap3.sprite = tap3Off;
+				tap1.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab1Off" );
+				tap2.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab2On" );
+				tap3.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab3Off" );
 				presentStepIndex = 1;
 				break;
 			case 3:
-				tap1.sprite = tap1Off;
-				tap2.sprite = tap2Off;
-				tap3.sprite = tap3On;
+				tap1.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab1Off" );
+				tap2.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab2Off" );
+				tap3.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab3On" );
 				presentStepIndex = 2;
 				break;
 		}

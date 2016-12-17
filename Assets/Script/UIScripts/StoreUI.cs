@@ -18,8 +18,6 @@ public class StoreUI : MonoBehaviour
 	[SerializeField] Image charHead;
 	[SerializeField] GameObject stepUpButton;
 
-	// - object set -> child ui object
-	[SerializeField] GameObject questUI;
 
 	// - button set -> make on click method
 	// achivement, storage, field, customize
@@ -40,11 +38,7 @@ public class StoreUI : MonoBehaviour
 		charHead = transform.Find( "PlayerStatus" ).Find( "CharHead" ).GetComponent<Image>();
 
 		// object element
-		questUI = transform.Find( "QuestUI" ).gameObject;
 		stepUpButton = transform.Find( "StepUpButton" ).gameObject;
-
-		// object element off
-		ClearChildUI();
 	}
 
 	// update element
@@ -59,12 +53,6 @@ public class StoreUI : MonoBehaviour
 			charHead.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/ChouHead" );
 
 		stepUpButton.SetActive( manager.GamePlayer.StoreData.StepUpAlready );
-	}
-
-	// clear child ui
-	public void ClearChildUI()
-	{		
-		questUI.SetActive( false );
 	}
 
 	// on click method
@@ -91,15 +79,7 @@ public class StoreUI : MonoBehaviour
 	// on click mode customizing button
 	public void OnClickCustomizingButton()
 	{
-		ClearChildUI();
 		manager.SetCutomizeingMode();
-	}
-
-	// on click quest button
-	public void OnClickQuestButton()
-	{
-		ClearChildUI();
-		questUI.SetActive( true );
 	}
 
 	// on click step up button

@@ -21,9 +21,9 @@ GameObject:
   - 4: {fileID: 4000013889401082}
   - 33: {fileID: 33000013088901436}
   - 23: {fileID: 23000012437615164}
-  - 65: {fileID: 65000011778989134}
   - 54: {fileID: 54000011081032736}
   - 114: {fileID: 114000013316862478}
+  - 65: {fileID: 65000011721092232}
   m_Layer: 10
   m_Name: NormalScroll
   m_TagString: Untagged
@@ -95,7 +95,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65000011778989134
+--- !u!65 &65000011721092232
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,8 +105,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.85605794, y: 0.12648726, z: 0.14730985}
-  m_Center: {x: 0, y: 0.03049465, z: 0}
+  m_Size: {x: 0.12648726, y: 0.85605794, z: 0.14730999}
+  m_Center: {x: 0, y: 0.42802897, z: -0.000000018626451}
 --- !u!114 &114000013316862478
 MonoBehaviour:
   m_ObjectHideFlags: 1

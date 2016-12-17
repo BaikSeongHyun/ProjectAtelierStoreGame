@@ -16,6 +16,8 @@ TagManager:
   - Step2Position
   - Step3Position
   - Step1Position
+  - object
+  - icon
   layers:
   - Default
   - TransparentFX

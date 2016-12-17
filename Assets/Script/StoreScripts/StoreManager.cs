@@ -521,11 +521,15 @@ public class StoreManager : MonoBehaviour
 	}
 
 	// select furniture
-	public bool SelectFurniture( int index )
+	public bool SelectFurniture( int index, int slotLength )
 	{
 		try
 		{
-			selectedFurniture = viewFurnitureGroup[ index + ( presentIndexFurniture * presentIndexFurniture ) ];
+			if( presentIndexFurniture == 0 )
+				selectedFurniture = viewFurnitureGroup[ index ];
+			else
+				selectedFurniture = viewFurnitureGroup[ index + ( ( presentIndexFurniture * slotLength ) ) ];
+
 			return true;
 		}
 		catch( ArgumentOutOfRangeException e )

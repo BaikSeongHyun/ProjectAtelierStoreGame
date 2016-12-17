@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
 	// game start -> for client test
 	public void GameStart()
 	{
+		StartCoroutine( SaveCycle() );
 		StartCoroutine( GameStartLoadingProcess() );
 		gameStart = true;
 	}
@@ -204,17 +205,6 @@ public class GameManager : MonoBehaviour
 	public void SetDefaultStatus()
 	{
 		player.SetDefaultStatus();
-	}
-
-	// set item all allocate sell object
-	public void SetItemsInSellObject()
-	{
-		player.InsertSellItem();
-	}
-
-	public void SetItemsInSellObjectUseIndex()
-	{
-		player.InsertSellItemUseIndex( index );
 	}
 
 	// coroutine section
@@ -334,9 +324,11 @@ public class GameManager : MonoBehaviour
 	{
 		while( true )
 		{
-			DataManager.SavePlayerData();
-
 			yield return new WaitForSeconds( 60f );
+
+			DataManager.SavePlayerData();
+			Debug.Log( "Save game data" );
+
 		}
 	}
 

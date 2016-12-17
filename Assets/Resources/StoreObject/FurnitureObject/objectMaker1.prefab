@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014177733774}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 1.5}
+  m_LocalPosition: {x: -1, y: 0, z: 10.4}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: bbd91a5fec063924f89712b08f190b62, type: 2}
+  - {fileID: 2100000, guid: 13fc3785d7302124aa35a6e7e60f161d, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aea2d79a9116f649bf2df3dda64b08b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
   data:
     furniture:
       id: 0
@@ -131,6 +132,8 @@ MonoBehaviour:
   tempSet: []
   storePlaneScale: 0
   sellItemSet: []
+  itemLocation: []
+  sellItemObject: []
 --- !u!208 &208000014057876388
 NavMeshObstacle:
   m_ObjectHideFlags: 1

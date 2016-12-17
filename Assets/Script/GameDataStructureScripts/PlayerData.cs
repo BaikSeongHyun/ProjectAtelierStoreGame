@@ -235,46 +235,4 @@ public class PlayerData
 		}
 		return null;
 	}
-
-	// for test
-	public void InsertSellItem()
-	{
-		foreach( FurnitureObject element in allocateFurnitureObjectSet )
-		{
-			if( element.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
-			{
-				
-			}
-		}
-	}
-
-	public void InsertSellItemUseIndex( int index )
-	{
-		
-	}
-
-	public int SearchItem( ItemData data, int count )
-	{
-		//인벤토리 번호 반환합니다.
-		for( int i = 0; i < ( haveItemSet.Length / 3 ); i++ )
-		{
-			if( haveItemSet[ i ] == null || haveItemSet[ i ].Item == null || haveItemSet[ i ].Item.ID == 0 )
-			{
-				Debug.Log( "pass" );
-				continue;
-			}
-			else
-			{
-
-				if( haveItemSet[ i ].Item.ID == data.ID && haveItemSet[ i ].Count >= count )
-				{
-
-					Debug.Log( "갯수충분" );
-					return i; //인벤토리 0~15번, 번호를 반환
-				}
-			}
-		}
-
-		return -1;
-	}
 }

@@ -41,7 +41,15 @@ public class ResultUI : MonoBehaviour
 		rankImage.sprite = Resources.Load<Sprite>( "Image/UI/ResultUI/Rank" + stageManager.ResultData.Rank );
 		goldText.text = stageManager.ResultData.RewardGold.ToString();
 		expText.text = stageManager.ResultData.RewardExp.ToString();
-		playTimeText.text = ( ( int ) ( stageManager.PlayTime / 60 ) ).ToString() + " : " + ( ( int ) ( stageManager.PlayTime % 60 ) ).ToString();
+
+		// set minute
+		playTimeText.text = ( ( int ) ( stageManager.PlayTime / 60 ) ).ToString() + " : ";
+
+		// set second
+		if( ( stageManager.PlayTime % 60 ) == 0 )
+			playTimeText.text += "00";
+		else
+			playTimeText.text += ( ( int ) ( stageManager.PlayTime % 60 ) ).ToString();
 	}
 
 	// on click method

@@ -70,10 +70,10 @@ public class FieldManager : MonoBehaviour
 		CheckStepFieldData();
 
 		objects = new GameObject[4];
-		objects[ 0 ] = Resources.Load( "Prefabs/Field/bushPurple" ) as GameObject;
-		objects[ 1 ] = Resources.Load( "Prefabs/Field/bushYellow" ) as GameObject;
-		objects[ 2 ] = Resources.Load( "Prefabs/Field/StoneBlue" ) as GameObject;
-		objects[ 3 ] = Resources.Load( "Prefabs/Field/StoneRed" ) as GameObject;
+		objects[ 0 ] = Resources.Load( "FieldObject/bushPurple" ) as GameObject;
+		objects[ 1 ] = Resources.Load( "FieldObject/bushYellow" ) as GameObject;
+		objects[ 2 ] = Resources.Load( "FieldObject/StoneBlue" ) as GameObject;
+		objects[ 3 ] = Resources.Load( "FieldObject/StoneRed" ) as GameObject;
 
 		step1Position = GameObject.FindGameObjectsWithTag( "Step1Position" );
 		step2Position = GameObject.FindGameObjectsWithTag( "Step2Position" );

@@ -21,9 +21,9 @@ GameObject:
   - 4: {fileID: 4000013456194034}
   - 33: {fileID: 33000010930809138}
   - 23: {fileID: 23000010497491054}
-  - 65: {fileID: 65000010320186920}
   - 54: {fileID: 54000011888710986}
   - 114: {fileID: 114000010519214326}
+  - 65: {fileID: 65000011973102440}
   m_Layer: 10
   m_Name: LuxuriousBlueScroll
   m_TagString: Untagged
@@ -95,7 +95,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65000010320186920
+--- !u!65 &65000011973102440
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,8 +105,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.026438, y: 0.12990408, z: 0.15000029}
-  m_Center: {x: 0, y: 0.06495189, z: -0.00000015646219}
+  m_Size: {x: 0.129904, y: 1.026438, z: 0.15000027}
+  m_Center: {x: 0.0000000037252903, y: 0.513219, z: 0.000000040978193}
 --- !u!114 &114000010519214326
 MonoBehaviour:
   m_ObjectHideFlags: 1

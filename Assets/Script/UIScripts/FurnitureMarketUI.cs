@@ -65,7 +65,7 @@ public class FurnitureMarketUI : MonoBehaviour
 	// on click items
 	public void OnClickFurnitureItems( int index )
 	{
-		if( !storeManager.SelectFurniture( index + ( storeManager.PresentFurnitureListIndex * listSlots.Length ) ) )
+		if( !storeManager.SelectFurniture( index, listSlots.Length ) )
 			return;
 		purchaseUI.SetActive( true );
 		purchaseUILogic.SetComponentElement();
