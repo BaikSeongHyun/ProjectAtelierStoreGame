@@ -703,7 +703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191b9250a44872448a453ca949df4623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
   backCheck: []
   backgroundPlayer: {fileID: 0}
   uiSoundPlayer: {fileID: 0}
@@ -819,7 +818,26 @@ MonoBehaviour:
       stageTime: 0
     haveItemSet: []
     haveFurnitureSet: []
-    allocateFurnitureSet: []
+    allocateFurnitureSet:
+    - furniture:
+        id: 0
+        file: 
+        name: 
+        guide: 
+        price: 0
+        height: 0
+        widthX: 0
+        widthZ: 0
+        step: 0
+        firstDataTable: 
+        secondDataTable: 
+        slotLength: 0
+        functionType: 0
+        allocateType: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+      isAllocated: 0
+      slotNumber: 0
     allocateFurnitureObjectSet: []
   characterManager: {fileID: 0}
   fieldManager: {fileID: 0}
@@ -953,7 +971,7 @@ Skybox:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1804956463}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: e484cc0d1c45fba4990fa8df5aa54247, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: 3802fb8899dc2df428fb805843045a49, type: 2}
 --- !u!1 &1883007429
 GameObject:
   m_ObjectHideFlags: 0

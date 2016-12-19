@@ -93,7 +93,6 @@ public class PlayerData
 	// allocate furniture instance
 	public bool AllocateFurnitureInstance( int index, int presentStepIndex )
 	{	
-
 		int processIndex = index + ( presentStepIndex * ( haveFurnitureSet.Length / 3 ) );
 		try
 		{
@@ -118,6 +117,13 @@ public class PlayerData
 	// delete allocate furniture instance
 	public bool DeleteAllocateFurniture( int index )
 	{	
+		// reload slot number
+		for( int i = 0; i < allocateFurnitureSet.Count; i++ )
+		{
+			allocateFurnitureSet[ i ].SlotNumber = i;
+			allocateFurnitureObjectSet[ i ].InstanceData.SlotNumber = i;
+		}
+
 		// remove furniture
 		allocateFurnitureObjectSet[ index ].ObjectAllocateOff();
 		allocateFurnitureObjectSet.RemoveAt( index );

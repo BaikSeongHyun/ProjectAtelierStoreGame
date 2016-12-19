@@ -287,7 +287,10 @@ public class MarshmelloAgent : AIAgent
 		}
 
 		if( throwCount == 0 )
-			GoToHome();
+		{
+			moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, 2 ) ];
+			presentSequence = Sequence.GoToHome;
+		}
 		if( presentSequence != Sequence.Ready )
 			SearchItemTarget();
 	}

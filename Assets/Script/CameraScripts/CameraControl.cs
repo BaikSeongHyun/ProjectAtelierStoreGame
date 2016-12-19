@@ -31,13 +31,35 @@ public class CameraControl : MonoBehaviour
 	{
 		// set up position & rotation
 		if( state != GameManager.GameMode.StoreCustomizing )
-		{
-			transform.position = new Vector3( 32f, 24f, 32f );
+		{			
+			switch( manager.GamePlayer.StoreData.StoreStep )
+			{
+				case 1:
+					transform.position = new Vector3( 34f, 24f, 34f );
+					break;
+				case 2:
+					transform.position = new Vector3( 36f, 25f, 36f );
+					break;
+				case 3:
+					transform.position = new Vector3( 46f, 30f, 46f );
+					break;
+			}
 			transform.localRotation = Quaternion.Euler( 30, 225, 0 );
 		}
 		else
 		{
-			transform.position = new Vector3( 21f, 32f, 21f );
+			switch( manager.GamePlayer.StoreData.StoreStep )
+			{
+				case 1:
+					transform.position = new Vector3( 21f, 38f, 21f );
+					break;
+				case 2:
+					transform.position = new Vector3( 28f, 48f, 28f );
+					break;
+				case 3:
+					transform.position = new Vector3( 30f, 50f, 30f );
+					break;
+			}
 			transform.localRotation = Quaternion.Euler( 60, 225, 0 );
 		}
 	}
@@ -89,6 +111,17 @@ public class CameraControl : MonoBehaviour
 
 				transform.position -= ( transform.position * deltaMagnitureDiff * -sensitive );
 			}
+		}
+
+		if( manager.PresentMode == GameManager.GameMode.StoreCustomizing )
+		{
+			transform.position = new Vector3( Mathf.Clamp( transform.position.x, 15f, 30f ), Mathf.Clamp( transform.position.y, 30f, 50f ), Mathf.Clamp( transform.position.z, 15f, 30f ) );
+			transform.rotation = Quaternion.Euler( 60, 225, 0 );
+		}
+		else
+		{
+			transform.position = new Vector3( Mathf.Clamp( transform.position.x, 30f, 55f ), Mathf.Clamp( transform.position.y, 25f, 40f ), Mathf.Clamp( transform.position.z, 30f, 55f ) );
+			transform.rotation = Quaternion.Euler( 30, 225, 0 );
 		}
 	}
 }

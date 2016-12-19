@@ -263,7 +263,6 @@ public class StoreManager : MonoBehaviour
 			presentSelectedObject.CheckAllocatePossible();
 
 			// link player data & object
-			manager.GamePlayer.AllocateFurnitureSet.Add( presentSelectedObject.InstanceData );
 			manager.GamePlayer.AllocateFurnitureObjectSet.Add( presentSelectedObject );
 		}
 	}
