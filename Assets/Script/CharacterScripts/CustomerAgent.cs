@@ -20,7 +20,6 @@ public class CustomerAgent : AIAgent
 	[SerializeField] FurnitureObject targetObject;
 	[SerializeField] float calculatedBuyScale;
 	[SerializeField] int itemIndex;
-	[SerializeField] bool alreadyBuyItems;
 
 	// field - logic point
 	[SerializeField] Transform waitingPoint;
@@ -170,7 +169,7 @@ public class CustomerAgent : AIAgent
 		transform.position = waitingPoint.position; 
 		gold = UnityEngine.Random.Range( 500, 2000 );
 		moveAgent.speed = UnityEngine.Random.Range( 4f, 6f );
-		presentSequence = Sequence.Ready;		
+		presentSequence = Sequence.Ready;
 	}
 
 	// move start customer agent
@@ -255,7 +254,7 @@ public class CustomerAgent : AIAgent
 						}
 						else
 						{
-							Debug.Log( "this Item is so expensive" );
+							// Debug.Log( "this Item is so expensive" );
 						}
 					}
 				}
@@ -288,22 +287,18 @@ public class CustomerAgent : AIAgent
 					}
 					else
 					{
-						Debug.Log( "this Item is so expensive" );
+						// Debug.Log( "this Item is so expensive" );
 					}
 				}
 				catch( NullReferenceException e )
 				{	
-					//Debug.Log( "No item this slot" );
+					// Debug.Log( "No item this slot" );
 				}
 			}
 		}
 
-		// set no item opinion
-		if( !alreadyBuyItems )
-			;
-		else
-			Debug.Log( "No Items : " + name );
-		
+		// set item opinion
+
 		moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ];
 		presentSequence = Sequence.GoToHome;
 	}
@@ -359,8 +354,9 @@ public class CustomerAgent : AIAgent
 		// buy item
 		stageManager.BuyItem( targetObject, itemIndex, ref gold );
 
-		// check next target
-		SequenceProcessSearchTarget();
+		// no more items -> go home
+		moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, worldBoundary.Length ) ];
+		presentSequence = Sequence.GoToHome;
 	}
 
 	// static method

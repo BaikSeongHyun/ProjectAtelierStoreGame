@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Item xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Data>
+		<type>2</type>
+		<id>1</id>
+		<file>SmallRedPotion</file>
+		<name>작은빨강물약</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>빨강약이 조금 담겨 있다. 바르면 상처가 빨리 낫는다나?</guide>
+		<grade>1</grade>
+		<step>1</step>
+		<material>17.1.23.1</material>
+	</Data>
+	<Data>
+		<type>2</type>
+		<id>2</id>
+		<file>SmallBluePotion</file>
+		<name>작은파랑물약</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>파란약이 조금 담겨 있다. 마시면 멘탈 회복에 도움이 된다고….</guide>
+		<grade>1</grade>
+		<step>1</step>
+		<material>17.1.22.1</material>
+	</Data>
+	<Data>
+		<type>2</type>
+		<id>3</id>
+		<file>SmallGreenPotion</file>
+		<name>작은녹색물약</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>녹색약이 조금 담겨 있다. 식물에게 주면 도움이 된다고 하는데?</guide>
+		<grade>1</grade>
+		<step>1</step>
+		<material>16.1.22.1</material>
+	</Data>
+	<Data>
+		<type>3</type>
+		<id>4</id>
+		<file>YellowHerbStep1</file>
+		<name>노란약초</name>
+		<price>100</price>
+		<countLimit>999</countLimit>
+		<guide>물약재료</guide>
+		<grade>1</grade>
+		<step>1</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>3</type>
+		<id>5</id>
+		<file>PurpleHerbStep1</file>
+		<name>보라약초</name>
+		<price>100</price>
+		<countLimit>999</countLimit>
+		<guide>물약재료</guide>
+		<grade>1</grade>
+		<step>1</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>6</id>
+		<file>BluePowder</file>
+		<name>파란가루</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>제작에 필요한 가루</guide>
+		<grade>1</grade>
+		<step>1</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>7</id>
+		<file>RedPowder</file>
+		<name>빨간가루</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>제작에 필요한 가루</guide>
+		<grade>1</grade>
+		<step>1</step>
+		<material>-</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>8</id>
+		<file>NormalScroll</file>
+		<name>기본 스크롤</name>
+		<price>100</price>
+		<countLimit>999</countLimit>
+		<guide>기본 스크롤이다.</guide>
+		<grade>2</grade>
+		<step>1</step>
+		<material>23.1.8.1</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>9</id>
+		<file>NormalStick</file>
+		<name>기본 지팡이</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>기본 지팡이이다. 초보마법사들에게 제격이다.</guide>
+		<grade>2</grade>
+		<step>1</step>
+		<material>22.1.7.1</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>10</id>
+		<file>MagicBeginnerBook</file>
+		<name>마법입문서</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>초보마법사들의 입문서이다.</guide>
+		<grade>2</grade>
+		<step>1</step>
+		<material>8.1.28.1</material>
+	</Data>
+	<Data>
+		<type>2</type>
+		<id>11</id>
+		<file>RedPotion</file>
+		<name>빨강물약</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>빨강약이 담겨 있다. 바르면 상처가 빨리 낫는다고 한다.</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>7.2</material>
+	</Data>
+	<Data>
+		<type>2</type>
+		<id>12</id>
+		<file>BluePotion</file>
+		<name>파랑물약</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>파란약이 담겨 있다. 마시면 멘탈을 단단하게(?) 한다.</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>8.2</material>
+	</Data>
+	<Data>
+		<type>2</type>
+		<id>13</id>
+		<file>GreenPotion</file>
+		<name>녹색물약</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>녹색약이 담겨 있다. 식물에 주면 식물이 잘자란다고 한다.</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>9.2</material>
+	</Data>
+	<Data>
+		<type>3</type>
+		<id>14</id>
+		<file>YellowHerbStep2</file>
+		<name>자란노란약초</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>노란약초가 한단계 성장한 모습이다.</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>16.2</material>
+	</Data>
+	<Data>
+		<type>3</type>
+		<id>15</id>
+		<file>PurpleHerbStep2</file>
+		<name>자란보라약초</name>
+		<price>150</price>
+		<countLimit>999</countLimit>
+		<guide>보라약초가 한단계 성장한 모습이다.</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>17.2</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>16</id>
+		<file>BluePowderBowl</file>
+		<name>파란가루한대접</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>파란가루를 모아서 담아놨다.</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>22.2</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>17</id>
+		<file>RedPowderBowl</file>
+		<name>빨간가루한대접</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>빨간가루를 모아서 담아놨다.</guide>
+		<grade>1</grade>
+		<step>2</step>
+		<material>23.2</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>18</id>
+		<file>BlueScroll</file>
+		<name>파란 스크롤</name>
+		<price>200</price>
+		<countLimit>999</countLimit>
+		<guide>기본스크롤보다 보기 좋은 스크롤이다.</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>28.1.12.1</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>19</id>
+		<file>RedScroll</file>
+		<name>빨간 스크롤</name>
+		<price>200</price>
+		<countLimit>999</countLimit>
+		<guide>기본스크롤보다 보기 좋은 스크롤이다.</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>28.1.10.1</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>20</id>
+		<file>DarkCane</file>
+		<name>어둠의 케인</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>어느정도 숙련된 마법사들에게 추천하는 지팡이(흑)</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>33.1.24.1</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>21</id>
+		<file>LightWand</file>
+		<name>빛의 완드</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>어느정도 숙련된 마법사들에게 추천하는 지팡이(적)</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>33.1.25.1</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>22</id>
+		<file>EssenceOfMagicFirst</file>
+		<name>마법의 정석上</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>초보타이틀을 벗은 마법사들의 마법책1</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>40.1.30.1.10.1</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>23</id>
+		<file>EssenceOfMagicLast</file>
+		<name>마법의 정석下</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>초보타이틀을 벗은 마법사들의 마법책2</guide>
+		<grade>2</grade>
+		<step>2</step>
+		<material>40.1.29.1.11.1</material>
+	</Data>
+	<Data>
+		<type>2</type>
+		<id>24</id>
+		<file>FullRedPotion</file>
+		<name>가득한빨강물약</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>빨강약이 양껏 담겨있다. 바르면 상처를 빠르게 낫게한다고 한다.</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>10.2</material>
+	</Data>
+	<Data>
+		<type>2</type>
+		<id>25</id>
+		<file>FullBluePotion</file>
+		<name>가득한파랑물약</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>파란약이 양껏 담겨있다. 마시면 멘탈이 강력(?)해진다고 한다.</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>11.2</material>
+	</Data>
+	<Data>
+		<type>2</type>
+		<id>26</id>
+		<file>FullGreenPotion</file>
+		<name>가득한녹색물약</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>녹색약이 양껏 담겨있다. 식물에게 주면 식물이 빠워풀(?) 하게 자란다고 한다.</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>12.2</material>
+	</Data>
+	<Data>
+		<type>3</type>
+		<id>27</id>
+		<file>YellowHerbStep3</file>
+		<name>풍성한노란약초</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>노란약초가 두단계 성장한 모습이다.</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>18.2</material>
+	</Data>
+	<Data>
+		<type>3</type>
+		<id>28</id>
+		<file>PurpleHerbStep3</file>
+		<name>풍성한보라약초</name>
+		<price>300</price>
+		<countLimit>999</countLimit>
+		<guide>보라약초가 두단계 성장한 모습이다.</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>19.2</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>29</id>
+		<file>BluePowderBox</file>
+		<name>파란가루한상자</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>파란가루를 많이 모아서 담아놨다.</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>24.2</material>
+	</Data>
+	<Data>
+		<type>4</type>
+		<id>30</id>
+		<file>RedPowderBox</file>
+		<name>빨간가루한상자</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>빨간가루를 많이 모아서 담아놨다.</guide>
+		<grade>1</grade>
+		<step>3</step>
+		<material>25.2</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>31</id>
+		<file>LuxuriousBlueScroll</file>
+		<name>고급스러운 파랑 스크롤</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>최상급 스크롤이다.</guide>
+		<grade>2</grade>
+		<step>3</step>
+		<material>29.1.14.1</material>
+	</Data>
+	<Data>
+		<type>5</type>
+		<id>32</id>
+		<file>LuxuriousRedScroll</file>
+		<name>고급스러운 빨강 스크롤</name>
+		<price>500</price>
+		<countLimit>999</countLimit>
+		<guide>최상급 스크롤이다.</guide>
+		<grade>2</grade>
+		<step>3</step>
+		<material>30.1.13.1</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>33</id>
+		<file>DangerousDarkCane</file>
+		<name>위험한 어둠의 케인</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>어둠의 기운이 서려있는 지팡이</guide>
+		<grade>3</grade>
+		<step>3</step>
+		<material>34.1.26.1.21.1</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>34</id>
+		<file>SplendentDarkCane</file>
+		<name>번쩍이는 어둠의 케인</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>전기의 기운이 서려있는 지팡이</guide>
+		<grade>3</grade>
+		<step>3</step>
+		<material>34.1.26.1.20.1</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>35</id>
+		<file>BrilliantLightWand</file>
+		<name>눈부신 빛의 완드</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>빛의 기운이 서려있는 지팡이</guide>
+		<grade>4</grade>
+		<step>3</step>
+		<material>35.1.27.1.20.1</material>
+	</Data>
+	<Data>
+		<type>6</type>
+		<id>36</id>
+		<file>hotLightWand</file>
+		<name>뜨거운 불의 완드</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>불의 기운의 서려있는 지팡이</guide>
+		<grade>4</grade>
+		<step>3</step>
+		<material>35.1.27.1.21.1</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>37</id>
+		<file>MasterBook</file>
+		<name>마스터가 되는 법</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>어둠의 마법을 다스리는 방법이 적혀져 있다.</guide>
+		<grade>3</grade>
+		<step>3</step>
+		<material>41.1.32.1.15.1</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>38</id>
+		<file>AncientSpellLanguage</file>
+		<name>고대의 마법언어</name>
+		<price>1000</price>
+		<countLimit>999</countLimit>
+		<guide>전기의 마법을 다스리는 방법이 적혀져 있다.</guide>
+		<grade>3</grade>
+		<step>3</step>
+		<material>41.1.32.1.14.1</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>39</id>
+		<file>MagicBible</file>
+		<name>마법 바이블</name>
+		<price>4000</price>
+		<countLimit>999</countLimit>
+		<guide>빛의 마법을 다스리는 방법이 적혀져 있다.</guide>
+		<grade>4</grade>
+		<step>3</step>
+		<material>42.1.31.1.13.1</material>
+	</Data>
+	<Data>
+		<type>7</type>
+		<id>40</id>
+		<file>HighMagicBook</file>
+		<name>고급 마법책</name>
+		<price>4000</price>
+		<countLimit>999</countLimit>
+		<guide>불의 마법을 다스리는 방법이 적혀져 있다.</guide>
+		<grade>4</grade>
+		<step>3</step>
+		<material>42.1.31.1.15.1</material>
+	</Data>
+</Item>

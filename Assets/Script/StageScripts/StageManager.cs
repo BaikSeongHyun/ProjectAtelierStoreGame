@@ -116,7 +116,7 @@ public class StageManager : MonoBehaviour
 
 	// stage pre process
 	// set item price & count
-	public void StagePreprocessPolicy()
+	public void StageItemSellRegisterPolicy()
 	{
 		// ray cast set furniture target
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
@@ -134,7 +134,15 @@ public class StageManager : MonoBehaviour
 				{
 					charManager.PlayerableCharacter.SetItemSettingMode();	
 				}
+				else
+				{
+					charManager.PlayerableCharacter.SetFurnitureObjectPoint();
+				}
 			}
+			else if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
+			{
+				charManager.PlayerableCharacter.SetMovePoint( hitInfo.point );
+			}				
 		}
 
 		ItemAcquire();
@@ -183,6 +191,7 @@ public class StageManager : MonoBehaviour
 	public void StoreOpen()
 	{
 		StartCoroutine( CustomerGoStore() );
+		StartCoroutine( PinkyGoToStore() );
 		StartCoroutine( stageUI.ActivateDrive() );
 
 		// reset data
@@ -198,23 +207,8 @@ public class StageManager : MonoBehaviour
 		sellFurnitureSet[ targetIndex ].SellItemObject[ throwItemIndex ] = null;
 	}
 
-	public void StagePreprocessReturn()
-	{
-		charManager.StagePreprocessReset();
-		SetDataReset();
-		manager.SetStoreMode();
-	}
-
-	public void StageProcessReturn()
-	{
-		charManager.StageReset();
-		SetDataReset();		
-		CustomerReset();
-		manager.SetStoreMode();
-	}
-
 	public void StageProcessPolicy()
-	{
+	{		
 		// add time check
 		presentTime += Time.deltaTime;
 
@@ -228,18 +222,9 @@ public class StageManager : MonoBehaviour
 			manager.SetStoreStageEnd();
 		}
 
-		// activate marshmello
-		if( ( presentTime >= stageTime / 2 ) && ( !charManager.PinkyAgent.RestMarshmello ) )
-		{
-			charManager.ActivateMarshMello();
-		}
-
-		// check marshmello
+		// attack marshmello
 		if( charManager.MarshmelloActivate && charManager.DamageMarshmello() )
-		{				
 			return;
-		}
-
 
 		// item acquire
 		if( ItemAcquire() )
@@ -247,8 +232,8 @@ public class StageManager : MonoBehaviour
 			return;
 		}
 
-		// stage policy
-		StagePreprocessPolicy();
+		// stage policy -> sell setting
+		StageItemSellRegisterPolicy();
 	}
 
 	// acquire items
@@ -342,9 +327,14 @@ public class StageManager : MonoBehaviour
 		int maxCount;
 		try
 		{
+			// set maximum count
 			maxCount = ( int ) ( gold / sellObject.SellItem[ itemSlotIndex ].SellPrice );
 			maxCount = maxCount > sellObject.SellItem[ itemSlotIndex ].Count ? sellObject.SellItem[ itemSlotIndex ].Count : maxCount;
 
+			// change count
+			maxCount = UnityEngine.Random.Range( 1, maxCount + 1 );
+
+			// buy items
 			sellObject.SellItem[ itemSlotIndex ].Count -= maxCount;
 			manager.GamePlayer.Gold += sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
 			gold -= sellObject.SellItem[ itemSlotIndex ].SellPrice * maxCount;
@@ -394,50 +384,56 @@ public class StageManager : MonoBehaviour
 		eventStart = false;
 	}
 
-	// select card
-	public void SelectCard( int index, out int cardIndex )
+	// select reward card
+	public void SelectCard( int index, out int itemID, out int itemCount, out int rare )
 	{
 		touchCount--;
 		isOpened[ index ] = true;
-		cardIndex = UnityEngine.Random.Range( 0, 12 );
+
 		if( !eventStart )
 		{
 			eventStart = true;		
 		}
+		itemID = 0;
+		itemCount = 0;
+		rare = 0;
 
-		int itemID = 0;
-		int itemCount = 0;
-		switch( ( cardIndex + 1 ) % 4 )
+		// set rare grade
+		int rareSelect = UnityEngine.Random.Range( 1, 101 );
+
+		if( rareSelect <= 60 )
+			rare = 1;
+		else if( rareSelect <= 90 )
+			rare = 2;
+		else
+			rare = 3;
+
+		// set item count
+		switch( rare )
 		{
 			case 1:
-				// blue powder
-				itemID = 22;
+				itemCount = UnityEngine.Random.Range( 1, 7 );
 				break;
 			case 2:
-				// red powder
-				itemID = 23;
+				itemCount = UnityEngine.Random.Range( 1, 4 );
 				break;
 			case 3:
-				// yellow herb
-				itemID = 16;
-				break;
-			case 0:
-				// purple herb
-				itemID = 17;
+				itemCount = 1;
 				break;
 		}
 
-		switch( cardIndex / 4 )
+		// set item id
+		switch( rare )
 		{
-			case 0:
-				itemCount = 1;
-				break;
 			case 1:
-				itemCount = 4;
+				itemID = UnityEngine.Random.Range( 1, 8 );
 				break;
 			case 2:
-				itemCount = 9;
-				break;			
+				itemID = UnityEngine.Random.Range( 8, 24 );
+				break;
+			case 3:
+				itemID = UnityEngine.Random.Range( 25, 40 );
+				break;
 		}
 
 		manager.GamePlayer.AddItemData( itemID, itemCount );
@@ -461,5 +457,21 @@ public class StageManager : MonoBehaviour
 		}
 
 		CustomerReset();
+	}
+
+	IEnumerator PinkyGoToStore()
+	{
+		// loop pinky
+		while( manager.PresentMode == GameManager.GameMode.StoreOpen )
+		{
+			yield return new WaitForSeconds( 25f );
+
+			// if time has come -> go to store
+			// activate marshmello
+			if( ( !charManager.PinkyAgent.RestMarshmello ) && ( manager.PresentMode == GameManager.GameMode.StoreOpen ) )
+			{
+				charManager.ActivateMarshMello();
+			}
+		}
 	}
 }

@@ -21,6 +21,8 @@ public class DataManager : MonoBehaviour
 	[SerializeField] static Dictionary<int, ItemData> itemSet;
 	[SerializeField] static Dictionary<int, FieldData> fieldDataSet;
 	[SerializeField] static Dictionary<int, StoreData> storeDataSet;
+	[SerializeField] static Dictionary<int , SoundClipData> soundClipDataSet;
+	[SerializeField] List<SoundClipData> list;
 
 	// field - refine data
 	[SerializeField] static List<ItemData> searchItemList;
@@ -35,6 +37,7 @@ public class DataManager : MonoBehaviour
 
 	public static List<FurnitureData> SearchFurnitureList { get { return searchFurnitureList; } }
 
+
 	// unity method
 	// awake
 	void Awake()
@@ -46,7 +49,9 @@ public class DataManager : MonoBehaviour
 		LoadFieldData();
 		LoadStageResultData();
 		LoadStoreData();
+		LoadSoundClipData();
 		playerDataLoading = true;
+
 	}
 
 	// public method
@@ -202,7 +207,6 @@ public class DataManager : MonoBehaviour
 				{
 					if( material.Length == 1 )
 					{
-
 						itemSet.Add( id, new ItemData( type, id, file, name, price, countLimit, guide, grade, step ) );
 					}
 					else if( material.Length > 1 )
@@ -344,6 +348,43 @@ public class DataManager : MonoBehaviour
 		}
 	}
 
+	// sound data
+	public static void LoadSoundClipData()
+	{
+		soundClipDataSet = new Dictionary<int, SoundClipData>( );
+
+		TextAsset loadData = Resources.Load<TextAsset>( "DataDocument/SoundData" );
+		XmlDocument document = new XmlDocument( );
+		document.LoadXml( loadData.text );
+
+		XmlNodeList nodes = document.SelectNodes( "SoundData/Data" );
+
+		if( nodes == null )
+		{
+			Debug.Log( "Data is null : stage result data" );		
+		}
+		else
+		{
+			foreach( XmlNode node in nodes )
+			{
+				int id = int.Parse( node.SelectSingleNode( "id" ).InnerText );
+				string name = node.SelectSingleNode( "name" ).InnerText;
+				string fileName = node.SelectSingleNode( "fileName" ).InnerText;
+				int type = int.Parse( node.SelectSingleNode( "type" ).InnerText );
+
+				try
+				{
+					soundClipDataSet.Add( id, new SoundClipData( id, name, fileName, type ) );						
+				}
+				catch( Exception e )
+				{
+					Debug.Log( e.StackTrace );
+					Debug.Log( e.Message );
+				}
+			}
+		}
+	}
+
 	// player data load -> use player pref
 	public static void LoadPlayerData()
 	{
@@ -352,7 +393,7 @@ public class DataManager : MonoBehaviour
 		try
 		{			
 			// data load - check first loading
-			if( PlayerPrefs.GetInt( "FirstData" ) != 1234 )
+			if( PlayerPrefs.GetInt( "FirstData" ) != 987 )
 			{
 				playerData.SetDefaultStatus();
 				playFirst = true;
@@ -457,7 +498,7 @@ public class DataManager : MonoBehaviour
 	public static void SavePlayerData()
 	{
 		// first check data
-		PlayerPrefs.SetInt( "FirstData", 1234 );
+		PlayerPrefs.SetInt( "FirstData", 987 );
 
 		// save data setting - player direct data
 		PlayerPrefs.SetString( "PlayerName", manager.GamePlayer.Name );
@@ -613,11 +654,19 @@ public class DataManager : MonoBehaviour
 	// find result use profit
 	public static StageResultData ReturnStageResultData( int step, int profitCount, int profitMoney )
 	{
-		List<StageResultData> tempSet = stageResultSet[ step ];
+		List<StageResultData> tempSet = new List<StageResultData>( );
+		try
+		{
+			tempSet = stageResultSet[ step ];
+		}
+		catch( NullReferenceException e )
+		{
+			LoadStageResultData();
+		}
 
 		for( int i = 0; i < tempSet.Count; i++ )
 		{
-			if( ( tempSet[ i ].RankProfitCount <= profitCount ) && ( tempSet[ i ].RankProfitMoney <= profitMoney ) )
+			if( ( tempSet[ i ].RankProfitCount <= profitCount ) || ( tempSet[ i ].RankProfitMoney <= profitMoney ) )
 				return tempSet[ i ];
 		}
 
@@ -639,6 +688,24 @@ public class DataManager : MonoBehaviour
 		}
 
 		return DataManager.storeDataSet[ step ];
+	}
+
+	// find sound clip data use id & type
+	public static SoundClipData FindSoundClipDataByID( int id )
+	{
+		try
+		{
+			return soundClipDataSet[ id ];
+		}
+		catch( KeyNotFoundException e )
+		{
+			Debug.Log( e.StackTrace );
+			Debug.Log( e.Message );
+			DataManager.LoadSoundClipData();
+		}
+
+		return DataManager.soundClipDataSet[ id ];
+
 	}
 
 	// check player data loading

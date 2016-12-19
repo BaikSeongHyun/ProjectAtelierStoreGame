@@ -29,13 +29,6 @@ public class ChatSceneUI : MonoBehaviour
 		chatText = transform.Find( "ChatBack" ).Find( "ChatText" ).GetComponent<Text>();
 	}
 
-	// update component element
-	public void UpdateComponentElement()
-	{
-		// update by chat file & npc name
-	}
-
-
 	// set kakao information
 	public void SetKakaoInformation()
 	{

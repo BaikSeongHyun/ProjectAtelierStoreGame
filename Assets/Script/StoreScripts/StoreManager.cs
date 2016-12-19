@@ -9,7 +9,7 @@ public class StoreManager : MonoBehaviour
 {
 	// high structure
 	[SerializeField] GameManager manager;
-	[SerializeField] CharacterManager characterManager;
+	[SerializeField] CharacterManager charManager;
 	[SerializeField] UIManager mainUI;
 
 	// game logic simple data field
@@ -115,7 +115,7 @@ public class StoreManager : MonoBehaviour
 	public void DataInitialize()
 	{
 		manager = GetComponent<GameManager>();
-		characterManager = GetComponent<CharacterManager>();
+		charManager = GetComponent<CharacterManager>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 
 		storeField = GameObject.FindWithTag( "StoreField" ).gameObject;
@@ -135,7 +135,7 @@ public class StoreManager : MonoBehaviour
 		// wall & nav field
 		Destroy( storeWall );
 		Destroy( storeNavField );
-		characterManager.ClearPlayerAgent();
+		charManager.ClearPlayerAgent();
 
 		// furniture object
 		foreach( FurnitureObject element in furnitureObjectSet )
@@ -167,9 +167,16 @@ public class StoreManager : MonoBehaviour
 				if( presentSelectedObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
 				{					
 					PullCreateItemData();
-					characterManager.PlayerableCharacter.SetCreateMode();
-
+					charManager.PlayerableCharacter.SetCreateMode();
 				}
+				else
+				{
+					charManager.PlayerableCharacter.SetFurnitureObjectPoint();
+				}
+			}
+			else if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
+			{
+				charManager.PlayerableCharacter.SetMovePoint( hitInfo.point );
 			}
 		}
 	}
@@ -192,7 +199,7 @@ public class StoreManager : MonoBehaviour
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
 		// set up furniture object => when mouse button right click
-		if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject == null ) )
+		if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject == null ) && ( !EventSystem.current.IsPointerOverGameObject( Input.GetTouch( 0 ).fingerId ) ) )
 		{
 			// cast & check furniture object -> if exist -> set present object
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
@@ -202,7 +209,8 @@ public class StoreManager : MonoBehaviour
 				presentSelectedObject = tempSearch.GetComponent<FurnitureObject>();
 				presentSelectedObject.AllocateMode = true;
 			}
-		}/*
+		}
+		/*
 		// present object is fleid move object -> cast store field 
 		else if( presentAllocateObject != null && presentAllocateObject.InstanceData.Furniture.Allocate == FurnitureData.AllocateType.Field )
 		{
@@ -255,6 +263,7 @@ public class StoreManager : MonoBehaviour
 			presentSelectedObject.CheckAllocatePossible();
 
 			// link player data & object
+			manager.GamePlayer.AllocateFurnitureSet.Add( presentSelectedObject.InstanceData );
 			manager.GamePlayer.AllocateFurnitureObjectSet.Add( presentSelectedObject );
 		}
 	}
@@ -491,6 +500,9 @@ public class StoreManager : MonoBehaviour
 		// create item instance & add item
 		manager.GamePlayer.AddItemData( selectedItem.ID, createCount );
 
+		// pop up ui 
+		mainUI.CreatePopUpUIUseData( selectedItem.ID, createCount );
+
 		// reset data
 		ResetCreateData();
 	}
@@ -551,8 +563,10 @@ public class StoreManager : MonoBehaviour
 	}
 
 	// coroutine
+	// create store objects
 	public IEnumerator CreateStoreObject()
 	{
+		// set field scale -> use store step
 		SetPlaneScale();
 
 		// create object
@@ -614,8 +628,7 @@ public class StoreManager : MonoBehaviour
 			}
 
 			// make player character
-			characterManager.CreatePlayerAgent();
-
+			charManager.CreatePlayerAgent();
 		}
 		catch( NullReferenceException e )
 		{

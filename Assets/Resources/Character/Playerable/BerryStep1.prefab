@@ -1816,6 +1816,7 @@ MonoBehaviour:
   mainUI: {fileID: 0}
   targetObject: {fileID: 0}
   frame: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   presentSequence: 0
 --- !u!136 &136000012486054532
 CapsuleCollider:
@@ -1924,7 +1925,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012572014206}
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 2
   m_Speed: 4
   m_Acceleration: 9000
   avoidancePriority: 50

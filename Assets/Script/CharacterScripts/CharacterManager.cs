@@ -59,7 +59,7 @@ public class CharacterManager : MonoBehaviour
 	{		
 		storeDoor = GameObject.Find( "StoreDoor" ).transform;
 		GameObject temp = ( GameObject ) Instantiate( Resources.Load<GameObject>( "Character/Playerable/" + manager.GamePlayer.CharacterType + "Step" + manager.GamePlayer.StoreData.StoreStep ),
-		                                              storeDoor.position - new Vector3( 0f, 0f, 2f ),
+		                                              storeDoor.position - new Vector3( 0f, 0f, 4f ),
 		                                              Quaternion.identity );
 		playerableCharacter = temp.GetComponent<PlayerAgent>();
 	}

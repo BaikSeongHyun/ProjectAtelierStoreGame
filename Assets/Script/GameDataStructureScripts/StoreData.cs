@@ -23,10 +23,12 @@ public class StoreData
 
 	public int RequireExperience { get { return requireExperience; } }
 
+	public float FillExp { get { return ( ( float ) presentExperience / ( float ) requireExperience ); } }
+
 	public float StageTime { get { return stageTime; } }
 
 	// constructor - default
-	public StoreData ()
+	public StoreData()
 	{
 		storeStep = 1;
 		stepUpAlready = false;
@@ -34,7 +36,7 @@ public class StoreData
 	}
 
 	// constructor - step number
-	public StoreData (int _step)
+	public StoreData( int _step )
 	{
 		storeStep = _step;
 		stepUpAlready = false;
@@ -42,7 +44,7 @@ public class StoreData
 	}
 
 	// constructor - step & exp data
-	public StoreData (int _step, int _requireExperience, float _stageTime)
+	public StoreData( int _step, int _requireExperience, float _stageTime )
 	{
 		storeStep = _step;
 		requireExperience = _requireExperience;
@@ -50,7 +52,7 @@ public class StoreData
 		stageTime = _stageTime;
 	}
 
-	public StoreData (StoreData stepInfor, int _presentExperience)
+	public StoreData( StoreData stepInfor, int _presentExperience )
 	{
 		storeStep = stepInfor.storeStep;
 		requireExperience = stepInfor.requireExperience;
@@ -72,7 +74,7 @@ public class StoreData
 	// check step up
 	public bool CheckStepUpAlready()
 	{
-		if ( presentExperience >= requireExperience )
+		if( presentExperience >= requireExperience )
 		{
 			stepUpAlready = true;
 		}

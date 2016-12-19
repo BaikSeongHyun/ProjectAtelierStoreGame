@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] StageManager stageManager;
 	[SerializeField] UIManager mainUI;
 	[SerializeField] CameraControl cameraControl;
+	[SerializeField] SoundManager soundManager;
 
 	// enum state
 	public enum GameMode : int
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
 
 	// property
 	public PlayerData GamePlayer { get { return player; } set { player = value; } }
+
+	public SoundManager SoundManager { get { return soundManager; } }
 
 	public GameMode PresentMode { get { return presentGameMode; } }
 
@@ -65,7 +68,10 @@ public class GameManager : MonoBehaviour
 				storeManager.CustomzingFurnitureObject();
 				break;
 			case GameMode.StoreOpenPreprocess:
-				stageManager.StagePreprocessPolicy();
+				if( !characterManager.MrKakao.IsSendMessage )
+					break;
+				storeManager.StorePolicy();
+				stageManager.StageItemSellRegisterPolicy();
 				break;
 			case GameMode.StoreOpen:
 				stageManager.StageProcessPolicy();
@@ -93,6 +99,7 @@ public class GameManager : MonoBehaviour
 		characterManager = GetComponent<CharacterManager>();
 		fieldManager = GetComponent<FieldManager>();
 		storeManager = GetComponent<StoreManager>();
+		soundManager = GetComponent<SoundManager>();
 
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 		cameraControl = Camera.main.gameObject.GetComponent<CameraControl>();
@@ -234,6 +241,7 @@ public class GameManager : MonoBehaviour
 
 		// start store create
 		StartCoroutine( storeManager.CreateStoreObject() );
+		soundManager.PlayBackgroundAudio( 2 );
 
 		while( true )
 		{		
@@ -289,6 +297,7 @@ public class GameManager : MonoBehaviour
 			else
 			{
 				// set main ui state -> store state
+
 				yield break;
 			}
 		}
@@ -310,9 +319,10 @@ public class GameManager : MonoBehaviour
 					yield return 1.0f;
 				}
 			// loading game data success -> start game
-			else
+				else
 				{
 					// set main ui state -> store state
+
 					yield break;
 				}
 			}

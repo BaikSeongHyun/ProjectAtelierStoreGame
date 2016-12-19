@@ -3,16 +3,16 @@
 	<Data>
 		<step>1</step>
 		<requireExperience>3000</requireExperience>
-		<stageTime>60</stageTime>
+		<stageTime>50</stageTime>
 	</Data>
 	<Data>
 		<step>2</step>
 		<requireExperience>9000</requireExperience>
-		<stageTime>90</stageTime>
+		<stageTime>80</stageTime>
 	</Data>
 	<Data>
 		<step>3</step>
 		<requireExperience>20000000</requireExperience>
-		<stageTime>140</stageTime>
+		<stageTime>120</stageTime>
 	</Data>
 </StoreData>

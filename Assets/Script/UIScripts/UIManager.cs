@@ -21,6 +21,9 @@ public class UIManager : MonoBehaviour
 	[SerializeField] GameObject createUI;
 	[SerializeField] CreateUI createUILogic;
 
+	[SerializeField] GameObject createPopUpUI;
+	[SerializeField] CreatePopUpUI createPopUpUILogic;
+
 	[SerializeField] GameObject sellItemSettingUI;
 	[SerializeField] SellItemSettingUI sellItemSettingUILogic;
 
@@ -40,7 +43,6 @@ public class UIManager : MonoBehaviour
 	[SerializeField] ChatSceneUI chatSceneUILogic;
 
 	[SerializeField] GameObject characterCreateUI;
-	[SerializeField] CharacterCreateUI characterCreateUILogic;
 
 	[SerializeField] GameObject loadingScene;
 
@@ -95,6 +97,9 @@ public class UIManager : MonoBehaviour
 		createUI = transform.Find( "CreateUI" ).gameObject;
 		createUILogic = createUI.GetComponent<CreateUI>();
 
+		createPopUpUI = transform.Find( "CreatePopUpUI" ).gameObject;
+		createPopUpUILogic = createPopUpUI.GetComponent<CreatePopUpUI>();
+
 		sellItemSettingUI = transform.Find( "SellItemSettingUI" ).gameObject;
 		sellItemSettingUILogic = sellItemSettingUI.GetComponent<SellItemSettingUI>();
 
@@ -110,11 +115,10 @@ public class UIManager : MonoBehaviour
 		resultUI = transform.Find( "ResultUI" ).gameObject;
 		resultUILogic = resultUI.GetComponent<ResultUI>();
 
-		chatSceneUI = transform.Find( "ChatScene" ).gameObject;
+		chatSceneUI = transform.Find( "ChatSceneUI" ).gameObject;
 		chatSceneUILogic = chatSceneUI.GetComponent<ChatSceneUI>();
 
 		characterCreateUI = transform.Find( "CharacterCreateUI" ).gameObject;
-		characterCreateUILogic = characterCreateUI.GetComponent<CharacterCreateUI>();
 
 		loadingScene = transform.Find( "LoadingScene" ).gameObject;
 	}
@@ -159,6 +163,7 @@ public class UIManager : MonoBehaviour
 				chatSceneUI.SetActive( false );
 				resultRewardUI.SetActive( false );
 				createUI.SetActive( false );
+				createPopUpUI.SetActive( false );
 				loadingScene.SetActive( false );
 				characterCreateUI.SetActive( true );
 				break;
@@ -241,7 +246,6 @@ public class UIManager : MonoBehaviour
 	{
 		sellItemSettingUI.SetActive( true );
 		sellItemSettingUILogic.InitializeElement();
-		storageUI.SetActive( true );
 	}
 
 	// set result reward ui
@@ -250,5 +254,11 @@ public class UIManager : MonoBehaviour
 		resultRewardUI.SetActive( true );
 		resultRewardUILogic.ResetCard();
 	}
-	
+
+	// set activate create pop up ui
+	public void CreatePopUpUIUseData( int dataID, int count )
+	{
+		createPopUpUI.SetActive( true );
+		createPopUpUILogic.SetComponentElement( new ItemInstance( DataManager.FindItemDataByID( dataID ), 0, count ) ); 
+	}
 }

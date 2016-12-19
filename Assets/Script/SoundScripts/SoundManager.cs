@@ -5,20 +5,16 @@ using System.Collections.Generic;
 
 public class SoundManager : MonoBehaviour
 {
-	// high structure
-	[SerializeField] GameManager manager;
-	[SerializeField] DataManager dataManager;
-
-	// field data
-	[SerializeField] int dataLength;
-
 	// sound data structure
-	[SerializeField] static Dictionary<string , AudioClip> backgroundSource;
-	[SerializeField] static Dictionary<string , AudioClip> pointSoundSource;
+	[SerializeField] static Dictionary<int , AudioClip> backgroundSource;
+	[SerializeField] static Dictionary<int , AudioClip> characterSoundSource;
+	[SerializeField] static Dictionary<int , AudioClip> uiSoundSource;
 		 
+	[SerializeField] List <AudioClip> backCheck;
+
 	// audio play
 	[SerializeField] AudioSource backgroundPlayer;
-	[SerializeField] AudioSource pointSoundPlayer;
+	[SerializeField] AudioSource uiSoundPlayer;
 
 	// property
 
@@ -30,58 +26,66 @@ public class SoundManager : MonoBehaviour
 		DataInitialize();
 	}
 
-	// update
-	void Update()
-	{
-
-	}
-
 	// public method
 	// link element component
 	public void LinkComponentElement()
 	{
 		// link audio player
 		backgroundPlayer = GameObject.Find( "BackgroundPlayer" ).GetComponent<AudioSource>();
-		pointSoundPlayer = GameObject.Find( "PointSoundPlayer" ).GetComponent<AudioSource>();
+		uiSoundPlayer = GameObject.Find( "UISoundPlayer" ).GetComponent<AudioSource>();
 	}
 
 	// data initialize
 	public static void DataInitialize()
 	{
-		// background soruce
+		// background source
+		backgroundSource = new Dictionary<int, AudioClip>( );
 
-		// point sound soruce
+		// ui sound source
+		uiSoundSource = new Dictionary<int, AudioClip>( );
+
+		// character sound source
+		characterSoundSource = new Dictionary<int, AudioClip>( );
 	}
 
-	public void PlayBackgroundAudio( string item )
+	public void PlayBackgroundAudio( int id )
 	{
 		try
 		{
-			backgroundPlayer.PlayOneShot( backgroundSource[ item ] );
+			backgroundPlayer.clip = backgroundSource[ id ];
 		}
 		catch( KeyNotFoundException e )
 		{
-			// load sound data
+			// load sound data & play
+			backgroundSource.Add( id, Resources.Load<AudioClip>( "SoundClip/" + DataManager.FindSoundClipDataByID( id ).FileName ) );
+			backgroundPlayer.clip = backgroundSource[ id ];
 		}
 		catch( NullReferenceException e )
 		{
-			// load sound data
+			// load sound data & play
+			backgroundSource.Add( id, Resources.Load<AudioClip>( "SoundClip/" + DataManager.FindSoundClipDataByID( id ).FileName ) );
+			backgroundPlayer.clip = backgroundSource[ id ];
 		}
+		backgroundPlayer.Play();
 	}
 
-	public void PlayPointSoundPlayer( string item )
+	public void PlayUISoundPlayer( int id )
 	{
 		try
 		{
-			pointSoundPlayer.PlayOneShot( pointSoundSource[ item ] );
+			uiSoundPlayer.PlayOneShot( uiSoundSource[ id ] );
 		}
 		catch( KeyNotFoundException e )
 		{
-			// load sound data
+			// load sound data & play
+			uiSoundSource.Add( id, Resources.Load<AudioClip>( "SoundClip/" + DataManager.FindSoundClipDataByID( id ).FileName ) );
+			uiSoundPlayer.PlayOneShot( uiSoundSource[ id ] );
 		}
 		catch( NullReferenceException e )
 		{
-			// load sound data
+			// load sound data & play
+			uiSoundSource.Add( id, Resources.Load<AudioClip>( "SoundClip/" + DataManager.FindSoundClipDataByID( id ).FileName ) );
+			uiSoundPlayer.PlayOneShot( uiSoundSource[ id ] );
 		}
 	}
 }

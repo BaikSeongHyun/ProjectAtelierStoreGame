@@ -209,7 +209,7 @@ public class FurnitureObject : MonoBehaviour
 
 	// player data
 	// allocate data set -> have data set
-	public void ObjectAllocateOff( PlayerData data )
+	public void ObjectAllocateOff()
 	{		
 		Destroy( this.gameObject );
 	}

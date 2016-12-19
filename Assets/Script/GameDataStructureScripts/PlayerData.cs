@@ -119,13 +119,17 @@ public class PlayerData
 	public bool DeleteAllocateFurniture( int index )
 	{	
 		// remove furniture
-		allocateFurnitureObjectSet[ index ].ObjectAllocateOff( this );
+		allocateFurnitureObjectSet[ index ].ObjectAllocateOff();
 		allocateFurnitureObjectSet.RemoveAt( index );
+		allocateFurnitureSet.RemoveAt( index );
 
+		// reload slot number
 		for( int i = 0; i < allocateFurnitureSet.Count; i++ )
 		{
 			allocateFurnitureSet[ i ].SlotNumber = i;
+			allocateFurnitureObjectSet[ i ].InstanceData.SlotNumber = i;
 		}
+
 		return true;		
 	}
 
@@ -135,7 +139,7 @@ public class PlayerData
 		try
 		{
 			// remove object
-			allocateFurnitureObjectSet[ index ].ObjectAllocateOff( this );
+			allocateFurnitureObjectSet[ index ].ObjectAllocateOff();
 			allocateFurnitureObjectSet.RemoveAt( index );
 
 			// gold add
@@ -148,6 +152,7 @@ public class PlayerData
 			for( int i = 0; i < allocateFurnitureSet.Count; i++ )
 			{
 				allocateFurnitureSet[ i ].SlotNumber = i;
+				allocateFurnitureObjectSet[ i ].InstanceData.SlotNumber = i;
 			}
 
 			return true;
@@ -178,7 +183,7 @@ public class PlayerData
 		}
 
 		// find empty space
-		for( int i = 0; i < haveItemSet.Length / 3; i++ )
+		for( int i = 0; i < haveItemSet.Length; i++ )
 		{
 			if( haveItemSet[ i ] == null || haveItemSet[ i ].Item == null || haveItemSet[ i ].Item.ID == 0 )
 			{
@@ -203,23 +208,24 @@ public class PlayerData
 		level = 1;
 		fame = 0;
 		charm = 0;
-		gold = 1000;
+		gold = 5000;
 		gem = 1000;
 		haveStoreData = new StoreData( DataManager.FindStoreDataByStep( 1 ), 0 );
 		haveItemSet = new ItemInstance[60];
 		haveFurnitureSet = new FurnitureInstance[30];
 		allocateFurnitureSet = new List<FurnitureInstance>( );
 
-		allocateFurnitureSet.Add( new FurnitureInstance( 3, 0, true, new Vector3( 9f, 0f, 3f ), Quaternion.identity ) );
-		allocateFurnitureSet.Add( new FurnitureInstance( 6, 0, true, new Vector3( 9f, 0f, 7f ), Quaternion.identity ) );
-		allocateFurnitureSet.Add( new FurnitureInstance( 9, 0, true, new Vector3( 6f, 0f, 7f ), Quaternion.identity ) );
-		allocateFurnitureSet.Add( new FurnitureInstance( 16, 0, true, new Vector3( 9f, 0f, 0.5f ), Quaternion.identity ) );
-		allocateFurnitureSet.Add( new FurnitureInstance( 24, 0, true, new Vector3( 6.5f, 0f, 3f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 19, 0, true, new Vector3( 2f, 0f, 2.5f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 20, 0, true, new Vector3( 5f, 0f, 6f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 21, 0, true, new Vector3( 2f, 0f, 6f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 22, 0, true, new Vector3( 4f, 0f, 0.5f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 23, 0, true, new Vector3( 1.5f, 0f, 0.5f ), Quaternion.identity ) );
+		allocateFurnitureSet.Add( new FurnitureInstance( 24, 0, true, new Vector3( 5f, 0f, 2.5f ), Quaternion.identity ) );
 
-		haveItemSet[ 0 ] = new ItemInstance( 16, 0, 7 );
-		haveItemSet[ 1 ] = new ItemInstance( 17, 1, 6 );
-		haveItemSet[ 2 ] = new ItemInstance( 10, 2, 3 );
-		haveItemSet[ 3 ] = new ItemInstance( 11, 3, 3 );
+		haveItemSet[ 0 ] = new ItemInstance( 4, 0, 10 );
+		haveItemSet[ 1 ] = new ItemInstance( 5, 1, 10 );
+		haveItemSet[ 2 ] = new ItemInstance( 6, 2, 10 );
+		haveItemSet[ 3 ] = new ItemInstance( 7, 3, 10 );
 
 	}
 

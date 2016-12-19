@@ -11,9 +11,12 @@ public class PlayerAgent : AIAgent
 	[SerializeField] CharacterManager charManager;
 	[SerializeField] UIManager mainUI;
 
+	//
 	[SerializeField] FurnitureObject targetObject;
 	[SerializeField] AnimatorStateInfo aniInfor;
 	[SerializeField] float frame;
+	[SerializeField] Vector3 targetPosition;
+
 
 	[SerializeField] Sequence presentSequence;
 
@@ -23,8 +26,10 @@ public class PlayerAgent : AIAgent
 	{
 		WaitAnimation = 0,
 		Ready = 1,
-		GoToCreate = 2,
-		GoToSetting = 3}
+		MoveTarget = 2,
+		MovePoint = 3,
+		GoToCreate = 4,
+		GoToSetting = 5}
 
 	;
 
@@ -48,6 +53,16 @@ public class PlayerAgent : AIAgent
 				moveAgent.ResetPath();
 				agentAnimator.SetInteger( "State", 0 );
 				break;
+			case Sequence.MovePoint:
+				if( ( transform.position - targetPosition ).magnitude <= 0.1 )
+					presentSequence = Sequence.Ready;
+				moveAgent.SetDestination( targetPosition );
+				agentAnimator.SetInteger( "State", 1 );
+				break;
+			case Sequence.MoveTarget:
+				moveAgent.SetDestination( targetObject.transform.position );
+				agentAnimator.SetInteger( "State", 1 );
+				break;				
 			case Sequence.GoToCreate:
 				moveAgent.SetDestination( targetObject.transform.position );
 				agentAnimator.SetInteger( "State", 1 );
@@ -77,6 +92,12 @@ public class PlayerAgent : AIAgent
 			targetObject = null;
 			mainUI.ActivateSellItemSettingUI();			
 		}
+		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.MoveTarget ) )
+		{
+			moveAgent.ResetPath();
+			presentSequence = Sequence.Ready;
+			targetObject = null;
+		}
 	}
 
 	// on trigger enter -> check stay move
@@ -97,6 +118,12 @@ public class PlayerAgent : AIAgent
 			targetObject = null;
 			mainUI.ActivateSellItemSettingUI();
 		}
+		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.MoveTarget ) )
+		{
+			moveAgent.ResetPath();
+			presentSequence = Sequence.Ready;
+			targetObject = null;
+		}
 	}
 
 
@@ -114,6 +141,24 @@ public class PlayerAgent : AIAgent
 		// agent data
 		agentAnimator = GetComponent<Animator>();
 		moveAgent = GetComponent<NavMeshAgent>();
+	}
+
+	// set move point
+	public void SetMovePoint( Vector3 position )
+	{
+		targetPosition = position;
+		presentSequence = Sequence.MovePoint;
+	}
+
+	// move to furniture object
+	public void SetFurnitureObjectPoint()
+	{
+		if( manager.PresentMode == GameManager.GameMode.Store )
+			targetObject = storeManager.PresentSelectedFurniture;
+		else if( manager.PresentMode == GameManager.GameMode.Store )
+			targetObject = stageManager.PresentSelectedFurniture;
+
+		presentSequence = Sequence.MoveTarget;
 	}
 
 	// set create form

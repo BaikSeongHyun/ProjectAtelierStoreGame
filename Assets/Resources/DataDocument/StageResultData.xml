@@ -3,108 +3,108 @@
 	<Data>
 		<step>1</step>
 		<rank>1</rank>
-		<rewardExp>100</rewardExp>
-		<rewardGold>1000</rewardGold>
+		<rewardExp>1000</rewardExp>
+		<rewardGold>5000</rewardGold>
+		<rewardTouchCount>7</rewardTouchCount>
+		<rankProfitMoney>3000</rankProfitMoney>
+		<rankProfitCount>30</rankProfitCount>
+	</Data>
+	<Data>
+		<step>1</step>
+		<rank>2</rank>
+		<rewardExp>800</rewardExp>
+		<rewardGold>3000</rewardGold>
 		<rewardTouchCount>5</rewardTouchCount>
+		<rankProfitMoney>2000</rankProfitMoney>
+		<rankProfitCount>20</rankProfitCount>
+	</Data>
+	<Data>
+		<step>1</step>
+		<rank>3</rank>
+		<rewardExp>700</rewardExp>
+		<rewardGold>2000</rewardGold>
+		<rewardTouchCount>3</rewardTouchCount>
 		<rankProfitMoney>1000</rankProfitMoney>
 		<rankProfitCount>10</rankProfitCount>
 	</Data>
 	<Data>
 		<step>1</step>
-		<rank>2</rank>
-		<rewardExp>80</rewardExp>
-		<rewardGold>800</rewardGold>
-		<rewardTouchCount>4</rewardTouchCount>
-		<rankProfitMoney>800</rankProfitMoney>
-		<rankProfitCount>8</rankProfitCount>
-	</Data>
-	<Data>
-		<step>1</step>
-		<rank>3</rank>
-		<rewardExp>70</rewardExp>
-		<rewardGold>700</rewardGold>
-		<rewardTouchCount>3</rewardTouchCount>
-		<rankProfitMoney>700</rankProfitMoney>
-		<rankProfitCount>5</rankProfitCount>
-	</Data>
-	<Data>
-		<step>1</step>
 		<rank>4</rank>
-		<rewardExp>20</rewardExp>
-		<rewardGold>0</rewardGold>
-		<rewardTouchCount>0</rewardTouchCount>
+		<rewardExp>200</rewardExp>
+		<rewardGold>1000</rewardGold>
+		<rewardTouchCount>1</rewardTouchCount>
 		<rankProfitMoney>0</rankProfitMoney>
 		<rankProfitCount>0</rankProfitCount>
 	</Data>
 	<Data>
 		<step>2</step>
 		<rank>1</rank>
-		<rewardExp>200</rewardExp>
-		<rewardGold>2500</rewardGold>
+		<rewardExp>2000</rewardExp>
+		<rewardGold>8000</rewardGold>
+		<rewardTouchCount>7</rewardTouchCount>
+		<rankProfitMoney>6000</rankProfitMoney>
+		<rankProfitCount>40</rankProfitCount>
+	</Data>
+	<Data>
+		<step>2</step>
+		<rank>2</rank>
+		<rewardExp>1600</rewardExp>
+		<rewardGold>6000</rewardGold>
 		<rewardTouchCount>5</rewardTouchCount>
-		<rankProfitMoney>2500</rankProfitMoney>
+		<rankProfitMoney>4000</rankProfitMoney>
+		<rankProfitCount>30</rankProfitCount>
+	</Data>
+	<Data>
+		<step>2</step>
+		<rank>3</rank>
+		<rewardExp>1400</rewardExp>
+		<rewardGold>4000</rewardGold>
+		<rewardTouchCount>3</rewardTouchCount>
+		<rankProfitMoney>2000</rankProfitMoney>
 		<rankProfitCount>20</rankProfitCount>
 	</Data>
 	<Data>
 		<step>2</step>
-		<rank>2</rank>
-		<rewardExp>160</rewardExp>
-		<rewardGold>2000</rewardGold>
-		<rewardTouchCount>4</rewardTouchCount>
-		<rankProfitMoney>2000</rankProfitMoney>
-		<rankProfitCount>15</rankProfitCount>
-	</Data>
-	<Data>
-		<step>2</step>
-		<rank>3</rank>
-		<rewardExp>140</rewardExp>
-		<rewardGold>1600</rewardGold>
-		<rewardTouchCount>3</rewardTouchCount>
-		<rankProfitMoney>1600</rankProfitMoney>
-		<rankProfitCount>8</rankProfitCount>
-	</Data>
-	<Data>
-		<step>2</step>
 		<rank>4</rank>
-		<rewardExp>30</rewardExp>
-		<rewardGold>0</rewardGold>
-		<rewardTouchCount>0</rewardTouchCount>
+		<rewardExp>300</rewardExp>
+		<rewardGold>2000</rewardGold>
+		<rewardTouchCount>1</rewardTouchCount>
 		<rankProfitMoney>0</rankProfitMoney>
 		<rankProfitCount>0</rankProfitCount>
 	</Data>
 	<Data>
 		<step>3</step>
 		<rank>1</rank>
-		<rewardExp>300</rewardExp>
-		<rewardGold>4500</rewardGold>
-		<rewardTouchCount>5</rewardTouchCount>
-		<rankProfitMoney>4500</rankProfitMoney>
-		<rankProfitCount>30</rankProfitCount>
+		<rewardExp>3000</rewardExp>
+		<rewardGold>12000</rewardGold>
+		<rewardTouchCount>7</rewardTouchCount>
+		<rankProfitMoney>8000</rankProfitMoney>
+		<rankProfitCount>50</rankProfitCount>
 	</Data>
 	<Data>
 		<step>3</step>
 		<rank>2</rank>
-		<rewardExp>240</rewardExp>
-		<rewardGold>3500</rewardGold>
-		<rewardTouchCount>4</rewardTouchCount>
-		<rankProfitMoney>3500</rankProfitMoney>
-		<rankProfitCount>22</rankProfitCount>
+		<rewardExp>2400</rewardExp>
+		<rewardGold>10000</rewardGold>
+		<rewardTouchCount>5</rewardTouchCount>
+		<rankProfitMoney>5000</rankProfitMoney>
+		<rankProfitCount>40</rankProfitCount>
 	</Data>
 	<Data>
 		<step>3</step>
 		<rank>3</rank>
-		<rewardExp>180</rewardExp>
-		<rewardGold>2500</rewardGold>
+		<rewardExp>1800</rewardExp>
+		<rewardGold>8000</rewardGold>
 		<rewardTouchCount>3</rewardTouchCount>
-		<rankProfitMoney>2500</rankProfitMoney>
-		<rankProfitCount>15</rankProfitCount>
+		<rankProfitMoney>3000</rankProfitMoney>
+		<rankProfitCount>20</rankProfitCount>
 	</Data>
 	<Data>
 		<step>3</step>
 		<rank>4</rank>
-		<rewardExp>40</rewardExp>
-		<rewardGold>0</rewardGold>
-		<rewardTouchCount>0</rewardTouchCount>
+		<rewardExp>400</rewardExp>
+		<rewardGold>3000</rewardGold>
+		<rewardTouchCount>1</rewardTouchCount>
 		<rankProfitMoney>0</rankProfitMoney>
 		<rankProfitCount>0</rankProfitCount>
 	</Data>

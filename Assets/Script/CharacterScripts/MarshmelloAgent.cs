@@ -32,8 +32,7 @@ public class MarshmelloAgent : AIAgent
 	[SerializeField] ItemObject throwItemObject;
 	[SerializeField] int throwItemIndex;
 	[SerializeField] bool throwFirst;
-	[SerializeField] int defenceCounter;
-	[SerializeField] int damageCounter;
+	[SerializeField] int throwCount;
 
 	// field - logic
 	[SerializeField] AnimatorStateInfo AnimatorClipInfo;
@@ -53,6 +52,8 @@ public class MarshmelloAgent : AIAgent
 			CheckClick();
 		}
 	}
+
+	public float presentClickFill { get { return ( float ) ( clickRequire - presentClick ) / ( float ) ( clickRequire ); } }
 
 	// agent sequence
 	public enum Sequence : int
@@ -191,6 +192,7 @@ public class MarshmelloAgent : AIAgent
 		moveTarget = storeDoor;
 		transform.position = worldBoundary[ 0 ].position;
 		moveAgent.enabled = true;
+		throwCount = manager.GamePlayer.StoreData.StoreStep;
 	}
 
 	// search throw itme target
@@ -273,6 +275,7 @@ public class MarshmelloAgent : AIAgent
 		try
 		{
 			throwItemObject.ThrowItem();
+			throwCount--;
 		}
 		catch( NullReferenceException e )
 		{
@@ -282,6 +285,9 @@ public class MarshmelloAgent : AIAgent
 		{
 			// item has fallen
 		}
+
+		if( throwCount == 0 )
+			GoToHome();
 		if( presentSequence != Sequence.Ready )
 			SearchItemTarget();
 	}

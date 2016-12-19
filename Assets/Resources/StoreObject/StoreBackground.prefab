@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010701405038}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -109,7 +109,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011141235898}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -264,7 +264,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013985903904}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -459,7 +459,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010192370944}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -564,7 +564,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014004969302}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -763,7 +763,7 @@ GameObject:
   - 33: {fileID: 33000012392652448}
   - 65: {fileID: 65000014165613492}
   - 23: {fileID: 23000012192247288}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1008,7 +1008,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010665728364}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -1368,7 +1368,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010749850798}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -1383,7 +1383,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012075145704}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -1401,7 +1401,7 @@ GameObject:
   - 33: {fileID: 33000013860426670}
   - 65: {fileID: 65000013974451536}
   - 23: {fileID: 23000010825627850}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1522,7 +1522,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012061435820}
   - 95: {fileID: 95000013490548406}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Fancy_Tavern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2041,7 +2041,7 @@ GameObject:
   - 33: {fileID: 33000010456594150}
   - 65: {fileID: 65000011735139324}
   - 23: {fileID: 23000012881490568}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3285,7 +3285,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010174147868}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -3616,7 +3616,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013937539282}
   - 65: {fileID: 65000011255539582}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: CustomerStoreEnterPoint
   m_TagString: CustomerStoreEnterPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -3631,7 +3631,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011887922418}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -3811,7 +3811,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011949857074}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -4011,7 +4011,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012768602180}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -4522,7 +4522,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012853296928}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: ObjectCreatePosition3
   m_TagString: Untagged
   m_Icon: {fileID: 1182932734268802205, guid: 0000000000000000d000000000000000, type: 0}
@@ -4570,7 +4570,7 @@ GameObject:
   - 33: {fileID: 33000012239828758}
   - 64: {fileID: 64000013963688804}
   - 23: {fileID: 23000012020947852}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: StoreBackground
   m_TagString: StoreBackground
   m_Icon: {fileID: 0}
@@ -4990,7 +4990,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014289690660}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -5335,7 +5335,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012661695688}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -5986,7 +5986,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014226808746}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -6362,7 +6362,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013675764068}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -6903,7 +6903,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010002884644}
   - 65: {fileID: 65000012328438410}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: CustomerWaitingPoint
   m_TagString: CustomerWaitingPoint
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -7294,7 +7294,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010829321288}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -7429,7 +7429,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014088097116}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -7444,7 +7444,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010150058456}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -7506,8 +7506,8 @@ GameObject:
   - 4: {fileID: 4000011947144166}
   - 33: {fileID: 33000014144062482}
   - 23: {fileID: 23000011681562650}
-  m_Layer: 14
-  m_Name: Underground
+  m_Layer: 12
+  m_Name: Underground(Front)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7806,7 +7806,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013108521386}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -7866,7 +7866,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010342517754}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -8333,7 +8333,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011535159534}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -9341,7 +9341,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011485455370}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -9471,7 +9471,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010484634694}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -9576,7 +9576,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010639733256}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: CustomerPointSet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9686,7 +9686,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013378457586}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -10049,7 +10049,7 @@ GameObject:
   - 33: {fileID: 33000010922737166}
   - 65: {fileID: 65000012777704792}
   - 23: {fileID: 23000012918497460}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10079,7 +10079,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011040576060}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: ObjectCreatePosition1
   m_TagString: Untagged
   m_Icon: {fileID: -304785387049774780, guid: 0000000000000000d000000000000000, type: 0}
@@ -10365,7 +10365,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011638796896}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: CustomerSet
   m_TagString: CustomerSet
   m_Icon: {fileID: 0}
@@ -10425,7 +10425,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012997041900}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -11081,7 +11081,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011519423102}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -11321,7 +11321,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011205091366}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -11716,7 +11716,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012406592652}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -12527,7 +12527,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010637151100}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -12692,7 +12692,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011140259020}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -12951,7 +12951,7 @@ GameObject:
   - 23: {fileID: 23000012521783122}
   - 208: {fileID: 208000012697994816}
   - 65: {fileID: 65000013404365382}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Fancy_tavern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13149,7 +13149,7 @@ GameObject:
   - 33: {fileID: 33000012469021628}
   - 65: {fileID: 65000010895803668}
   - 23: {fileID: 23000010768874530}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13254,7 +13254,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013445518956}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -13331,8 +13331,8 @@ GameObject:
   - 4: {fileID: 4000013055318910}
   - 33: {fileID: 33000010762735356}
   - 23: {fileID: 23000013124800476}
-  m_Layer: 14
-  m_Name: Underground
+  m_Layer: 12
+  m_Name: Underground(Rear)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13556,7 +13556,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013228175690}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -14241,7 +14241,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012131924286}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -14346,7 +14346,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013480997510}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -14406,7 +14406,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011004924284}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -14559,7 +14559,7 @@ GameObject:
   - 33: {fileID: 33000013933722338}
   - 64: {fileID: 64000010131072312}
   - 23: {fileID: 23000011645048258}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: CustomerWatingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15060,7 +15060,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011846475660}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -15075,7 +15075,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013632303502}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -15330,7 +15330,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012471173066}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -15555,7 +15555,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014128725560}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -15720,7 +15720,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012090955928}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -15735,7 +15735,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011064026808}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -15900,7 +15900,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013904492796}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -16522,7 +16522,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014060934688}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -16597,7 +16597,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013955076754}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -17062,7 +17062,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011525745768}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -17262,7 +17262,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010592294586}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: ObjectCreatePosition2
   m_TagString: Untagged
   m_Icon: {fileID: 1182932734268802205, guid: 0000000000000000d000000000000000, type: 0}
@@ -17382,7 +17382,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012816976652}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -17472,7 +17472,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010722262366}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -17698,7 +17698,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012308371344}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -17761,7 +17761,7 @@ GameObject:
   - 33: {fileID: 33000012277057914}
   - 65: {fileID: 65000013636632680}
   - 23: {fileID: 23000011877854830}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: BackgroundFieldDefencer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17776,7 +17776,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014205812718}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step2Position
   m_TagString: Step2Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -17811,7 +17811,7 @@ GameObject:
   - 95: {fileID: 95000014146663736}
   - 208: {fileID: 208000012546150394}
   - 65: {fileID: 65000011877253214}
-  m_Layer: 14
+  m_Layer: 12
   m_Name: Baker_house
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18236,7 +18236,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012676090958}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step1Position
   m_TagString: Step1Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -18266,7 +18266,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013490368570}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -18929,7 +18929,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010989969924}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Step3Position
   m_TagString: Step3Position
   m_Icon: {fileID: -5430335037324417643, guid: 0000000000000000d000000000000000, type: 0}
@@ -20768,7 +20768,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011822143834}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.63, y: 0, z: -1.73}
+  m_LocalPosition: {x: 0.14, y: 0, z: -1.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -22286,7 +22286,7 @@ Transform:
   - {fileID: 4000012462783366}
   - {fileID: 4000013937539282}
   m_Father: {fileID: 4000011808185790}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &4000010645715374
 Transform:
   m_ObjectHideFlags: 1
@@ -23017,7 +23017,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011696554854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.67, y: 0, z: 1.5}
+  m_LocalPosition: {x: -1.55, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -26821,10 +26821,10 @@ Transform:
   m_Children:
   - {fileID: 4000010495922912}
   - {fileID: 4000012701495822}
+  - {fileID: 4000012061435820}
   - {fileID: 4000013055318910}
   - {fileID: 4000011947144166}
   - {fileID: 4000010639733256}
-  - {fileID: 4000012061435820}
   - {fileID: 4000010592294586}
   - {fileID: 4000011040576060}
   - {fileID: 4000012853296928}
@@ -27457,7 +27457,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011808185790}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &4000011947548682
 Transform:
   m_ObjectHideFlags: 1
@@ -28098,7 +28098,7 @@ Transform:
   m_Children:
   - {fileID: 4000010968572908}
   m_Father: {fileID: 4000011808185790}
-  m_RootOrder: 5
+  m_RootOrder: 2
 --- !u!4 &4000012062772520
 Transform:
   m_ObjectHideFlags: 1
@@ -32116,7 +32116,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -89.981, y: 0, z: 180}
   m_Children: []
   m_Father: {fileID: 4000011808185790}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &4000013058420666
 Transform:
   m_ObjectHideFlags: 1
@@ -36974,7 +36974,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014009326828}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5, y: 0, z: -3.34}
+  m_LocalPosition: {x: -2.82, y: 0, z: -3.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -38615,7 +38615,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38648,7 +38647,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38681,7 +38679,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38714,7 +38711,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38747,7 +38743,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38780,7 +38775,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38813,7 +38807,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38846,7 +38839,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38879,7 +38871,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38912,7 +38903,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38945,7 +38935,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -38978,7 +38967,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -39011,7 +38999,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -39044,7 +39031,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -39077,7 +39063,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -39110,7 +39095,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -39143,7 +39127,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -39176,7 +39159,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -39209,7 +39191,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}
@@ -39242,7 +39223,6 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   calculatedBuyScale: 0
   itemIndex: 0
-  alreadyBuyItems: 0
   waitingPoint: {fileID: 4000010002884644}
   storeEnterPoint: {fileID: 4000013937539282}
   storeDoor: {fileID: 0}

@@ -2,20 +2,20 @@
 <Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Data>
 		<step>1</step>
-		<createTime>2</createTime>
-		<acquireExperience>1</acquireExperience>
+		<createTime>3</createTime>
+		<acquireExperience>80</acquireExperience>
 		<objectMaxCount>10</objectMaxCount>
 	</Data>
 	<Data>
 		<step>2</step>
-		<createTime>3</createTime>
-		<acquireExperience>2</acquireExperience>
+		<createTime>4</createTime>
+		<acquireExperience>70</acquireExperience>
 		<objectMaxCount>15</objectMaxCount>
 	</Data>
 	<Data>
 		<step>3</step>
-		<createTime>4</createTime>
-		<acquireExperience>3</acquireExperience>
+		<createTime>5</createTime>
+		<acquireExperience>60</acquireExperience>
 		<objectMaxCount>20</objectMaxCount>
 	</Data>
 </Field>
