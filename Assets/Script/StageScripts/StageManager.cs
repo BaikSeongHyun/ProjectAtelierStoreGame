@@ -142,7 +142,8 @@ public class StageManager : MonoBehaviour
 			else if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
 			{
 				charManager.PlayerableCharacter.SetMovePoint( hitInfo.point );
-			}				
+			}
+			manager.SoundManager.PlayUISoundPlayer(4);
 		}
 
 		ItemAcquire();
@@ -224,11 +225,15 @@ public class StageManager : MonoBehaviour
 
 		// attack marshmello
 		if( charManager.MarshmelloActivate && charManager.DamageMarshmello() )
+		{
+			manager.SoundManager.PlayUISoundPlayer(4);
 			return;
+		}
 
 		// item acquire
-		if( ItemAcquire() )
-		{			
+		if( ItemAcquire() )			
+		{	
+			manager.SoundManager.PlayUISoundPlayer(4);
 			return;
 		}
 

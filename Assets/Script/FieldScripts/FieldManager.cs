@@ -7,10 +7,11 @@ using System;
 public class FieldManager : MonoBehaviour
 {
 	// high structure
-	GameManager manager;
+	[SerializeField] GameManager manager;
+    [SerializeField] SoundManager soundManager;
 
-	// logic data field
-	GameObject target;
+    // logic data field
+    [SerializeField] GameObject target;
 	//clicked object
 	int layerMask;
 
@@ -34,10 +35,6 @@ public class FieldManager : MonoBehaviour
 	private bool objectLoad = false;
 
 	public float updateTime;
-
-	// temporary storage of prefab data
-	GameObject destroyBody;
-	ObjectOnField ClickItemData;
 
 	// field - present step field data
 	[SerializeField] FieldData presentFieldData;
@@ -65,9 +62,10 @@ public class FieldManager : MonoBehaviour
 	{
 		// high structure
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
+        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
 
-		// data pull
-		CheckStepFieldData();
+        // data pull
+        CheckStepFieldData();
 
 		objects = new GameObject[4];
 		objects[ 0 ] = Resources.Load( "FieldObject/bushPurple" ) as GameObject;
@@ -119,7 +117,8 @@ public class FieldManager : MonoBehaviour
 			{
 				if( target.name == "CloudCanvas" )
 				{
-					target.GetComponent<ObjectOnField>().CloudCooltime();
+                    soundManager.PlayUISoundPlayer(5);
+                    target.GetComponent<ObjectOnField>().CloudCooltime();
 				}
 			}
 

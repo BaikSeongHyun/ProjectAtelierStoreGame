@@ -178,6 +178,8 @@ public class StoreManager : MonoBehaviour
 			{
 				charManager.PlayerableCharacter.SetMovePoint( hitInfo.point );
 			}
+
+			manager.SoundManager.PlayUISoundPlayer(4);
 		}
 	}
 
@@ -591,7 +593,7 @@ public class StoreManager : MonoBehaviour
 					storeBackground.transform.position = new Vector3( 0f, -0.01f, 0f );
 					break;
 				case 2:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall2ndStep" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.Euler( 0f, 90f, 0f ) );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall2ndStep" ), new Vector3( 6.6f, 0f, 6.5f ), Quaternion.Euler( 0f, 90f, 0f ) );
 					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step2NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground.transform.position = new Vector3( 5f, -0.01f, 5f );
 					break;

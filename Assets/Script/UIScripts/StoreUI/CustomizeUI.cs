@@ -55,30 +55,35 @@ public class CustomizeUI : MonoBehaviour
 	// move furniture object
 	public void OnClickMoveFurnitureObject( int direction )
 	{
+		manager.SoundManager.PlayUISoundPlayer(4);
 		storeManager.AllocateFurnintureObjectPositionSet( direction );
 	}
 
 	// rotation furniture object
 	public void OnClickRotateFurnitureObject( int direction )
 	{
+		manager.SoundManager.PlayUISoundPlayer(4);
 		storeManager.AllocateFurnitureObjectRotationSet( direction );
 	}
 
 	// confirm locate furniture object
 	public void OnClickAllocateConfirmFurnitureObject()
 	{
+		manager.SoundManager.PlayUISoundPlayer(4);
 		storeManager.ConfirmMoveFurnitureObject();
 	}
 
 	// allocate collect -> and recollect in furniture inventory
 	public void OnClickAllocateCollectFurnitureObject()
 	{
+		manager.SoundManager.PlayUISoundPlayer(4);
 		storeManager.CancelAllocateFurnitureObject();
 	}
 
 	// exit customizing -> mode : store mode
 	public void OnClickExitCustomizing()
 	{
+		manager.SoundManager.PlayUISoundPlayer(4);
 		if( storeManager.PresentSelectedFurniture == null )
 			manager.SetStoreMode();
 	}
@@ -86,6 +91,7 @@ public class CustomizeUI : MonoBehaviour
 	// pop up on
 	public void OnClickPopUpActivate()
 	{
+		manager.SoundManager.PlayUISoundPlayer(4);
 		popUpSell.SetActive( true );
 		sellPrice.text = ( ( int ) ( storeManager.PresentSelectedFurniture.InstanceData.Furniture.Price * 0.8f ) ).ToString();
 	}
@@ -93,6 +99,7 @@ public class CustomizeUI : MonoBehaviour
 	// sell furniture object
 	public void OnClickSellFurniture()
 	{
+		manager.SoundManager.PlayUISoundPlayer(4);
 		// sell furniture
 		storeManager.SellFurnitureObject();
 
@@ -103,6 +110,7 @@ public class CustomizeUI : MonoBehaviour
 	// exit pop up
 	public void OnClickExitPopup()
 	{
+		manager.SoundManager.PlayUISoundPlayer(4);
 		popUpSell.SetActive( false );
 	}
 }

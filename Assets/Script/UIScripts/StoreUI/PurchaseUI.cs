@@ -6,6 +6,7 @@ public class PurchaseUI : MonoBehaviour
 {
 	// high structure
 	[SerializeField] StoreManager storeManager;
+    [SerializeField] SoundManager soundManager;
 
 	// field - component element
 	[SerializeField] DataElement furnitureSlot;
@@ -25,9 +26,10 @@ public class PurchaseUI : MonoBehaviour
 	{
 		// high structure
 		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
+        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
 
-		// field
-		furnitureSlot = GetComponentInChildren<DataElement>();
+        // field
+        furnitureSlot = GetComponentInChildren<DataElement>();
 		furnitureName = transform.Find( "Name" ).GetComponent<Text>();
 		price = transform.Find( "Price" ).GetComponent<Text>();
 	}
@@ -44,7 +46,9 @@ public class PurchaseUI : MonoBehaviour
 	// buy item
 	public void OnClickBuyFurniture()
 	{
-		if( storeManager.BuyFurniture() )
+        soundManager.PlayUISoundPlayer(4);
+
+        if ( storeManager.BuyFurniture() )
 			this.gameObject.SetActive( false );
 	}
 
@@ -52,5 +56,6 @@ public class PurchaseUI : MonoBehaviour
 	public void OnClickExitPurchaseUI()
 	{
 		this.gameObject.SetActive( false );
-	}
+        soundManager.PlayUISoundPlayer(4);
+    }
 }

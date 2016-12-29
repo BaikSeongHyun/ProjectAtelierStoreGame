@@ -7,6 +7,7 @@ public class ResultRewardUI : MonoBehaviour
 	// high structure
 	[SerializeField] GameManager manager;
 	[SerializeField] StageManager stageManager;
+    [SerializeField] SoundManager soundManager;
 
 	// component element
 	[SerializeField] Text timeText;
@@ -24,8 +25,9 @@ public class ResultRewardUI : MonoBehaviour
 	{
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
+        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
 
-		cardSet = GetComponentsInChildren<CardElement>();
+        cardSet = GetComponentsInChildren<CardElement>();
 	}
 
 	// update component element
@@ -52,6 +54,8 @@ public class ResultRewardUI : MonoBehaviour
 	// on click card
 	public void OnClickDataCard( int index )
 	{
+        soundManager.PlayUISoundPlayer(4);
+
 		if( stageManager.TouchCount > 0 && !stageManager.IsOpened[ index ] )
 		{
 			int itemID = 0;
@@ -69,7 +73,8 @@ public class ResultRewardUI : MonoBehaviour
 	// exit field
 	public void OnClickExitField()
 	{
-		manager.SetStoreMode();
-		manager.SoundManager.PlayUISoundPlayer( 12 );
+        soundManager.PlayBackgroundAudio(2);
+        soundManager.PlayUISoundPlayer(12);
+        manager.SetStoreMode();
 	}
 }

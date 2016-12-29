@@ -9,6 +9,7 @@ public class PlayerAgent : AIAgent
 	[SerializeField] StoreManager storeManager;
 	[SerializeField] StageManager stageManager;
 	[SerializeField] CharacterManager charManager;
+    [SerializeField] SoundManager soundManager;
 	[SerializeField] UIManager mainUI;
 
 	//
@@ -136,7 +137,8 @@ public class PlayerAgent : AIAgent
 		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 		charManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<CharacterManager>();
-		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
+        mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 
 		// agent data
 		agentAnimator = GetComponent<Animator>();
@@ -166,20 +168,22 @@ public class PlayerAgent : AIAgent
 	{
 		presentSequence = Sequence.GoToCreate;
 		targetObject = storeManager.PresentSelectedFurniture;
-	}
+    }
 
 	// item create
 	public void ItemCreate()
 	{		
 		agentAnimator.SetTrigger( "Crafting" );
 		presentSequence = Sequence.WaitAnimation;
-	}
+        soundManager.PlayUISoundPlayer(6);
+    }
 
 	// set item setting mode
 	public void SetItemSettingMode()
 	{
 		presentSequence = Sequence.GoToSetting;
 		targetObject = stageManager.PresentSelectedFurniture;
+
 	}
 
 	// item setting
@@ -187,16 +191,16 @@ public class PlayerAgent : AIAgent
 	{
 		agentAnimator.SetTrigger( "Setting" );
 		presentSequence = Sequence.WaitAnimation;
-	}
+        soundManager.PlayUISoundPlayer(4);
+    }
 
 	public void CreateEndEvent()
 	{
 		storeManager.CreateItemConfirm();
-
 		presentSequence = Sequence.Ready;
-
-		// ui set (pop up)
-	}
+        soundManager.PlayUISoundPlayer(6);
+        // ui set (pop up)
+    }
 
 	public void SetEndEvent()
 	{

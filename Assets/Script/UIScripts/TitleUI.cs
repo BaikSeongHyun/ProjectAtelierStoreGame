@@ -32,7 +32,6 @@ public class TitleUI : MonoBehaviour, IPointerDownHandler
 	public void LinkComponentElement()
 	{
 		// component element 
-		clickImage = transform.Find( "ClickImage" ).GetComponent<Image>();
 		eyeSpriteApply = transform.Find( "EyeSpriteApply" ).GetComponent<Image>();
 
 		// sprite data load

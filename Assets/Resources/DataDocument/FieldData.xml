@@ -3,19 +3,19 @@
 	<Data>
 		<step>1</step>
 		<createTime>3</createTime>
-		<acquireExperience>80</acquireExperience>
+		<acquireExperience>1000</acquireExperience>
 		<objectMaxCount>10</objectMaxCount>
 	</Data>
 	<Data>
 		<step>2</step>
 		<createTime>4</createTime>
-		<acquireExperience>70</acquireExperience>
+		<acquireExperience>1200</acquireExperience>
 		<objectMaxCount>15</objectMaxCount>
 	</Data>
 	<Data>
 		<step>3</step>
 		<createTime>5</createTime>
-		<acquireExperience>60</acquireExperience>
+		<acquireExperience>1400</acquireExperience>
 		<objectMaxCount>20</objectMaxCount>
 	</Data>
 </Field>

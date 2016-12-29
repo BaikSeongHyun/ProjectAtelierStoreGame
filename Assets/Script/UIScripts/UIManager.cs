@@ -193,6 +193,7 @@ public class UIManager : MonoBehaviour
 				loadingScene.SetActive( false );
 				characterCreateUI.SetActive( false );
 				loadingScene.SetActive( true );
+				loadingScene.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>( "Image/UI/LoadingScene/" + UnityEngine.Random.Range( 1, 7 ) );
 				break;
 			case GameManager.GameMode.Store:
 				storeUI.SetActive( true );
@@ -239,7 +240,6 @@ public class UIManager : MonoBehaviour
 	{
 		loadingScene.SetActive( state );
 	}
-	
 
 	// set sell item setting io
 	public void ActivateSellItemSettingUI()

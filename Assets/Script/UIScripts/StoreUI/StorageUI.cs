@@ -8,6 +8,7 @@ public class StorageUI : MonoBehaviour
 	// high structrue
 	[SerializeField] GameManager manager;
 	[SerializeField] StoreManager storeManager;
+    [SerializeField] SoundManager soundManager;
 
 	// component element
 	[SerializeField] Image tap1;
@@ -23,8 +24,9 @@ public class StorageUI : MonoBehaviour
 
 	void Awake()
 	{
-		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();	
-		LinkComponentElement();
+		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
+        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
+        LinkComponentElement();
 	}
 
 	// public method
@@ -68,8 +70,9 @@ public class StorageUI : MonoBehaviour
 	// on click tab process
 	public void OnClickStepTapProcess( int index )
 	{
-		// set button color & present see step change
-		switch( index )
+        soundManager.PlayUISoundPlayer(4);
+        // set button color & present see step change
+        switch ( index )
 		{
 			case 1:	
 				tap1.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/Tab1On" );
@@ -95,6 +98,7 @@ public class StorageUI : MonoBehaviour
 	// on click item inventory element
 	public void OnClickItemStorageElement( int index )
 	{
+        soundManager.PlayUISoundPlayer(4);
 		// furniture item view
 		if( this.gameObject.name == "FurnitureSetUI" )
 			storeManager.AllocateStartFurnitureInstance( index, presentStepIndex );
@@ -106,5 +110,6 @@ public class StorageUI : MonoBehaviour
 	public void OnCilckExitStorageUI()
 	{
 		this.gameObject.SetActive( false );
+        soundManager.PlayUISoundPlayer(4);
 	}
 }

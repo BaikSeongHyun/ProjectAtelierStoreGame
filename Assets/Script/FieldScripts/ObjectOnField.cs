@@ -87,7 +87,7 @@ public class ObjectOnField : MonoBehaviour
 			manager.GamePlayer.AddItemData( id, count );
 			manager.GamePlayer.StoreData.AddExperience( DataManager.FindFieldDataByStep( manager.GamePlayer.StoreData.StoreStep ).AcquireExperience );
 			fieldManager.stepLocation[ position ] = false;
-			fieldManager.currentObjectNumber--;
+			fieldManager.currentObjectNumber--;           
 			Destroy( body );
 		}
 	}

@@ -393,7 +393,7 @@ public class DataManager : MonoBehaviour
 		try
 		{			
 			// data load - check first loading
-			if( PlayerPrefs.GetInt( "FirstData" ) != 987 )
+			if( PlayerPrefs.GetInt( "FirstData" ) != 5467122 )
 			{
 				playerData.SetDefaultStatus();
 				playFirst = true;
@@ -498,7 +498,7 @@ public class DataManager : MonoBehaviour
 	public static void SavePlayerData()
 	{
 		// first check data
-		PlayerPrefs.SetInt( "FirstData", 987 );
+		PlayerPrefs.SetInt( "FirstData", 5467122 );
 
 		// save data setting - player direct data
 		PlayerPrefs.SetString( "PlayerName", manager.GamePlayer.Name );

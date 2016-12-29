@@ -9,6 +9,7 @@ public class StoreUI : MonoBehaviour
 	[SerializeField] GameManager manager;
 	[SerializeField] StoreManager storeManager;
 	[SerializeField] UIManager mainUI;
+    [SerializeField] SoundManager soundManager;
 
 	// component element
 	// - text set
@@ -31,9 +32,10 @@ public class StoreUI : MonoBehaviour
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
 		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
 
-		// text element
-		goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
+        // text element
+        goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
 		nameText = transform.Find( "PlayerStatus" ).Find( "NameText" ).GetComponent<Text>();
 		storeStepText = transform.Find( "PlayerStatus" ).Find( "StoreStepText" ).GetComponent<Text>();
 		charHead = transform.Find( "PlayerStatus" ).Find( "CharHead" ).GetComponent<Image>();
@@ -71,13 +73,15 @@ public class StoreUI : MonoBehaviour
 	public void OnClickStoreOpenButton()
 	{
 		manager.SetStoreOpenPreprocessMode();
+        soundManager.PlayUISoundPlayer(12);
 	}
 
 	// on click storage button
 	public void OnClickStorageButton()
 	{
 		mainUI.StorageUI.SetActive( true );
-	}
+        soundManager.PlayUISoundPlayer(12);
+    }
 
 	// on click open furniture market button
 	public void OnClickFunitureMarketButton()
@@ -85,19 +89,22 @@ public class StoreUI : MonoBehaviour
 		storeManager.PullFurnitureData();
 		mainUI.FurnitureMarketUI.SetActive( true );
 		mainUI.FurnitureMarketUILogic.SetComponentElement();
-	}
+        soundManager.PlayUISoundPlayer(12);
+    }
 
 	// on click mode customizing button
 	public void OnClickCustomizingButton()
 	{
 		manager.SetCutomizeingMode();
-	}
+        soundManager.PlayUISoundPlayer(12);
+    }
 
 	// on click step up button
 	// recreate game field
 	public void OnClickStepUpButton()
 	{
-		if( manager.GamePlayer.StoreData.StepUpAlready )
+        soundManager.PlayUISoundPlayer(12);
+        if ( manager.GamePlayer.StoreData.StepUpAlready )
 			manager.RecreateStoreField();
 	}
 }

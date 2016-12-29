@@ -9,6 +9,7 @@ public class StageUI : MonoBehaviour
 	[SerializeField] GameManager manager;
 	[SerializeField] StageManager stageManager;
 	[SerializeField] CharacterManager charManager;
+    [SerializeField] SoundManager soundManager;
 
 	// field logic data
 	[SerializeField] bool isRight;
@@ -50,9 +51,10 @@ public class StageUI : MonoBehaviour
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 		charManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<CharacterManager>();
+        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
 
-		// component element - normal
-		timeBarFill = transform.Find( "TimeBar" ).Find( "TimeBarFill" ).GetComponent<Image>();
+        // component element - normal
+        timeBarFill = transform.Find( "TimeBar" ).Find( "TimeBarFill" ).GetComponent<Image>();
 		nameText = transform.Find( "PlayerStatus" ).Find( "NameText" ).GetComponent<Text>();
 		goldText = transform.Find( "Gold" ).Find( "GoldText" ).GetComponent<Text>();
 		stepText = transform.Find( "PlayerStatus" ).Find( "StoreStepText" ).GetComponent<Text>();
@@ -124,6 +126,7 @@ public class StageUI : MonoBehaviour
 	// on click method
 	public void OnClickStoreOpen()
 	{
+        soundManager.PlayBackgroundAudio(1);
 		if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
 		{
 			stageStateButton.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/StoreOn" );
@@ -146,9 +149,13 @@ public class StageUI : MonoBehaviour
 			// set TimeBar
 			timeBarFill.fillAmount = stageManager.TimeFill;
 
-			// flash time bar fill
-			if( stageManager.FreeTime <= 10f )
-				timeBarFill.enabled = !timeBarFill.enabled;
+            // flash time bar fill
+            if (stageManager.FreeTime <= 10f)
+            {
+                timeBarFill.enabled = !timeBarFill.enabled;
+//                if(stageManager.FreeTime >= 9.9f)
+//                    soundManager.PlayUISoundPlayer(11);
+            }
 
 			yield return new WaitForSeconds( 0.1f );
 		}

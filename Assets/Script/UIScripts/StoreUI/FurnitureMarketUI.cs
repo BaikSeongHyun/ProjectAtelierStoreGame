@@ -8,6 +8,7 @@ public class FurnitureMarketUI : MonoBehaviour
 {
 	// high structure
 	[SerializeField] StoreManager storeManager;
+    [SerializeField] SoundManager soundManager;
 
 	// field - component element
 	[SerializeField] DataElement[] listSlots;
@@ -28,9 +29,10 @@ public class FurnitureMarketUI : MonoBehaviour
 	{
 		// high structure
 		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
+        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
 
-		// field
-		listSlots = new DataElement[10];
+        // field
+        listSlots = new DataElement[10];
 
 		for( int i = 0; i < 10; i++ )
 		{
@@ -63,7 +65,9 @@ public class FurnitureMarketUI : MonoBehaviour
 	// on click items
 	public void OnClickFurnitureItems( int index )
 	{
-		if( !storeManager.SelectFurniture( index, listSlots.Length ) )
+        soundManager.PlayUISoundPlayer(4);
+
+        if ( !storeManager.SelectFurniture( index, listSlots.Length ) )
 			return;
 		purchaseUI.SetActive( true );
 		purchaseUILogic.SetComponentElement();
@@ -72,7 +76,9 @@ public class FurnitureMarketUI : MonoBehaviour
 	// move list index
 	public void OnClickMoveIndex( int direction )
 	{
-		if( direction == -1 )
+        soundManager.PlayUISoundPlayer(4);
+
+        if ( direction == -1 )
 		{
 			if( storeManager.PresentFurnitureListIndex > 0 )
 				storeManager.PresentFurnitureListIndex--;
@@ -90,6 +96,7 @@ public class FurnitureMarketUI : MonoBehaviour
 	public void OnClickExitFurnitureMarketUI()
 	{
 		this.gameObject.SetActive( false );
-	}
+        soundManager.PlayUISoundPlayer(4);
+    }
 
 }
