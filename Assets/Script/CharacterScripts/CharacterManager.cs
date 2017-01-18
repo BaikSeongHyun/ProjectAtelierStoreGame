@@ -110,7 +110,7 @@ public class CharacterManager : MonoBehaviour
 		{			
 			ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
-			if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject( Input.GetTouch( 0 ).fingerId ) )
+			if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
 			{
 				Debug.Log( "check click" );
 				if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Marshmello" ) ) )
@@ -118,7 +118,8 @@ public class CharacterManager : MonoBehaviour
 					Debug.Log( " ray cast success" );
 					GameObject tempSearch = hitInfo.collider.gameObject;
 					MarshmelloAgent tempMarshmello = tempSearch.GetComponent<MarshmelloAgent>();
-
+					
+					manager.SoundManager.PlayUISoundPlayer( 13 );
 					tempMarshmello.PresentClick += 1;
 					return true;
 				}

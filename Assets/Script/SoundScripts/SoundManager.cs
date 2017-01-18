@@ -5,12 +5,13 @@ using System.Collections.Generic;
 
 public class SoundManager : MonoBehaviour
 {
+	// high structure
+	[SerializeField] GameManager manager;
+	
 	// sound data structure
 	[SerializeField] static Dictionary<int , AudioClip> backgroundSource;
 	[SerializeField] static Dictionary<int , AudioClip> characterSoundSource;
 	[SerializeField] static Dictionary<int , AudioClip> uiSoundSource;
-		 
-	[SerializeField] List <AudioClip> backCheck;
 
 	// audio play
 	[SerializeField] AudioSource backgroundPlayer;
@@ -30,6 +31,9 @@ public class SoundManager : MonoBehaviour
 	// link element component
 	public void LinkComponentElement()
 	{
+		// high structure
+		manager = GetComponent<GameManager>();
+		
 		// link audio player
 		backgroundPlayer = GameObject.Find( "BackgroundPlayer" ).GetComponent<AudioSource>();
 		uiSoundPlayer = GameObject.Find( "UISoundPlayer" ).GetComponent<AudioSource>();
@@ -39,17 +43,36 @@ public class SoundManager : MonoBehaviour
 	public static void DataInitialize()
 	{
 		// background source
-		backgroundSource = new Dictionary<int, AudioClip>( );
+		backgroundSource = new Dictionary<int, AudioClip>();
 
 		// ui sound source
-		uiSoundSource = new Dictionary<int, AudioClip>( );
+		uiSoundSource = new Dictionary<int, AudioClip>();
 
 		// character sound source
-		characterSoundSource = new Dictionary<int, AudioClip>( );
+		characterSoundSource = new Dictionary<int, AudioClip>();
 	}
 
-	public void PlayBackgroundAudio( int id )
+	public void PlayBackgroundAudio()
 	{
+		int id = 0;
+		switch( manager.GamePlayer.StoreData.StoreStep )
+		{
+			case 1:
+				id = 2;
+				break;
+			case 2:
+				id = 16;
+				break;
+			case 3:
+				id = 17;
+				break;				
+		}
+		
+		if( (manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess) || (manager.PresentMode == GameManager.GameMode.StoreOpen) )
+		{
+			id = 1;	
+		}
+		
 		try
 		{
 			backgroundPlayer.clip = backgroundSource[ id ];

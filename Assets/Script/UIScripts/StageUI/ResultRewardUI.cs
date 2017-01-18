@@ -73,7 +73,7 @@ public class ResultRewardUI : MonoBehaviour
 	// exit field
 	public void OnClickExitField()
 	{
-        soundManager.PlayBackgroundAudio(2);
+        soundManager.PlayBackgroundAudio();
         soundManager.PlayUISoundPlayer(12);
         manager.SetStoreMode();
 	}

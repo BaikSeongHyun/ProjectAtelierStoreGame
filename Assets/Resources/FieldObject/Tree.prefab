@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000010275191236}
   - 33: {fileID: 33000013946922582}
   - 23: {fileID: 23000010590164082}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: NGon004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000011662975572}
   - 33: {fileID: 33000010943705262}
   - 23: {fileID: 23000012115395638}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}

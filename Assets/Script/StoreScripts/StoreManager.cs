@@ -157,7 +157,7 @@ public class StoreManager : MonoBehaviour
 			
 		// target function type -> create : use create ui(object type)
 		// target function type -> storage : use storage ui(object type)
-		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject( Input.GetTouch( 0 ).fingerId ) )
+		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
 		{
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
@@ -167,19 +167,20 @@ public class StoreManager : MonoBehaviour
 				if( presentSelectedObject.InstanceData.Furniture.Function == FurnitureData.FunctionType.CreateObject )
 				{					
 					PullCreateItemData();
+					manager.SoundManager.PlayUISoundPlayer( 4 );
 					charManager.PlayerableCharacter.SetCreateMode();
 				}
 				else
 				{
+					manager.SoundManager.PlayUISoundPlayer( 4 );
 					charManager.PlayerableCharacter.SetFurnitureObjectPoint();
 				}
 			}
 			else if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
 			{
+				manager.SoundManager.PlayUISoundPlayer( 4 );
 				charManager.PlayerableCharacter.SetMovePoint( hitInfo.point );
 			}
-
-			manager.SoundManager.PlayUISoundPlayer(4);
 		}
 	}
 
@@ -201,7 +202,7 @@ public class StoreManager : MonoBehaviour
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
 		// set up furniture object => when mouse button right click
-		if( Input.GetButtonDown( "LeftClick" ) && ( presentSelectedObject == null ) && ( !EventSystem.current.IsPointerOverGameObject( Input.GetTouch( 0 ).fingerId ) ) )
+		if( Input.GetButtonDown( "LeftClick" ) && (presentSelectedObject == null) && (!EventSystem.current.IsPointerOverGameObject()) )
 		{
 			// cast & check furniture object -> if exist -> set present object
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
@@ -338,10 +339,10 @@ public class StoreManager : MonoBehaviour
 	// pull data & step
 	public void PullCreateItemData()
 	{
-		viewItemGroup = new List<ItemData>( );
+		viewItemGroup = new List<ItemData>();
 		for( int i = 0; i < DataManager.GetSearchItemList().Count; i++ )
 		{
-			if( ( DataManager.SearchItemList[ i ].Step <= presentSelectedObject.InstanceData.Furniture.Step ) && ( DataManager.SearchItemList[ i ].ResourceIDSet != null ) )
+			if( (DataManager.SearchItemList[ i ].Step <= presentSelectedObject.InstanceData.Furniture.Step) && (DataManager.SearchItemList[ i ].ResourceIDSet != null) )
 			{
 				for( int j = 0; j < presentSelectedObject.InstanceData.Furniture.CreateItemGroupSet.Length; j++ )
 				{
@@ -356,11 +357,11 @@ public class StoreManager : MonoBehaviour
 	// select item
 	public void SelectCreateItem( int index )
 	{
-		resourceItem = new List<ItemInstance>( );
+		resourceItem = new List<ItemInstance>();
 		// select item
 		try
 		{
-			selectedItem = viewItemGroup[ index + ( presentIndexItem * mainUI.CreateUILogic.ListSlotLength ) ];
+			selectedItem = viewItemGroup[ index + (presentIndexItem * mainUI.CreateUILogic.ListSlotLength) ];
 		}
 		catch( ArgumentOutOfRangeException e )
 		{
@@ -404,8 +405,8 @@ public class StoreManager : MonoBehaviour
 				{
 					if( resourceItem[ j ].Item.ID == selectedItem.ResourceIDSet[ i ] )
 					{
-						if( ( int ) ( resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ] ) < createLimitCount )
-							createLimitCount = ( int ) ( resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ] );
+						if( ( int ) (resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ]) < createLimitCount )
+							createLimitCount = ( int ) (resourceItem[ j ].Count / selectedItem.ResourceCountSet[ i ]);
 					}
 				}
 			}
@@ -480,12 +481,12 @@ public class StoreManager : MonoBehaviour
 			{
 				for( int j = 0; j < tempCounter.Length; j++ )
 				{
-					if( ( manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID ) && ( tempCounter[ j ] != 0 ) && ( manager.GamePlayer.ItemSet[ i ].Count > tempCounter[ j ] ) )
+					if( (manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID) && (tempCounter[ j ] != 0) && (manager.GamePlayer.ItemSet[ i ].Count > tempCounter[ j ]) )
 					{
 						manager.GamePlayer.ItemSet[ i ].Count -= tempCounter[ j ];
 						tempCounter[ j ] = 0;
 					}
-					else if( ( manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID ) && ( tempCounter[ j ] != 0 ) && ( manager.GamePlayer.ItemSet[ i ].Count <= tempCounter[ j ] ) )
+					else if( (manager.GamePlayer.ItemSet[ i ].Item.ID == resourceItem[ j ].Item.ID) && (tempCounter[ j ] != 0) && (manager.GamePlayer.ItemSet[ i ].Count <= tempCounter[ j ]) )
 					{
 						tempCounter[ j ] -= manager.GamePlayer.ItemSet[ i ].Count;
 						manager.GamePlayer.ItemSet[ i ] = null;
@@ -522,7 +523,7 @@ public class StoreManager : MonoBehaviour
 	// pull data & setup
 	public void PullFurnitureData()
 	{
-		viewFurnitureGroup = new List<FurnitureData>( );
+		viewFurnitureGroup = new List<FurnitureData>();
 		for( int i = 0; i < DataManager.GetSearchFurnitureList().Count; i++ )
 		{
 			if( DataManager.SearchFurnitureList[ i ].Step <= manager.GamePlayer.StoreData.StoreStep )
@@ -541,7 +542,7 @@ public class StoreManager : MonoBehaviour
 			if( presentIndexFurniture == 0 )
 				selectedFurniture = viewFurnitureGroup[ index ];
 			else
-				selectedFurniture = viewFurnitureGroup[ index + ( ( presentIndexFurniture * slotLength ) ) ];
+				selectedFurniture = viewFurnitureGroup[ index + ((presentIndexFurniture * slotLength)) ];
 
 			return true;
 		}
@@ -593,7 +594,7 @@ public class StoreManager : MonoBehaviour
 					storeBackground.transform.position = new Vector3( 0f, -0.01f, 0f );
 					break;
 				case 2:
-					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall2ndStep" ), new Vector3( 6.6f, 0f, 6.5f ), Quaternion.Euler( 0f, 90f, 0f ) );
+					storeWall = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/StoreWall2ndStep" ), new Vector3( 6.6f, 0f, 6.59f ), Quaternion.Euler( 0f, 90f, 0f ) );
 					storeNavField = ( GameObject ) Instantiate( Resources.Load<GameObject>( "StoreObject/NavMeshObstacle/Step2NavField" ), new Vector3( planeScale / 2f, 0f, planeScale / 2f ), Quaternion.identity );
 					storeBackground.transform.position = new Vector3( 5f, -0.01f, 5f );
 					break;
@@ -606,7 +607,7 @@ public class StoreManager : MonoBehaviour
 
 			// create funiture object
 			// set data array
-			furnitureObjectSet = new List<FurnitureObject>( );
+			furnitureObjectSet = new List<FurnitureObject>();
 			GameObject temp;
 
 			// make object - allocated furniture

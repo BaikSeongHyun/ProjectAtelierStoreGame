@@ -116,6 +116,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.98432815
+        functionName: ThrowEndEvent
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e1eab0120a316cd47933ef98ca1c9d20,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

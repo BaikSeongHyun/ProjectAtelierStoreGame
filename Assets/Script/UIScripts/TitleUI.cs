@@ -35,15 +35,15 @@ public class TitleUI : MonoBehaviour, IPointerDownHandler
 		eyeSpriteApply = transform.Find( "EyeSpriteApply" ).GetComponent<Image>();
 
 		// sprite data load
-		eyesBlink = new List<Sprite>( );
-		eyesWink = new List<Sprite>( );
+		eyesBlink = new List<Sprite>();
+		eyesWink = new List<Sprite>();
 
 		// : blink
 		for( int i = 0; i < 5; i++ )
-			eyesBlink.Add( Resources.Load<Sprite>( "Image/UI/Title/EyeBlink" + ( i + 1 ) ) );
+			eyesBlink.Add( Resources.Load<Sprite>( "Image/UI/Title/EyeBlink" + (i + 1) ) );
 		
 		for( int i = 0; i < 5; i++ )
-			eyesWink.Add( Resources.Load<Sprite>( "Image/UI/Title/EyeWink" + ( i + 1 ) ) );
+			eyesWink.Add( Resources.Load<Sprite>( "Image/UI/Title/EyeWink" + (i + 1) ) );
 			
 
 		blinkEyesFrameTime = 0.01f;
@@ -65,12 +65,12 @@ public class TitleUI : MonoBehaviour, IPointerDownHandler
 			if( UnityEngine.Random.Range( 0, 5 ) == 4 )
 			{
 				// wink eyes
-				for( int i = 0; i < ( eyesWink.Count * 2 ) - 1; i++ )
+				for( int i = 0; i < (eyesWink.Count * 2) - 1; i++ )
 				{
 					if( i < eyesWink.Count )
 						eyeSpriteApply.sprite = eyesWink[ i ];
 					else
-						eyeSpriteApply.sprite = eyesWink[ ( ( eyesBlink.Count * 2 ) - 2 ) - i ];
+						eyeSpriteApply.sprite = eyesWink[ ((eyesBlink.Count * 2) - 2) - i ];
 
 					yield return new WaitForSeconds( winkEyesFrameTime );
 				}
@@ -78,12 +78,12 @@ public class TitleUI : MonoBehaviour, IPointerDownHandler
 			else
 			{
 				// blink eyes
-				for( int i = 0; i < ( eyesBlink.Count * 2 ) - 1; i++ )
+				for( int i = 0; i < (eyesBlink.Count * 2) - 1; i++ )
 				{
 					if( i < eyesBlink.Count )
 						eyeSpriteApply.sprite = eyesBlink[ i ];
 					else
-						eyeSpriteApply.sprite = eyesBlink[ ( ( eyesBlink.Count * 2 ) - 2 ) - i ];
+						eyeSpriteApply.sprite = eyesBlink[ ((eyesBlink.Count * 2) - 2) - i ];
 
 					yield return new WaitForSeconds( blinkEyesFrameTime );
 				}

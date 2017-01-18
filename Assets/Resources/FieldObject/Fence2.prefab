@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000012853553162}
   - 33: {fileID: 33000014216137270}
   - 23: {fileID: 23000010801557212}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fence2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000013487518150}
   - 33: {fileID: 33000012187188194}
   - 23: {fileID: 23000012598696578}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}

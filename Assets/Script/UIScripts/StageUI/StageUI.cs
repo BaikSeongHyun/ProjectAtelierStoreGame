@@ -126,7 +126,7 @@ public class StageUI : MonoBehaviour
 	// on click method
 	public void OnClickStoreOpen()
 	{
-        soundManager.PlayBackgroundAudio(1);
+        soundManager.PlayBackgroundAudio();
 		if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
 		{
 			stageStateButton.sprite = Resources.Load<Sprite>( "Image/UI/StoreUI/StoreOn" );

@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011989290622}
   - 33: {fileID: 33000013504247446}
   - 23: {fileID: 23000014274184188}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Weed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

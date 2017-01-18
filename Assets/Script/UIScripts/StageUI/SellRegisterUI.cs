@@ -7,6 +7,7 @@ public class SellRegisterUI : MonoBehaviour
 {
 	// high structure
 	[SerializeField] GameManager manager;
+	[SerializeField] UIManager mainUI;
 	[SerializeField] StoreManager storeManager;
 	[SerializeField] StageManager stageManager;
 	[SerializeField] CharacterManager charManager;
@@ -44,6 +45,7 @@ public class SellRegisterUI : MonoBehaviour
 	{
 		// high structure
 		manager = GameObject.FindWithTag( "GameLogic" ).GetComponent<GameManager>();
+		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 		charManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<CharacterManager>();
@@ -90,12 +92,12 @@ public class SellRegisterUI : MonoBehaviour
 		// insert items
 		try
 		{
-			if( ( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess ) || ( manager.PresentMode == GameManager.GameMode.StoreOpen ) )
+			if( (manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess) || (manager.PresentMode == GameManager.GameMode.StoreOpen) )
 			{
 				// save slot index
-				presentStorageSlotIndex = index + storeManager.StorageIndex * ( manager.GamePlayer.ItemSet.Length / 3 );
+				presentStorageSlotIndex = index + storeManager.StorageIndex * (manager.GamePlayer.ItemSet.Length / 3);
 				// load item
-				temp = DataManager.FindItemDataByID( manager.GamePlayer.ItemSet[ index + storeManager.StorageIndex * ( manager.GamePlayer.ItemSet.Length / 3 ) ].Item.ID );
+				temp = DataManager.FindItemDataByID( manager.GamePlayer.ItemSet[ index + storeManager.StorageIndex * (manager.GamePlayer.ItemSet.Length / 3) ].Item.ID );
 			
 				// check slot item
 				for( int i = 0; i < stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemGroupSet.Length; i++ )
@@ -120,12 +122,15 @@ public class SellRegisterUI : MonoBehaviour
 	// on click confirm into slot
 	public void OnClickConfirmRegisterItem()
 	{
-		if( ( Int32.Parse( registerCountText.text ) <= 0 ) || ( Int32.Parse( registerSellPriceText.text ) <= 0 ) )
+		if( (Int32.Parse( registerCountText.text ) <= 0) || (Int32.Parse( registerSellPriceText.text ) <= 0) )
 			return;
 
-		// ui off
+		// ui off - self
 		this.gameObject.SetActive( false );
 
+		// ui off - storage
+		mainUI.StorageUI.SetActive( false );		
+		
 		// set register data
 		tempData.Count = Int32.Parse( registerCountText.text );
 		tempData.SellPrice = Int32.Parse( registerSellPriceText.text );
@@ -155,7 +160,7 @@ public class SellRegisterUI : MonoBehaviour
 				{
 					// item count add
 					// check max limit & check have item
-					if( ( presentTempItemCounter + 1 <= stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemCountSet[ i ] ) && ( presentTempItemCounter + 1 <= manager.GamePlayer.ItemSet[ presentStorageSlotIndex ].Count ) )
+					if( (presentTempItemCounter + 1 <= stageManager.PresentSelectedFurniture.InstanceData.Furniture.SellItemCountSet[ i ]) && (presentTempItemCounter + 1 <= manager.GamePlayer.ItemSet[ presentStorageSlotIndex ].Count) )
 					{
 						presentTempItemCounter++;
 						registerCountText.text = presentTempItemCounter.ToString();

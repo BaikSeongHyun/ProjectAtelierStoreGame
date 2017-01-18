@@ -53,7 +53,7 @@ public class MarshmelloAgent : AIAgent
 		}
 	}
 
-	public float presentClickFill { get { return ( float ) ( clickRequire - presentClick ) / ( float ) ( clickRequire ); } }
+	public float presentClickFill { get { return ( float ) (clickRequire - presentClick) / ( float ) (clickRequire); } }
 
 	// agent sequence
 	public enum Sequence : int
@@ -103,11 +103,11 @@ public class MarshmelloAgent : AIAgent
 	// target policy - enter
 	void OnTriggerEnter( Collider col )
 	{
-		if( ( col.gameObject.name == "StoreDoor" ) && ( presentSequence == Sequence.GoToStore ) )
+		if( (col.gameObject.name == "StoreDoor") && (presentSequence == Sequence.GoToStore) )
 		{
 			SearchItemTarget(); 
 		}
-		else if( ( col.gameObject.layer == LayerMask.NameToLayer( "WorldBoundary" ) ) && ( presentSequence != Sequence.GoToStore ) )
+		else if( (col.gameObject.layer == LayerMask.NameToLayer( "WorldBoundary" )) && (presentSequence != Sequence.GoToStore) )
 		{
 			GoToHome();
 		}
@@ -116,7 +116,7 @@ public class MarshmelloAgent : AIAgent
 	// target policy - stay
 	void OnTriggerStay( Collider col )
 	{
-		if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToItems ) )
+		if( (targetObject != null) && (col.gameObject == targetObject.gameObject) && (presentSequence == Sequence.GoToItems) )
 		{
 			// item move field
 			stageManager.ThrowSellItem( targetIndex, throwItemIndex );
@@ -198,15 +198,17 @@ public class MarshmelloAgent : AIAgent
 	// search throw itme target
 	public bool SearchItemTarget()
 	{		
+		// target initialize
+		targetObject = null;
+				
 		for( int i = 0; i < stageManager.SellFurnitureSet.Count; i++ )
 		{
 			for( int j = 0; j < stageManager.SellFurnitureSet[ i ].SellItem.Length; j++ )
 			{
-
 				try
 				{
 					// find item & go to items
-					if( ( stageManager.SellFurnitureSet[ i ].SellItem[ j ] != null ) && ( stageManager.SellFurnitureSet[ i ].SellItem[ j ].Item.ID != 0 ) )
+					if( (stageManager.SellFurnitureSet[ i ].SellItem[ j ] != null) && (stageManager.SellFurnitureSet[ i ].SellItem[ j ].Item.ID != 0) )
 					{
 						// set target object
 						targetObject = stageManager.SellFurnitureSet[ i ];
@@ -231,11 +233,15 @@ public class MarshmelloAgent : AIAgent
 			}
 		}
 
-		// set destination
-		moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, 2 ) ];
+		// no items -> go home
+		if( presentSequence != Sequence.ThrowItems )
+		{
+			// set destination
+			moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, 2 ) ];
 
-		// no more item in store
-		presentSequence = Sequence.GoToHome;
+			// no more item in store
+			presentSequence = Sequence.GoToHome;
+		}
 		return false;
 	}
 
@@ -269,7 +275,7 @@ public class MarshmelloAgent : AIAgent
 
 
 	// animatoer event method
-	// end throw itmes
+	// throw itmes
 	public void ThrowItemForcedEvent()
 	{
 		try
@@ -284,14 +290,26 @@ public class MarshmelloAgent : AIAgent
 		catch( MissingReferenceException e )
 		{
 			// item has fallen
-		}
+		}		
+	}
 
+	// item throw end
+	public void ThrowEndEvent()
+	{
+		// search target
+		if( presentSequence != Sequence.Ready )
+			SearchItemTarget();
+		
 		if( throwCount == 0 )
 		{
 			moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, 2 ) ];
 			presentSequence = Sequence.GoToHome;
 		}
-		if( presentSequence != Sequence.Ready )
-			SearchItemTarget();
+		
+		if( targetObject == null )
+		{
+			moveTarget = worldBoundary[ UnityEngine.Random.Range( 0, 2 ) ];
+			presentSequence = Sequence.GoToHome;	
+		}
 	}
 }

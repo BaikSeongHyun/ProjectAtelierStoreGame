@@ -241,7 +241,7 @@ public class GameManager : MonoBehaviour
 
 		// start store create
 		StartCoroutine( storeManager.CreateStoreObject() );
-		soundManager.PlayBackgroundAudio( 2 );
+		soundManager.PlayBackgroundAudio( );
 
 		while( true )
 		{		

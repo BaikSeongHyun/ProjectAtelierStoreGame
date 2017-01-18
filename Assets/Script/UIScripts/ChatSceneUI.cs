@@ -5,15 +5,17 @@ using System.Collections;
 public class ChatSceneUI : MonoBehaviour
 {
 	// high structure
+	[SerializeField] SoundManager soundManager;
 	[SerializeField] StageManager stageManager;
-    [SerializeField] FieldManager fieldManager;
+	[SerializeField] FieldManager fieldManager;
+	
 	// field - component
-    [SerializeField] GameObject pieMode;
+	[SerializeField] GameObject pieMode;
 	[SerializeField] Image kakaoImage;
-    [SerializeField] Text chatText;
+	[SerializeField] Text chatText;
 
-    // field - mini data
-    [SerializeField] bool firstPayment;
+	// field - mini data
+	[SerializeField] bool firstPayment;
 
 	// unity method
 	void Awake()
@@ -26,12 +28,13 @@ public class ChatSceneUI : MonoBehaviour
 	public void LinkComponentElement()
 	{
 		// high structure
+		soundManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<SoundManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
-        fieldManager = GameObject.FindWithTag("GameLogic").GetComponent<FieldManager>();
+		fieldManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<FieldManager>();
 
-        // field - component
-        kakaoImage = transform.Find( "KakaoImage" ).GetComponent<Image>();
-        chatText = transform.Find( "ChatBack" ).Find( "ChatText" ).GetComponent<Text>();
+		// field - component
+		kakaoImage = transform.Find( "KakaoImage" ).GetComponent<Image>();
+		chatText = transform.Find( "ChatBack" ).Find( "ChatText" ).GetComponent<Text>();
 	}
 
 	// set kakao information
@@ -42,15 +45,16 @@ public class ChatSceneUI : MonoBehaviour
 		+ "손님들이 " + stageManager.ProFavor + "%의 확률로 " + CustomerAgent.ReturnBuyScaleString( stageManager.BuyScale ) + "삽니다.";
 	}
 
-    // on click method
-    // exit chat
-    public void OnClickExitChat()
+	// on click method
+	// exit chat
+	public void OnClickExitChat()
 	{
-        if (kakaoImage.enabled)
-        {
-            kakaoImage.enabled = false;
-        }
+		if( kakaoImage.enabled )
+		{
+			kakaoImage.enabled = false;
+		}
       
-        this.gameObject.SetActive( false );
+		this.gameObject.SetActive( false );
+		soundManager.PlayUISoundPlayer( 4 );
 	}
 }

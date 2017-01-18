@@ -69,9 +69,9 @@ public class StageManager : MonoBehaviour
 
 	public List<FurnitureObject> SellFurnitureSet { get { return sellFurnitureSet; } }
 
-	public float FreeTime { get { return ( stageTime - presentTime ); } }
+	public float FreeTime { get { return (stageTime - presentTime); } }
 
-	public float TimeFill { get { return( 1 - ( presentTime / stageTime ) ); } }
+	public float TimeFill { get { return(1 - (presentTime / stageTime)); } }
 
 	public int TouchCount { get { return touchCount; } }
 
@@ -110,8 +110,8 @@ public class StageManager : MonoBehaviour
 			isOpened[ i ] = false;
 
 		// sell log data
-		sellItem = new List<int>( );
-		sellGold = new List<int>( );
+		sellItem = new List<int>();
+		sellGold = new List<int>();
 	}
 
 	// stage pre process
@@ -123,7 +123,7 @@ public class StageManager : MonoBehaviour
 
 		// target function type -> create : use create ui(object type)
 		// target function type -> storage : use storage ui(object type)
-		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject( Input.GetTouch( 0 ).fingerId ) )
+		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
 		{
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Furniture" ) ) )
 			{
@@ -132,18 +132,21 @@ public class StageManager : MonoBehaviour
 
 				if( presentSelectedFurniture.InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
 				{
+					manager.SoundManager.PlayUISoundPlayer( 4 );
 					charManager.PlayerableCharacter.SetItemSettingMode();	
 				}
 				else
 				{
+					manager.SoundManager.PlayUISoundPlayer( 4 );
 					charManager.PlayerableCharacter.SetFurnitureObjectPoint();
 				}
 			}
 			else if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "StoreField" ) ) )
 			{
+				manager.SoundManager.PlayUISoundPlayer( 4 );
 				charManager.PlayerableCharacter.SetMovePoint( hitInfo.point );
 			}
-			manager.SoundManager.PlayUISoundPlayer(4);
+			
 		}
 
 		ItemAcquire();
@@ -171,7 +174,7 @@ public class StageManager : MonoBehaviour
 		favoriteGroup = ItemData.ReturnType( UnityEngine.Random.Range( 2, 8 ) );
 
 		// set sell furiture object set
-		sellFurnitureSet = new List<FurnitureObject>( );
+		sellFurnitureSet = new List<FurnitureObject>();
 		for( int i = 0; i < manager.GamePlayer.AllocateFurnitureObjectSet.Count; i++ )
 		{
 			if( manager.GamePlayer.AllocateFurnitureObjectSet[ i ].InstanceData.Furniture.Function == FurnitureData.FunctionType.SellObject )
@@ -204,7 +207,7 @@ public class StageManager : MonoBehaviour
 	// marshmello throw item -> logic
 	public void ThrowSellItem( int targetIndex, int throwItemIndex )
 	{
-		sellFurnitureSet[ targetIndex ].SellItem[ throwItemIndex ] = new ItemInstance( );
+		sellFurnitureSet[ targetIndex ].SellItem[ throwItemIndex ] = new ItemInstance();
 		sellFurnitureSet[ targetIndex ].SellItemObject[ throwItemIndex ] = null;
 	}
 
@@ -225,15 +228,14 @@ public class StageManager : MonoBehaviour
 
 		// attack marshmello
 		if( charManager.MarshmelloActivate && charManager.DamageMarshmello() )
-		{
-			manager.SoundManager.PlayUISoundPlayer(4);
+		{			
 			return;
 		}
 
 		// item acquire
-		if( ItemAcquire() )			
+		if( ItemAcquire() )
 		{	
-			manager.SoundManager.PlayUISoundPlayer(4);
+			manager.SoundManager.PlayUISoundPlayer( 4 );
 			return;
 		}
 
@@ -246,7 +248,7 @@ public class StageManager : MonoBehaviour
 	{
 		ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
-		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject( Input.GetTouch( 0 ).fingerId ) )
+		if( Input.GetButtonDown( "LeftClick" ) && !EventSystem.current.IsPointerOverGameObject() )
 		{
 			if( Physics.Raycast( ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer( "Item" ) ) )
 			{
@@ -282,10 +284,10 @@ public class StageManager : MonoBehaviour
 		{
 			for( int j = 0; j < sellFurnitureSet[ i ].SellItem.Length; j++ )
 			{				
-				if( ( sellFurnitureSet[ i ].SellItem[ j ] != null ) && ( sellFurnitureSet[ i ].SellItem[ j ].Item != null ) && ( sellFurnitureSet[ i ].SellItem[ j ].Item.ID == 0 ) )
+				if( (sellFurnitureSet[ i ].SellItem[ j ] != null) && (sellFurnitureSet[ i ].SellItem[ j ].Item != null) && (sellFurnitureSet[ i ].SellItem[ j ].Item.ID == 0) )
 				{
 					manager.GamePlayer.AddItemData( sellFurnitureSet[ i ].SellItem[ j ].Item.ID, sellFurnitureSet[ i ].SellItem[ j ].Count );
-					sellFurnitureSet[ i ].SellItem[ j ] = new ItemInstance( );
+					sellFurnitureSet[ i ].SellItem[ j ] = new ItemInstance();
 				}
 			}
 		}
@@ -333,7 +335,7 @@ public class StageManager : MonoBehaviour
 		try
 		{
 			// set maximum count
-			maxCount = ( int ) ( gold / sellObject.SellItem[ itemSlotIndex ].SellPrice );
+			maxCount = ( int ) (gold / sellObject.SellItem[ itemSlotIndex ].SellPrice);
 			maxCount = maxCount > sellObject.SellItem[ itemSlotIndex ].Count ? sellObject.SellItem[ itemSlotIndex ].Count : maxCount;
 
 			// change count
@@ -473,7 +475,7 @@ public class StageManager : MonoBehaviour
 
 			// if time has come -> go to store
 			// activate marshmello
-			if( ( !charManager.PinkyAgent.RestMarshmello ) && ( manager.PresentMode == GameManager.GameMode.StoreOpen ) )
+			if( (!charManager.PinkyAgent.RestMarshmello) && (manager.PresentMode == GameManager.GameMode.StoreOpen) )
 			{
 				charManager.ActivateMarshMello();
 			}

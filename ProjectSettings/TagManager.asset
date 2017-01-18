@@ -35,7 +35,7 @@ TagManager:
   - PlayerCharacter
   - CustomerCharacter
   - BakeArea
-  - StoreStructure
+  - 
   - WorldBoundary
   - Cloud
   - Marshmello

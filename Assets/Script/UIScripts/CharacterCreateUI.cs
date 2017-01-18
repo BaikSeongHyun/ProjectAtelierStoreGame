@@ -42,6 +42,8 @@ public class CharacterCreateUI : MonoBehaviour
 	// select character
 	public void OnClickSelectCharcterType( int type )
 	{
+		
+		manager.SoundManager.PlayUISoundPlayer( 4 );
 		characterManager.SetCharacterInformation( type );
 
 		if( type == 0 )
@@ -55,6 +57,7 @@ public class CharacterCreateUI : MonoBehaviour
 	// confirm create character
 	public void OnClickConfirmCharacter()
 	{
+		manager.SoundManager.PlayUISoundPlayer( 4 );
 		characterManager.SetInformation( nickNameInputField.text );
 		manager.GameStart();
 	}
@@ -62,6 +65,7 @@ public class CharacterCreateUI : MonoBehaviour
 	// exit nickname space
 	public void OnClickExitNickNameSpace()
 	{
+		manager.SoundManager.PlayUISoundPlayer( 4 );
 		nickNameInputField.text = "";
 		nickNameSettingUI.SetActive( false );
 	}

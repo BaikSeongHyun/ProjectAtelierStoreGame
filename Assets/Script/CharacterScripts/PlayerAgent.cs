@@ -9,7 +9,7 @@ public class PlayerAgent : AIAgent
 	[SerializeField] StoreManager storeManager;
 	[SerializeField] StageManager stageManager;
 	[SerializeField] CharacterManager charManager;
-    [SerializeField] SoundManager soundManager;
+	[SerializeField] SoundManager soundManager;
 	[SerializeField] UIManager mainUI;
 
 	//
@@ -55,12 +55,17 @@ public class PlayerAgent : AIAgent
 				agentAnimator.SetInteger( "State", 0 );
 				break;
 			case Sequence.MovePoint:
-				if( ( transform.position - targetPosition ).magnitude <= 0.1 )
-					presentSequence = Sequence.Ready;
+				if( (transform.position - targetPosition).magnitude <= 0.1 )
+				{
+					transform.LookAt( targetPosition );
+					presentSequence = Sequence.Ready;					
+				}
+				transform.forward = moveAgent.desiredVelocity.normalized;
 				moveAgent.SetDestination( targetPosition );
 				agentAnimator.SetInteger( "State", 1 );
 				break;
 			case Sequence.MoveTarget:
+				transform.forward = moveAgent.desiredVelocity.normalized;
 				moveAgent.SetDestination( targetObject.transform.position );
 				agentAnimator.SetInteger( "State", 1 );
 				break;				
@@ -78,25 +83,28 @@ public class PlayerAgent : AIAgent
 	// on trigger enter -> player policy
 	void OnTriggerEnter( Collider col )
 	{
-		if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToCreate ) )
+		if( (targetObject != null) && (col.gameObject == targetObject.gameObject) && (presentSequence == Sequence.GoToCreate) )
 		{
 			moveAgent.ResetPath();
 			presentSequence = Sequence.Ready;
+			transform.LookAt( targetObject.transform.position );
 			targetObject = null;
 			mainUI.CreateUI.SetActive( true );
 			mainUI.CreateUILogic.SetComponentElement();
 		}
-		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToSetting ) )
+		else if( (targetObject != null) && (col.gameObject == targetObject.gameObject) && (presentSequence == Sequence.GoToSetting) )
 		{
 			moveAgent.ResetPath();
 			presentSequence = Sequence.Ready;
+			transform.LookAt( targetObject.transform.position );
 			targetObject = null;
 			mainUI.ActivateSellItemSettingUI();			
 		}
-		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.MoveTarget ) )
+		else if( (targetObject != null) && (col.gameObject == targetObject.gameObject) && (presentSequence == Sequence.MoveTarget) )
 		{
 			moveAgent.ResetPath();
 			presentSequence = Sequence.Ready;
+			transform.LookAt( targetObject.transform.position );
 			targetObject = null;
 		}
 	}
@@ -104,25 +112,28 @@ public class PlayerAgent : AIAgent
 	// on trigger enter -> check stay move
 	void OnTriggerStay( Collider col )
 	{
-		if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToCreate ) )
+		if( (targetObject != null) && (col.gameObject == targetObject.gameObject) && (presentSequence == Sequence.GoToCreate) )
 		{
 			moveAgent.ResetPath();
 			presentSequence = Sequence.Ready;
+			transform.LookAt( targetObject.transform.position );
 			targetObject = null;
 			mainUI.CreateUI.SetActive( true );
 			mainUI.CreateUILogic.SetComponentElement();
 		}
-		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.GoToSetting ) )
+		else if( (targetObject != null) && (col.gameObject == targetObject.gameObject) && (presentSequence == Sequence.GoToSetting) )
 		{
 			moveAgent.ResetPath();
 			presentSequence = Sequence.Ready;
+			transform.LookAt( targetObject.transform.position );
 			targetObject = null;
 			mainUI.ActivateSellItemSettingUI();
 		}
-		else if( ( targetObject != null ) && ( col.gameObject == targetObject.gameObject ) && ( presentSequence == Sequence.MoveTarget ) )
+		else if( (targetObject != null) && (col.gameObject == targetObject.gameObject) && (presentSequence == Sequence.MoveTarget) )
 		{
 			moveAgent.ResetPath();
 			presentSequence = Sequence.Ready;
+			transform.LookAt( targetObject.transform.position );
 			targetObject = null;
 		}
 	}
@@ -137,8 +148,8 @@ public class PlayerAgent : AIAgent
 		storeManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StoreManager>();
 		stageManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<StageManager>();
 		charManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<CharacterManager>();
-        soundManager = GameObject.FindWithTag("GameLogic").GetComponent<SoundManager>();
-        mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
+		soundManager = GameObject.FindWithTag( "GameLogic" ).GetComponent<SoundManager>();
+		mainUI = GameObject.FindWithTag( "MainUI" ).GetComponent<UIManager>();
 
 		// agent data
 		agentAnimator = GetComponent<Animator>();
@@ -157,7 +168,7 @@ public class PlayerAgent : AIAgent
 	{
 		if( manager.PresentMode == GameManager.GameMode.Store )
 			targetObject = storeManager.PresentSelectedFurniture;
-		else if( manager.PresentMode == GameManager.GameMode.Store )
+		else if( manager.PresentMode == GameManager.GameMode.StoreOpenPreprocess )
 			targetObject = stageManager.PresentSelectedFurniture;
 
 		presentSequence = Sequence.MoveTarget;
@@ -168,15 +179,15 @@ public class PlayerAgent : AIAgent
 	{
 		presentSequence = Sequence.GoToCreate;
 		targetObject = storeManager.PresentSelectedFurniture;
-    }
+	}
 
 	// item create
 	public void ItemCreate()
 	{		
 		agentAnimator.SetTrigger( "Crafting" );
 		presentSequence = Sequence.WaitAnimation;
-        soundManager.PlayUISoundPlayer(6);
-    }
+		soundManager.PlayUISoundPlayer( 6 );
+	}
 
 	// set item setting mode
 	public void SetItemSettingMode()
@@ -191,16 +202,16 @@ public class PlayerAgent : AIAgent
 	{
 		agentAnimator.SetTrigger( "Setting" );
 		presentSequence = Sequence.WaitAnimation;
-        soundManager.PlayUISoundPlayer(4);
-    }
+		soundManager.PlayUISoundPlayer( 4 );
+	}
 
 	public void CreateEndEvent()
 	{
 		storeManager.CreateItemConfirm();
 		presentSequence = Sequence.Ready;
-        soundManager.PlayUISoundPlayer(6);
-        // ui set (pop up)
-    }
+		soundManager.PlayUISoundPlayer( 6 );
+		// ui set (pop up)
+	}
 
 	public void SetEndEvent()
 	{

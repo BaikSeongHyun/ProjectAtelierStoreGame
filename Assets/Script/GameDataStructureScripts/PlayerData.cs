@@ -51,8 +51,8 @@ public class PlayerData
 	{
 		level = 1;
 		name = "";
-		allocateFurnitureSet = new List<FurnitureInstance>( );
-		allocateFurnitureObjectSet = new List<FurnitureObject>( );
+		allocateFurnitureSet = new List<FurnitureInstance>();
+		allocateFurnitureObjectSet = new List<FurnitureObject>();
 	}
 
 	// public method
@@ -93,7 +93,7 @@ public class PlayerData
 	// allocate furniture instance
 	public bool AllocateFurnitureInstance( int index, int presentStepIndex )
 	{	
-		int processIndex = index + ( presentStepIndex * ( haveFurnitureSet.Length / 3 ) );
+		int processIndex = index + (presentStepIndex * (haveFurnitureSet.Length / 3));
 		try
 		{
 			if( haveFurnitureSet[ processIndex ] == null || haveFurnitureSet[ processIndex ].Furniture == null || haveFurnitureSet[ processIndex ].Furniture.ID == 0 )
@@ -102,7 +102,7 @@ public class PlayerData
 			{
 				allocateFurnitureSet.Add( new FurnitureInstance( haveFurnitureSet[ processIndex ] ) );
 				allocateFurnitureSet[ allocateFurnitureSet.Count - 1 ].AllocateInstance( allocateFurnitureSet.Count - 1 );
-				haveFurnitureSet[ processIndex ] = new FurnitureInstance( );
+				haveFurnitureSet[ processIndex ] = new FurnitureInstance();
 				return true;
 			}
 		}
@@ -149,7 +149,7 @@ public class PlayerData
 			allocateFurnitureObjectSet.RemoveAt( index );
 
 			// gold add
-			gold += ( int ) ( allocateFurnitureSet[ index ].Furniture.Price * 0.8f );
+			gold += ( int ) (allocateFurnitureSet[ index ].Furniture.Price * 0.8f);
 
 			// remove furniture
 			allocateFurnitureSet.RemoveAt( index );
@@ -214,12 +214,12 @@ public class PlayerData
 		level = 1;
 		fame = 0;
 		charm = 0;
-		gold = 5000;
+		gold = 10000;
 		gem = 1000;
 		haveStoreData = new StoreData( DataManager.FindStoreDataByStep( 1 ), 0 );
 		haveItemSet = new ItemInstance[60];
 		haveFurnitureSet = new FurnitureInstance[30];
-		allocateFurnitureSet = new List<FurnitureInstance>( );
+		allocateFurnitureSet = new List<FurnitureInstance>();
 
 		allocateFurnitureSet.Add( new FurnitureInstance( 19, 0, true, new Vector3( 2f, 0f, 2.5f ), Quaternion.identity ) );
 		allocateFurnitureSet.Add( new FurnitureInstance( 20, 0, true, new Vector3( 5f, 0f, 6f ), Quaternion.identity ) );
@@ -228,11 +228,16 @@ public class PlayerData
 		allocateFurnitureSet.Add( new FurnitureInstance( 23, 0, true, new Vector3( 1.5f, 0f, 0.5f ), Quaternion.identity ) );
 		allocateFurnitureSet.Add( new FurnitureInstance( 24, 0, true, new Vector3( 5f, 0f, 2.5f ), Quaternion.identity ) );
 
-		haveItemSet[ 0 ] = new ItemInstance( 4, 0, 10 );
-		haveItemSet[ 1 ] = new ItemInstance( 5, 1, 10 );
-		haveItemSet[ 2 ] = new ItemInstance( 6, 2, 10 );
-		haveItemSet[ 3 ] = new ItemInstance( 7, 3, 10 );
-
+		haveItemSet[ 0 ] = new ItemInstance( 1, 0, 10 );
+		haveItemSet[ 1 ] = new ItemInstance( 2, 1, 10 );
+		haveItemSet[ 2 ] = new ItemInstance( 3, 2, 10 );
+		haveItemSet[ 3 ] = new ItemInstance( 4, 3, 10 );
+		haveItemSet[ 4 ] = new ItemInstance( 5, 4, 10 );
+		haveItemSet[ 5 ] = new ItemInstance( 6, 5, 10 );
+		haveItemSet[ 6 ] = new ItemInstance( 7, 6, 10 );
+		haveItemSet[ 7 ] = new ItemInstance( 8, 6, 10 );
+		haveItemSet[ 8 ] = new ItemInstance( 9, 6, 10 );
+		haveItemSet[ 9 ] = new ItemInstance( 10, 6, 10 );
 	}
 
 	// check selling item
@@ -240,7 +245,7 @@ public class PlayerData
 	{
 		foreach( FurnitureObject element in allocateFurnitureObjectSet )
 		{
-			if( ( element.SellItem != null ) )
+			if( (element.SellItem != null) )
 			{
 				return element;
 			}

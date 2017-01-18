@@ -8,8 +8,8 @@
 	</Data>
 	<Data>
 		<id>2</id>
-		<name>Store</name>
-		<fileName>store</fileName>
+		<name>StoreStep1</name>
+		<fileName>storeStep1</fileName>
 		<type>1</type>
 	</Data>
 	<Data>
@@ -89,5 +89,17 @@
 		<name>PinkShouting</name>
 		<fileName>pinkyShout</fileName>
 		<type>3</type>
+	</Data>
+	<Data>
+		<id>16</id>
+		<name>StoreStep2</name>
+		<fileName>storeStep2</fileName>
+		<type>1</type>
+	</Data>
+	<Data>
+		<id>17</id>
+		<name>StoreStep3</name>
+		<fileName>storeStep3</fileName>
+		<type>1</type>
 	</Data>
 </SoundData>
